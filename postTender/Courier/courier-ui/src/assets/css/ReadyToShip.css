@@ -1,0 +1,114 @@
+.container-main {
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.orders-table th {
+  background: #f8fafc;
+}
+
+.link {
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.badge.ready,
+.badge.ready-to-ship {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge.transit,
+.badge.in-transit,
+.badge.picked-up {
+  background: #e0f2fe;
+  color: #075985;
+}
+
+.badge.delivered {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.badge.neutral,
+.badge.pending {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.badge.prepaid {
+  background: #dcfce7;
+  margin-top: 4px;
+}
+
+.action-btn {
+  background: #1d4ed8;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  background: #e5e7eb;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+.muted {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.download-group {
+  display: flex;
+  gap: 8px;
+}
+
+.small-btn {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.small-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}

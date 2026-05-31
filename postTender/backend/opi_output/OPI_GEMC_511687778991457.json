@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "opi_type": "instruments",
+    "opi_version": "1.0",
+    "title": "Order Process Information With Credit Application - Instrument"
+  },
+  "order_processing_information": {
+    "division": "INSTRUMENTS",
+    "po_details": {
+      "PO_No": null,
+      "PO_Date": null,
+      "Supply_Due_Date": null
+    },
+    "company_details": {
+      "Company_Name": "Meril Diagnostics (P) Ltd.",
+      "Company_Address": "612-B, Bonanza, Sahar Plaza, J.B.Nagar, Andheri-Kurla Road, Andheri (East), Mumbai - 400059",
+      "Company_Email": "Reagents.OPI@merillife.com"
+    },
+    "hospital_details": {
+      "Hospital_Name": null,
+      "Authorisation_Code": null,
+      "RC_RQ_No": null
+    }
+  },
+  "billing_address": {
+    "Full_Postal_Address": null,
+    "City": null,
+    "State": null,
+    "Pin_Code": null
+  },
+  "shipping_address": {
+    "Full_Postal_Address": null,
+    "City": null,
+    "State": null,
+    "Pin_Code": null
+  },
+  "statutory_and_contact_details": {
+    "PAN_No": null,
+    "PAN_Holder_Name": null,
+    "GST_No": null,
+    "Drug_License_No": null,
+    "Drug_License_Expiry_Date": null,
+    "Customer_Name": null,
+    "Mobile_No_of_Authorized_Person": null,
+    "Email_ID_of_Authorized_Person": null,
+    "Aadhar_Card_No": null
+  },
+  "instrument_items": [
+    {
+      "Instrument_Code": "FAAAQ2C-01",
+      "Instrument_Name": "AQ-200i AutoAnalyzer Biochemistry(CS)- Excelus",
+      "Major_Group": "Excelus",
+      "Quantity": "8",
+      "Warranty": null,
+      "Approved_Rate": "50000",
+      "GST_18_Percent": 72000,
+      "Order_Value_Including_GST": 472000,
+      "Remarks": null
+    }
+  ],
+  "order_summary": {
+    "Summary_Row": {
+      "Instrument_Code": null,
+      "Instrument_Name": null,
+      "Total_Order_Value_Inc_GST": null
+    },
+    "advance_payment_details": {
+      "Advance_Amount_Rs": null,
+      "Advance_Transaction_Mode": null
+    },
+    "pdc_details": {
+      "PDC_Amount_Rs": null,
+      "No_of_PDCs": null,
+      "Person_Name_Who_Signed_PDCs": null
+    },
+    "foc_reagent_details": {
+      "FOC_Reagent_Amount_Rs": null
+    },
+    "remarks_terms_conditions": null
+  },
+  "bank_account_details": {
+    "Bank_Account_Name": null,
+    "Bank_Account_No": null,
+    "Bank_Name_and_Postal_Address": null,
+    "IFSC_RTGS_Code": null,
+    "PAN_Card_No": null,
+    "Payment_Terms": "Within 30 days from the date of submission of proper documents."
+  },
+  "business_and_site_details": {
+    "No_of_Years_of_Lab_Operation": null,
+    "Expected_Reagent_Business_Per_Annum_Rs": null,
+    "Existing_Company_Machines_in_Lab": null,
+    "Site_Survey_Done_Yes_No": null,
+    "Site_Survey_Date": null
+  },
+  "free_reagents": [
+    {
+      "Product_Code": "TBLFSR-01",
+      "Product_Description": "TOTAL BILIRUBIN",
+      "Major_Group": null,
+      "Pack_Size": "4 x 25",
+      "MRP": null,
+      "Qty": null,
+      "MRP_Value": null,
+      "Free_Quantity": "5"
+    }
+  ],
+  "free_additional_materials": [
+    {
+      "Product_Code": null,
+      "Product_Description": null,
+      "Major_Group": null,
+      "Pack_Size": null,
+      "MRP": null,
+      "Qty": null,
+      "MRP_Value": null
+    }
+  ],
+  "references": {
+    "Reference_1": {
+      "Name": null,
+      "Mobile": null
+    },
+    "Reference_2": {
+      "Name": null,
+      "Mobile": null
+    }
+  },
+  "signatures": {
+    "FLSP": {
+      "Name": null,
+      "Date": null
+    },
+    "RSM_ZM": {
+      "Name": null,
+      "Date": null
+    },
+    "Business_Head": {
+      "Name": null,
+      "Date": null
+    },
+    "Party": {
+      "Name": null,
+      "Date": null
+    }
+  },
+  "totals": {
+    "total_gst": 72000,
+    "total_order_value": 472000
+  }
+}

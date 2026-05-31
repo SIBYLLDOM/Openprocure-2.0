@@ -1,0 +1,88 @@
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+}
+
+.center-text {
+  text-align: center;
+  margin-top: 80px;
+  font-size: 16px;
+}
+
+.courier-selection-wrapper {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
+.courier-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.courier-table th {
+  background: #f1f5f9;
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.courier-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+.courier-table tr:hover {
+  background-color: #f8fafc;
+}
+
+.price-tag {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1c1e;
+}
+
+.eta-badge {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.service-badge {
+  background: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.select-btn {
+  background: var(--primary-color);
+  color: white;
+  padding: 8px 24px;
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.select-btn:hover {
+  background: var(--primary-light);
+  transform: scale(1.02);
+}
+
+.no-data-msg {
+  text-align: center;
+  padding: 60px;
+  color: var(--text-muted);
+}

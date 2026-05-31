@@ -1,0 +1,73 @@
+[
+  {
+    "dept": "Diagnostic"
+  },
+  {
+    "Meril": {
+      "Meril Diagnostics": {
+        "Model": "AQ 400i",
+        "Instrument Type (Floor/Benchtop)": "Benchtop and Floor Both",
+        "Photometric Throughput (Tests/hr)": "400 Tests/Hour",
+        "ISE Throughput (Tests/hr)": "600 Tests/Hour",
+        "Reagent Positions": "60 Positions (R1 & R2) with bar code identification",
+        "Onboard Cooling": "Yes",
+        "Sample positions": "75 positions with barcode identification",
+        "STAT facility": "All 75 Positions can be used as STAT positions",
+        "Probes": "Two Reagent probes & One sample probe",
+        "Liquid level detection": "Yes",
+        "Collision protection": "Yes, vertical and horizontal obstruction detection\nfacility to prevent probe crash.",
+        "User Defined Reflex action": "Yes",
+        "Reaction Cuvettes": "80 Permanent Reusable Cuvettes\nfunction before testing",
+        "Photometric system": "Interference filters with total 9 filters (340, 405, 450, 510, 546, 578, 620, 670, 700 nm); Optional 12 wavelength Diffraction Grating",
+        "Abs range": "0 to 3.0 OD",
+        "On board laundry": "7 steps (5 stage cleaning, 2 stage drying)",
+        "Stirrer": "Teflon Coated stirrer",
+        "Water Consumption": "< 8 Litres/Hour"
+      }
+    },
+    "Randox": {
+      "Randox Laboratories": {
+        "Model": "Imola",
+        "Instrument Type (Floor/Benchtop)": "Benchtop",
+        "Photometric Throughput (Tests/hr)": "400 Tests/Hour",
+        "ISE Throughput (Tests/hr)": "560 Tests/Hour",
+        "Reagent Positions": "60 cooled Positions with bar code reader",
+        "Onboard Cooling": "Yes",
+        "Sample positions": "72 positions for samples, 20 cooled positions for\ncontrols & calibrators",
+        "STAT facility": "Any Position",
+        "Probes": "Dedicated twin Reagent micropipette",
+        "Liquid level detection": "Yes",
+        "Collision protection": "Yes",
+        "User Defined Reflex action": "No",
+        "Reaction Cuvettes": "90 permanent pyrex cuvettes with cuvette check\nfunction",
+        "Photometric system": "12 wavelengths can be generated via diffraction\ngrating (340, 380, 415, 450, 510, 546, 570, 600, 660, 700, 750 and 800 nm)",
+        "Abs range": "0 to 3.0 OD",
+        "On board laundry": "8 stage washing system",
+        "Stirrer": "Yes",
+        "Water Consumption": "18 ltrs/hr"
+      }
+    },
+    "Transasia": {
+      "Transasia Biomedical": {
+        "Model": "EM 360",
+        "Instrument Type (Floor/Benchtop)": "Floor",
+        "Photometric Throughput (Tests/hr)": "360 tests/hour",
+        "ISE Throughput (Tests/hr)": "600 Tests/Hour",
+        "Reagent Positions": "50 Cooled Reagent Positions",
+        "Onboard Cooling": "Yes",
+        "Sample positions": "82 positions (includes blank, calibrator,\ncontrol & STAT)",
+        "STAT facility": "10 Positions",
+        "Probes": "Separate probes for Reagent & sample",
+        "Liquid level detection": "Yes",
+        "Collision protection": "Vertical",
+        "User Defined Reflex action": "No",
+        "Reaction Cuvettes": "60 Permanent Hard Glass Cuvettes",
+        "Photometric system": "Multi-wavelength diffraction grating with 12 wavelengths (340, 376, 415, 450, 480, 505, 546, 570, 600, 660, 700, 750 nm)",
+        "Abs range": "0 to 3.0 OD",
+        "On board laundry": "7 steps (5 stage cleaning, 2 stage drying)",
+        "Stirrer": "Strirrer",
+        "Water Consumption": "< 10 Litres/Hour"
+      }
+    }
+  }
+]

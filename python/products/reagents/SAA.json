@@ -1,0 +1,53 @@
+[
+    {
+        "category": "CalibratorControl",
+        "sub_category": "SAA",
+        "product_code": "CRNCNC-01",
+        "product_name": "BioNorm",
+        "pack_size": "1 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "CalibratorControl",
+        "sub_category": "SAA",
+        "product_code": "CRPCNC-01",
+        "product_name": "BioPath",
+        "pack_size": "1 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "CalibratorControl",
+        "sub_category": "SAA",
+        "product_code": "CALCNC-01",
+        "product_name": "Bio Cal",
+        "pack_size": "4 x 3",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

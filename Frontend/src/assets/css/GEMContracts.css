@@ -1,0 +1,150 @@
+:root {
+  --blue: #2563eb;
+  --blue-dark: #1e40af;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --bg: #ffffff;
+  --page-bg: #f3f6fb;
+  --card-bg: #f8fafc;
+  --border: #e5e7eb;
+}
+
+.gem-contracts-page {
+  padding: 24px;
+  background: var(--page-bg);
+  min-height: 100vh;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.search-filter-card {
+  background: var(--bg);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.search-row {
+  display: flex;
+  gap: 12px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.search-actions button {
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  cursor: pointer;
+}
+
+.filters-panel {
+  margin-top: 16px;
+}
+
+/* ===== FILTER TOGGLE FIX ===== */
+
+/* ===== PERFECT FILTER TOGGLE FIX ===== */
+
+.filters-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.25s ease;
+}
+
+/* when Filters are OPEN */
+.filters-panel.show {
+  max-height: 3000px;
+  /* enough for all filters */
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.filter-group label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-search {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+}
+
+.btn-clear {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 8px 20px;
+  border-radius: 6px;
+}
+
+.table-wrapper {
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow-x: hidden;
+}
+
+.contracts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.contracts-table th,
+.contracts-table td {
+  padding: 8px;
+  border: 1px solid var(--border);
+  white-space: normal;
+  word-break: break-word;
+  max-width: 160px;
+}
+
+.contracts-table thead {
+  background: var(--blue);
+  color: white;
+}
+
+.contracts-table tbody tr:hover {
+  background: var(--card-bg);
+}

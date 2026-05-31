@@ -1,0 +1,835 @@
+[
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "ALBFSR-01",
+        "product_name": "ALBUMIN",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": 721,
+            "ctp": 335
+        },
+        "tier_pricing": {
+            "tier_1": 297,
+            "tier_2": 261,
+            "tier_3": 255,
+            "tier_4": 229
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "TPRFSR-01",
+        "product_name": "TOTAL PROTEIN",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": 647,
+            "ctp": 300
+        },
+        "tier_pricing": {
+            "tier_1": 268,
+            "tier_2": 236,
+            "tier_3": 229,
+            "tier_4": 206
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "BILFSR-01",
+        "product_name": "BILIRUBIN (TOTAL & DIRECT)",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": 1319,
+            "ctp": 612
+        },
+        "tier_pricing": {
+            "tier_1": 548,
+            "tier_2": 482,
+            "tier_3": 465,
+            "tier_4": 418
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CAOFSR-01",
+        "product_name": "CALCIUM - OCPC",
+        "pack_size": "2 x 25",
+        "pricing": {
+            "mrp": 718,
+            "ctp": 342
+        },
+        "tier_pricing": {
+            "tier_1": 307,
+            "tier_2": 270,
+            "tier_3": 254,
+            "tier_4": 229
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "MTPFSR-01",
+        "product_name": "MICROPROTEIN",
+        "pack_size": "2 x 25",
+        "pricing": {
+            "mrp": 1159,
+            "ctp": 576
+        },
+        "tier_pricing": {
+            "tier_1": 516,
+            "tier_2": 454,
+            "tier_3": 428,
+            "tier_4": 385
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "ALPFSR-01",
+        "product_name": "ALKALINE PHOSPHATASE",
+        "pack_size": "4 x 10",
+        "pricing": {
+            "mrp": 943,
+            "ctp": 460
+        },
+        "tier_pricing": {
+            "tier_1": 411,
+            "tier_2": 362,
+            "tier_3": 343,
+            "tier_4": 308
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "ALPFSR-02",
+        "product_name": "ALKALINE PHOSPHATASE",
+        "pack_size": "5 x 20",
+        "pricing": {
+            "mrp": 2226,
+            "ctp": 987
+        },
+        "tier_pricing": {
+            "tier_1": 884,
+            "tier_2": 778,
+            "tier_3": 734,
+            "tier_4": 659
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CHDFSR-01",
+        "product_name": "CHLORIDE",
+        "pack_size": "2 x 25",
+        "pricing": {
+            "mrp": 462,
+            "ctp": 215
+        },
+        "tier_pricing": {
+            "tier_1": 193,
+            "tier_2": 170,
+            "tier_3": 160,
+            "tier_4": 144
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "DBLFSR-01",
+        "product_name": "DIRECT BILIRUBIN",
+        "pack_size": "4 x 25",
+        "pricing": {
+            "mrp": 441,
+            "ctp": 248
+        },
+        "tier_pricing": {
+            "tier_1": 222,
+            "tier_2": 195,
+            "tier_3": 193,
+            "tier_4": 190
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CLWFSR-01",
+        "product_name": "CELL WASH",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": 588,
+            "ctp": 400
+        },
+        "tier_pricing": {
+            "tier_1": 365,
+            "tier_2": 321,
+            "tier_3": 321,
+            "tier_4": 321
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "URCFSR-02",
+        "product_name": "URIC ACID",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": 2657,
+            "ctp": 1498
+        },
+        "tier_pricing": {
+            "tier_1": 1341,
+            "tier_2": 1180,
+            "tier_3": 1137,
+            "tier_4": 1022
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CHOFSR-01",
+        "product_name": "CHOLESTEROL",
+        "pack_size": "4 x 25",
+        "pricing": {
+            "mrp": 1279,
+            "ctp": 729
+        },
+        "tier_pricing": {
+            "tier_1": 652,
+            "tier_2": 574,
+            "tier_3": 537,
+            "tier_4": 482
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "TBLFSR-01",
+        "product_name": "TOTAL BILIRUBIN",
+        "pack_size": "4 x 25",
+        "pricing": {
+            "mrp": 535,
+            "ctp": 292
+        },
+        "tier_pricing": {
+            "tier_1": 261,
+            "tier_2": 230,
+            "tier_3": 215,
+            "tier_4": 193
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "GPTFSR-01",
+        "product_name": "SGPT",
+        "pack_size": "4 x 20 / 4 x 5",
+        "pricing": {
+            "mrp": 1424,
+            "ctp": 696
+        },
+        "tier_pricing": {
+            "tier_1": 623,
+            "tier_2": 548,
+            "tier_3": 511,
+            "tier_4": 459
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CHOFSR-02",
+        "product_name": "CHOLESTEROL",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": 3108,
+            "ctp": 1350
+        },
+        "tier_pricing": {
+            "tier_1": 1214,
+            "tier_2": 1068,
+            "tier_3": 992,
+            "tier_4": 892
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "UREFSR-01",
+        "product_name": "UREA",
+        "pack_size": "4 x 20 / 4 x 5",
+        "pricing": {
+            "mrp": 1571,
+            "ctp": 760
+        },
+        "tier_pricing": {
+            "tier_1": 684,
+            "tier_2": 602,
+            "tier_3": 559,
+            "tier_4": 502
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "UREFSR-02",
+        "product_name": "UREA (with 2 standards)",
+        "pack_size": "4 x 100 / 2 x 50",
+        "pricing": {
+            "mrp": 6080,
+            "ctp": 2807
+        },
+        "tier_pricing": {
+            "tier_1": 2513,
+            "tier_2": 2211,
+            "tier_3": 2054,
+            "tier_4": 1846
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "URCFSR-01",
+        "product_name": "URIC ACID",
+        "pack_size": "4 x 10",
+        "pricing": {
+            "mrp": 794,
+            "ctp": 429
+        },
+        "tier_pricing": {
+            "tier_1": 384,
+            "tier_2": 338,
+            "tier_3": 314,
+            "tier_4": 282
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "GOTFSR-01",
+        "product_name": "SGOT",
+        "pack_size": "4 x 20 / 4 x 5",
+        "pricing": {
+            "mrp": 1507,
+            "ctp": 733
+        },
+        "tier_pricing": {
+            "tier_1": 657,
+            "tier_2": 578,
+            "tier_3": 534,
+            "tier_4": 480
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CREFSR-03",
+        "product_name": "CREATININE",
+        "pack_size": "2 x 25 / 2 x 25",
+        "pricing": {
+            "mrp": 722,
+            "ctp": 351
+        },
+        "tier_pricing": {
+            "tier_1": 315,
+            "tier_2": 277,
+            "tier_3": 255,
+            "tier_4": 230
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "BILFSR-02",
+        "product_name": "BILIRUBIN (TOTAL & DIRECT)",
+        "pack_size": "2 x 200",
+        "pricing": {
+            "mrp": 2476,
+            "ctp": 1201
+        },
+        "tier_pricing": {
+            "tier_1": 1075,
+            "tier_2": 946,
+            "tier_3": 867,
+            "tier_4": 780
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CAAFSR-01",
+        "product_name": "CALCIUM - ARSENAZO",
+        "pack_size": "2 x 25",
+        "pricing": {
+            "mrp": 965,
+            "ctp": 470
+        },
+        "tier_pricing": {
+            "tier_1": 422,
+            "tier_2": 371,
+            "tier_3": 338,
+            "tier_4": 304
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "HDCFSR-01",
+        "product_name": "HDL - CHOLESTEROL",
+        "pack_size": "4 x 25",
+        "pricing": {
+            "mrp": 1291,
+            "ctp": 629
+        },
+        "tier_pricing": {
+            "tier_1": 564,
+            "tier_2": 496,
+            "tier_3": 452,
+            "tier_4": 406
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CREFSR-04",
+        "product_name": "CREATININE",
+        "pack_size": "3 x 50 / 3 x 50",
+        "pricing": {
+            "mrp": 2100,
+            "ctp": 908
+        },
+        "tier_pricing": {
+            "tier_1": 813,
+            "tier_2": 715,
+            "tier_3": 651,
+            "tier_4": 585
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "PHOFSR-01",
+        "product_name": "PHOSPHOROUS",
+        "pack_size": "2 x 25",
+        "pricing": {
+            "mrp": 579,
+            "ctp": 284
+        },
+        "tier_pricing": {
+            "tier_1": 255,
+            "tier_2": 224,
+            "tier_3": 204,
+            "tier_4": 183
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "AMYFSR-01",
+        "product_name": "AMYLASE",
+        "pack_size": "4 x 10",
+        "pricing": {
+            "mrp": 4851,
+            "ctp": 2350
+        },
+        "tier_pricing": {
+            "tier_1": 2118,
+            "tier_2": 1864,
+            "tier_3": 1697,
+            "tier_4": 1526
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "GLUFSR-03",
+        "product_name": "GLUCOSE",
+        "pack_size": "4 x 250",
+        "pricing": {
+            "mrp": 2489,
+            "ctp": 1150
+        },
+        "tier_pricing": {
+            "tier_1": 1030,
+            "tier_2": 906,
+            "tier_3": 826,
+            "tier_4": 742
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "LDHFSR-01",
+        "product_name": "LDH - P",
+        "pack_size": "1 x 8 / 1 x 2",
+        "pricing": {
+            "mrp": 571,
+            "ctp": 279
+        },
+        "tier_pricing": {
+            "tier_1": 251,
+            "tier_2": 221,
+            "tier_3": 200,
+            "tier_4": 180
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "GGTFSR-01",
+        "product_name": "GGT",
+        "pack_size": "1 x 8 / 1 x 2",
+        "pricing": {
+            "mrp": 809,
+            "ctp": 361
+        },
+        "tier_pricing": {
+            "tier_1": 324,
+            "tier_2": 285,
+            "tier_3": 260,
+            "tier_4": 233
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CKMFSR-01",
+        "product_name": "CK MB",
+        "pack_size": "2 x 8 / 2 x 2",
+        "pricing": {
+            "mrp": 4058,
+            "ctp": 1982
+        },
+        "tier_pricing": {
+            "tier_1": 1774,
+            "tier_2": 1561,
+            "tier_3": 1423,
+            "tier_4": 1278
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CKNFSR-01",
+        "product_name": "CK NAC",
+        "pack_size": "2 x 8 / 2 x 2",
+        "pricing": {
+            "mrp": 1610,
+            "ctp": 784
+        },
+        "tier_pricing": {
+            "tier_1": 701,
+            "tier_2": 617,
+            "tier_3": 562,
+            "tier_4": 506
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "TRGFSR-01",
+        "product_name": "TRIGLYCERIDE",
+        "pack_size": "4 x 25",
+        "pricing": {
+            "mrp": 3330,
+            "ctp": 1630
+        },
+        "tier_pricing": {
+            "tier_1": 1459,
+            "tier_2": 1284,
+            "tier_3": 1170,
+            "tier_4": 1051
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "TRGFSR-02",
+        "product_name": "TRIGLYCERIDE",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": 6825,
+            "ctp": 2917
+        },
+        "tier_pricing": {
+            "tier_1": 2610,
+            "tier_2": 2297,
+            "tier_3": 2094,
+            "tier_4": 1881
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "LIPFSR-01",
+        "product_name": "LIPASE",
+        "pack_size": "1 x 16 / 1 x 10",
+        "pricing": {
+            "mrp": 6949,
+            "ctp": 3850
+        },
+        "tier_pricing": {
+            "tier_1": 3435,
+            "tier_2": 3023,
+            "tier_3": 2754,
+            "tier_4": 2475
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "HDLFSR-02",
+        "product_name": "HDL Direct",
+        "pack_size": "4 x 30 / 4 x 10",
+        "pricing": {
+            "mrp": 12647,
+            "ctp": 6500
+        },
+        "tier_pricing": {
+            "tier_1": 5898,
+            "tier_2": 5190,
+            "tier_3": 4730,
+            "tier_4": 4250
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "LDLFSR-01",
+        "product_name": "LDL CHOLESTEROL - DIRECT",
+        "pack_size": "1 x 24 / 1 x 8",
+        "pricing": {
+            "mrp": 7781,
+            "ctp": 3186
+        },
+        "tier_pricing": {
+            "tier_1": 2852,
+            "tier_2": 2510,
+            "tier_3": 2287,
+            "tier_4": 2055
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "LDLFSR-02",
+        "product_name": "LDL CHOLESTEROL - DIRECT",
+        "pack_size": "2 x 30 / 2 x 10",
+        "pricing": {
+            "mrp": 14455,
+            "ctp": 6990
+        },
+        "tier_pricing": {
+            "tier_1": 6390,
+            "tier_2": 5623,
+            "tier_3": 5124,
+            "tier_4": 4605
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "HDLFSR-01",
+        "product_name": "HDL Direct",
+        "pack_size": "2 x 24 / 2 x 8",
+        "pricing": {
+            "mrp": 7820,
+            "ctp": 3515
+        },
+        "tier_pricing": {
+            "tier_1": 3147,
+            "tier_2": 2769,
+            "tier_3": 2507,
+            "tier_4": 2253
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "GLUFSR-02",
+        "product_name": "GLUCOSE",
+        "pack_size": "5 x 100",
+        "pricing": {
+            "mrp": 1348,
+            "ctp": 690
+        },
+        "tier_pricing": {
+            "tier_1": 618,
+            "tier_2": 544,
+            "tier_3": 476,
+            "tier_4": 428
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "ALBFSR-01",
+        "product_name": "ALBUMIN",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "TPRFSR-01",
+        "product_name": "TOTAL PROTEIN",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "BILFSR-01",
+        "product_name": "BILIRUBIN (TOTAL & DIRECT)",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CAOFSR-01",
+        "product_name": "CALCIUM - OCPC",
+        "pack_size": "2 x 25",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "MTPFSR-01",
+        "product_name": "MICROPROTEIN",
+        "pack_size": "2 x 25",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "ALPFSR-01",
+        "product_name": "ALKALINE PHOSPHATASE",
+        "pack_size": "4 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "ALPFSR-02",
+        "product_name": "ALKALINE PHOSPHATASE",
+        "pack_size": "5 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CHDFSR-01",
+        "product_name": "CHLORIDE",
+        "pack_size": "2 x 25",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "DBLFSR-01",
+        "product_name": "DIRECT BILIRUBIN",
+        "pack_size": "4 x 25",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FluidStableReagents",
+        "sub_category": "FSR",
+        "product_code": "CLWFSR-01",
+        "product_name": "CELL WASH",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

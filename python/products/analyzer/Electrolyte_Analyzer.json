@@ -1,0 +1,161 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "Electrolyte",
+        "type": "Electrolyte Analyzer",
+        "product_code": "KEYQLT-01",
+        "instrument_name": "Quantilyte",
+        "brand": "Meril",
+        "model_name": "Merilyzer Quantilyte",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "ISE Electrolyte Analyzer",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 95000,
+            "foc_reagents": "2 sets of reagents",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "principle": "Ion Selective Electrode (ISE)",
+            "sample_types": [
+                "Serum",
+                "Plasma",
+                "Whole blood",
+                "Cerebrospinal fluid (CSF)",
+                "Diluted urine"
+            ],
+            "measuring_speed": "≤ 25 seconds",
+            "sample_volume_ul": "60 – 150 (depends on electrodes)",
+            "throughput": "Up to 60 tests per hour",
+            "sample_positions": {
+                "count": 35,
+                "includes_qc": true,
+                "availability": "Only with optional sample autoloader"
+            },
+            "storage_capacity": "Up to 10,000 test results",
+            "parameter_configuration": [
+                "K⁺, Na⁺, Cl⁻",
+                "K⁺, Na⁺, Cl⁻, Ca²⁺",
+                "K⁺, Na⁺, Cl⁻, Ca²⁺, pH"
+            ],
+            "measurement_range_and_precision": {
+                "K": {
+                    "range": "0.5 – 20.0 mmol/L",
+                    "resolution": "0.01 mmol/L",
+                    "precision_cv": "< 1.0%"
+                },
+                "Na": {
+                    "range": "15 – 200 mmol/L",
+                    "resolution": "0.1 mmol/L",
+                    "precision_cv": "< 1.0%"
+                },
+                "Cl": {
+                    "range": "15 – 200 mmol/L",
+                    "resolution": "0.1 mmol/L",
+                    "precision_cv": "< 1.0%"
+                },
+                "Ca": {
+                    "range": "0.1 – 6.0 mmol/L",
+                    "resolution": "0.1 mmol/L",
+                    "precision_cv": "< 1.0%"
+                },
+                "pH": {
+                    "range": "4 – 9",
+                    "resolution": "0.01 pH",
+                    "precision_cv": "< 0.5%"
+                }
+            },
+            "display_and_interface": {
+                "operation_mode": "YES / NO prompted operation",
+                "printer": "Internal thermal printer",
+                "interfaces": [
+                    "RS232"
+                ]
+            },
+            "operational_features": {
+                "automatic_calibration": true,
+                "two_point_correction": true,
+                "sleep_mode": "Reduces reagent consumption",
+                "reagent_monitoring": "Real-time reagent residual volume monitoring",
+                "power_failure_protection": true,
+                "bubble_detection": true,
+                "clog_detection": true,
+                "auto_sampler": "Optional"
+            },
+            "operating_environment": {
+                "temperature_c": "10 – 30",
+                "relative_humidity": "≤ 80%",
+                "atmospheric_pressure_kpa": "86 – 106"
+            },
+            "power_requirements": {
+                "voltage": "220V ± 22V",
+                "frequency": "50 ± 1 Hz",
+                "power_consumption": "≤ 120 W"
+            },
+            "dimensions_cm": {
+                "width": 38,
+                "depth": 27,
+                "height": 40
+            },
+            "weight_kg": 6
+        },
+        "reagents_and_consumables": {
+            "reagent_packs": [
+                {
+                    "code": "STAELC-01",
+                    "analyte": "STD A",
+                    "pack_size": "6 × 250 ml"
+                },
+                {
+                    "code": "STBELC-01",
+                    "analyte": "STD B",
+                    "pack_size": "2 × 250 ml"
+                },
+                {
+                    "code": "CLNELC-01",
+                    "analyte": "Cleaning Solution",
+                    "pack_size": "110 ml"
+                },
+                {
+                    "code": "DEPELC-01",
+                    "analyte": "Deproteinizing Solution",
+                    "pack_size": "110 ml"
+                },
+                {
+                    "code": "ACTELC-01",
+                    "analyte": "Activating Solution",
+                    "pack_size": "110 ml"
+                },
+                {
+                    "code": "QCSELC-01",
+                    "analyte": "QC Solution",
+                    "pack_size": "110 ml"
+                },
+                {
+                    "code": "EISELC-01",
+                    "analyte": "Electrode Inside Solution",
+                    "pack_size": "3 ml"
+                },
+                {
+                    "code": "REFELC-01",
+                    "analyte": "Reference Electrode Filling Solution",
+                    "pack_size": "10 ml"
+                }
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Routine clinical laboratories",
+                "Hospitals and emergency testing",
+                "ICU and STAT electrolyte analysis"
+            ],
+            "key_strengths": [
+                "ISE-based high accuracy electrolyte measurement",
+                "Fast turnaround time (≤ 25 seconds)",
+                "Low reagent consumption with sleep mode",
+                "Compact, user-friendly design"
+            ]
+        }
+    }
+]

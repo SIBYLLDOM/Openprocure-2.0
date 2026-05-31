@@ -1,0 +1,206 @@
+[
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "ALPFDR-02",
+        "product_name": "ALKALINE PHOSPHATASE",
+        "pack_size": "5 x 10",
+        "pricing": {
+            "mrp": 1200,
+            "ctp": 790
+        },
+        "tier_pricing": {
+            "tier_1": 695,
+            "tier_2": 521,
+            "tier_3": 521,
+            "tier_4": 521
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "GLUFDR-02",
+        "product_name": "GLUCOSE FDR",
+        "pack_size": "5 x 100",
+        "pricing": {
+            "mrp": 1260,
+            "ctp": 819
+        },
+        "tier_pricing": {
+            "tier_1": 721,
+            "tier_2": 635,
+            "tier_3": 575,
+            "tier_4": 438
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "GLUFDR-04",
+        "product_name": "GLUCOSE (With 2 Stds)",
+        "pack_size": "5 x 1000",
+        "pricing": {
+            "mrp": 3920,
+            "ctp": 2748
+        },
+        "tier_pricing": {
+            "tier_1": 2471,
+            "tier_2": 2175,
+            "tier_3": 2100,
+            "tier_4": 2000
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "GOTFDR-02",
+        "product_name": "SGOT FDR",
+        "pack_size": "5 x 10",
+        "pricing": {
+            "mrp": 930,
+            "ctp": 605
+        },
+        "tier_pricing": {
+            "tier_1": 532,
+            "tier_2": 470,
+            "tier_3": 425,
+            "tier_4": 335
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "GPTFDR-02",
+        "product_name": "SGPT FDR",
+        "pack_size": "5 x 10",
+        "pricing": {
+            "mrp": 930,
+            "ctp": 605
+        },
+        "tier_pricing": {
+            "tier_1": 532,
+            "tier_2": 470,
+            "tier_3": 425,
+            "tier_4": 335
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "UREFDR-02",
+        "product_name": "UREA FDR",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": 3090,
+            "ctp": 2009
+        },
+        "tier_pricing": {
+            "tier_1": 1768,
+            "tier_2": 1555,
+            "tier_3": 1350,
+            "tier_4": 1049
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "ALPFDR-02",
+        "product_name": "ALKALINE PHOSPHATASE",
+        "pack_size": "5 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "GLUFDR-02",
+        "product_name": "GLUCOSE FDR",
+        "pack_size": "5 x 100",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "GLUFDR-04",
+        "product_name": "GLUCOSE (With 2 Standards)",
+        "pack_size": "5 x 1000",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "GOTFDR-02",
+        "product_name": "SGOT FDR",
+        "pack_size": "5 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "GPTFDR-02",
+        "product_name": "SGPT FDR",
+        "pack_size": "5 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "FreezeDriedReagents",
+        "sub_category": "FDR",
+        "product_code": "UREFDR-02",
+        "product_name": "UREA FDR",
+        "pack_size": "4 x 50",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

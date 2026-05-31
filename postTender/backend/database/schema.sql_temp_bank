@@ -1,0 +1,10 @@
+
+-- Banks table for dropdowns
+CREATE TABLE IF NOT EXISTS banks (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  bank_name VARCHAR(100) NOT NULL,
+  branch_name VARCHAR(100) NOT NULL,
+  ifsc_code VARCHAR(20),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_bank_name (bank_name)
+);

@@ -1,0 +1,187 @@
+[
+    {
+     "dept": "Diagnostic"   
+    },
+
+
+{
+  "Meril": {
+    "CliniQuant Pro": {
+      "Light Source": "12 V LED (400–700 nm) & 340 nm LED",
+      "Wavelength Range": "7 filters (340, 405, 505, 546, 578, 620, 670 nm) & 1 free position",
+      "Photometric Range": "0–3.0 Abs (0.0001 resolution)",
+      "Flowcell": "32 µL Quartz",
+      "Temperature Control": "Built-in incubator slots",
+      "Aspiration System": "200–1500 µL",
+      "Operator Interface": "Touchscreen",
+      "Data Presentation": "TFT Screen",
+      "Integrated Printer": "Inbuilt 384 dots Thermal Printer",
+      "Languages": "English",
+      "Memory": "25,600 test data storage, 3 months QC data",
+      "Signal Port": "USB Connector",
+      "Measurement Procedures": "Absorbance, Endpoint, Kinetic, Fixed time",
+      "Quality Control": "Daily & Monthly QC (3 months data)",
+      "Measuring Time": "3–999 s (endpoint), 30–999 s (rate/fixed)",
+      "Delay Time": "3–999 s",
+      "Dimension": "250 × 290 × 415 mm",
+      "Weight": "11 kg"
+    }
+  },
+
+  "DiaSys": {
+    "Photometer 505": {
+      "Light Source": "LED with long life",
+      "Wavelength Range": "6 filters (340, 405, 492, 546, 578, 623 nm) & 3 free",
+      "Photometric Range": "0–3.0 Abs",
+      "Flowcell": "32 µL Quartz, 10 mm optical path",
+      "Temperature Control": "25, 30, 37°C (Peltier)",
+      "Aspiration System": "250–2000 µL (Peristaltic pump)",
+      "Operator Interface": "Touchscreen",
+      "Data Presentation": "Not specified",
+      "Integrated Printer": "Inbuilt Thermal printer",
+      "Languages": "English + optional",
+      "Memory": "1000 patient results",
+      "Signal Port": "Not available",
+      "Measurement Procedures": "Absorbance, Endpoint, Kinetic, Fixed time",
+      "Quality Control": "L-J plot, two control serums",
+      "Measuring Time": "Kinetic: 3–255 s, Fixed: 0–1800 s",
+      "Delay Time": "0–1800 s programmable",
+      "Dimension": "290 × 200 × 120 mm",
+      "Weight": "2.4 kg"
+    }
+  },
+
+  "Horiba": {
+    "CA40": {
+      "Light Source": "6V/10W Tungsten Halogen Lamp",
+      "Wavelength Range": "6 filters (340–630 nm) & 2 free",
+      "Photometric Range": "-0.1 to 3.0 Abs",
+      "Flowcell": "18 µL Quartz",
+      "Temperature Control": "25, 30, 37°C (Peltier)",
+      "Aspiration System": "200–1000 µL",
+      "Operator Interface": "8\" color LCD touch",
+      "Integrated Printer": "Inbuilt 2\" thermal printer",
+      "Languages": "English",
+      "Memory": "245 programs, 5000 tests",
+      "Signal Port": "External keyboard/mouse",
+      "Measurement Procedures": "Absorbance, Endpoint, Kinetic, Coagulation",
+      "Dimension": "348 × 366 × 216 mm",
+      "Weight": "7 kg"
+    },
+
+    "CA60": {
+      "Light Source": "LED (MALS)",
+      "Wavelength Range": "8 filters (340–670 nm)",
+      "Photometric Range": "-0.2 to 3.5 Abs",
+      "Flowcell": "18 µL Quartz",
+      "Temperature Control": "25–37°C",
+      "Aspiration System": "100–5000 µL (Peristaltic)",
+      "Operator Interface": "7\" touch LCD",
+      "Integrated Printer": "Inbuilt thermal printer",
+      "Languages": "English",
+      "Memory": "100,000+ results",
+      "Signal Port": "USB 3.0, Ethernet",
+      "Measurement Procedures": "Endpoint, Kinetic, Differential",
+      "Dimension": "310 × 245 × 440 mm",
+      "Weight": "5.46 kg"
+    }
+  },
+
+  "AGD Biomedicals": {
+    "AGD2010": {
+      "Light Source": "6V/10W Tungsten Halogen Lamp",
+      "Wavelength Range": "8 filters (340–630 nm)",
+      "Photometric Range": "Up to 3.0 Abs",
+      "Flowcell": "18/32 µL",
+      "Temperature Control": "25, 30, 37°C",
+      "Aspiration System": "300–1000 µL",
+      "Operator Interface": "5\" LCD touch",
+      "Integrated Printer": "Inbuilt 2\" thermal printer",
+      "Languages": "English",
+      "Memory": "20,000 tests",
+      "Signal Port": "External keyboard/mouse",
+      "Measurement Procedures": "Absorbance, Endpoint, Kinetic",
+      "Quality Control": "Tri-level QC",
+      "Dimension": "315 × 290 × 175 mm",
+      "Weight": "6.5 kg"
+    },
+
+    "AGD2020": {
+      "Light Source": "6V/10W Tungsten Halogen Lamp",
+      "Wavelength Range": "8 filters (340–670 nm)",
+      "Photometric Range": "Up to 3.0 Abs",
+      "Flowcell": "18/32 µL",
+      "Temperature Control": "25, 30, 37°C",
+      "Aspiration System": "300–1000 µL",
+      "Operator Interface": "7\" LCD touch",
+      "Integrated Printer": "Inbuilt 2\" thermal printer",
+      "Languages": "English",
+      "Memory": "20,000 tests",
+      "Signal Port": "Keyboard/mouse/RS232",
+      "Measurement Procedures": "Absorbance, Endpoint, Kinetic",
+      "Quality Control": "Tri-level QC",
+      "Dimension": "360 × 355 × 170 mm",
+      "Weight": "6.6 kg"
+    }
+  },
+
+  "Accurax": {
+    "AT-112 Plus": {
+      "Light Source": "12V/20W Halogen lamp",
+      "Wavelength Range": "7 filters (340–630 nm)",
+      "Photometric Range": "0–3.0 Abs",
+      "Flowcell": "32 µL Quartz",
+      "Temperature Control": "25, 30, 37°C",
+      "Aspiration System": "500–2000 µL",
+      "Operator Interface": "LCD touch",
+      "Integrated Printer": "High-speed thermal printer",
+      "Languages": "English",
+      "Memory": "3200 results",
+      "Signal Port": "RS-232",
+      "Measurement Procedures": "Endpoint, Kinetic",
+      "Quality Control": "Comprehensive QC",
+      "Dimension": "450 × 360 × 140 mm",
+      "Weight": "11.5 kg"
+    }
+  },
+
+  "Agappe": {
+    "Mispa Viva": {
+      "Light Source": "12V/20W Halogen lamp",
+      "Wavelength Range": "6 filters (340–630 nm)",
+      "Photometric Range": "0–2.5 Abs",
+      "Flowcell": "30 µL copper, 10 mm",
+      "Temperature Control": "25, 30, 37°C",
+      "Aspiration System": "Minimum 300 µL",
+      "Operator Interface": "5.7\" TFT touch",
+      "Integrated Printer": "57 mm thermal printer",
+      "Languages": "English",
+      "Memory": "5000 tests",
+      "Signal Port": "RS232, LIS",
+      "Measurement Procedures": "Endpoint, Kinetic, Absorbance",
+      "Quality Control": "Westgard rules",
+      "Dimension": "362 × 364 × 195 mm",
+      "Weight": "6 kg"
+    },
+
+    "Mispa Plus": {
+      "Light Source": "12V/20W Halogen lamp",
+      "Wavelength Range": "6 filters (340–630 nm)",
+      "Photometric Range": "0–3.5 Abs",
+      "Flowcell": "18 µL aluminum",
+      "Temperature Control": "25, 30, 37°C",
+      "Aspiration System": "Minimum 250 µL",
+      "Operator Interface": "7\" capacitive touch",
+      "Integrated Printer": "57 mm thermal printer",
+      "Languages": "English",
+      "Memory": "5000 tests",
+      "Signal Port": "LIS, keyboard",
+      "Measurement Procedures": "Endpoint, Kinetic, Absorbance",
+      "Quality Control": "Westgard rules",
+      "Dimension": "450 × 350 × 385 mm",
+      "Weight": "9.7 kg"
+    }
+  }
+}
+
+]

@@ -1,0 +1,57 @@
+{
+  "name": "posttender-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Post-Tender Management System",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "tender",
+    "post-tender",
+    "node",
+    "express",
+    "mysql",
+    "backend",
+    "api"
+  ],
+  "author": "Post-Tender Team",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.13.4",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "docx": "^8.5.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-http-context": "^2.0.1",
+    "express-validator": "^7.3.1",
+    "helmet": "^8.1.0",
+    "html-to-docx": "^1.8.0",
+    "jsonwebtoken": "^9.0.3",
+    "mailparser": "^3.9.3",
+    "mammoth": "^1.11.0",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "mysql2": "^3.15.3",
+    "node-cron": "^4.2.1",
+    "node-imap": "^0.9.6",
+    "nodemailer": "^8.0.1",
+    "openai": "^4.77.3",
+    "pdf-parse": "^1.1.4",
+    "pdfkit": "^0.17.2",
+    "pdfkit-table": "^0.1.99",
+    "tesseract.js": "^7.0.0",
+    "uuid": "^13.0.0",
+    "winston": "^3.19.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

@@ -1,0 +1,14 @@
+n && (
+                              <p style={{ fontSize: '0.85rem', color: '#4b5563', margin: '0.5rem 0 0 0', fontStyle: 'italic' }}>
+                                {task.description}
+                              </p>
+                            )}
+
+                            {task.assigned_users && typeof task.assigned_users === 'object' && task.assigned_users.length > 0 && (
+                              <p style={{ fontSize: '0.75rem', color: '#374151', margin: '0.5rem 0 0 0', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                                <Users size={12} /> Assigned IDs: {task.assigned_users.join(', ')}
+                              </p>
+                            )}
+
+                            {task.remarks && (
+                              <div style={{ marginTop: '0.5rem', padding: '0.5rem', background: '#f0fdf4', borderLeft: '3px solid #22c55e',

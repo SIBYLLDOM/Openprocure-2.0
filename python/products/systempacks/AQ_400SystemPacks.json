@@ -1,0 +1,226 @@
+[
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "ALBAQ4-01",
+        "product_name": "ALBUMIN",
+        "pack_size": "6 x 50",
+        "pricing": {
+            "mrp": 1400,
+            "ctp": 589
+        },
+        "tier_pricing": {
+            "tier_1": 442,
+            "tier_2": 354,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "AMYAQ4-01",
+        "product_name": "AMYLASE",
+        "pack_size": "6 x 20",
+        "pricing": {
+            "mrp": 25010,
+            "ctp": 10547
+        },
+        "tier_pricing": {
+            "tier_1": 7910,
+            "tier_2": 6328,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "ALPAQ4-01",
+        "product_name": "ALKALINE PHOSPHATASE",
+        "pack_size": "6 x 20",
+        "pricing": {
+            "mrp": 4000,
+            "ctp": 1688
+        },
+        "tier_pricing": {
+            "tier_1": 1266,
+            "tier_2": 1013,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "GPTAQ4-01",
+        "product_name": "ALAT (GPT)",
+        "pack_size": "4 x 60 / 4 x 15",
+        "pricing": {
+            "mrp": 7300,
+            "ctp": 3076
+        },
+        "tier_pricing": {
+            "tier_1": 2307,
+            "tier_2": 1846,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "GOTAQ4-01",
+        "product_name": "ASAT (GOT)",
+        "pack_size": "4 x 60 / 4 x 15",
+        "pricing": {
+            "mrp": 7300,
+            "ctp": 3076
+        },
+        "tier_pricing": {
+            "tier_1": 2307,
+            "tier_2": 1846,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "BITAQ4-01",
+        "product_name": "BILIRUBIN TOTAL",
+        "pack_size": "4 x 45 / 4 x 15",
+        "pricing": {
+            "mrp": 3130,
+            "ctp": 1319
+        },
+        "tier_pricing": {
+            "tier_1": 989,
+            "tier_2": 791,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "BIDAQ4-01",
+        "product_name": "BILIRUBIN DIRECT",
+        "pack_size": "4 x 45 / 4 x 15",
+        "pricing": {
+            "mrp": 3130,
+            "ctp": 1319
+        },
+        "tier_pricing": {
+            "tier_1": 989,
+            "tier_2": 791,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "CAAAQ4-01",
+        "product_name": "CALCIUM (A)",
+        "pack_size": "4 x 20",
+        "pricing": {
+            "mrp": 2000,
+            "ctp": 844
+        },
+        "tier_pricing": {
+            "tier_1": 633,
+            "tier_2": 506,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "CERAQ4-01",
+        "product_name": "CREATININE",
+        "pack_size": "4 x 60 / 4 x 15",
+        "pricing": {
+            "mrp": 3380,
+            "ctp": 1425
+        },
+        "tier_pricing": {
+            "tier_1": 1069,
+            "tier_2": 855,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "ECRAQ4-01",
+        "product_name": "ENZ. CREATININE",
+        "pack_size": "4 x 45 / 4 x 15",
+        "pricing": {
+            "mrp": 15720,
+            "ctp": 6240
+        },
+        "tier_pricing": {
+            "tier_1": 4680,
+            "tier_2": 3744,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "CKNAQ4-01",
+        "product_name": "CREATINE KINASE NAC",
+        "pack_size": "4 x 60 / 4 x 15",
+        "pricing": {
+            "mrp": 38270,
+            "ctp": 16136
+        },
+        "tier_pricing": {
+            "tier_1": 12102,
+            "tier_2": 9682,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "CKMAQ4-01",
+        "product_name": "CREATINE KINASE MB",
+        "pack_size": "4 x 60 / 4 x 15",
+        "pricing": {
+            "mrp": 89180,
+            "ctp": 37600
+        },
+        "tier_pricing": {
+            "tier_1": 28200,
+            "tier_2": 22560,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "CHOAQ4-01",
+        "product_name": "CHOLESTEROL",
+        "pack_size": "6 x 70",
+        "pricing": {
+            "mrp": 9850,
+            "ctp": 4153
+        },
+        "tier_pricing": {
+            "tier_1": 3115,
+            "tier_2": 2492,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AQ 400SystemPacks",
+        "product_code": "HDLAQ4-01",
+        "product_name": "HDL CHOLESTEROL (Direct)",
+        "pack_size": "4 x 45 / 4 x 15",
+        "pricing": {
+            "mrp": 38980,
+            "ctp": 16436
+        },
+        "tier_pricing": {
+            "tier_1": 12327,
+            "tier_2": 9861,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

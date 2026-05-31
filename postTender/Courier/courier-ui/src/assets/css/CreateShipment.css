@@ -1,0 +1,90 @@
+.shipment-card {
+  max-width: 800px;
+  margin: 40px auto;
+  background: var(--bg-card);
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+}
+
+.shipment-header {
+  margin-bottom: 32px;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.shipment-header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: var(--primary-dark);
+}
+
+.shipment-section {
+  margin-bottom: 28px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.shipment-section h3 {
+  font-size: 1rem;
+  margin-bottom: 16px;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.shipment-section h3::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background: var(--accent-color);
+  border-radius: 2px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 12px;
+}
+
+textarea.address-input {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  margin-bottom: 8px;
+}
+
+.submit-btn-container {
+  margin-top: 32px;
+}
+
+.verify-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: var(--radius-md);
+}
+
+.verify-btn:hover {
+  background: var(--primary-light);
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,283 @@
+/* File: src/pages/Orders/WorkOrders.css */
+
+:root {
+  --blue: #2563eb;
+  --blue-dark: #1e40af;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --bg: #ffffff;
+  --surface: #f3f6fb;
+  --card-bg: #f8fafc;
+  --border: #e5e7eb;
+}
+
+.work-orders-page {
+  padding: 24px;
+  background: var(--surface);
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  color: var(--text);
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.page-description {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Filters Section */
+.filters-section {
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.search-box {
+  margin-bottom: 16px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-box input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.filters-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-item label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.filter-item input,
+.filter-item select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.filter-item input:focus,
+.filter-item select:focus {
+  border-color: var(--blue);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--blue-dark);
+}
+
+.btn-secondary {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+}
+
+/* Table */
+.table-container {
+  background: var(--bg);
+  border-radius: 8px;
+  overflow-x: auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.work-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.work-orders-table thead {
+  background: var(--card-bg);
+}
+
+.work-orders-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+
+.work-orders-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.work-orders-table tbody tr:hover {
+  background: var(--surface);
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-progress {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-delayed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-pending {
+  background:#fef3c7;
+color: #92400e;
+}
+
+.action-btns {
+display: flex;
+gap: 8px;
+}
+.icon-button {
+padding: 6px;
+background: var(--card-bg);
+border: 1px solid var(--border);
+border-radius: 4px;
+cursor: pointer;
+transition: all 0.2s;
+color: var(--muted);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.icon-button:hover {
+background: var(--blue);
+color: white;
+border-color: var(--blue);
+}
+/* Pagination */
+.pagination-wrapper {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 16px 20px;
+background: var(--bg);
+border-radius: 8px;
+box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.pagination-info {
+font-size: 14px;
+color: var(--text);
+}
+.pagination-controls {
+display: flex;
+gap: 6px;
+}
+.pagination-controls button {
+padding: 6px 12px;
+border: 1px solid var(--border);
+background: var(--bg);
+color: var(--text);
+border-radius: 6px;
+font-size: 14px;
+cursor: pointer;
+transition: all 0.2s;
+}
+.pagination-controls button:hover:not(:disabled) {
+background: var(--blue);
+color: white;
+border-color: var(--blue);
+}
+.pagination-controls button.active {
+background: var(--blue);
+color: white;
+border-color: var(--blue);
+}
+.pagination-controls button:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+}
+/* Responsive */
+@media (max-width: 768px) {
+.work-orders-page {
+padding: 16px;
+}
+.filters-row {
+grid-template-columns: 1fr;
+}
+.pagination-wrapper {
+flex-direction: column;
+gap: 12px;
+}
+.pagination-controls {
+flex-wrap: wrap;
+justify-content: center;
+}
+}

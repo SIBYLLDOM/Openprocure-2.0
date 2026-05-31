@@ -1,0 +1,189 @@
+[
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "ALBFSR-02",
+        "product_name": "ALBUMIN (With 2 Standards)",
+        "pack_size": "2 x 500",
+        "pricing": {
+            "mrp": 1570,
+            "ctp": 1021
+        },
+        "tier_pricing": {
+            "tier_1": 900,
+            "tier_2": 790,
+            "tier_3": 720,
+            "tier_4": 600
+        }
+    },
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "BILFSR-03",
+        "product_name": "BILIRUBIN (TOTAL & DIRECT)",
+        "pack_size": "4 x 250",
+        "pricing": {
+            "mrp": 2020,
+            "ctp": 1313
+        },
+        "tier_pricing": {
+            "tier_1": 1155,
+            "tier_2": 1020,
+            "tier_3": 900,
+            "tier_4": 700
+        }
+    },
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "BILFSR-04",
+        "product_name": "BILIRUBIN (TOTAL & DIRECT)",
+        "pack_size": "2 x 500",
+        "pricing": {
+            "mrp": 1680,
+            "ctp": 1092
+        },
+        "tier_pricing": {
+            "tier_1": 961,
+            "tier_2": 850,
+            "tier_3": 790,
+            "tier_4": 700
+        }
+    },
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "CHOFSR-03",
+        "product_name": "CHOLESTEROL (With 2 Standards)",
+        "pack_size": "5 x 100",
+        "pricing": {
+            "mrp": 3360,
+            "ctp": 2184
+        },
+        "tier_pricing": {
+            "tier_1": 1922,
+            "tier_2": 1700,
+            "tier_3": 1650,
+            "tier_4": 1600
+        }
+    },
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "CREFSR-05",
+        "product_name": "CREATININE (With 2 Standards)",
+        "pack_size": "2 x 250",
+        "pricing": {
+            "mrp": 1010,
+            "ctp": 780
+        },
+        "tier_pricing": {
+            "tier_1": 686,
+            "tier_2": 605,
+            "tier_3": 595,
+            "tier_4": 590
+        }
+    },
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "CREFSR-06",
+        "product_name": "CREATININE (With 2 Standards)",
+        "pack_size": "2 x 500",
+        "pricing": {
+            "mrp": 1680,
+            "ctp": 1480
+        },
+        "tier_pricing": {
+            "tier_1": 1380,
+            "tier_2": 1270,
+            "tier_3": 1210,
+            "tier_4": 1170
+        }
+    },
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "GLUFSR-04",
+        "product_name": "GLUCOSE (With 2 Standards)",
+        "pack_size": "4 x 500",
+        "pricing": {
+            "mrp": 3580,
+            "ctp": 2327
+        },
+        "tier_pricing": {
+            "tier_1": 2048,
+            "tier_2": 1800,
+            "tier_3": 1680,
+            "tier_4": 1300
+        }
+    },
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "GOTFSR-02",
+        "product_name": "SGOT",
+        "pack_size": "4 x 100 / 2 x 50",
+        "pricing": {
+            "mrp": 4480,
+            "ctp": 2912
+        },
+        "tier_pricing": {
+            "tier_1": 2563,
+            "tier_2": 2255,
+            "tier_3": 2025,
+            "tier_4": 1750
+        }
+    },
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "GPTFSR-02",
+        "product_name": "SGPT",
+        "pack_size": "4 x 100 / 2 x 50",
+        "pricing": {
+            "mrp": 4480,
+            "ctp": 2912
+        },
+        "tier_pricing": {
+            "tier_1": 2563,
+            "tier_2": 2255,
+            "tier_3": 2025,
+            "tier_4": 1850
+        }
+    },
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "TPRFSR-02",
+        "product_name": "TOTAL PROTEIN",
+        "pack_size": "2 x 500",
+        "pricing": {
+            "mrp": 1570,
+            "ctp": 1021
+        },
+        "tier_pricing": {
+            "tier_1": 898,
+            "tier_2": 800,
+            "tier_3": 780,
+            "tier_4": 750
+        }
+    },
+    {
+        "category": "FluidStableReagentsJumboPacks",
+        "sub_category": "FSR-Jumbo",
+        "product_code": "URCFSR-03",
+        "product_name": "URIC ACID (With 2 Standards)",
+        "pack_size": "10 x 50",
+        "pricing": {
+            "mrp": 5040,
+            "ctp": 3276
+        },
+        "tier_pricing": {
+            "tier_1": 2883,
+            "tier_2": 2535,
+            "tier_3": 2350,
+            "tier_4": 1850
+        }
+    }
+]

@@ -1,0 +1,11 @@
+{
+    "contract_no": "TEST-TOKEN-123",
+    "meta": {
+        "opi_type": "endo"
+    },
+    "instrument_items": [],
+    "totals": {
+        "total_gst": 0,
+        "total_order_value": 0
+    }
+}

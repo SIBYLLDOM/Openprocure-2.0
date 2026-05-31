@@ -1,0 +1,155 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "HPLC",
+        "type": "HPLC HbA1c Analyzer",
+        "product_code": "HPLGLQ-01",
+        "instrument_name": "GluQuant A1c",
+        "brand": "Meril",
+        "model_name": "Merilyzer GluQuant A1c",
+        "automation_level": "Automated",
+        "instrument_type": "HPLC System",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 650000,
+            "foc_reagents": "1 kit of 800 tests",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 5 PDCs"
+        },
+        "technical_specifications": {
+            "principle": "Ion Exchange High Performance Liquid Chromatography (HPLC)",
+            "throughput": {
+                "sample_cycle_time": "< 150 seconds per test",
+                "samples_per_hour": "Approx. 24"
+            },
+            "sample_handling": {
+                "sample_entry": "Automatic",
+                "onboard_capacity": 50,
+                "loading_type": "Continuous loading",
+                "sample_modes": {
+                    "whole_blood_ul": 10,
+                    "diluted_mode_ul": 150
+                },
+                "sampling_method": [
+                    "Direct primary tube sampling",
+                    "Cap piercing"
+                ],
+                "sample_mixing": true,
+                "barcode_reader": true
+            },
+            "testing_parameters": {
+                "measuring_range_ngsp_percent": "HbA1c 4.0 – 17.5%",
+                "measuring_range_ifcc_mmol_per_mol": "20 – 169",
+                "carryover_contamination": "< 0.1%",
+                "precision_cv": "< 2.0%"
+            },
+            "optical_and_detection": {
+                "detector_type": "High precision UV absorbance detector",
+                "detector_channels": 24,
+                "measurement": "Absorbance based chromatographic peak analysis"
+            },
+            "data_quality_and_precision": {
+                "within_run_cv": {
+                    "sample_1": "1.3%",
+                    "sample_2": "1.2%"
+                },
+                "inter_run_cv": {
+                    "sample_1": "1.5%",
+                    "sample_2": "1.3%"
+                },
+                "overall_cv": "≤ 2.0%"
+            },
+            "calibration_and_standardization": {
+                "reference_method": "IFCC reference method",
+                "ngsp_certified": true,
+                "traceability": [
+                    "NGSP",
+                    "IFCC"
+                ]
+            },
+            "display_and_interface": {
+                "display_type": "Touch screen",
+                "display_information": [
+                    "Pressure",
+                    "Temperature",
+                    "Test quantity"
+                ]
+            },
+            "alerts_and_safety": [
+                "Pressure alarm",
+                "Temperature alarm"
+            ],
+            "connectivity": {
+                "lis_support": "LIS data transmission",
+                "printer": "Built-in thermal printer"
+            },
+            "operating_conditions": {
+                "temperature_c": "15 – 30",
+                "humidity_percent": "10 – 80 (non-condensing)"
+            },
+            "power_requirements": {
+                "voltage": "220 – 240V",
+                "frequency": "50 – 60 Hz",
+                "power_consumption": "100 VA"
+            },
+            "dimensions_mm": {
+                "width": 500,
+                "depth": 610,
+                "height": 410
+            },
+            "weight_kg": 28
+        },
+        "reagents_and_consumables": {
+            "hba1c_kit": {
+                "description": "HbA1c Kit (HPLC)",
+                "components": [
+                    "Reagent A",
+                    "Reagent B",
+                    "Hemolyzer",
+                    "Column",
+                    "Filter"
+                ],
+                "tests_per_kit": 800
+            },
+            "calibrators": {
+                "levels": 2,
+                "pack_size": "2 x 0.25 ml"
+            },
+            "controls": {
+                "levels": 2,
+                "pack_size": "2 x 0.5 ml"
+            }
+        },
+        "key_features": {
+            "accuracy_and_precision": [
+                "Gold standard HPLC methodology",
+                "Eliminates unstable Hb variants interference",
+                "High precision with CV ≤ 2%"
+            ],
+            "automation_and_efficiency": [
+                "Automatic sample identification",
+                "Continuous loading",
+                "Minimal manual intervention"
+            ],
+            "ease_of_operation": [
+                "Touch screen interface",
+                "Direct primary tube sampling",
+                "Built-in printer",
+                "Barcode-based workflow"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Diabetes diagnostic laboratories",
+                "Reference laboratories",
+                "Hospitals requiring HbA1c gold standard testing"
+            ],
+            "key_strengths": [
+                "Ion exchange HPLC gold standard",
+                "NGSP & IFCC traceability",
+                "High precision and low CV",
+                "Strong LIS and automation support"
+            ]
+        }
+    }
+]

@@ -1,0 +1,223 @@
+[
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "OHVFQ4-01",
+        "product_name": "Vitamin D",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 22243,
+            "ctp": 6620
+        },
+        "tier_pricing": {
+            "tier_1": 265,
+            "tier_2": 6250,
+            "tier_3": 250,
+            "tier_4": 5625
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "CCPFQ4-01",
+        "product_name": "Anti-CCP Plus",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 28661,
+            "ctp": 8530
+        },
+        "tier_pricing": {
+            "tier_1": 341,
+            "tier_2": 8055,
+            "tier_3": 322,
+            "tier_4": 7250
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "CMBFQ4-01",
+        "product_name": "CK-MB",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 14330,
+            "ctp": 4265
+        },
+        "tier_pricing": {
+            "tier_1": 171,
+            "tier_2": 4030,
+            "tier_3": 161,
+            "tier_4": 3625
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "FRTFQ4-01",
+        "product_name": "FERRITIN",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 15809,
+            "ctp": 4705
+        },
+        "tier_pricing": {
+            "tier_1": 188,
+            "tier_2": 4445,
+            "tier_3": 178,
+            "tier_4": 4000
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "TSHFQ4-01",
+        "product_name": "TSH",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 6418,
+            "ctp": 1910
+        },
+        "tier_pricing": {
+            "tier_1": 76,
+            "tier_2": 1805,
+            "tier_3": 72,
+            "tier_4": 1625
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "T3FQ4-01",
+        "product_name": "T3",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 6418,
+            "ctp": 1910
+        },
+        "tier_pricing": {
+            "tier_1": 76,
+            "tier_2": 1805,
+            "tier_3": 72,
+            "tier_4": 1625
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "T4FQ4-01",
+        "product_name": "T4",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 6418,
+            "ctp": 1910
+        },
+        "tier_pricing": {
+            "tier_1": 76,
+            "tier_2": 1805,
+            "tier_3": 72,
+            "tier_4": 1625
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "FT3FQ4-01",
+        "product_name": "F T3",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 9878,
+            "ctp": 2940
+        },
+        "tier_pricing": {
+            "tier_1": 118,
+            "tier_2": 2780,
+            "tier_3": 111,
+            "tier_4": 2500
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "FT4FQ4-01",
+        "product_name": "F T4",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 9878,
+            "ctp": 2940
+        },
+        "tier_pricing": {
+            "tier_1": 118,
+            "tier_2": 2780,
+            "tier_3": 111,
+            "tier_4": 2500
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "TIGFQ4-01",
+        "product_name": "Total IgE",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 19757,
+            "ctp": 5880
+        },
+        "tier_pricing": {
+            "tier_1": 235,
+            "tier_2": 5555,
+            "tier_3": 222,
+            "tier_4": 5000
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "RFFQ4-01",
+        "product_name": "RF",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 12852,
+            "ctp": 3825
+        },
+        "tier_pricing": {
+            "tier_1": 153,
+            "tier_2": 3610,
+            "tier_3": 144,
+            "tier_4": 3250
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "HBAFQ4-01",
+        "product_name": "Hemoglobin Alc",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 13843,
+            "ctp": 4120
+        },
+        "tier_pricing": {
+            "tier_1": 165,
+            "tier_2": 3890,
+            "tier_3": 156,
+            "tier_4": 3500
+        }
+    },
+    {
+        "category": "FloQuantReagents",
+        "sub_category": "FloQuantReagents",
+        "product_code": "ASOFQ4-01",
+        "product_name": "ASO",
+        "pack_size": "25",
+        "pricing": {
+            "mrp": 14818,
+            "ctp": 4410
+        },
+        "tier_pricing": {
+            "tier_1": 176,
+            "tier_2": 4165,
+            "tier_3": 167,
+            "tier_4": 3750
+        }
+    }
+]

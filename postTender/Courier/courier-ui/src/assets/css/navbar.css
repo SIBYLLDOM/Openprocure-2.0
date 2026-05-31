@@ -1,0 +1,422 @@
+/* =====================================================
+   NAVBAR THEME COLORS (ENHANCED FOR BLUE BACKGROUND)
+===================================================== */
+:root {
+  --navbar-bg: #05339C;
+  --navbar-accent: #FEC91B;
+  /* Golden/Yellow accent */
+  --navbar-accent-dark: #e6b517;
+  /* Darker golden */
+  --navbar-text: #ffffff;
+  /* White text */
+  --navbar-text-light: #e0e0e0;
+  /* Light gray text */
+  --navbar-border: #ffffff20;
+  /* Semi-transparent white border */
+  --navbar-hover-bg: #ffffff15;
+  /* Light white overlay on hover */
+  --navbar-shadow: rgba(0, 0, 0, 0.15);
+  --navbar-height: 88px;
+  --navbar-transition: 0.25s ease;
+
+  /* Dropdown colors - Light theme */
+  --dropdown-bg: #ffffff;
+  /* White background */
+  --dropdown-text: #2c3e50;
+  /* Dark blue-gray text */
+  --dropdown-hover-bg: #f8f9fa;
+  /* Very light gray hover */
+  --dropdown-hover-text: #05339C;
+  /* Blue hover text */
+  --dropdown-border: #e5e7eb;
+  /* Light gray border */
+  --dropdown-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* =====================================================
+   GLOBAL RESET – REMOVE ALL BULLET POINTS
+===================================================== */
+.navbar-menu,
+.navbar-menu li,
+.navbar-dropdown,
+.navbar-dropdown li,
+.navbar-profile-dropdown,
+.navbar-profile-dropdown li {
+  list-style: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* =====================================================
+   NAVBAR CONTAINER
+===================================================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--navbar-height);
+  padding: 0 2rem;
+  /* Reduced from 4rem for better fit on medium screens */
+  margin: 0;
+  border-bottom: 1px solid var(--navbar-border);
+  box-shadow: 0 2px 8px var(--navbar-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-sizing: border-box;
+  background-image:
+    linear-gradient(rgba(5, 51, 156, 0.7), rgba(5, 51, 156, 0.7)),
+    /* Slightly darker overlay */
+    url('../img/companybg.jpg');
+  /* Background image */
+  background-size: cover;
+  background-position: center;
+}
+
+/* =====================================================
+   BRAND TITLE
+===================================================== */
+.navbar-brand {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navbar-logo-text {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* Slightly reduced gap */
+  text-decoration: none;
+  transition: opacity var(--navbar-transition);
+}
+
+.navbar-logo-text:hover {
+  opacity: 0.9;
+}
+
+/* =====================================================
+   HAMBURGER (MOBILE)
+===================================================== */
+.navbar-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-hamburger span {
+  width: 24px;
+  height: 3px;
+  background: var(--navbar-text);
+  border-radius: 2px;
+  transition: var(--navbar-transition);
+}
+
+.navbar-hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 6px);
+}
+
+.navbar-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -6px);
+}
+
+/* =====================================================
+   NAVIGATION ITEMS
+===================================================== */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  /* Reduced from 2.5rem for better alignment */
+  flex: 1;
+  justify-content: center;
+}
+
+.navbar-item {
+  position: relative;
+}
+
+.navbar-link {
+  background: none;
+  border: none;
+  color: var(--navbar-text);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  /* Slightly smaller for better fit */
+  font-weight: 600;
+  /* Medium-bold for readability */
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all var(--navbar-transition);
+  border-radius: 6px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.navbar-link:hover {
+  background: var(--navbar-hover-bg);
+  color: var(--navbar-accent);
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  transition: transform var(--navbar-transition);
+}
+
+.navbar-item:hover .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* =====================================================
+   DROPDOWN MENU (LIGHT THEME)
+===================================================== */
+.navbar-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  /* Center dropdown under parent */
+  background: var(--dropdown-bg);
+  border: 1px solid var(--dropdown-border);
+  border-radius: 8px;
+  min-width: 240px;
+  padding: 0.5rem 0;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--navbar-transition);
+  z-index: 500;
+}
+
+.navbar-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.navbar-dropdown-item {
+  padding: 0.8rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dropdown-text);
+  text-decoration: none;
+  display: block;
+  transition: all var(--navbar-transition);
+  border-left: 4px solid transparent;
+}
+
+.navbar-dropdown-item:hover {
+  background: var(--dropdown-hover-bg);
+  color: var(--dropdown-hover-text);
+  border-left-color: var(--navbar-accent);
+  padding-left: 1.75rem;
+  /* Subtle indent on hover */
+}
+
+/* Active route indicator in dropdown */
+.navbar-dropdown-item[aria-current="page"] {
+  background: var(--dropdown-hover-bg);
+  color: var(--dropdown-hover-text);
+  border-left-color: var(--navbar-accent);
+  font-weight: 600;
+}
+
+/* =====================================================
+   PROFILE SECTION (LIGHT THEME)
+===================================================== */
+.navbar-profile {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.navbar-profile-btn {
+  background: var(--navbar-text);
+  border: 2px solid var(--navbar-text);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  transition: all var(--navbar-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  /* Fixed width */
+  height: 42px;
+  /* Fixed height */
+  overflow: hidden;
+  /* Contain the image */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-profile-btn:hover {
+  border-color: var(--navbar-accent);
+  transform: scale(1.05);
+}
+
+.navbar-avatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-profile-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: var(--dropdown-bg);
+  border: 1px solid var(--dropdown-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  width: 200px;
+  padding: 0.5rem 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: var(--navbar-transition);
+}
+
+.navbar-profile-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.navbar-profile-item {
+  padding: 0.8rem 1.2rem;
+  color: var(--dropdown-text);
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+  transition: all var(--navbar-transition);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+}
+
+.navbar-profile-item:hover {
+  background: var(--dropdown-hover-bg);
+  color: var(--dropdown-hover-text);
+  border-left-color: var(--navbar-accent);
+  padding-left: 1.4rem;
+}
+
+/* =====================================================
+   MOBILE RESPONSIVENESS
+===================================================== */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 0 1.5rem;
+  }
+
+  .navbar-hamburger {
+    display: flex;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    right: 0;
+    background: var(--navbar-bg);
+    height: calc(100vh - var(--navbar-height));
+    padding: 1rem 0;
+    transform: translateX(-100%);
+    transition: transform var(--navbar-transition);
+    overflow-y: auto;
+    justify-content: flex-start;
+  }
+
+  .navbar-menu.mobile-open {
+    transform: translateX(0);
+  }
+
+  .navbar-item {
+    width: 100%;
+    border-bottom: 1px solid var(--navbar-border);
+  }
+
+  .navbar-link {
+    width: 100%;
+    justify-content: space-between;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .navbar-dropdown {
+    position: static;
+    border: none;
+    box-shadow: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--navbar-transition);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .navbar-dropdown.active {
+    max-height: 800px;
+  }
+
+  .navbar-dropdown-item {
+    padding: 1rem 2.5rem;
+    color: var(--navbar-text-light);
+    border-left: 4px solid transparent;
+  }
+
+  .navbar-dropdown-item:hover {
+    background: var(--navbar-hover-bg);
+    color: var(--navbar-text);
+    border-left-color: var(--navbar-accent);
+  }
+}
+
+/* =====================================================
+   ADDITIONAL STYLES
+===================================================== */
+.FlagImg {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+.LogoImg {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+}
+
+.GoldenLine {
+  height: 4px;
+  /* Slightly thicker for visibility */
+  background-color: var(--navbar-accent);
+  margin: 0;
+  border: none;
+}
+
+.UserProfile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
