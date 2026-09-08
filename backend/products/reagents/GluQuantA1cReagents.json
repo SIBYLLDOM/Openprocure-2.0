@@ -1,0 +1,19 @@
+[
+    {
+        "category": "GluQuantA1cReagents",
+        "sub_category": "GluQuantA1cReagents",
+        "product_code": "HPLDBT-01",
+        "product_name": "HbA1c Kit (HPLC)",
+        "pack_size": "2x400 Tests",
+        "pricing": {
+            "mrp": 323100,
+            "ctp": 96162
+        },
+        "tier_pricing": {
+            "tier_1": 92000,
+            "tier_2": 86545,
+            "tier_3": 52000,
+            "tier_4": 48000
+        }
+    }
+]

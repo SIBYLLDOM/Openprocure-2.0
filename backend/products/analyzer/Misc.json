@@ -1,0 +1,134 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "Coagulation",
+        "series_name": "Merilyzer ClotQuant Series",
+        "brand": "Meril",
+        "shared_technical_specifications": {
+            "measuring_principle": "Advanced scattered light principle",
+            "reagent_type": "Open system",
+            "tests_performed": [
+                "PT",
+                "APTT",
+                "Fibrinogen",
+                "Clotting factors"
+            ],
+            "test_wavelength_nm": 470,
+            "reagent_consumption": "< 50 µL",
+            "dispense_precision": "CV < 2%",
+            "temperature_control": "37 ± 0.3°C",
+            "repeatability": {
+                "APTT": "≤ 2s",
+                "PT": "≤ 2s"
+            },
+            "stability": {
+                "APTT": "within one hour ≥ 2s",
+                "PT": "within one hour ≥ 2s"
+            },
+            "linearity": {
+                "fibrinogen": "r > 0.98"
+            },
+            "memory": {
+                "results_storage": 5000,
+                "qc_storage": "120 QC results (3 levels)"
+            },
+            "quality_control": {
+                "qc_levels": 3,
+                "qc_tools": [
+                    "Levy-Jennings chart",
+                    "QC monitoring for Low, Medium and High"
+                ]
+            },
+            "connectivity": {
+                "interfaces": [
+                    "RS232",
+                    "PC connection"
+                ]
+            },
+            "printer": {
+                "type": "Built-in thermal printer",
+                "paper_width_mm": 57
+            },
+            "report_format": [
+                "Date wise",
+                "ID wise"
+            ],
+            "operating_environment": {
+                "temperature_c": "15 – 30",
+                "humidity_percent": "< 90%"
+            },
+            "dimensions_mm": {
+                "width": 400,
+                "depth": 274,
+                "height": 350
+            },
+            "weight_kg": 10
+        },
+        "products": [
+            {
+                "product_code": "CGCCAQ-01",
+                "instrument_name": "ClotQuant - 2",
+                "model": "ClotQuant 2",
+                "channels": 2,
+                "sample_positions": 16,
+                "reagent_positions": 4,
+                "sample_pre_warming_positions": 16,
+                "reagent_pre_warming_positions": 4,
+                "commercial_details": {
+                    "slab_quantity": 1,
+                    "price_per_unit_rs": 60000,
+                    "foc_reagents": "2 Kits of PT & APTT",
+                    "warranty": "2 Years",
+                    "payment_terms": "25% Advance & 3 PDCs"
+                }
+            },
+            {
+                "product_code": "CGCCAQ-01-BULK",
+                "instrument_name": "ClotQuant - 2 (Bulk)",
+                "model": "ClotQuant 2",
+                "channels": 2,
+                "sample_positions": 16,
+                "reagent_positions": 4,
+                "sample_pre_warming_positions": 16,
+                "reagent_pre_warming_positions": 4,
+                "commercial_details": {
+                    "slab_quantity": 3,
+                    "price_per_unit_rs": 57000,
+                    "foc_reagents": "2 Kits of PT & APTT",
+                    "warranty": "2 Years",
+                    "payment_terms": "25% Advance & 3 PDCs"
+                }
+            },
+            {
+                "product_code": "CGCCAQ-02",
+                "instrument_name": "ClotQuant - 4",
+                "model": "ClotQuant 4",
+                "channels": 4,
+                "sample_positions": 24,
+                "reagent_positions": 6,
+                "sample_pre_warming_positions": 24,
+                "reagent_pre_warming_positions": 6,
+                "commercial_details": {
+                    "slab_quantity": 1,
+                    "price_per_unit_rs": 80000,
+                    "foc_reagents": "2 Kits of PT & APTT",
+                    "warranty": "2 Years",
+                    "payment_terms": "25% Advance & 3 PDCs"
+                }
+            }
+        ],
+        "positioning_summary": {
+            "ideal_for": [
+                "Routine coagulation laboratories",
+                "Hospitals and diagnostic centers",
+                "Labs performing PT, APTT and Fibrinogen testing"
+            ],
+            "key_strengths": [
+                "Low reagent consumption",
+                "High accuracy with scattered light detection",
+                "Flexible channel options (2 & 4 channel)",
+                "Built-in QC and printer"
+            ]
+        }
+    }
+]

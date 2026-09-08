@@ -1,0 +1,121 @@
+[
+    {
+        "category": "TurbidimetryImmunoAssay",
+        "sub_category": "TIA",
+        "product_code": "MALTIA-01",
+        "product_name": "Micro Albumin",
+        "pack_size": "1 x 40 / 1 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "TurbidimetryImmunoAssay",
+        "sub_category": "TIA",
+        "product_code": "CRPTIA-01",
+        "product_name": "CRP",
+        "pack_size": "1 x 40 / 1 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "TurbidimetryImmunoAssay",
+        "sub_category": "TIA",
+        "product_code": "HBATIA-01",
+        "product_name": "HbA1c",
+        "pack_size": "2 x 15 / 2 x 5 / 2 x 50 / 4 x 0.5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "TurbidimetryImmunoAssay",
+        "sub_category": "TIA",
+        "product_code": "HBATIA-02",
+        "product_name": "HbA1c",
+        "pack_size": "1 x 15 / 1 x 5 / 2 x 25 / 4 x 0.5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "TurbidimetryImmunoAssay",
+        "sub_category": "TIA",
+        "product_code": "ASOLIT-01",
+        "product_name": "ASO",
+        "pack_size": "1 x 40 / 1 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "TurbidimetryImmunoAssay",
+        "sub_category": "TIA",
+        "product_code": "CRPLIT-01",
+        "product_name": "CRP",
+        "pack_size": "1 x 40 / 1 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "TurbidimetryImmunoAssay",
+        "sub_category": "TIA",
+        "product_code": "RHFLIT-01",
+        "product_name": "RF",
+        "pack_size": "1 x 40 / 1 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

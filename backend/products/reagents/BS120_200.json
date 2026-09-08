@@ -1,0 +1,478 @@
+[
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "AMYMBS-01",
+        "product_name": "AMYLASE",
+        "pack_size": "4 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "ALPMBS-01",
+        "product_name": "ALKALINE PHOSPHATASE",
+        "pack_size": "4 x 15",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "CAAMBS-01",
+        "product_name": "CALCIUM (A)",
+        "pack_size": "4 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "CKNMBS-01",
+        "product_name": "CREATINE KINASE NAC",
+        "pack_size": "2 x 20 / 2 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "CKMMBS-01",
+        "product_name": "CREATINE KINASE MB",
+        "pack_size": "2 x 20 / 2 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "CHDMBS-01",
+        "product_name": "CHLORIDE",
+        "pack_size": "4 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "GGTMBS-01",
+        "product_name": "GAMMA GLUTAMYL TRANSFERASE",
+        "pack_size": "1 x 20 / 1 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "LDHMBS-01",
+        "product_name": "LACTATE DEHYDROGENASE",
+        "pack_size": "1 x 20 / 1 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "MAGMBS-01",
+        "product_name": "MAGNESIUM",
+        "pack_size": "4 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "PHOMBS-01",
+        "product_name": "PHOSPHORUS",
+        "pack_size": "4 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "MTPMBS-01",
+        "product_name": "MICROPROTEIN",
+        "pack_size": "4 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "TRGMBS-01",
+        "product_name": "TRIGLYCERIDE",
+        "pack_size": "6 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "URCMBS-01",
+        "product_name": "URIC ACID",
+        "pack_size": "4 x 15",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "MALMBS-01",
+        "product_name": "Micro Albumin",
+        "pack_size": "2 x 20 / 2 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "CRPMBS-01",
+        "product_name": "CRP",
+        "pack_size": "2 x 20 / 2 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "LIPMBS-01",
+        "product_name": "LIPASE",
+        "pack_size": "1 x 20 / 1 x 12",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "GPTMBS-01",
+        "product_name": "ALAT (GPT)",
+        "pack_size": "6 x 20 / 6 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "GOTMBS-01",
+        "product_name": "ASAT (GOT)",
+        "pack_size": "6 x 20 / 6 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "BITMBS-01",
+        "product_name": "BILIRUBIN TOTAL",
+        "pack_size": "5 x 15 / 5 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "BIDMBS-01",
+        "product_name": "BILIRUBIN DIRECT",
+        "pack_size": "5 x 15 / 5 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "CREMBS-01",
+        "product_name": "CREATININE",
+        "pack_size": "5 x 15 / 5 x 15",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "CHOMBS-01",
+        "product_name": "CHOLESTEROL",
+        "pack_size": "6 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "HDLMBS-01",
+        "product_name": "HDL CHOLESTEROL (Direct)",
+        "pack_size": "2 x 18 / 2 x 6",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "LDLMBS-01",
+        "product_name": "LDL CHOLESTEROL (Direct)",
+        "pack_size": "1 x 18 / 1 x 6",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "GLUMBS-01",
+        "product_name": "GLUCOSE",
+        "pack_size": "10 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "UREMBS-01",
+        "product_name": "UREA",
+        "pack_size": "6 x 20 / 6 x 5",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "ALBMBS-01",
+        "product_name": "ALBUMIN",
+        "pack_size": "6 x 20",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantBSReagents",
+        "sub_category": "BS120_200",
+        "product_code": "TPRMBS-01",
+        "product_name": "TOTAL PROTEIN",
+        "pack_size": "6 x 15",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

@@ -1,0 +1,169 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Semi Automated Specific Protein Analyzer",
+        "product_code": "SAANPQ-02",
+        "instrument_name": "ProViso",
+        "brand": "Meril",
+        "model_description": "Meril ProViso Semi-Automated Specific Protein Analyzer",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 65000,
+            "foc_reagents": "1 HbA1c kit & 1 CRP kit",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 2 PDCs"
+        },
+        "technical_specifications": {
+            "principle": [
+                "Immunoturbidimetry",
+                "Nephelometry"
+            ],
+            "test_method": [
+                "Transmission of light",
+                "Scattering of light"
+            ],
+            "sample_types": [
+                "Venous Blood",
+                "Peripheral Plasma",
+                "Serum",
+                "Urine",
+                "CSF"
+            ],
+            "reagent_positions": 2,
+            "pre_warming_positions": 4,
+            "testing_positions": 1,
+            "storage_capacity_results": 5000,
+            "display": "LCD Touch Screen",
+            "connectivity": "RS232",
+            "printer": "In-built Thermal Printer",
+            "operating_conditions": {
+                "temperature_c": "10 – 35",
+                "humidity": "≤ 90%"
+            },
+            "input_supply": "Adaptor - 12V DC, 60W max",
+            "reaction_temperature": "37 ± 0.5°C",
+            "quality_control": "Daily and Monthly for 3 levels with Levy Jennings graph",
+            "dimensions_mm": {
+                "width": 280,
+                "length": 240,
+                "height": 147
+            }
+        },
+        "test_parameters": [
+            {
+                "test": "ASO",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "CRP",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "HbA1c",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "RF",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "APOA1",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "APOB",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "uALB",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "CYS C",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "C3",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "C4",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "D-DIMER",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "FER",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "IgA",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "IgG",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "IgM",
+                "pack_size": "25 Tests"
+            },
+            {
+                "test": "IgE",
+                "pack_size": "25 Tests"
+            }
+        ],
+        "smart_nephelometry_features": {
+            "smart_calibration": [
+                "Pre-calibrated RFID card",
+                "Lot-specific test parameters embedded in RFID"
+            ],
+            "smart_analysis": [
+                "Self-explanatory instructions on touch screen",
+                "Accurate linkage pipettor"
+            ],
+            "user_friendly_communication": [
+                "Easy touch screen operation",
+                "RS232 interface for PC connectivity"
+            ],
+            "output_and_storage": [
+                "In-built thermal printer",
+                "Storage of up to 5000 results"
+            ]
+        },
+        "unique_hardware_and_software_features": {
+            "pre_calibrated_rfid_card": "Saves reagents, time and eliminates manual errors",
+            "automated_vortex_mixer": "Ensures homogeneous Ag-Ab solution for accurate results",
+            "dual_technology_optics": "Improves sensitivity and accuracy",
+            "defined_number_of_tests": "Supports inventory management",
+            "disposable_cuvettes": "Eliminates carryover effects"
+        },
+        "technology_comparison": {
+            "advantages_over_conventional_turbidimetry": [
+                "Lot specific programming via RFID card",
+                "Controlled mixing ensures consistent precision",
+                "Accurate delay timing via electronic pipette",
+                "Master calibration curve provided with every kit",
+                "Eliminates manual calibration errors",
+                "Fully analyzer-controlled assay process"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Specific protein testing laboratories",
+                "Immunology diagnostics",
+                "HbA1c and CRP focused testing",
+                "Mid-range budget tenders"
+            ],
+            "key_strengths": [
+                "Smart nephelometry technology",
+                "RFID-based calibration",
+                "High accuracy and reproducibility",
+                "Low operational complexity"
+            ]
+        }
+    }
+]

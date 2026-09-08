@@ -1,0 +1,150 @@
+{
+  "guide_title": "NewSystem Products Catalogue Guide",
+  "last_updated": "2026-04-21",
+  "description": "Comprehensive guide to the product categorization and file structure in NewSystem/products directory",
+  "directory_structure": {
+    "analyzer/": {
+      "category": "Diagnostic Equipment",
+      "description": "Laboratory and diagnostic analyzers for various medical tests",
+      "file_count": 12,
+      "files": [
+        "3-Part_Hematology_Analyzer.json - Basic hematology analyzers (RBC, WBC, platelet counts)",
+        "5-Part_Hematology_Analyzer.json - Advanced hematology with differential counts",
+        "Automated_Electrochemiluminescence_Immunoassay_(e-CLIA)_Analyzer.json - Immunoassay analyzers using ECL technology",
+        "ELISA_Plate_Washer.json - Automated plate washing equipment for ELISA tests",
+        "Electrolyte_Analyzer.json - Blood electrolyte measurement (Na+, K+, Cl-, etc.)",
+        "Fluorescence_Immunoassay_Analyzer.json - Fluorescence-based immunoassay systems",
+        "Fully_Automated_Biochemistry_Analyzer.json - Complete biochemistry automation",
+        "HPLC_HbA1c_Analyzer.json - HPLC-based HbA1c measurement",
+        "Misc.json - Miscellaneous analyzer equipment",
+        "Semi_Automated_Biochemistry_Analyzer.json - Partially automated biochemistry systems",
+        "Semi_Automated_ELISA_Plate_Reader.json - ELISA plate readers",
+        "Semi_Automated_Specific_Protein_Analyzer.json - Specific protein analysis equipment"
+      ]
+    },
+    "endo/": {
+      "category": "Endoscopic & Surgical Products",
+      "description": "Surgical instruments and consumables for endoscopic procedures",
+      "file_count": 11,
+      "files": [
+        "Biosurgicals.json - Hemostatic agents (gelatin sponges, oxidized cellulose)",
+        "Clutch.json - Tourniquet devices (L, M, XL sizes)",
+        "Energy_Device.json - Ultrasonic and laser surgical devices",
+        "Glue.json - Surgical adhesives and skin glues",
+        "IUDs.json - Intrauterine contraceptive devices (copper and hormonal)",
+        "Kit.json - Procedure-specific surgical kits (CABG, hernia, gynecology, etc.)",
+        "Mesh.json - Surgical meshes (polypropylene, composite, fixation devices)",
+        "Others.json - Miscellaneous surgical products (bonewax, umbilical tape)",
+        "Stapler.json - Surgical staplers, trocars, and clip applicators",
+        "sutures_by_material/ - Subdirectory with suture materials separated by type"
+      ],
+      "subdirectories": {
+        "sutures_by_material/": {
+          "description": "Sutures categorized by material type for easier reference",
+          "file_count": 13,
+          "materials": [
+            "Chromic_Catgut.json - Natural absorbable sutures",
+            "Plain_Catgut.json - Natural absorbable sutures",
+            "Polyamide_Nylon.json - Non-absorbable synthetic sutures",
+            "Poliglecaprone.json - Fast-absorbing synthetic sutures",
+            "Poliglecaprone_25_Monocryl.json - Monocryl variant sutures",
+            "Polydioxanone.json - Long-lasting absorbable sutures (PDS)",
+            "Polydioxanone_PDS.json - PDS brand sutures",
+            "Polyglycolic_Acid.json - Synthetic absorbable sutures",
+            "Polyglactin_910.json - Braided absorbable sutures (Vicryl)",
+            "Polypropylene.json - Non-absorbable monofilament sutures",
+            "Polyester.json - Non-absorbable braided sutures",
+            "Silk.json - Natural non-absorbable sutures",
+            "Steel_Wire.json - Stainless steel wire sutures"
+          ]
+        }
+      }
+    },
+    "reagents/": {
+      "category": "Diagnostic Reagents",
+      "description": "Reagents and consumables for laboratory analyzers",
+      "file_count": 17,
+      "files": [
+        "3_Part_Hematology_Reagents.json - Hematology reagents for 3-part analyzers",
+        "BS120_200.json - Biochemistry system reagents (BS120/200 series)",
+        "CelQuant_3_Aspire_Reagents.json - CelQuant 3 Aspire analyzer reagents",
+        "CelQuant_3i_Reagents.json - CelQuant 3i analyzer reagents",
+        "CelQuant_5+_Reagents.json - CelQuant 5+ analyzer reagents",
+        "ClotQuant2_4Reagents.json - ClotQuant 2/4 coagulation reagents",
+        "ER.json - Emergency reagents",
+        "FDR.json - Fasting Diabetes Reagents",
+        "FSR-Jumbo.json - FSR Jumbo reagents",
+        "FSR.json - FSR reagents",
+        "FloQuantReagents.json - FloQuant analyzer reagents",
+        "GluQuantA1cReagents.json - HbA1c reagents",
+        "Hematology.json - General hematology reagents",
+        "PRV.json - PRV reagents",
+        "QuantilyteReagents.json - Quantilyte analyzer reagents",
+        "SAA.json - Serum Amyloid A reagents",
+        "TIA.json - TIA reagents"
+      ]
+    },
+    "systempacks/": {
+      "category": "System Packs",
+      "description": "Complete system packages with equipment and reagents",
+      "file_count": 2,
+      "files": [
+        "AQ_100___200SystemPacks.json - AQ 100-200 system packs",
+        "AQ_400SystemPacks.json - AQ 400 system packs"
+      ]
+    },
+    "rapid_elisa.json": {
+      "category": "Rapid Tests",
+      "description": "Rapid ELISA test kits",
+      "file_count": 1
+    },
+    "system_packs.json": {
+      "category": "System Packs",
+      "description": "System pack configurations and bundles",
+      "file_count": 1
+    }
+  },
+  "product_categories_summary": {
+    "total_categories": 5,
+    "total_files": 44,
+    "total_subdirectories": 2,
+    "categories": [
+      "Diagnostic Equipment (analyzer)",
+      "Endoscopic & Surgical Products (endo)",
+      "Diagnostic Reagents (reagents)",
+      "System Packs (systempacks)",
+      "Rapid Tests & Configurations (root level JSONs)"
+    ]
+  },
+  "usage_notes": {
+    "file_format": "All files are in JSON format with standardized structure",
+    "common_fields": [
+      "s_no - Serial number",
+      "category - Product category",
+      "item_code - Unique item identifier",
+      "product_name - Product name",
+      "description - Product description",
+      "brand - Brand name",
+      "brand_category - Brand category",
+      "status - Product status",
+      "price_group - Price group (P-1, P-2, etc.)",
+      "section - Section code",
+      "unit - Unit of measure",
+      "pack_quantity - Pack quantity",
+      "minimum_quantity - Minimum order quantity",
+      "normalized_attributes - Structured product attributes"
+    ],
+    "suture_materials": "Sutures are now organized by material type in endo/sutures_by_material/ for easier reference",
+    "kit_organization": "Kits are organized by procedure type (CABG, Hernia, Gynecology, etc.)",
+    "mesh_types": "Meshes include both flat meshes and fixation devices (tackers)"
+  },
+  "maintenance": {
+    "notes": [
+      "When adding new products, follow the existing JSON structure",
+      "Use standardized category names",
+      "Maintain normalized_attributes for consistency",
+      "For sutures, ensure suture_material is properly categorized",
+      "Update this guide when adding new categories or files"
+    ]
+  }
+}

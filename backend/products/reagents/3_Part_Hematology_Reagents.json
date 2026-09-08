@@ -1,0 +1,87 @@
+[
+    {
+        "category": "3 Part Hematology Reagents",
+        "sub_category": "3 Part Hematology Reagents",
+        "product_code": "BDTCCR-10",
+        "product_name": "Blood Diluent",
+        "pack_size": "20 L",
+        "pricing": {
+            "mrp": 7910,
+            "ctp": 3750
+        },
+        "tier_pricing": {
+            "tier_1": 3250,
+            "tier_2": 2900,
+            "tier_3": 2700,
+            "tier_4": 2600
+        }
+    },
+    {
+        "category": "3 Part Hematology Reagents",
+        "sub_category": "3 Part Hematology Reagents",
+        "product_code": "CLYCCR-09",
+        "product_name": "Cell Lyse",
+        "pack_size": "500 mL",
+        "pricing": {
+            "mrp": 7910,
+            "ctp": 3750
+        },
+        "tier_pricing": {
+            "tier_1": 3250,
+            "tier_2": 2900,
+            "tier_3": 2700,
+            "tier_4": 2600
+        }
+    },
+    {
+        "category": "3 Part Hematology Reagents",
+        "sub_category": "3 Part Hematology Reagents",
+        "product_code": "CLZCCR-06",
+        "product_name": "Rinse",
+        "pack_size": "10 L",
+        "pricing": {
+            "mrp": 7600,
+            "ctp": 3650
+        },
+        "tier_pricing": {
+            "tier_1": 3150,
+            "tier_2": 2800,
+            "tier_3": 2600,
+            "tier_4": 2500
+        }
+    },
+    {
+        "category": "3 Part Hematology Reagents",
+        "sub_category": "3 Part Hematology Reagents",
+        "product_code": "PBCCCR-01",
+        "product_name": "Probe Cleaner",
+        "pack_size": "50 mL",
+        "pricing": {
+            "mrp": 2750,
+            "ctp": 1200
+        },
+        "tier_pricing": {
+            "tier_1": 1100,
+            "tier_2": 1000,
+            "tier_3": 900,
+            "tier_4": 870
+        }
+    },
+    {
+        "category": "3 Part Hematology Reagents",
+        "sub_category": "3 Part Hematology Reagents",
+        "product_code": "EZCCCR-01",
+        "product_name": "Enz Cleaner",
+        "pack_size": "70 mL",
+        "pricing": {
+            "mrp": 2990,
+            "ctp": 1300
+        },
+        "tier_pricing": {
+            "tier_1": 1200,
+            "tier_2": 1100,
+            "tier_3": 1000,
+            "tier_4": 944
+        }
+    }
+]

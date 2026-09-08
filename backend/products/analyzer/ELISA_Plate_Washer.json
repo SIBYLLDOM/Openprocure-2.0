@@ -1,0 +1,222 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "ELISA",
+        "type": "ELISA Plate Washer",
+        "product_code": "SAAEIW-03",
+        "instrument_name": "EIAWash",
+        "brand": "Meril",
+        "model_name": "Merilyzer EIAWash",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "ELISA Plate Washer",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 90000,
+            "foc_reagents": "No FOC",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "microplate_types": [
+                "96 well flat bottom",
+                "96 well round bottom"
+            ],
+            "washing_manifold": {
+                "supported_channels": [
+                    8,
+                    12
+                ],
+                "manifold_type": "Single channel and multi-channel manifold"
+            },
+            "programmable_tests": 100,
+            "wash_cycle": {
+                "programmable_cycles": "0 – 255",
+                "wash_steps_supported": [
+                    "Aspiration",
+                    "Dispense",
+                    "Soak"
+                ]
+            },
+            "washing_system": {
+                "bottles": [
+                    "1 Wash buffer bottle",
+                    "1 Rinse water bottle",
+                    "1 Pressure bottle",
+                    "1 Waste liquid bottle"
+                ],
+                "liquid_level_sensor": true
+            },
+            "dispensing_volume_ul": {
+                "range": "50 – 400",
+                "increment": 50
+            },
+            "residual_volume_ul": "< 2",
+            "washing_accuracy": "≤ ±3% at 300 µL",
+            "shake_function": {
+                "shake_rate_levels": "1 – 5",
+                "shake_time_seconds": "0 – 255",
+                "soak_time": "Minimum 0 sec to maximum 60 min 60 sec"
+            },
+            "display": {
+                "type": "STN Blue monochrome LCD with LED backlight",
+                "resolution_px": "192 x 64"
+            },
+            "power_requirements": {
+                "input_voltage": "100–240V AC",
+                "frequency": "50/60 Hz",
+                "power_consumption": "≤ 55W"
+            },
+            "operating_environment": {
+                "temperature_c": "5 – 40",
+                "relative_humidity": "< 95%"
+            },
+            "dimensions_mm": {
+                "width": 390,
+                "depth": 410,
+                "height": 330
+            },
+            "weight_kg": 11.5
+        },
+        "features": {
+            "accuracy_and_reliability": [
+                "Compatible with UV and visible flat-bottom wells",
+                "Minimal residual volume (< 2 µL)",
+                "High washing accuracy",
+                "Liquid level sensor for wash bottles"
+            ],
+            "programming_flexibility": [
+                "Multi-step aspiration/dispense/soak combinations",
+                "Wide dispensing volume range",
+                "Programmable wash cycles (1–255)"
+            ],
+            "ease_of_use": [
+                "Simple and intuitive operation",
+                "Easy maintenance design",
+                "Reliable performance for routine ELISA workflows"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "ELISA laboratories",
+                "Diagnostic centers performing infectious disease testing",
+                "Labs using 96-well ELISA assays"
+            ],
+            "key_strengths": [
+                "Flexible 8 or 12 channel washing",
+                "Low residual volume",
+                "High accuracy and consistency",
+                "Perfect companion for ELISA plate readers"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "ELISA",
+        "type": "ELISA Plate Washer",
+        "product_code": "SAAEIW-03",
+        "instrument_name": "EIAWash",
+        "brand": "Meril",
+        "model_name": "Merilyzer EIAWash",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "ELISA Plate Washer",
+        "commercial_details": {
+            "slab_quantity": 3,
+            "price_per_unit_rs": 85000,
+            "foc_reagents": "No FOC",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "microplate_types": [
+                "96 well flat bottom",
+                "96 well round bottom"
+            ],
+            "washing_manifold": {
+                "supported_channels": [
+                    8,
+                    12
+                ],
+                "manifold_type": "Single channel and multi-channel manifold"
+            },
+            "programmable_tests": 100,
+            "wash_cycle": {
+                "programmable_cycles": "0 – 255",
+                "wash_steps_supported": [
+                    "Aspiration",
+                    "Dispense",
+                    "Soak"
+                ]
+            },
+            "washing_system": {
+                "bottles": [
+                    "1 Wash buffer bottle",
+                    "1 Rinse water bottle",
+                    "1 Pressure bottle",
+                    "1 Waste liquid bottle"
+                ],
+                "liquid_level_sensor": true
+            },
+            "dispensing_volume_ul": {
+                "range": "50 – 400",
+                "increment": 50
+            },
+            "residual_volume_ul": "< 2",
+            "washing_accuracy": "≤ ±3% at 300 µL",
+            "shake_function": {
+                "shake_rate_levels": "1 – 5",
+                "shake_time_seconds": "0 – 255",
+                "soak_time": "Minimum 0 sec to maximum 60 min 60 sec"
+            },
+            "display": {
+                "type": "STN Blue monochrome LCD with LED backlight",
+                "resolution_px": "192 x 64"
+            },
+            "power_requirements": {
+                "input_voltage": "100–240V AC",
+                "frequency": "50/60 Hz",
+                "power_consumption": "≤ 55W"
+            },
+            "operating_environment": {
+                "temperature_c": "5 – 40",
+                "relative_humidity": "< 95%"
+            },
+            "dimensions_mm": {
+                "width": 390,
+                "depth": 410,
+                "height": 330
+            },
+            "weight_kg": 11.5
+        },
+        "features": {
+            "accuracy_and_reliability": [
+                "Compatible with UV and visible flat-bottom wells",
+                "Minimal residual volume (< 2 µL)",
+                "High washing accuracy",
+                "Liquid level sensor for wash bottles"
+            ],
+            "programming_flexibility": [
+                "Multi-step aspiration/dispense/soak combinations",
+                "Wide dispensing volume range",
+                "Programmable wash cycles (1–255)"
+            ],
+            "ease_of_use": [
+                "Simple and intuitive operation",
+                "Easy maintenance design",
+                "Reliable performance for routine ELISA workflows"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "ELISA laboratories",
+                "Diagnostic centers performing infectious disease testing",
+                "Labs using 96-well ELISA assays"
+            ],
+            "key_strengths": [
+                "Flexible 8 or 12 channel washing",
+                "Low residual volume",
+                "High accuracy and consistency",
+                "Perfect companion for ELISA plate readers"
+            ]
+        }
+    }
+]

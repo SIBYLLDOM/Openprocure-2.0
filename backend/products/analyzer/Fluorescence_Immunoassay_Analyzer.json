@@ -1,0 +1,156 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "Immunoassay",
+        "type": "Fluorescence Immunoassay Analyzer",
+        "product_code": "",
+        "instrument_name": "Merilyzer FloQuant",
+        "manufacturer": "Meril Diagnostics",
+        "application": "Fluorescence Immunoassay",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": null,
+            "foc_reagents_mrp_rs": null,
+            "warranty_years": null,
+            "payment_terms": null
+        },
+        "system_overview": {
+            "detection_principle": "Immunofluorescence",
+            "test_channels": {
+                "regular_channels": 4,
+                "emergency_channel": 1
+            }
+        },
+        "sample_handling": {
+            "supported_sample_types": [
+                "Serum",
+                "Plasma",
+                "Whole Blood",
+                "Capillary Blood",
+                "Urine",
+                "Saliva",
+                "Stool",
+                "Swab"
+            ],
+            "sample_volume": "Varies depending on assay"
+        },
+        "performance": {
+            "repeatability": {
+                "cv_percent": {
+                    "within_100_to_15000_mV": "<= 2%",
+                    "within_0_to_100_mV": "< 10%"
+                }
+            },
+            "testing_time_minutes": {
+                "min": 3,
+                "max": 15
+            }
+        },
+        "calibration_and_qc": {
+            "calibration_method": "SD card based calibration",
+            "calibration_data": [
+                "Batch number",
+                "Calibration information"
+            ]
+        },
+        "user_interface_and_software": {
+            "display": {
+                "type": "Touch screen",
+                "size_inch": 10.1,
+                "resolution": "1280 x 800"
+            },
+            "operating_system": "Android",
+            "software_features": [
+                "User-friendly interface",
+                "Easy software updates"
+            ]
+        },
+        "data_and_connectivity": {
+            "data_storage_capacity": "> 100000 test results",
+            "output_options": [
+                "In-built auto thermal printer",
+                "External printer (USB)"
+            ],
+            "connectivity": [
+                "2 x USB ports (software update & file copy)",
+                "Ethernet (LIS / HIS)",
+                "COM port (PC)"
+            ]
+        },
+        "power_and_environment": {
+            "power_supply": {
+                "voltage": "100–240 V AC",
+                "frequency": "50/60 Hz",
+                "power_va": 60
+            },
+            "operating_conditions": {
+                "temperature_c": {
+                    "min": 10,
+                    "max": 35
+                },
+                "relative_humidity_percent": {
+                    "max": 70
+                }
+            },
+            "storage_conditions": {
+                "temperature_c": {
+                    "min": -40,
+                    "max": 55
+                },
+                "relative_humidity_percent": {
+                    "max": 93
+                }
+            }
+        },
+        "dimensions_and_weight": {
+            "dimensions_mm": {
+                "width": 299,
+                "depth": 276,
+                "height": 152
+            },
+            "weight_kg": 4
+        },
+        "applications": {
+            "usage_locations": [
+                "Laboratory",
+                "Clinic",
+                "Emergency",
+                "Ambulance",
+                "ICU"
+            ],
+            "clinical_domains": [
+                "Cardiac Markers",
+                "Diabetes",
+                "Thyroid Function",
+                "Specific Proteins",
+                "Inflammatory Markers",
+                "Infectious Markers",
+                "Reproductive & Fertility Markers"
+            ]
+        },
+        "key_features": {
+            "portability": "Compact and lightweight design",
+            "convenience": [
+                "Auto-cartridge detection",
+                "Simple operating procedure",
+                "Multiple data transmission ports"
+            ],
+            "accuracy": "Good correlation with CLIA standards",
+            "economy": "Cost-effective per reportable test using SD card calibration"
+        },
+        "tender_positioning": {
+            "recommended_for": [
+                "Point-of-care testing",
+                "Emergency departments",
+                "Small to medium laboratories",
+                "Mobile diagnostic units"
+            ],
+            "key_strengths": [
+                "4+1 channel configuration",
+                "Fast turnaround time",
+                "Wide sample type support",
+                "Portable and compact"
+            ]
+        }
+    }
+]

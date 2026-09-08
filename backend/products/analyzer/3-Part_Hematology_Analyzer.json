@@ -1,0 +1,487 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "Hematology",
+        "type": "3-Part Hematology Analyzer",
+        "product_code": "HMTCLQ-17",
+        "instrument_name": "CelQuant Edge",
+        "brand": "Meril",
+        "model_name": "CELQUANT EDGE",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "CBC Machine",
+        "differential_type": "3 Part",
+        "number_of_chambers": 2,
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 200000,
+            "foc_reagents": "12 sets of reagents",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "measuring_principles": [
+                "Impedance method for cell counting",
+                "Cyanide-free colorimetric method for HGB measurement"
+            ],
+            "measuring_channels": "Double channel for counting",
+            "throughput": "Up to 60 tests per hour",
+            "counting_time": "< 60 seconds per test",
+            "sample_modes": [
+                "Whole Blood",
+                "Pre-diluted Blood"
+            ],
+            "sample_volume_ul": {
+                "whole_blood": 14,
+                "pre_diluted": 20
+            },
+            "parameters_measured": {
+                "total_parameters": 21,
+                "parameters": [
+                    "WBC",
+                    "Lymph#",
+                    "Mid#",
+                    "Gran#",
+                    "Lymph%",
+                    "Mid%",
+                    "Gran%",
+                    "RBC",
+                    "HGB",
+                    "MCV",
+                    "MCH",
+                    "MCHC",
+                    "RDW-CV",
+                    "RDW-SD",
+                    "HCT",
+                    "PLT",
+                    "MPV",
+                    "PDW",
+                    "PCT",
+                    "PLCR"
+                ],
+                "histograms": [
+                    "WBC Histogram",
+                    "RBC Histogram",
+                    "PLT Histogram"
+                ]
+            },
+            "reference_value_settings": [
+                "Preset reference values for Man",
+                "Woman",
+                "Child",
+                "Baby",
+                "General"
+            ],
+            "quality_control_system": {
+                "qc_levels": 3,
+                "features": [
+                    "Automatic QC chart generation",
+                    "Mean, SD and CV calculation"
+                ]
+            },
+            "calibration_system": [
+                "Manual calibration",
+                "Automatic calibration",
+                "Calibration data storage",
+                "Software upgrading via USB port"
+            ],
+            "display": {
+                "type": "True color TFT LCD touch screen",
+                "size_inch": 10.4
+            },
+            "printer": "Built-in patented thermal printer (80 mm wide)",
+            "print_speed": "Report printing in 5 seconds",
+            "communication": {
+                "protocol": "Open communication protocol",
+                "interfaces": [
+                    "USB port",
+                    "RS232 port"
+                ],
+                "lis_connectivity": true
+            },
+            "data_management": {
+                "storage_capacity": "Up to 10,000 sample results",
+                "query_options": "Multiple condition-based queries",
+                "data_import_export": "Via USB port"
+            },
+            "external_devices_supported": [
+                "Keyboard",
+                "Mouse",
+                "Barcode scanner",
+                "Multiple printers"
+            ],
+            "power_requirements": {
+                "input_voltage": "220V, 50Hz",
+                "power_consumption": "≤ 150VA"
+            },
+            "operating_environment": {
+                "temperature_c": "10 – 30",
+                "relative_humidity": "≤ 70%",
+                "atmospheric_pressure_kpa": "70 – 106"
+            },
+            "dimensions_mm": {
+                "width": 368,
+                "depth": 488,
+                "height": 475
+            },
+            "weight_kg": 23
+        },
+        "features": {
+            "performance": [
+                "Dual-channel analyzer for accurate counting",
+                "Wide linearity range with excellent repeatability",
+                "High throughput suitable for routine labs"
+            ],
+            "efficiency": [
+                "Optimized reagent consumption",
+                "Automatic blank counting during startup",
+                "Automatic re-counting after clog removal"
+            ],
+            "user_experience": [
+                "Intuitive touchscreen interface",
+                "Minimal interface layers for ease of use",
+                "Fast report printing",
+                "Low maintenance design with consumable-free syringe"
+            ],
+            "diagnostic_support": [
+                "Anemia classification (microcytic, macrocytic, normocytic)",
+                "Clear alarm information",
+                "Abnormal result flagging"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Routine hematology laboratories",
+                "Small to medium diagnostic centers",
+                "CBC-focused tenders"
+            ],
+            "key_strengths": [
+                "21 parameters with 3 histograms",
+                "High-speed analysis",
+                "User-friendly design",
+                "Reliable QC and calibration system"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Hematology",
+        "type": "3-Part Hematology Analyzer",
+        "product_code": "HMTCLQ-17",
+        "instrument_name": "CelQuant Edge",
+        "brand": "Meril",
+        "model_name": "CELQUANT EDGE",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "CBC Machine",
+        "differential_type": "3 Part",
+        "number_of_chambers": 2,
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 170000,
+            "foc_reagents": "4 sets of reagents",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "measuring_principles": [
+                "Impedance method for cell counting",
+                "Cyanide-free colorimetric method for HGB measurement"
+            ],
+            "measuring_channels": "Double channel for counting",
+            "throughput": "Up to 60 tests per hour",
+            "counting_time": "< 60 seconds per test",
+            "sample_modes": [
+                "Whole Blood",
+                "Pre-diluted Blood"
+            ],
+            "sample_volume_ul": {
+                "whole_blood": 14,
+                "pre_diluted": 20
+            },
+            "parameters_measured": {
+                "total_parameters": 21,
+                "parameters": [
+                    "WBC",
+                    "Lymph#",
+                    "Mid#",
+                    "Gran#",
+                    "Lymph%",
+                    "Mid%",
+                    "Gran%",
+                    "RBC",
+                    "HGB",
+                    "MCV",
+                    "MCH",
+                    "MCHC",
+                    "RDW-CV",
+                    "RDW-SD",
+                    "HCT",
+                    "PLT",
+                    "MPV",
+                    "PDW",
+                    "PCT",
+                    "PLCR"
+                ],
+                "histograms": [
+                    "WBC Histogram",
+                    "RBC Histogram",
+                    "PLT Histogram"
+                ]
+            },
+            "reference_value_settings": [
+                "Preset reference values for Man",
+                "Woman",
+                "Child",
+                "Baby",
+                "General"
+            ],
+            "quality_control_system": {
+                "qc_levels": 3,
+                "features": [
+                    "Automatic QC chart generation",
+                    "Mean, SD and CV calculation"
+                ]
+            },
+            "calibration_system": [
+                "Manual calibration",
+                "Automatic calibration",
+                "Calibration data storage",
+                "Software upgrading via USB port"
+            ],
+            "display": {
+                "type": "True color TFT LCD touch screen",
+                "size_inch": 10.4
+            },
+            "printer": "Built-in patented thermal printer (80 mm wide)",
+            "print_speed": "Report printing in 5 seconds",
+            "communication": {
+                "protocol": "Open communication protocol",
+                "interfaces": [
+                    "USB port",
+                    "RS232 port"
+                ],
+                "lis_connectivity": true
+            },
+            "data_management": {
+                "storage_capacity": "Up to 10,000 sample results",
+                "query_options": "Multiple condition-based queries",
+                "data_import_export": "Via USB port"
+            },
+            "external_devices_supported": [
+                "Keyboard",
+                "Mouse",
+                "Barcode scanner",
+                "Multiple printers"
+            ],
+            "power_requirements": {
+                "input_voltage": "220V, 50Hz",
+                "power_consumption": "≤ 150VA"
+            },
+            "operating_environment": {
+                "temperature_c": "10 – 30",
+                "relative_humidity": "≤ 70%",
+                "atmospheric_pressure_kpa": "70 – 106"
+            },
+            "dimensions_mm": {
+                "width": 368,
+                "depth": 488,
+                "height": 475
+            },
+            "weight_kg": 23
+        },
+        "features": {
+            "performance": [
+                "Dual-channel analyzer for accurate counting",
+                "Wide linearity range with excellent repeatability",
+                "High throughput suitable for routine labs"
+            ],
+            "efficiency": [
+                "Optimized reagent consumption",
+                "Automatic blank counting during startup",
+                "Automatic re-counting after clog removal"
+            ],
+            "user_experience": [
+                "Intuitive touchscreen interface",
+                "Minimal interface layers for ease of use",
+                "Fast report printing",
+                "Low maintenance design with consumable-free syringe"
+            ],
+            "diagnostic_support": [
+                "Anemia classification (microcytic, macrocytic, normocytic)",
+                "Clear alarm information",
+                "Abnormal result flagging"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Routine hematology laboratories",
+                "Small to medium diagnostic centers",
+                "CBC-focused tenders"
+            ],
+            "key_strengths": [
+                "21 parameters with 3 histograms",
+                "High-speed analysis",
+                "User-friendly design",
+                "Reliable QC and calibration system"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Hematology",
+        "type": "3-Part Hematology Analyzer",
+        "product_code": "HMTCLQ-18",
+        "instrument_name": "CelQuant 3i",
+        "brand": "Meril",
+        "model_name": "CelQuant 3i",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "CBC Machine",
+        "differential_type": "3 Part",
+        "number_of_chambers": 2,
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 235000,
+            "foc_reagents": "2 sets of reagents",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "throughput": "60 samples per hour",
+            "detection_channel": "Dual-channel for counting",
+            "sample_volume_ul": {
+                "whole_blood_min": 9
+            },
+            "counting_modes": [
+                "Whole blood mode",
+                "Pre-diluted mode"
+            ],
+            "detection_principle": [
+                "Impedance method for WBC, RBC, PLT",
+                "Cyanide-free colorimetric method for HGB"
+            ],
+            "parameters_measured": {
+                "maximum_parameters": 21,
+                "parameters": [
+                    "WBC",
+                    "Lymph#",
+                    "Mid#",
+                    "Gran#",
+                    "Lymph%",
+                    "Mid%",
+                    "Gran%",
+                    "RBC",
+                    "HGB",
+                    "HCT",
+                    "MCV",
+                    "MCH",
+                    "MCHC",
+                    "RDW-CV",
+                    "RDW-SD",
+                    "PLT",
+                    "MPV",
+                    "PDW",
+                    "PCT",
+                    "PLCR"
+                ],
+                "histograms": [
+                    "WBC Histogram",
+                    "RBC Histogram",
+                    "PLT Histogram"
+                ],
+                "optional_flags": [
+                    "Abnormal erythrocytes",
+                    "Leukocytes",
+                    "Platelets"
+                ]
+            },
+            "reagents": [
+                "Diluent",
+                "Lyse"
+            ],
+            "display": {
+                "type": "Vertical color display with touch panel",
+                "size_inch": 10.4
+            },
+            "report_print": {
+                "printer": "Built-in thermal printer",
+                "features": [
+                    "Multiple built-in report templates",
+                    "Support for multiple USB printers"
+                ]
+            },
+            "storage": {
+                "sample_results": 5000000,
+                "data_includes": [
+                    "Parameters",
+                    "Histograms",
+                    "Patient information"
+                ]
+            },
+            "connectivity": {
+                "usb_ports": 4,
+                "lis_connection": "Bi-directional LIS",
+                "supported_devices": [
+                    "USB keyboard",
+                    "Mouse",
+                    "USB disk",
+                    "USB printer",
+                    "Barcode scanner"
+                ]
+            },
+            "quality_control_system": {
+                "qc_levels": 3,
+                "features": [
+                    "Automatic QC chart generation",
+                    "Average, SD and CV calculation"
+                ]
+            },
+            "power_requirements": {
+                "input_voltage": "100–240V AC",
+                "frequency": "50/60 Hz",
+                "power_consumption": "≤ 150VA"
+            },
+            "operating_environment": {
+                "temperature_c": "10 – 35",
+                "relative_humidity": "20% – 85%"
+            },
+            "dimensions_mm": {
+                "length": 420,
+                "width": 295,
+                "height": 430
+            },
+            "weight_kg": 28
+        },
+        "hardware_and_software_features": {
+            "robust_hardware": [
+                "Intelligent floating threshold technology",
+                "Baseline drift correction technology",
+                "Residual particle fixing",
+                "High voltage burning technology for anti-clogging"
+            ],
+            "sturdy_design": [
+                "High quality dual chambers and tubings",
+                "Built-in liquid sensor technology",
+                "Scientific design protecting main board",
+                "Advanced one-touch maintenance"
+            ],
+            "advanced_software": [
+                "High-speed pulse collecting technology",
+                "Advanced reagent inventory management system",
+                "Bi-directional LIS",
+                "Supports multiple USB printers"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "High-volume routine hematology laboratories",
+                "Diagnostic centers requiring large data storage",
+                "Labs upgrading from basic 3-part analyzers"
+            ],
+            "key_strengths": [
+                "5 million result storage",
+                "Advanced anti-clogging technology",
+                "Robust hardware design",
+                "Comprehensive connectivity options"
+            ]
+        }
+    }
+]

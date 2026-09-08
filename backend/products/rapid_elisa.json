@@ -1,0 +1,251 @@
+[
+  {
+    "field_1": "FLOW THR",
+    "field_2": "FLOW THR",
+    "product_name": "HIV Quadr",
+    "product_code": "HD4RPD-0",
+    "description": "HIV Quadr"
+  },
+  {
+    "field_1": "FLOW THR",
+    "field_2": "FLOW THR",
+    "product_name": "HIV Quadr",
+    "product_code": "HD4RPD-0",
+    "description": "HIV Quadr"
+  },
+  {
+    "field_1": "FLOW THR",
+    "field_2": "FLOW THR",
+    "product_name": "HIV Quadr",
+    "product_code": "HD4RPD-0",
+    "description": "HIV Quadr"
+  },
+  {
+    "field_1": "FLOW THR",
+    "field_2": "FLOW THR",
+    "product_name": "HIV Quadr",
+    "product_code": "HD4RPD-0",
+    "description": "HIV Quadr"
+  },
+  {
+    "field_1": "FLOW THR",
+    "field_2": "FLOW THR",
+    "product_name": "HIV Quadr",
+    "product_code": "HD4RPD-0",
+    "description": "HIV Quadr"
+  },
+  {
+    "field_1": "FLOW THR",
+    "field_2": "FLOW THR",
+    "product_name": "HIV Quadr",
+    "product_code": "HD4RPD-0",
+    "description": "HIV Quadr"
+  },
+  {
+    "field_1": "FLOW THR",
+    "field_2": "FLOW THR",
+    "product_name": "HIV Quadr",
+    "product_code": "HD4RPD-0",
+    "description": "HIV Quadr"
+  },
+  {
+    "field_1": "FLOW THR",
+    "field_2": "FLOW THR",
+    "product_name": "HIV Quadr",
+    "product_code": "HD4RPD-0",
+    "description": "HIV Quadr"
+  },
+  {
+    "technology": "Flow Through",
+    "product_name": "HCV Truedr",
+    "product_code": "HCDRPD-0",
+    "pack_size": "50 Tests",
+    "intended_use": "3 dot Rapid test device with flow through technology for detection of Anti HCV",
+    "principle": "Sandwich Immunoassay",
+    "technique": "Indirect Immunoassay",
+    "detection": "Flow Through",
+    "capture": "Antibodies to HCV",
+    "conjugate": "Highly purified Recombinant antigens - Core, NS3, NS4 and NS5",
+    "specimen_type": "Serum or Plasma",
+    "specimen_volume": "50 µl (1 Drop)",
+    "result_time": "3 minutes",
+    "diagnostic_sensitivity": ">99%",
+    "diagnostic_specificity": ">98%",
+    "evaluations": "National Institute of Biologicals"
+  },
+  {
+    "technology": "Flow Through",
+    "product_name": "HCV Truedr",
+    "product_code": "HCDRPD-0",
+    "pack_size": "10 Tests",
+    "intended_use": "3 dot Rapid test device with flow through technology for detection of Anti HCV",
+    "principle": "Sandwich Immunoassay",
+    "technique": "Indirect Immunoassay",
+    "detection": "Flow Through",
+    "capture": "Antibodies to HCV",
+    "conjugate": "Highly purified Recombinant antigens - Core, NS3, NS4 and NS5",
+    "specimen_type": "Serum or Plasma",
+    "specimen_volume": "50 µl (1 Drop)",
+    "result_time": "3 minutes",
+    "diagnostic_sensitivity": ">99%",
+    "diagnostic_specificity": ">98%",
+    "evaluations": "National Institute of Biologicals"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "HIV ELISA",
+    "product_code": "HV4ELI-02",
+    "generation": "4th Gen",
+    "disease": "HIV"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "HIV ELISA",
+    "product_code": "HV3ELI-01",
+    "generation": "3rd Gen",
+    "disease": "HIV"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "HCV ELISA",
+    "product_code": "HPCELI-03",
+    "generation": "3rd Gen",
+    "disease": "HCV"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "HCV ELISA",
+    "product_code": "HC4ELI-01",
+    "generation": "4th Generation"
+  },
+  {
+    "category": "Rapids",
+    "test_type": "HCV Rapid Test",
+    "product_name": "MERISCREEN HCV Kit",
+    "product_codes": [
+      "RPDHCV-01",
+      "RPDHCV-03"
+    ],
+    "technology": "Immunochromatography (Lateral Flow / Flow Through)",
+    "analyte": "Anti-HCV (IgM, IgG, IgA)",
+    "result_type": "Qualitative",
+    "method": "Rapid Immunoassay",
+    "format": "Test Device / Cassette",
+    "specimen_type": [
+      "Serum",
+      "Plasma",
+      "Whole Blood"
+    ],
+    "specimen_volume": "50 µl (1 drop)",
+    "result_time": "20 minutes",
+    "diagnostic_sensitivity": "≈100%",
+    "diagnostic_specificity": "≈100%",
+    "intended_use": "Primary screening for Hepatitis C Virus infection",
+    "user_type": "Healthcare Professionals",
+    "automation": false,
+    "instrument_required": false,
+    "pack_sizes": [
+      "30 Tests",
+      "50 Tests"
+    ],
+    "regulatory_status": {
+      "ivd_class": "Class D (EU IVDR)",
+      "ce_mark": "CE 2265",
+      "basic_udi_di": "8905459MHCVRT9A"
+    },
+    "manufacturer": "Meril Diagnostics Pvt. Ltd.",
+    "country_of_origin": "India"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "HBsAg ELISA",
+    "product_code": "HPBELI-01",
+    "analyte": "HBsAg",
+    "type": "Quantitative ELISA",
+    "brand": "Meril",
+    "sterility": "Non Sterile",
+    "usage_type": "Disposable",
+    "size": "96 Wells",
+    "form": "Wells",
+    "method": "ELISA",
+    "packaging_size": "96 Wells",
+    "material": "Plastic",
+    "shelf_life": "15 Months",
+    "result_type": "Semi-Quantitative",
+    "country_of_origin": "Made in India",
+    "usage_application": [
+      "Hospital",
+      "Laboratory",
+      "Blood Bank"
+    ],
+    "availability": "In Stock"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "TFT ELISA",
+    "product_code": "TSIELI-01",
+    "analyte": "TSH"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "TFT ELISA",
+    "product_code": "ITFELI-01",
+    "analyte": "T4"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "TFT ELISA",
+    "product_code": "ITTELI-01",
+    "analyte": "T3"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "Dengue NS",
+    "product_code": "DNSELI-01",
+    "analyte": "Dengue NS1",
+    "packaging_size": "46 Wells/Test"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "Dengue NS",
+    "product_code": "DNSELI-02",
+    "analyte": "Dengue NS1",
+    "packaging_size": "96 Wells"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "Dengue IgG ELISA",
+    "product_code": "DEGELI-02",
+    "analyte": "Dengue IgG"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "Dengue IgG ELISA",
+    "product_code": "DGGELI-01",
+    "pack_size": "96 Wells",
+    "analyte": "Dengue IgG"
+  },
+  {
+    "category": "Elisa",
+    "test_type": "Dengue IgM ELISA",
+    "product_code": "DEMELI-01",
+    "pack_size": "48 Tests",
+    "analyte": "Dengue IgM"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa M",
+    "product_code": "MPNELI-0",
+    "test_type": "Malaria PAN",
+    "analyte": "Plasmodium PAN (pLDH)",
+    "pack_size": "96 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa M",
+    "product_code": "RPDMPN-01",
+    "test_type": "Malaria PAN",
+    "analyte": "Plasmodium PAN (pLDH)",
+    "pack_size": "30 Tests"
+  }
+]

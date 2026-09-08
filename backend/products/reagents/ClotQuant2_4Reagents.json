@@ -1,0 +1,70 @@
+[
+    {
+        "category": "ClotQuant2/4Reagents",
+        "sub_category": "ClotQuant2/4Reagents",
+        "product_code": "PTLCOA-03",
+        "product_name": "PROTHROMBIN TIME",
+        "pack_size": "10 x 2",
+        "pricing": {
+            "mrp": 6040,
+            "ctp": 2249
+        },
+        "tier_pricing": {
+            "tier_1": 1799,
+            "tier_2": 1529,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "ClotQuant2/4Reagents",
+        "sub_category": "ClotQuant2/4Reagents",
+        "product_code": "CSNCNC-01",
+        "product_name": "Coagulation Control Sera (Normal)",
+        "pack_size": "10 x 1",
+        "pricing": {
+            "mrp": 30240,
+            "ctp": 13500
+        },
+        "tier_pricing": {
+            "tier_1": 12420,
+            "tier_2": 11475,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "ClotQuant2/4Reagents",
+        "sub_category": "ClotQuant2/4Reagents",
+        "product_code": "APTCOA-03",
+        "product_name": "Activated Prothrombin Time (FSR)",
+        "pack_size": "10 x 2",
+        "pricing": {
+            "mrp": 8170,
+            "ctp": 3040
+        },
+        "tier_pricing": {
+            "tier_1": 2432,
+            "tier_2": 2067,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "ClotQuant2/4Reagents",
+        "sub_category": "ClotQuant2/4Reagents",
+        "product_code": "CLLCOA-02",
+        "product_name": "CALCIUM CHLORIDE",
+        "pack_size": "25 ml",
+        "pricing": {
+            "mrp": 8570,
+            "ctp": 3188
+        },
+        "tier_pricing": {
+            "tier_1": 2550,
+            "tier_2": 2168,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

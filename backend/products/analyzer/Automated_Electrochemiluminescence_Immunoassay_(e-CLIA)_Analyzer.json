@@ -1,0 +1,174 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "Immunoassay",
+        "type": "Automated Electrochemiluminescence Immunoassay (e-CLIA) Analyzer",
+        "product_code": "",
+        "instrument_name": "Merilyzer LumiQuant",
+        "manufacturer": "Meril Diagnostics",
+        "application": "Electrochemiluminescence Immunoassay",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": null,
+            "foc_reagents_mrp_rs": null,
+            "warranty_years": null,
+            "payment_terms": null
+        },
+        "system_overview": {
+            "test_principle": "Tris(2,2′-bipyridine) ruthenium-based direct electrochemiluminescence",
+            "automation_level": "Fully automated, random access",
+            "sample_throughput_tests_per_hour": 86
+        },
+        "sample_and_reagent_handling": {
+            "sample_types": [
+                "Serum",
+                "Plasma"
+            ],
+            "sample_volume_ul": {
+                "min": 5,
+                "max": 100
+            },
+            "sample_input_output_capacity": {
+                "samples": 30,
+                "racks": 3,
+                "positions_per_rack": 10
+            },
+            "sample_identification": [
+                "Barcode",
+                "RFID"
+            ],
+            "reagent_slots": 10,
+            "reagent_handling_features": [
+                "Onboard refrigerated reagent storage",
+                "Magnetic bead blending",
+                "Automatic reagent level detection"
+            ]
+        },
+        "reaction_and_detection_system": {
+            "incubation_system": {
+                "incubation_temperature_c": 37,
+                "incubation_capacity": 100,
+                "incubation_cups": "Disposable"
+            },
+            "washing_system": [
+                "Concentrated washing buffer",
+                "Automatic pipette line cleaning"
+            ],
+            "detection_system": {
+                "signal_detection": "Photon measurement",
+                "luminescence_type": "Planar luminescence"
+            }
+        },
+        "performance_and_sensitivity": {
+            "analytical_sensitivity_features": [
+                "High signal intensity",
+                "Short reaction time",
+                "Stable detection window"
+            ],
+            "broad_measuring_ranges": true,
+            "low_sample_volume_support": true
+        },
+        "probe_and_safety_features": {
+            "sample_probe_features": [
+                "Titanium alloy needles with Teflon coating",
+                "Sample clot detection",
+                "Liquid level detection",
+                "Needle collision protection",
+                "Needle blocking detection"
+            ]
+        },
+        "user_interface_and_software": {
+            "operating_system": "Windows 10",
+            "display": "Embedded touch screen",
+            "software_features": [
+                "LIS compatibility",
+                "Calibration management",
+                "Quality control management",
+                "Troubleshooting assistance"
+            ]
+        },
+        "data_and_connectivity": {
+            "interfaces": [
+                "RS-232 serial interface",
+                "USB",
+                "Ethernet"
+            ],
+            "supported_protocols": [
+                "LIS",
+                "HIS"
+            ]
+        },
+        "environment_and_utilities": {
+            "power_supply": {
+                "voltage": "100–240 V AC",
+                "frequency": "50/60 Hz",
+                "power_va": 800
+            },
+            "operating_conditions": {
+                "temperature_c": {
+                    "min": 10,
+                    "max": 30
+                },
+                "relative_humidity_percent": "<= 80"
+            },
+            "atmospheric_pressure_kpa": {
+                "min": 75,
+                "max": 106
+            }
+        },
+        "dimensions_and_weight": {
+            "dimensions_mm": {
+                "width": 650,
+                "depth": 620,
+                "height": 560
+            }
+        },
+        "assay_menu": {
+            "thyroid": [
+                "TSH",
+                "T3",
+                "T4",
+                "FT3",
+                "FT4",
+                "Anti-TPO",
+                "Anti-Tg",
+                "Anti-TSHR"
+            ],
+            "fertility": [
+                "FSH",
+                "LH",
+                "PRL",
+                "Total β-hCG",
+                "AMH",
+                "Estradiol",
+                "Progesterone",
+                "Testosterone"
+            ],
+            "bone_marker": [
+                "25-OH Vitamin D",
+                "PTH",
+                "CT",
+                "N-MID"
+            ],
+            "anemia": [
+                "Vitamin B12",
+                "Ferritin",
+                "Folate"
+            ]
+        },
+        "tender_positioning": {
+            "recommended_for": [
+                "Mid to high workload laboratories",
+                "Emergency immunoassay testing",
+                "Hospital laboratories",
+                "Reference labs"
+            ],
+            "key_strengths": [
+                "Random access e-CLIA technology",
+                "Low sample volume requirement",
+                "Strong analytical sensitivity",
+                "Broad assay menu"
+            ]
+        }
+    }
+]

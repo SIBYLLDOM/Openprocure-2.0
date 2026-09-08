@@ -1,0 +1,329 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Semi Automated Biochemistry Analyzer",
+        "product_code": "SAACNM-01",
+        "instrument_name": "CliniQuant Micro",
+        "role": "variant",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 64000,
+            "foc_reagents_mrp_rs": "10000/unit",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "assay_modes": [
+                "Absorbance",
+                "End Point",
+                "Fixed Time",
+                "Rate",
+                "Sample Blank",
+                "Multi Standard",
+                "Two Point Non Linear",
+                "Sample Blank Non Linear"
+            ],
+            "sample_types": [
+                "Serum",
+                "Urine",
+                "Plasma",
+                "Body Fluids",
+                "Hemolysate"
+            ],
+            "light_source": "6 V, 10 W Quartz Halogen Lamp (Life span approx. 2000 hours)",
+            "measurement_method": [
+                "Monochromatic",
+                "Bichromatic"
+            ],
+            "photodiode": "Silicon photodiode",
+            "wavelengths_nm": [
+                340,
+                405,
+                505,
+                546,
+                578,
+                620
+            ],
+            "free_filter_positions": 2,
+            "absorbance_range": "0 – 2.5 Abs",
+            "resolution": "0.0001",
+            "testware": "Quartz Flowcell",
+            "flowcell_volume_ul": 32,
+            "display": "240 x 128 pixel blue color graphical LCD with LED backlight",
+            "storage": {
+                "test_data": 25600,
+                "qc_data_duration": "3 Months"
+            },
+            "quality_control": "Daily and Monthly for 3 levels with Levy Jennings graph",
+            "air_aspiration_volume_ul": "Variable 0 – 50 µL",
+            "cross_contamination": "< 1%",
+            "pc_communication": "9 pin D type Serial Connector (RS232)",
+            "pc_software": "Optional",
+            "memory": "FLASH",
+            "temperature_control": "25°C, 30°C, 37°C (Accuracy ±0.1°C) using Peltier control",
+            "operating_voltage": "230 V, 50 Hz, 45 W max",
+            "dimensions_mm": {
+                "width": 245,
+                "depth": 273,
+                "height": 299
+            },
+            "weight_kg": 10
+        },
+        "features": {
+            "accurate_and_reliable": [
+                "3 levels of QC with Levy Jennings plot",
+                "Resolution of 0.0001 for detecting minute OD changes",
+                "High sensitivity for specialized assays",
+                "Automatic air purging facility"
+            ],
+            "versatile_and_flexible": [
+                "Multipoint calibration in any assay mode",
+                "100 programmable channels",
+                "Dynamic temperature control using Peltier elements"
+            ],
+            "unique_and_competitive": [
+                "Recal function for kinetic assays using linear phase selection",
+                "Low minimum reaction volume of 350 µL",
+                "Ideal for pediatric samples",
+                "Carryover elimination using air gap aspiration"
+            ],
+            "efficient_and_user_friendly": [
+                "Integrated interactive software with direct test icon access",
+                "In-built thermal printer",
+                "RS232 port for PC communication",
+                "User-friendly operation"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Small and medium laboratories",
+                "Cost-sensitive tenders",
+                "Pediatric sample testing"
+            ],
+            "key_advantages_over_base": [
+                "Lower price point",
+                "Compact design",
+                "Lower power consumption"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Semi Automated Biochemistry Analyzer",
+        "product_code": "SAACNM-01",
+        "instrument_name": "CliniQuant Micro",
+        "role": "variant",
+        "commercial_details": {
+            "slab_quantity": 3,
+            "price_per_unit_rs": 61000,
+            "foc_reagents_mrp_rs": "10000/unit",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "assay_modes": [
+                "Absorbance",
+                "End Point",
+                "Fixed Time",
+                "Rate",
+                "Sample Blank",
+                "Multi Standard",
+                "Two Point Non Linear",
+                "Sample Blank Non Linear"
+            ],
+            "sample_types": [
+                "Serum",
+                "Urine",
+                "Plasma",
+                "Body Fluids",
+                "Hemolysate"
+            ],
+            "light_source": "6 V, 10 W Quartz Halogen Lamp (Life span approx. 2000 hours)",
+            "measurement_method": [
+                "Monochromatic",
+                "Bichromatic"
+            ],
+            "photodiode": "Silicon photodiode",
+            "wavelengths_nm": [
+                340,
+                405,
+                505,
+                546,
+                578,
+                620
+            ],
+            "free_filter_positions": 2,
+            "absorbance_range": "0 – 2.5 Abs",
+            "resolution": "0.0001",
+            "testware": "Quartz Flowcell",
+            "flowcell_volume_ul": 32,
+            "display": "240 x 128 pixel blue color graphical LCD with LED backlight",
+            "storage": {
+                "test_data": 25600,
+                "qc_data_duration": "3 Months"
+            },
+            "quality_control": "Daily and Monthly for 3 levels with Levy Jennings graph",
+            "air_aspiration_volume_ul": "Variable 0 – 50 µL",
+            "cross_contamination": "< 1%",
+            "pc_communication": "9 pin D type Serial Connector (RS232)",
+            "pc_software": "Optional",
+            "memory": "FLASH",
+            "temperature_control": "25°C, 30°C, 37°C (Accuracy ±0.1°C) using Peltier control",
+            "operating_voltage": "230 V, 50 Hz, 45 W max",
+            "dimensions_mm": {
+                "width": 245,
+                "depth": 273,
+                "height": 299
+            },
+            "weight_kg": 10
+        },
+        "features": {
+            "accurate_and_reliable": [
+                "3 levels of QC with Levy Jennings plot",
+                "Resolution of 0.0001 for detecting minute OD changes",
+                "High sensitivity for specialized assays",
+                "Automatic air purging facility"
+            ],
+            "versatile_and_flexible": [
+                "Multipoint calibration in any assay mode",
+                "100 programmable channels",
+                "Dynamic temperature control using Peltier elements"
+            ],
+            "unique_and_competitive": [
+                "Recal function for kinetic assays using linear phase selection",
+                "Low minimum reaction volume of 350 µL",
+                "Ideal for pediatric samples",
+                "Carryover elimination using air gap aspiration"
+            ],
+            "efficient_and_user_friendly": [
+                "Integrated interactive software with direct test icon access",
+                "In-built thermal printer",
+                "RS232 port for PC communication",
+                "User-friendly operation"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Small and medium laboratories",
+                "Cost-sensitive tenders",
+                "Pediatric sample testing"
+            ],
+            "key_advantages_over_base": [
+                "Lower price point",
+                "Compact design",
+                "Lower power consumption"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Semi Automated Biochemistry Analyzer",
+        "product_code": "SAACNM-01",
+        "instrument_name": "CliniQuant Micro",
+        "role": "variant",
+        "commercial_details": {
+            "slab_quantity": 5,
+            "price_per_unit_rs": 58000,
+            "foc_reagents_mrp_rs": "10000/unit",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "assay_modes": [
+                "Absorbance",
+                "End Point",
+                "Fixed Time",
+                "Rate",
+                "Sample Blank",
+                "Multi Standard",
+                "Two Point Non Linear",
+                "Sample Blank Non Linear"
+            ],
+            "sample_types": [
+                "Serum",
+                "Urine",
+                "Plasma",
+                "Body Fluids",
+                "Hemolysate"
+            ],
+            "light_source": "6 V, 10 W Quartz Halogen Lamp (Life span approx. 2000 hours)",
+            "measurement_method": [
+                "Monochromatic",
+                "Bichromatic"
+            ],
+            "photodiode": "Silicon photodiode",
+            "wavelengths_nm": [
+                340,
+                405,
+                505,
+                546,
+                578,
+                620
+            ],
+            "free_filter_positions": 2,
+            "absorbance_range": "0 – 2.5 Abs",
+            "resolution": "0.0001",
+            "testware": "Quartz Flowcell",
+            "flowcell_volume_ul": 32,
+            "display": "240 x 128 pixel blue color graphical LCD with LED backlight",
+            "storage": {
+                "test_data": 25600,
+                "qc_data_duration": "3 Months"
+            },
+            "quality_control": "Daily and Monthly for 3 levels with Levy Jennings graph",
+            "air_aspiration_volume_ul": "Variable 0 – 50 µL",
+            "cross_contamination": "< 1%",
+            "pc_communication": "9 pin D type Serial Connector (RS232)",
+            "pc_software": "Optional",
+            "memory": "FLASH",
+            "temperature_control": "25°C, 30°C, 37°C (Accuracy ±0.1°C) using Peltier control",
+            "operating_voltage": "230 V, 50 Hz, 45 W max",
+            "dimensions_mm": {
+                "width": 245,
+                "depth": 273,
+                "height": 299
+            },
+            "weight_kg": 10
+        },
+        "features": {
+            "accurate_and_reliable": [
+                "3 levels of QC with Levy Jennings plot",
+                "Resolution of 0.0001 for detecting minute OD changes",
+                "High sensitivity for specialized assays",
+                "Automatic air purging facility"
+            ],
+            "versatile_and_flexible": [
+                "Multipoint calibration in any assay mode",
+                "100 programmable channels",
+                "Dynamic temperature control using Peltier elements"
+            ],
+            "unique_and_competitive": [
+                "Recal function for kinetic assays using linear phase selection",
+                "Low minimum reaction volume of 350 µL",
+                "Ideal for pediatric samples",
+                "Carryover elimination using air gap aspiration"
+            ],
+            "efficient_and_user_friendly": [
+                "Integrated interactive software with direct test icon access",
+                "In-built thermal printer",
+                "RS232 port for PC communication",
+                "User-friendly operation"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Small and medium laboratories",
+                "Cost-sensitive tenders",
+                "Pediatric sample testing"
+            ],
+            "key_advantages_over_base": [
+                "Lower price point",
+                "Compact design",
+                "Lower power consumption"
+            ]
+        }
+    }
+]

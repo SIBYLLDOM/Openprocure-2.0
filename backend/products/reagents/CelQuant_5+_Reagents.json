@@ -1,0 +1,138 @@
+[
+    {
+        "category": "CelQuant 5 plus Reagents",
+        "sub_category": "CelQuant 5+ Reagents",
+        "product_code": "BDFCCR-02",
+        "product_name": "Diluent (5PDA) - Sample dilution, rinsing and sheath formation",
+        "pack_size": "20 L",
+        "pricing": {
+            "mrp": 6720,
+            "ctp": 1700
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "CelQuant 5 plus Reagents",
+        "sub_category": "CelQuant 5+ Reagents",
+        "product_code": "FBHCCR-01",
+        "product_name": "FBH Lyse - Dissolve RBCs, platelets, combined with hemoglobin and remove cell membrane of WBCs (exclude basophil)",
+        "pack_size": "500 mL",
+        "pricing": {
+            "mrp": 25200,
+            "ctp": 6375
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "CelQuant 5 plus Reagents",
+        "sub_category": "CelQuant 5+ Reagents",
+        "product_code": "FDOCCR-02",
+        "product_name": "FDOI Lyse - Staining of WBCs and firming reagent",
+        "pack_size": "500 mL",
+        "pricing": {
+            "mrp": 6050,
+            "ctp": 1530
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "CelQuant 5 plus Reagents",
+        "sub_category": "CelQuant 5+ Reagents",
+        "product_code": "FDTCCR-02",
+        "product_name": "FDTI Lyse - Dissolve RBCs and specialize different types of WBCs",
+        "pack_size": "200 mL",
+        "pricing": {
+            "mrp": 7800,
+            "ctp": 1972
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "CelQuant 5 plus Reagents",
+        "sub_category": "CelQuant 5+ Reagents",
+        "product_code": "DETCCR-05",
+        "product_name": "CelQuant-5 Detergent",
+        "pack_size": "4 x 100 mL",
+        "pricing": {
+            "mrp": 9410,
+            "ctp": 2380
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "CelQuant 5 plus Reagents",
+        "sub_category": "CelQuant 5+ Reagents",
+        "product_code": "CRLCCR-02",
+        "product_name": "CONTROL LEVEL 1",
+        "pack_size": "2.5 mL",
+        "pricing": {
+            "mrp": 15830,
+            "ctp": 4005
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "CelQuant 5 plus Reagents",
+        "sub_category": "CelQuant 5+ Reagents",
+        "product_code": "CRNCCR-02",
+        "product_name": "CONTROL LEVEL 2",
+        "pack_size": "2.5 mL",
+        "pricing": {
+            "mrp": 15830,
+            "ctp": 4005
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "CelQuant 5 plus Reagents",
+        "sub_category": "CelQuant 5+ Reagents",
+        "product_code": "CRHCCR-02",
+        "product_name": "CONTROL LEVEL 3",
+        "pack_size": "2.5 mL",
+        "pricing": {
+            "mrp": 15830,
+            "ctp": 4005
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

@@ -1,0 +1,121 @@
+[
+    {
+        "category": "ProvisoNephelometry",
+        "sub_category": "PRV",
+        "product_code": "MALPRV-01",
+        "product_name": "MicroAlbumin",
+        "pack_size": "25 Tests",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "ProvisoNephelometry",
+        "sub_category": "PRV",
+        "product_code": "HBAPRV-01",
+        "product_name": "HbA1c",
+        "pack_size": "25 Tests",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "ProvisoNephelometry",
+        "sub_category": "PRV",
+        "product_code": "RHFPRV-01",
+        "product_name": "RF",
+        "pack_size": "25 Tests",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "ProvisoNephelometry",
+        "sub_category": "PRV",
+        "product_code": "ASOPRV-01",
+        "product_name": "ASO",
+        "pack_size": "25 Tests",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "ProvisoNephelometry",
+        "sub_category": "PRV",
+        "product_code": "FRTPRV-01",
+        "product_name": "Ferritin",
+        "pack_size": "25 Tests",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "ProvisoNephelometry",
+        "sub_category": "PRV",
+        "product_code": "CRPPRV-01",
+        "product_name": "CRP",
+        "pack_size": "25 Tests",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "ProvisoNephelometry",
+        "sub_category": "PRV",
+        "product_code": "DDRPRV-01",
+        "product_name": "D-Dimer",
+        "pack_size": "25 Tests",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

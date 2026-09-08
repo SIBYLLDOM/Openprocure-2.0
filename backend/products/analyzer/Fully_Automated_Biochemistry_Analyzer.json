@@ -1,0 +1,1336 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Fully Automated Biochemistry Analyzer",
+        "product_code": "SAACNQ-06",
+        "instrument_name": "CliniQuant PRO",
+        "brand": "Meril",
+        "model_name": "CliniQuant PRO",
+        "automation_level": "Fully Automatic",
+        "analyzer_type": "Discrete Analyzer",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 100000,
+            "foc_reagents_mrp_rs": "10000/unit",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "assay_category": "Clinical Chemistry",
+            "assay_modes": [
+                "Absorbance",
+                "End Point",
+                "Fixed Time",
+                "Rate",
+                "Sample Blank",
+                "Multi Standard"
+            ],
+            "wavelength_range_nm": "340 – 700",
+            "filters": {
+                "number_of_filters": 7,
+                "range_nm": "340 – 670"
+            },
+            "absorbance_range": "0 – 3.0",
+            "storage_capacity_results": 25600,
+            "programmable_channels": 200,
+            "display": "5.7 inch Color TFT Touchscreen",
+            "power_supply": "110V – 240V",
+            "connectivity": [
+                "USB for PC (Desktop) communication",
+                "Built-in software"
+            ],
+            "quality_control": {
+                "qc_levels": 3,
+                "qc_frequency": [
+                    "Daily",
+                    "Monthly"
+                ],
+                "qc_tools": [
+                    "Levy Jennings graph"
+                ],
+                "qc_data_storage_duration": "3 Months"
+            },
+            "reports": {
+                "features": [
+                    "Gender-wise patient reports",
+                    "Flag alerts",
+                    "Sample ID tagging"
+                ]
+            },
+            "functions": [
+                "Recal function",
+                "Rerun function"
+            ],
+            "printer": "In-built 384 dot Thermal Printer"
+        },
+        "features": {
+            "performance": [
+                "High precision biochemical analysis",
+                "Open system flexibility",
+                "Multi-mode assay capability"
+            ],
+            "efficiency": [
+                "Saves reagent consumption",
+                "Reduces turnaround time",
+                "Supports automation for routine testing"
+            ],
+            "user_experience": [
+                "Large touch screen with easy navigation",
+                "On-the-spot report printing",
+                "Minimal manual intervention"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Small to mid-sized laboratories",
+                "Labs upgrading from semi-automated analyzers",
+                "Automation-focused tenders"
+            ],
+            "key_strengths": [
+                "Fully automated operation",
+                "Wide wavelength coverage",
+                "High data storage capacity",
+                "Advanced QC and reporting"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Fully Automated Biochemistry Analyzer",
+        "product_code": "SAACNQ-06",
+        "instrument_name": "CliniQuant PRO",
+        "brand": "Meril",
+        "model_name": "CliniQuant PRO",
+        "automation_level": "Fully Automatic",
+        "analyzer_type": "Discrete Analyzer",
+        "commercial_details": {
+            "slab_quantity": 3,
+            "price_per_unit_rs": 95000,
+            "foc_reagents_mrp_rs": "10000/unit",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "assay_category": "Clinical Chemistry",
+            "assay_modes": [
+                "Absorbance",
+                "End Point",
+                "Fixed Time",
+                "Rate",
+                "Sample Blank",
+                "Multi Standard"
+            ],
+            "wavelength_range_nm": "340 – 700",
+            "filters": {
+                "number_of_filters": 7,
+                "range_nm": "340 – 670"
+            },
+            "absorbance_range": "0 – 3.0",
+            "storage_capacity_results": 25600,
+            "programmable_channels": 200,
+            "display": "5.7 inch Color TFT Touchscreen",
+            "power_supply": "110V – 240V",
+            "connectivity": [
+                "USB for PC communication",
+                "Built-in software"
+            ],
+            "quality_control": {
+                "qc_levels": 3,
+                "qc_frequency": [
+                    "Daily",
+                    "Monthly"
+                ],
+                "qc_tools": [
+                    "Levy Jennings graph"
+                ],
+                "qc_data_storage_duration": "3 Months"
+            },
+            "reports": {
+                "features": [
+                    "Gender-wise patient reports",
+                    "Flag alerts",
+                    "Sample ID tagging"
+                ]
+            },
+            "functions": [
+                "Recal function",
+                "Rerun function"
+            ],
+            "printer": "In-built 384 dot Thermal Printer"
+        },
+        "features": {
+            "performance": [
+                "High precision biochemical analysis",
+                "Open system flexibility",
+                "Multi-mode assay capability"
+            ],
+            "efficiency": [
+                "Saves reagent consumption",
+                "Reduces turnaround time",
+                "Supports automation for routine testing"
+            ],
+            "user_experience": [
+                "Large touch screen with easy navigation",
+                "On-the-spot report printing",
+                "Minimal manual intervention"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Small to mid-sized laboratories",
+                "Labs upgrading from semi-automated analyzers",
+                "Automation-focused tenders"
+            ],
+            "key_strengths": [
+                "Fully automated operation",
+                "Wide wavelength coverage",
+                "High data storage capacity",
+                "Advanced QC and reporting"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Fully Automated Biochemistry Analyzer",
+        "product_code": "FAAAQ1C-01",
+        "instrument_name": "AutoQuant 100 Amara",
+        "brand": "Meril",
+        "model_name": "AutoQuant 100 Amara",
+        "automation_level": "Fully Automatic",
+        "analyzer_type": "Discrete Analyzer",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 300000,
+            "foc_reagents_mrp_rs": "30000",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "throughput": "120 tests per hour",
+            "analysis_methods": [
+                "End Point",
+                "Fixed Time (2-point)",
+                "Kinetic Rate-A",
+                "Kinetic Rate-B"
+            ],
+            "assay_modes": [
+                "Colorimetry",
+                "Turbidimetry",
+                "Single reagent",
+                "Double reagent",
+                "Multi-standard",
+                "Monochromatic",
+                "Bichromatic"
+            ],
+            "sample_and_reagent_handling": {
+                "sample_positions": 22,
+                "sample_volume_ul": "2 – 50 (0.1 µL step)",
+                "sample_dilution": "Automatic, up to 40x",
+                "reagent_positions": {
+                    "R1": 22,
+                    "R2": 22
+                },
+                "reagent_volume_ul": {
+                    "R1": "180 – 350 (1 µL step)",
+                    "R2": "0 – 350 (1 µL step)"
+                }
+            },
+            "reaction_system": {
+                "reaction_cuvettes": 60,
+                "cuvette_path_length_mm": 6.0,
+                "reaction_volume_ul": "180 – 550",
+                "reaction_temperature_c": "37 ± 0.2",
+                "cuvette_washing": "On-board laundry with 7-step washing system",
+                "water_consumption": "Approx. 3 litres/hour"
+            },
+            "optical_system": {
+                "measurement_type": "Photometry",
+                "light_source": "Halogen tungsten lamp with fiber optics",
+                "detector": "Silicon photodiode",
+                "wavelengths_nm": [
+                    340,
+                    405,
+                    450,
+                    510,
+                    546,
+                    578,
+                    620,
+                    670,
+                    700
+                ],
+                "absorbance_range": "0 – 3.0 Abs",
+                "resolution": "0.0001 Abs"
+            },
+            "calibration": {
+                "methods": [
+                    "K-Factor",
+                    "Linear (one, two, multi-point)",
+                    "Logit-log",
+                    "Spline",
+                    "Exponential",
+                    "Polynomial (2nd, 3rd, 4th order)"
+                ],
+                "auto_rerun": true,
+                "auto_execution_rules": [
+                    "Blank limit check",
+                    "Abnormal range detection",
+                    "Carryover control"
+                ]
+            },
+            "data_storage": {
+                "test_results": "Unlimited",
+                "reaction_curves": "Unlimited",
+                "profiles": "20 per sample type",
+                "quality_control_storage": "Day-to-day X & XR control diagram (Levy-Jennings)"
+            },
+            "quality_control": {
+                "qc_method": "Multi-rule QC",
+                "calculated_parameters": [
+                    "Mean",
+                    "SD",
+                    "%CV",
+                    "R"
+                ],
+                "real_time_qc": true
+            },
+            "software_and_os": {
+                "software_features": [
+                    "Online data relay after analysis",
+                    "User-defined reflex action",
+                    "Pre-dilution & auto-dilution",
+                    "Real-time monitoring of sample tray, reagent tray and reaction cuvettes",
+                    "STAT sample priority processing",
+                    "Remote system diagnostics"
+                ],
+                "operating_system": [
+                    "Windows XP",
+                    "Windows 2007",
+                    "Windows 8",
+                    "Windows 10",
+                    "WinFix"
+                ]
+            },
+            "connectivity": {
+                "interfaces": [
+                    "RS232",
+                    "Computer interface"
+                ],
+                "output": "Multi-format printout"
+            },
+            "power_requirements": {
+                "input_voltage": "110–220V AC",
+                "frequency": "50/60 Hz",
+                "maximum_power": "250 W"
+            },
+            "operating_environment": {
+                "temperature_c": "10 – 30",
+                "humidity": "40 – 80% (non-condensing)"
+            },
+            "dimensions_mm": {
+                "width": 550,
+                "depth": 420,
+                "height": 380
+            },
+            "weight_kg": 23
+        },
+        "hardware_and_mechanical_features": {
+            "reagent_and_sample_tray": [
+                "22 refrigerated reagent positions",
+                "Barcode-enabled reagent and sample positions",
+                "Peltier cooling system (8°C – 12°C)",
+                "20 mL reagent bottles",
+                "Continuous loading supported"
+            ],
+            "probe_and_stirrer": [
+                "Hydrophobic probes to prevent cross-contamination",
+                "Internal and external probe washing",
+                "Carryover < 3%",
+                "Vertical and horizontal obstruction detection",
+                "Precision stepper-motor driven plunger",
+                "Stainless steel stirrer"
+            ],
+            "cooling_system": [
+                "Water-based cooling for Peltier",
+                "Enhanced reagent stability",
+                "Reduced heat dissipation",
+                "Extended electronic life"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "High-volume clinical laboratories",
+                "Fully automated biochemistry testing",
+                "Labs upgrading from semi-automated analyzers",
+                "STAT and routine testing environments"
+            ],
+            "key_strengths": [
+                "120 tests/hour throughput",
+                "Advanced automation with AI-driven workflows",
+                "High precision optical and liquid handling system",
+                "Robust QC, calibration and reflex testing"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Fully Automated Biochemistry Analyzer",
+        "product_code": "FAAAQ2C-01",
+        "instrument_name": "AutoQuant 200 Excelus",
+        "brand": "Meril",
+        "model_name": "AutoQuant 200 Excelus",
+        "automation_level": "Fully Automatic",
+        "analyzer_type": "Discrete Analyzer",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 400000,
+            "foc_reagents_mrp_rs": "40000",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 4 PDCs"
+        },
+        "technical_specifications": {
+            "throughput": {
+                "single_reagent": "Up to 240 tests/hour",
+                "double_reagent": "Up to 200 tests/hour",
+                "ise": "Optional"
+            },
+            "analysis_methods": [
+                "End Point",
+                "Fixed Time (2-point)",
+                "Kinetic Rate-A",
+                "Kinetic Rate-B"
+            ],
+            "assay_modes": [
+                "Colorimetry",
+                "Turbidimetry",
+                "Single reagent",
+                "Double reagent",
+                "Multi-standard",
+                "Monochromatic",
+                "Bichromatic"
+            ],
+            "sample_and_reagent_handling": {
+                "sample_positions": 30,
+                "sample_volume_ul": "2 – 50 (0.1 µL step)",
+                "sample_dilution": "Automatic, up to 40x",
+                "reagent_positions": {
+                    "R1": 30,
+                    "R2": 30
+                },
+                "reagent_volume_ul": {
+                    "R1": "180 – 350 (1 µL step)",
+                    "R2": "0 – 350 (1 µL step)"
+                }
+            },
+            "reaction_system": {
+                "reaction_cuvettes": 60,
+                "cuvette_path_length_mm": 6.0,
+                "reaction_volume_ul": "180 – 550",
+                "reaction_temperature_c": "37 ± 0.2",
+                "cuvette_washing": "On-board laundry with 7-step washing system",
+                "water_consumption": "5 – 6 litres/hour"
+            },
+            "optical_system": {
+                "measurement_type": "Photometry",
+                "light_source": "Halogen tungsten lamp with fiber optics",
+                "detector": "Silicon photodiode",
+                "wavelengths_nm": [
+                    340,
+                    405,
+                    450,
+                    510,
+                    546,
+                    578,
+                    620,
+                    670,
+                    700
+                ],
+                "absorbance_range": "0 – 3.0 Abs",
+                "resolution": "0.0001 Abs"
+            },
+            "calibration": {
+                "methods": [
+                    "K-Factor",
+                    "Linear (one, two, multi-point)",
+                    "Logit-log",
+                    "Spline",
+                    "Exponential",
+                    "Polynomial (2nd, 3rd, 4th order)"
+                ],
+                "auto_rerun": true,
+                "auto_execution_rules": [
+                    "Blank limit check",
+                    "Abnormal range detection",
+                    "Carryover control"
+                ]
+            },
+            "data_storage": {
+                "test_results": "Unlimited",
+                "reaction_curves": "Unlimited",
+                "profiles": "20 per sample type",
+                "quality_control_storage": "Day-to-day X & XR control diagram (Levy-Jennings)"
+            },
+            "quality_control": {
+                "qc_method": "Multi-rule QC",
+                "calculated_parameters": [
+                    "Mean",
+                    "SD",
+                    "%CV",
+                    "R"
+                ],
+                "real_time_qc": true
+            },
+            "software_and_os": {
+                "software_features": [
+                    "Online relay for all chemistry types",
+                    "User-defined reflex action",
+                    "Pre-dilution & auto-dilution",
+                    "Real-time monitoring of sample tray",
+                    "Reagent tray and inventory management",
+                    "STAT samples can be placed at any position",
+                    "Remote system diagnostics"
+                ],
+                "operating_system": [
+                    "Windows XP",
+                    "Windows 7",
+                    "Windows 8",
+                    "Windows 10",
+                    "WinFix"
+                ]
+            },
+            "connectivity": {
+                "interfaces": [
+                    "RS232",
+                    "Computer interface"
+                ],
+                "output": "Multi-format printout"
+            },
+            "power_requirements": {
+                "input_voltage": "110–220V AC",
+                "frequency": "50/60 Hz",
+                "maximum_power": "250 W"
+            },
+            "operating_environment": {
+                "temperature_c": "10 – 30",
+                "humidity": "40 – 80% (non-condensing)"
+            },
+            "dimensions_mm": {
+                "width": 550,
+                "depth": 420,
+                "height": 380
+            },
+            "weight_kg": 23
+        },
+        "hardware_and_mechanical_features": {
+            "reagent_and_sample_tray": [
+                "30 refrigerated reagent positions",
+                "30 sample positions arranged concentrically",
+                "Barcode-enabled reagent and sample positions",
+                "Peltier cooling system (8°C – 12°C)",
+                "20 mL reagent bottles",
+                "Continuous loading supported"
+            ],
+            "probe_and_stirrer": [
+                "Hydrophobic probes preventing cross-contamination",
+                "Internal and external probe washing",
+                "Carryover < 3%",
+                "Vertical and horizontal obstruction detection",
+                "Precision stepper-motor driven plunger",
+                "Single Teflon-coated stirrer"
+            ],
+            "cooling_system": [
+                "Water-based cooling for Peltier",
+                "Enhanced reagent stability",
+                "Reduced internal heat dissipation",
+                "Extended electronic life"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "High-throughput clinical laboratories",
+                "Routine and STAT biochemistry testing",
+                "Laboratories upgrading to mid–high throughput automation"
+            ],
+            "key_strengths": [
+                "Up to 240 tests/hour throughput",
+                "Flexible reagent and sample handling",
+                "Advanced reflex and STAT processing",
+                "Robust optical and liquid handling system"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Fully Automated Biochemistry Analyzer",
+        "product_code": "FAAAQ2C-01",
+        "instrument_name": "AutoQuant 200 Excelus",
+        "brand": "Meril",
+        "model_name": "AutoQuant 200 Excelus",
+        "automation_level": "Fully Automatic",
+        "analyzer_type": "Discrete Analyzer",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 400000,
+            "foc_reagents_mrp_rs": "40000",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 4 PDCs"
+        },
+        "technical_specifications": {
+            "throughput": {
+                "single_reagent": "Up to 240 tests/hour",
+                "double_reagent": "Up to 200 tests/hour",
+                "ise": "Optional"
+            },
+            "analysis_methods": [
+                "End Point",
+                "Fixed Time (2-point)",
+                "Kinetic Rate-A",
+                "Kinetic Rate-B"
+            ],
+            "assay_modes": [
+                "Colorimetry",
+                "Turbidimetry",
+                "Single reagent",
+                "Double reagent",
+                "Multi-standard",
+                "Monochromatic",
+                "Bichromatic"
+            ],
+            "sample_and_reagent_handling": {
+                "sample_positions": 30,
+                "sample_volume_ul": "2 – 50 (0.1 µL step)",
+                "sample_dilution": "Automatic, up to 40x",
+                "reagent_positions": {
+                    "R1": 30,
+                    "R2": 30
+                },
+                "reagent_volume_ul": {
+                    "R1": "180 – 350 (1 µL step)",
+                    "R2": "0 – 350 (1 µL step)"
+                }
+            },
+            "reaction_system": {
+                "reaction_cuvettes": 60,
+                "cuvette_path_length_mm": 6.0,
+                "reaction_volume_ul": "180 – 550",
+                "reaction_temperature_c": "37 ± 0.2",
+                "cuvette_washing": "On-board laundry with 7-step washing system",
+                "water_consumption": "5 – 6 litres/hour"
+            },
+            "optical_system": {
+                "measurement_type": "Photometry",
+                "light_source": "Halogen tungsten lamp with fiber optics",
+                "detector": "Silicon photodiode",
+                "wavelengths_nm": [
+                    340,
+                    405,
+                    450,
+                    510,
+                    546,
+                    578,
+                    620,
+                    670,
+                    700
+                ],
+                "absorbance_range": "0 – 3.0 Abs",
+                "resolution": "0.0001 Abs"
+            },
+            "calibration": {
+                "methods": [
+                    "K-Factor",
+                    "Linear (one, two, multi-point)",
+                    "Logit-log",
+                    "Spline",
+                    "Exponential",
+                    "Polynomial (2nd, 3rd, 4th order)"
+                ],
+                "auto_rerun": true,
+                "auto_execution_rules": [
+                    "Blank limit check",
+                    "Abnormal range detection",
+                    "Carryover control"
+                ]
+            },
+            "data_storage": {
+                "test_results": "Unlimited",
+                "reaction_curves": "Unlimited",
+                "profiles": "20 per sample type",
+                "quality_control_storage": "Day-to-day X & XR control diagram (Levy-Jennings)"
+            },
+            "quality_control": {
+                "qc_method": "Multi-rule QC",
+                "calculated_parameters": [
+                    "Mean",
+                    "SD",
+                    "%CV",
+                    "R"
+                ],
+                "real_time_qc": true
+            },
+            "software_and_os": {
+                "software_features": [
+                    "Online relay for all chemistry types",
+                    "User-defined reflex action",
+                    "Pre-dilution & auto-dilution",
+                    "Real-time monitoring of sample tray",
+                    "Reagent tray and inventory management",
+                    "STAT samples can be placed at any position",
+                    "Remote system diagnostics"
+                ],
+                "operating_system": [
+                    "Windows XP",
+                    "Windows 7",
+                    "Windows 8",
+                    "Windows 10",
+                    "WinFix"
+                ]
+            },
+            "connectivity": {
+                "interfaces": [
+                    "RS232",
+                    "Computer interface"
+                ],
+                "output": "Multi-format printout"
+            },
+            "power_requirements": {
+                "input_voltage": "110–220V AC",
+                "frequency": "50/60 Hz",
+                "maximum_power": "250 W"
+            },
+            "operating_environment": {
+                "temperature_c": "10 – 30",
+                "humidity": "40 – 80% (non-condensing)"
+            },
+            "dimensions_mm": {
+                "width": 550,
+                "depth": 420,
+                "height": 380
+            },
+            "weight_kg": 23
+        },
+        "hardware_and_mechanical_features": {
+            "reagent_and_sample_tray": [
+                "30 refrigerated reagent positions",
+                "30 sample positions arranged concentrically",
+                "Barcode-enabled reagent and sample positions",
+                "Peltier cooling system (8°C – 12°C)",
+                "20 mL reagent bottles",
+                "Continuous loading supported"
+            ],
+            "probe_and_stirrer": [
+                "Hydrophobic probes preventing cross-contamination",
+                "Internal and external probe washing",
+                "Carryover < 3%",
+                "Vertical and horizontal obstruction detection",
+                "Precision stepper-motor driven plunger",
+                "Single Teflon-coated stirrer"
+            ],
+            "cooling_system": [
+                "Water-based cooling for Peltier",
+                "Enhanced reagent stability",
+                "Reduced internal heat dissipation",
+                "Extended electronic life"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "High-throughput clinical laboratories",
+                "Routine and STAT biochemistry testing",
+                "Laboratories upgrading to mid–high throughput automation"
+            ],
+            "key_strengths": [
+                "Up to 240 tests/hour throughput",
+                "Flexible reagent and sample handling",
+                "Advanced reflex and STAT processing",
+                "Robust optical and liquid handling system"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Fully Automated Biochemistry Analyzer",
+        "product_code": "FAAAQ4-01",
+        "instrument_name": "AutoQuant 400 Supremus",
+        "brand": "Meril",
+        "model_name": "AutoQuant 400 Supremus",
+        "automation_level": "Fully Automatic",
+        "analyzer_type": "Discrete Analyzer",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 700000,
+            "foc_reagents_mrp_rs": "70000",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 5 PDCs"
+        },
+        "technical_specifications": {
+            "throughput": {
+                "photometry": "Up to 400 tests/hour",
+                "ise_optional": "Up to 520 tests/hour"
+            },
+            "analysis_methods": [
+                "End Point",
+                "Fixed Time",
+                "Kinetic Rate-A",
+                "Kinetic Rate-B"
+            ],
+            "assay_modes": [
+                "Colorimetry",
+                "Turbidimetry",
+                "Single reagent",
+                "Double reagent",
+                "Multi-standard",
+                "Monochromatic",
+                "Bichromatic"
+            ],
+            "sample_unit": {
+                "tray_type": "Turn table sample tray",
+                "sample_positions": 75,
+                "stat_sampling": "Any position",
+                "sample_volume_ul": "2 – 50 (0.1 µL step)",
+                "sample_dilution": "Automatic up to 40x",
+                "sample_probe_features": [
+                    "Vertical & horizontal obstruction detection",
+                    "Liquid level sensor",
+                    "External & internal washing with de-ionized water"
+                ],
+                "barcode": "Barcode scanning for sample identification"
+            },
+            "reagent_unit": {
+                "tray_type": "Turn table reagent tray",
+                "reagent_positions": {
+                    "R1": 60,
+                    "R2": 60
+                },
+                "reagent_temperature": "8°C – 12°C (Peltier cooling)",
+                "reagent_volume_ul": {
+                    "R1": "180 – 350 (1 µL step)",
+                    "R2": "0 – 350 (1 µL step)"
+                },
+                "reagent_probe_features": [
+                    "Hydrophobic probes",
+                    "Liquid level sensor",
+                    "External & internal washing",
+                    "Carryover < 1%"
+                ]
+            },
+            "reaction_system": {
+                "reaction_cuvettes": 80,
+                "reaction_temperature_c": "37 ± 0.2",
+                "reaction_time_seconds": "30 – 600",
+                "cuvette_path_length_mm": 6.0,
+                "reaction_volume_ul": "180 – 550",
+                "cuvette_washing": "7-step on-board washing system",
+                "water_consumption": "Approx. 9 litres/hour",
+                "blank_checking": "Continuous cuvette blank checking with auto-skip"
+            },
+            "optical_system": {
+                "measurement_type": "Photometry",
+                "light_source": "Halogen tungsten lamp",
+                "detector": "Silicon photodiode",
+                "optical_design": "Spectrometer with fiber optics",
+                "wavelengths_nm": [
+                    340,
+                    405,
+                    450,
+                    510,
+                    546,
+                    578,
+                    620,
+                    670,
+                    700
+                ],
+                "absorbance_range": "0 – 3.0 Abs",
+                "resolution": "0.0001 Abs"
+            },
+            "calibration": {
+                "methods": [
+                    "K-Factor",
+                    "Linear (one & multi-point)",
+                    "Logit-log",
+                    "Spline",
+                    "Exponential",
+                    "Polynomial"
+                ],
+                "auto_rerun": true,
+                "quality_control_graphs": [
+                    "Levy-Jennings (X & XR)"
+                ]
+            },
+            "data_storage": {
+                "test_results": "Up to 1,000,000",
+                "reaction_curves": "Unlimited",
+                "profiles": "20 per sample type"
+            },
+            "quality_control": {
+                "qc_method": "Multi-rule QC",
+                "calculated_parameters": [
+                    "Mean",
+                    "SD",
+                    "%CV",
+                    "R"
+                ],
+                "real_time_qc": true
+            },
+            "process_management": {
+                "reflex_testing": true,
+                "online_monitoring": [
+                    "Reaction curves",
+                    "Calibration curves",
+                    "Operational status"
+                ],
+                "inventory_management": [
+                    "Reagent tray",
+                    "Reaction cuvettes"
+                ],
+                "alerts": [
+                    "Sample depletion",
+                    "Reagent depletion",
+                    "Waste container full",
+                    "Water supply error"
+                ]
+            },
+            "connectivity": {
+                "interfaces": [
+                    "RS232",
+                    "Computer interface"
+                ],
+                "output": "Multi-format printout"
+            },
+            "power_requirements": {
+                "input_voltage": "110–220V AC",
+                "frequency": "50/60 Hz",
+                "maximum_power": "250 W"
+            },
+            "operating_environment": {
+                "temperature_c": "15 – 30",
+                "humidity": "40 – 80% (non-condensing)"
+            },
+            "dimensions_mm": {
+                "width": 790,
+                "depth": 640,
+                "height": 610
+            },
+            "weight_kg": 60
+        },
+        "hardware_and_software_features": {
+            "accuracy_and_precision": [
+                "On-board cooling and laundry system",
+                "Optional three-different wash for forbidden pairs to minimize carryover",
+                "Ceramic block piston for high precision volume measurement"
+            ],
+            "efficiency": [
+                "Separate probes for R1, R2 and Sample",
+                "Optimized total turnaround time (TAT)",
+                "High throughput photometry"
+            ],
+            "smart_management": [
+                "Dual stirring probes with liquid level sensor",
+                "Auto-dilution for range-over samples",
+                "STAT priority sample processing"
+            ],
+            "ease_of_operation": [
+                "Windows-based software",
+                "Compact standalone design",
+                "User-friendly interface"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "High-volume reference laboratories",
+                "Central labs with heavy routine workload",
+                "STAT and specialized biochemistry testing"
+            ],
+            "key_strengths": [
+                "Up to 400 tests/hour throughput",
+                "80 reaction cuvettes",
+                "Advanced optical spectrometer system",
+                "Robust automation with low carryover"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Fully Automated Biochemistry Analyzer",
+        "product_code": "",
+        "instrument_name": "Merilyzer AutoQuant 1200",
+        "manufacturer": "Meril Diagnostics",
+        "application": "Clinical Biochemistry",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": null,
+            "foc_reagents_mrp_rs": null,
+            "warranty_years": null,
+            "payment_terms": null
+        },
+        "throughput_and_productivity": {
+            "tests_per_hour": {
+                "biochemistry": 800,
+                "with_ise": 1200
+            },
+            "stat_support": true,
+            "stat_processing": "STAT samples processed with priority on any position",
+            "reaction_cycle_type": "Discrete"
+        },
+        "sample_and_reagent_handling": {
+            "sample_tray": {
+                "sample_positions": 87,
+                "calibrator_positions": 25,
+                "qc_positions": 25
+            },
+            "sample_identification": [
+                "Barcode",
+                "Non-barcode"
+            ],
+            "reagent_tray": {
+                "total_positions": 114,
+                "inside_positions": 45,
+                "outside_positions": 69,
+                "supported_bottle_sizes_ml": [
+                    20,
+                    70
+                ]
+            },
+            "reagent_volume_ul": {
+                "min": 10,
+                "max": 450,
+                "step_size_ul": 0.5
+            }
+        },
+        "optical_system": {
+            "photometer_type": "Grating Photometer",
+            "light_source": "Tungsten Halogen Lamp",
+            "detector": "Photodiode Array",
+            "optical_path_length_mm": 5,
+            "supported_wavelengths_nm": [
+                340,
+                380,
+                405,
+                450,
+                480,
+                505,
+                546,
+                578,
+                600,
+                630,
+                660,
+                680,
+                700,
+                720,
+                750,
+                800
+            ]
+        },
+        "reaction_and_mixing_system": {
+            "reaction_cups": {
+                "material": "Quartz hard-glass",
+                "optical_path_mm": 5,
+                "total_cups": 165
+            },
+            "total_reaction_volume_ul": {
+                "min": 100,
+                "max": 350
+            },
+            "mixing_system": {
+                "type": "Triple head mixing bars",
+                "mixing_directions": [
+                    "Vertical",
+                    "Horizontal"
+                ],
+                "cleaning_cycles": 2
+            }
+        },
+        "washing_and_carryover_control": {
+            "wash_station_steps": 9,
+            "wash_method": [
+                "Deionized water wash",
+                "Waste aspiration",
+                "Drying cycle"
+            ],
+            "carryover_rate_percent": "< 0.01"
+        },
+        "quality_and_calibration": {
+            "quality_control_levels": 3,
+            "qc_frequency": [
+                "Daily",
+                "Monthly"
+            ],
+            "qc_method": "Levy Jennings graph",
+            "calibration_methods": [
+                "Linear",
+                "Multi-point",
+                "Automatic recalibration"
+            ]
+        },
+        "sample_probe_and_safety": {
+            "minimum_sample_aspiration_ul": 1.5,
+            "probe_features": [
+                "Liquid level detection",
+                "Clot detection",
+                "Pressure monitoring",
+                "Anti-collision protection",
+                "Internal and external probe washing"
+            ]
+        },
+        "data_and_connectivity": {
+            "data_processing": "External PC based processing",
+            "communication": "RS-232C",
+            "reporting": [
+                "Patient reports",
+                "QC reports",
+                "Calibration reports"
+            ]
+        },
+        "environment_and_utilities": {
+            "power_requirements": {
+                "voltage": "220–240 V AC",
+                "frequency": "50 Hz",
+                "max_power_kva": 3.0
+            },
+            "operating_conditions": {
+                "temperature_c": {
+                    "min": 15,
+                    "max": 30
+                },
+                "humidity_percent": {
+                    "min": 40,
+                    "max": 85
+                }
+            },
+            "noise_level_db": "< 58",
+            "water_consumption_lph": 20
+        },
+        "dimensions_and_weight": {
+            "dimensions_mm": {
+                "width": 1640,
+                "depth": 940,
+                "height": 1215
+            },
+            "gross_weight_kg": 500
+        },
+        "test_menu_coverage": {
+            "biochemistry_panels": [
+                "Liver Function",
+                "Renal Function",
+                "Lipid Profile",
+                "Cardiac Markers",
+                "Pancreatic Enzymes",
+                "Electrolytes (Optional ISE)",
+                "Trace Elements"
+            ],
+            "specialized_tests": [
+                "HbA1c",
+                "CRP",
+                "D-Dimer",
+                "CK-MB",
+                "Microalbumin"
+            ]
+        },
+        "tender_positioning": {
+            "recommended_for": [
+                "High throughput laboratories",
+                "Medical colleges",
+                "Corporate diagnostic chains",
+                "Government tertiary care hospitals"
+            ],
+            "key_strengths": [
+                "High throughput up to 1200 tests/hour",
+                "Ultra-low carryover <0.01%",
+                "Wide wavelength range",
+                "Advanced washing & probe safety"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Biochemistry",
+        "type": "Fully Automated Biochemistry Analyzer",
+        "product_code": "",
+        "instrument_name": "Merilyzer AutoQuant 800",
+        "manufacturer": "Meril Diagnostics",
+        "application": "Clinical Biochemistry",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": null,
+            "foc_reagents_mrp_rs": null,
+            "warranty_years": null,
+            "payment_terms": null
+        },
+        "throughput_and_productivity": {
+            "tests_per_hour": {
+                "biochemistry": 400,
+                "with_ise": 400
+            },
+            "stat_support": true,
+            "stat_processing": "STAT samples supported with priority processing",
+            "reaction_cycle_type": "Discrete"
+        },
+        "sample_and_reagent_handling": {
+            "sample_tray": {
+                "outer_tray_sample_positions": 30,
+                "inner_tray_calibrator_positions": 30,
+                "inner_tray_qc_positions": 30
+            },
+            "sample_identification": [
+                "Barcode",
+                "Non-barcode"
+            ],
+            "reagent_tray": {
+                "total_positions": 40,
+                "supported_bottle_sizes_ml": [
+                    20,
+                    70
+                ],
+                "cooling_function": "Water circulation system"
+            },
+            "reagent_volume_ul": {
+                "min": 20,
+                "max": 300,
+                "step_size_ul": 1
+            }
+        },
+        "optical_system": {
+            "photometer_type": "Grating Photometer",
+            "light_source": "20 W Halogen Lamp",
+            "detector": "Photodiode Array",
+            "optical_path_length_mm": 5,
+            "supported_wavelengths_nm": [
+                340,
+                380,
+                405,
+                450,
+                505,
+                546,
+                578,
+                600,
+                660,
+                700,
+                720,
+                750,
+                800
+            ]
+        },
+        "reaction_and_mixing_system": {
+            "reaction_cups": {
+                "material": "Quartz glass",
+                "optical_path_mm": 5,
+                "total_cups": 90
+            },
+            "total_reaction_volume_ul": {
+                "min": 100,
+                "max": 360
+            },
+            "mixer": {
+                "type": "Rotor bar",
+                "mixing_description": "Homogeneous mixing with variable speeds"
+            }
+        },
+        "washing_and_carryover_control": {
+            "wash_station_steps": 8,
+            "wash_method": [
+                "Whole probe stereo cleaning",
+                "Pure water washing"
+            ],
+            "carryover_rate_percent": "< 0.01"
+        },
+        "sampling_and_safety": {
+            "minimum_sample_volume_ul": 1.5,
+            "minimum_reaction_volume_ul": 100,
+            "sampling_features": [
+                "High precision injector",
+                "Liquid level detection",
+                "Clot detection",
+                "Pressure sensor monitoring",
+                "Internal and external probe washing"
+            ],
+            "cv_percent": "< 2"
+        },
+        "quality_and_calibration": {
+            "quality_control_levels": 3,
+            "qc_methods": [
+                "Levy Jennings",
+                "Basic range check",
+                "Qualitative judgment"
+            ],
+            "calibration_methods": [
+                "1-point calibration",
+                "Multi-point calibration",
+                "Automatic recalibration"
+            ]
+        },
+        "data_and_connectivity": {
+            "data_processing": "External PC",
+            "communication": "RS-232C",
+            "reporting": [
+                "Patient reports",
+                "QC reports",
+                "Calibration reports"
+            ]
+        },
+        "environment_and_utilities": {
+            "power_requirements": {
+                "voltage": "220 V AC",
+                "frequency": "50 Hz",
+                "power_kva": 3.0
+            },
+            "operating_conditions": {
+                "temperature_c": {
+                    "min": 15,
+                    "max": 30
+                },
+                "humidity_percent": {
+                    "min": 40,
+                    "max": 85
+                }
+            },
+            "noise_level_db": 58,
+            "water_consumption_lph": 20
+        },
+        "dimensions_and_weight": {
+            "dimensions_mm": {
+                "width": 1360,
+                "depth": 790,
+                "height": 1140
+            },
+            "gross_weight_kg": 300
+        },
+        "test_menu_coverage": {
+            "biochemistry_panels": [
+                "Liver Function",
+                "Renal Function",
+                "Lipid Profile",
+                "Cardiac Markers",
+                "Pancreatic Enzymes",
+                "Specific Proteins",
+                "Electrolytes (Optional ISE)",
+                "Trace Elements"
+            ],
+            "specialized_tests": [
+                "HbA1c",
+                "CRP",
+                "D-Dimer",
+                "CK-MB",
+                "Microalbumin"
+            ]
+        },
+        "tender_positioning": {
+            "recommended_for": [
+                "Mid to high workload laboratories",
+                "Corporate diagnostic labs",
+                "Medical colleges",
+                "Government hospitals"
+            ],
+            "key_strengths": [
+                "Stable 400 tests/hour throughput",
+                "Low carryover <0.01%",
+                "Compact fully automated design",
+                "Advanced probe safety and washing"
+            ]
+        }
+    }
+]

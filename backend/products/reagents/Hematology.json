@@ -1,0 +1,274 @@
+[
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "BC3BDT-01",
+        "product_name": "BC3 Diluent",
+        "pack_size": "20 L",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "BC3CLY-01",
+        "product_name": "BC3 Lyse",
+        "pack_size": "500 ml",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "BC3RNS-02",
+        "product_name": "BC3 Rinse",
+        "pack_size": "20 L",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "NHKBDT-01",
+        "product_name": "NK Diluent",
+        "pack_size": "20 L",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "NHKCLY-01",
+        "product_name": "NK Lyse",
+        "pack_size": "500 ml",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "NHKRNS-01",
+        "product_name": "NK Rinse",
+        "pack_size": "10 L",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "NHKCLS-01",
+        "product_name": "NK Cleaning Solution",
+        "pack_size": "5 L",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "SYSBDT-01",
+        "product_name": "SYS Diluent",
+        "pack_size": "20 L",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "SYSWHL-01",
+        "product_name": "WH Lyse (SYS)",
+        "pack_size": "500 ml",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "SYSPRC-01",
+        "product_name": "SYS Probe Cleaner",
+        "pack_size": "50 ml",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "ERMBDT-01",
+        "product_name": "ERMA Diluent",
+        "pack_size": "20 L",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "ERMCLY-01",
+        "product_name": "ERMA Lyse",
+        "pack_size": "500 ml",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "ERMCLS-01",
+        "product_name": "ERMA Cleaning Solution",
+        "pack_size": "5 L",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "HRBBDT-02",
+        "product_name": "Horiba Diluent",
+        "pack_size": "20 L",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "HRBCLY-01",
+        "product_name": "Horiba Lyse",
+        "pack_size": "500 ml",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantHematologyReagents",
+        "sub_category": "Hematology",
+        "product_code": "HRBCLS-01",
+        "product_name": "Horiba Cleaning Solution",
+        "pack_size": "1000 ml",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

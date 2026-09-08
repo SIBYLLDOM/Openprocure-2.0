@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Meril One — ERP Flow Reference</title>
+<style>
+  :root {
+    --ink: #0F1E1C;
+    --ink-soft: #4B5C59;
+    --ink-faint: #7C8C88;
+    --paper: #F3F6F4;
+    --card: #FFFFFF;
+    --card-border: #DCE4E1;
+    --accent: #0B8F89;
+    --accent-soft: #E1F3F1;
+    --success: #2F8F5B;
+    --success-soft: #E6F4EB;
+    --warning: #A9700F;
+    --warning-soft: #FBF0DA;
+    --critical: #B03B32;
+    --critical-soft: #FAE7E5;
+    --mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+    --sans: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #E7EEEB;
+      --ink-soft: #A9BAB6;
+      --ink-faint: #74857F;
+      --paper: #0A1413;
+      --card: #10201D;
+      --card-border: #203331;
+      --accent: #35D6C9;
+      --accent-soft: #123330;
+      --success: #4CAE7C;
+      --success-soft: #103023;
+      --warning: #E0A94A;
+      --warning-soft: #33270F;
+      --critical: #E17E74;
+      --critical-soft: #341A18;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #E7EEEB; --ink-soft: #A9BAB6; --ink-faint: #74857F;
+    --paper: #0A1413; --card: #10201D; --card-border: #203331;
+    --accent: #35D6C9; --accent-soft: #123330;
+    --success: #4CAE7C; --success-soft: #103023;
+    --warning: #E0A94A; --warning-soft: #33270F;
+    --critical: #E17E74; --critical-soft: #341A18;
+    color-scheme: dark;
+  }
+  :root[data-theme="light"] {
+    --ink: #0F1E1C; --ink-soft: #4B5C59; --ink-faint: #7C8C88;
+    --paper: #F3F6F4; --card: #FFFFFF; --card-border: #DCE4E1;
+    --accent: #0B8F89; --accent-soft: #E1F3F1;
+    --success: #2F8F5B; --success-soft: #E6F4EB;
+    --warning: #A9700F; --warning-soft: #FBF0DA;
+    --critical: #B03B32; --critical-soft: #FAE7E5;
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); }
+  code, .mono { font-family: var(--mono); }
+
+  /* ---------- sticky TOC ---------- */
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 16px;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .toc a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding: 6px 11px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .toc a:hover, .toc a:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    outline: none;
+  }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px 100px; }
+
+  /* ---------- header ---------- */
+  header.hero {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 52px 20px 34px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 7px; height: 7px;
+    background: var(--accent);
+    display: inline-block;
+    border-radius: 1px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 14px 0 10px;
+    text-wrap: balance;
+    max-width: 18ch;
+  }
+  .hero p.lede {
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0 0 18px;
+  }
+  .hero .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
+  .hero .meta span {
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 4px 9px;
+  }
+
+  section { padding: 46px 0 6px; }
+  section > .section-head { margin-bottom: 20px; }
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: 1.65rem;
+    margin: 6px 0 8px;
+    text-wrap: balance;
+  }
+  section > .section-head p {
+    color: var(--ink-soft);
+    max-width: 68ch;
+    margin: 0;
+  }
+
+  /* ---------- legend ---------- */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 18px 0 30px;
+    padding: 12px 16px;
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    background: var(--card);
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .legend b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- master flow timeline ---------- */
+  .timeline { position: relative; margin: 0 0 10px; padding-left: 34px; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 12px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: var(--card-border);
+  }
+  .tl-node { position: relative; padding-bottom: 30px; }
+  .tl-node:last-child { padding-bottom: 0; }
+  .tl-node::before {
+    content: attr(data-n);
+    position: absolute;
+    left: -34px; top: 0;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tl-node h3 {
+    font-family: var(--serif);
+    font-size: 1.14rem;
+    margin: 0 0 5px;
+  }
+  .tl-node p { margin: 0 0 8px; color: var(--ink-soft); }
+  .fires {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 6px;
+    padding: 5px 9px;
+    margin-top: 2px;
+  }
+  .fires b { font-weight: 700; }
+
+  /* ---------- chips ---------- */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--card-border);
+    color: var(--ink-soft);
+    background: var(--card);
+    white-space: nowrap;
+  }
+  .chip--accent { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .chip--success { color: var(--success); border-color: var(--success); background: var(--success-soft); }
+  .chip--warning { color: var(--warning); border-color: var(--warning); background: var(--warning-soft); }
+  .chip--critical { color: var(--critical); border-color: var(--critical); background: var(--critical-soft); }
+
+  /* ---------- module label ---------- */
+  .module-label {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  /* ---------- page cards ---------- */
+  .page-card {
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    background: var(--card);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .page-card > summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 15px 18px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .page-card > summary::-webkit-details-marker { display: none; }
+  .page-card > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .page-card .ps-left { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .page-card .ps-title {
+    font-family: var(--serif);
+    font-size: 1.06rem;
+    color: var(--ink);
+  }
+  .page-card .ps-blurb { font-size: 0.86rem; color: var(--ink-soft); }
+  .page-card .ps-toggle {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 4px 8px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .page-card[open] > summary .ps-toggle::after { content: "collapse"; }
+  .page-card:not([open]) > summary .ps-toggle::after { content: "expand"; }
+  .page-card .ps-body {
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--card-border);
+  }
+  .ps-body ol { margin: 14px 0 6px; padding-left: 20px; }
+  .ps-body ol li { margin-bottom: 7px; }
+  .ps-body .field-line { font-size: 0.84rem; color: var(--ink-soft); margin: 10px 0; }
+  .ps-body .field-line code { color: var(--ink); background: var(--card-border); border-radius: 4px; padding: 1px 5px; }
+  .callout {
+    margin-top: 12px;
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.84rem;
+    color: var(--ink);
+  }
+  .callout b { color: var(--accent); font-family: var(--mono); font-size: 0.78rem; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+
+  /* ---------- gotchas ---------- */
+  .gotcha-list { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+  .gotcha {
+    display: flex;
+    gap: 12px;
+    padding: 13px 15px;
+    border: 1px solid var(--card-border);
+    border-left: 3px solid var(--critical);
+    border-radius: 8px;
+    background: var(--card);
+  }
+  .gotcha .tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--critical);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .gotcha p { margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
+  .gotcha p b { color: var(--ink); }
+
+  footer {
+    max-width: 920px;
+    margin: 40px auto 0;
+    padding: 24px 20px 60px;
+    border-top: 1px solid var(--card-border);
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--ink-faint);
+  }
+</style>
+</head>
+<body>
+
+<nav class="toc" aria-label="Section navigation">
+  <a href="#master-flow">Master Flow</a>
+  <a href="#sales">Sales</a>
+  <a href="#finance">Finance</a>
+  <a href="#inventory">Inventory &amp; Manufacturing</a>
+  <a href="#gotchas">Don't Click Live</a>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Meril One — Internal Runbook</div>
+  <h1>How Sales, Finance &amp; Manufacturing Actually Connect</h1>
+  <p class="lede">A click-by-click reference for the live team demo — every button label, status value, and integration hook below is read directly from the running code, not generic ERP theory.</p>
+  <div class="meta">
+    <span>3 modules</span>
+    <span>27 pages traced</span>
+    <span>zero manual Finance postings</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ MASTER FLOW ============ -->
+  <section id="master-flow">
+    <div class="section-head">
+      <div class="section-tag">The spine</div>
+      <h2>One customer, start to finish</h2>
+      <p>This is the single chain that ties all three modules together. Everything else on this page is detail hanging off these eight steps — if the demo only has time for one thing, do this.</p>
+    </div>
+
+    <div class="legend">
+      <span><span class="chip chip--warning" style="margin-right:6px">queued</span> waiting on a decision</span>
+      <span><span class="chip chip--accent" style="margin-right:6px">active</span> in progress</span>
+      <span><span class="chip chip--success" style="margin-right:6px">done</span> approved / completed</span>
+      <span><span class="chip chip--critical" style="margin-right:6px">stopped</span> rejected / cancelled / failed</span>
+    </div>
+
+    <ol class="timeline" style="list-style:none; margin:0; padding-left:34px;">
+      <li class="tl-node" data-n="1">
+        <h3>Customer Master — the account is opened</h3>
+        <p>New hospital/lab record on the <code>User</code> table (<code>userType: customer</code>). The <b>Sales Profile</b> card on the customer's detail view is where <code>gstNumber</code>, <code>creditLimit</code> and <code>creditTerms</code> (Net 15/30/45/60/Advance) actually live — this is the only place GST number is stored against a customer.</p>
+        <div class="chips"><span class="chip">businessStatus: Active</span></div>
+      </li>
+      <li class="tl-node" data-n="2">
+        <h3>Quotation — sent, then Accepted or Rejected</h3>
+        <p>Built from a per-line-item editor: Product, Qty, Unit Price, Discount %, and a <b>GST %</b> field defaulted to 18 and typed per line — not pulled from the customer's own GSTIN, and there is no CGST/SGST/IGST split anywhere in Sales (that split only appears later, inside Finance). A quotation is born <span class="chip chip--warning">Pending</span> — there's no Draft or Sent status in this system.</p>
+        <div class="chips">
+          <span class="chip chip--warning">Pending</span>
+          <span class="chip chip--success">Accepted</span>
+          <span class="chip chip--critical">Rejected</span>
+        </div>
+      </li>
+      <li class="tl-node" data-n="3">
+        <h3>Sales Order — a manual conversion, not automatic</h3>
+        <p>Accepting a quotation only unlocks a <b>"Convert to Sales Order"</b> button — someone still has to click it. The order then walks its own pipeline.</p>
+        <div class="chips">
+          <span class="chip chip--warning">Pending</span>
+          <span class="chip chip--accent">Confirmed</span>
+          <span class="chip chip--accent">Processing</span>
+          <span class="chip chip--accent">Packed</span>
+          <span class="chip chip--accent">Dispatched</span>
+          <span class="chip chip--success">Delivered</span>
+          <span class="chip chip--critical">Cancelled</span>
+        </div>
+        <div class="fires">→ moves to <b>Confirmed</b> → <code>reserveStockForOrder()</code> pulls stock from available into reserved</div>
+      </li>
+      <li class="tl-node" data-n="4">
+        <h3>Invoice — Finance posts itself, silently</h3>
+        <p>An order can be invoiced once it's Confirmed or further along. Clicking <b>Generate</b> creates the invoice and — in the exact same transaction — writes a balanced journal entry to the General Ledger. No one on the Finance side does anything.</p>
+        <div class="fires">→ <code>postInvoiceToLedger()</code> — Debit Accounts Receivable, Credit Sales Revenue + GST Payable</div>
+      </li>
+      <li class="tl-node" data-n="5">
+        <h3>Dispatch — stock physically leaves on Delivered</h3>
+        <p>A dispatch can't exist until its invoice does. It then walks a strictly linear chain — no skipping, no reverse.</p>
+        <div class="chips">
+          <span class="chip chip--accent">Packed</span>
+          <span class="chip chip--accent">Shipped</span>
+          <span class="chip chip--accent">In Transit</span>
+          <span class="chip chip--success">Delivered</span>
+        </div>
+        <div class="fires">→ reaches <b>Delivered</b> → <code>releaseStockForDispatch()</code>, order snaps to Delivered too</div>
+      </li>
+      <li class="tl-node" data-n="6">
+        <h3>Sales Return (optional) — restock, then a credit note</h3>
+        <p>Started against an invoice, capped at invoiced quantity per line.</p>
+        <div class="chips">
+          <span class="chip chip--warning">Requested</span>
+          <span class="chip chip--success">Approved</span>
+          <span class="chip chip--critical">Rejected</span>
+          <span class="chip chip--success">Completed</span>
+        </div>
+        <div class="fires">→ <b>Approved</b> → <code>restockFromReturn()</code>; issuing the Credit Note → <code>postCreditNoteToLedger()</code> (Debit Sales Returns / Credit AR)</div>
+      </li>
+      <li class="tl-node" data-n="7">
+        <h3>Manufacturing — refills what Sales just sold</h3>
+        <p>A raw-material Batch arrives and is QC'd, an Approved Bill of Materials defines the recipe, and a Work Order turns raw material into finished-goods stock — the exact stock that step 3 reserves and step 5 releases.</p>
+        <div class="fires">→ Work Order <b>Mark Complete</b> → new finished-goods Batch created + <code>postJournalEntry()</code> (Debit Manufacturing Expense / Credit Inventory Asset)</div>
+      </li>
+      <li class="tl-node" data-n="8">
+        <h3>The catch — only 3 products are actually wired end-to-end</h3>
+        <p>The bridge between a Sales catalog <code>Product</code> and a real warehouse-tracked <code>ItemMaster</code> row is a single field, <code>Product.itemMasterId</code>. Only three products have it set. Every other product's order confirmation is a silent no-op on inventory — real, but invisible.</p>
+        <div class="chips">
+          <span class="chip chip--success">5 Part Hematology Analyzer</span>
+          <span class="chip chip--success">AutoQuant 400 Biochemistry Analyzer</span>
+          <span class="chip chip--success">CliniQuant Micro</span>
+        </div>
+        <p style="margin-top:8px;"><b>Demo tip:</b> run the live stock-movement chain using one of these three products, or the reservation/release steps will do nothing visible.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============ SALES ============ -->
+  <section id="sales">
+    <div class="section-head">
+      <span class="module-label">Sales</span>
+      <h2>Customer → Quotation → Order → Invoice → Dispatch → Return</h2>
+      <p>Nine pages, in the order they sit in the sidebar. Click a card to expand its exact steps.</p>
+    </div>
+
+    <details class="page-card" open>
+      <summary><div class="ps-left"><div class="ps-title">Customer Master</div><div class="ps-blurb">Where the account, the GST number, and the credit terms live.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <div class="field-line">Fields: Hospital/Lab Name, Contact Name, Email/Password, Phone, Onboarded By (Sales / Tender), City/State/Pincode/Address, and a <b>Sales Profile</b> block: <code>gstNumber</code>, <code>creditTerms</code>, <code>creditLimit (₹)</code>.</div>
+        <ol>
+          <li>Open a customer row → the <b>Sales Profile</b> card shows GST Number, Credit Terms, Credit Limit.</li>
+          <li>Edit any of the three → <b>Save</b> writes straight back to the customer record.</li>
+        </ol>
+        <div class="callout"><b>NOTE</b> — the standalone "New Customer" creation modal exists in the code but has no visible open-button wired on this page currently. Don't go hunting for it live.</div>
+      </div>
+    </details>
+
+    <details class="page-card">
+      <summary><div class="ps-left"><div class="ps-title">Quotations</div><div class="ps-blurb">Line items, GST %, Accept/Reject, then convert.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <div class="chips"><span class="chip chip--warning">Pending</span><span class="chip chip--success">Accepted</span><span class="chip chip--critical">Rejected</span></div>
+        <ol>
+          <li><b>New Quotation</b> → pick Customer, Expiry Date, Notes, add line items (Product / Qty / Unit Price / Disc % / <b>GST %</b>, default 18) → <b>Create Quotation</b>.</li>
+          <li>Open it → <b>Accept</b> or <b>Reject</b> (only options from Pending).</li>
+          <li>If Accepted → button becomes <b>Convert to Sales Order</b> (manual, one click).</li>
+          <li><b>Download PDF</b> opens the rendered quote in a new tab.</li>
+          <li><b>Email</b> (mail icon) downloads the PDF <i>and</i> opens a prefilled Gmail compose draft — see Gotchas, this does not send mail itself.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="page-card">
+      <summary><div class="ps-left"><div class="ps-title">Sales Orders</div><div class="ps-blurb">Kanban pipeline; Confirmed is where stock gets reserved.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <div class="chips"><span class="chip chip--warning">Pending</span><span class="chip chip--accent">Confirmed</span><span class="chip chip--accent">Processing</span><span class="chip chip--accent">Packed</span><span class="chip chip--accent">Dispatched</span><span class="chip chip--success">Delivered</span><span class="chip chip--critical">Cancelled</span></div>
+        <ol>
+          <li>Default view is a Kanban board, one column per status; toggle to Table view top-right.</li>
+          <li>Each card / the detail modal has an <b>"Advance to {next status}"</b> button — only the next legal status in the chain is offered.</li>
+          <li>Pending or Confirmed orders also show a <b>Cancel Order</b> button.</li>
+        </ol>
+        <div class="callout"><b>FIRES</b> → moving to <span class="chip chip--accent" style="margin:0 4px;">Confirmed</span> reserves stock for any linked product (see Master Flow step 3).</div>
+      </div>
+    </details>
+
+    <details class="page-card">
+      <summary><div class="ps-left"><div class="ps-title">Invoices &amp; Billing</div><div class="ps-blurb">Generate, then Record Payment.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <div class="chips"><span class="chip chip--critical">Unpaid</span><span class="chip chip--warning">Partially Paid</span><span class="chip chip--success">Paid</span></div>
+        <ol>
+          <li><b>Generate Invoice</b> → pick a Sales Order (must be Confirmed or later) + Due Date → <b>Generate</b>.</li>
+          <li>Invoice opens <code>paymentStatus: Unpaid</code>; the GL posting already happened on step 1.</li>
+          <li><b>Record Payment</b> button (₹ icon, hidden once Paid) → Amount, Mode (Cash/Cheque/Bank Transfer/UPI/Card), Reference No.</li>
+          <li><b>Download PDF</b> for the invoice document itself.</li>
+        </ol>
+        <div class="callout"><b>FIRES</b> → the instant <b>Generate</b> is clicked → <code>postInvoiceToLedger()</code>, and every <b>Record Payment</b> → <code>postPaymentToLedger()</code> (Debit Bank / Credit AR).</div>
+      </div>
+    </details>
+
+    <details class="page-card">
+      <summary><div class="ps-left"><div class="ps-title">Dispatch Tracking</div><div class="ps-blurb">Linear shipment chain; Delivered releases reserved stock.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <div class="chips"><span class="chip chip--accent">Packed</span><span class="chip chip--accent">Shipped</span><span class="chip chip--accent">In Transit</span><span class="chip chip--success">Delivered</span></div>
+        <ol>
+          <li><b>New Shipment</b> → pick an Invoice, Courier, Tracking Number, Expected Delivery → <b>Create Shipment</b> (starts at Packed).</li>
+          <li><b>Advance to {next status}</b> button walks it forward one stage at a time — no skipping.</li>
+        </ol>
+        <div class="callout"><b>FIRES</b> → reaching <span class="chip chip--success" style="margin:0 4px;">Delivered</span> → <code>releaseStockForDispatch()</code>, parent Sales Order also flips to Delivered.</div>
+      </div>
+    </details>
+
+    <details class="page-card">
+      <summary><div class="ps-left"><div class="ps-title">Sales Returns</div><div class="ps-blurb">Approve restocks; Credit Note posts to Finance.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <div class="chips"><span class="chip chip--warning">Requested</span><span class="chip chip--success">Approved</span><span class="chip chip--critical">Rejected</span><span class="chip chip--success">Completed</span></div>
+        <ol>
+          <li><b>New Return</b> → pick an Invoice, enter returned qty per line (capped at invoiced qty), Reason, Resolution Type (Credit Note / Replacement / Refund) → <b>Submit Return</b>.</li>
+          <li><b>Approve</b> or <b>Reject</b> from Requested.</li>
+          <li>Once Approved with Resolution = Credit Note → <b>Generate Credit Note</b> button appears → return moves to Completed.</li>
+        </ol>
+        <div class="callout"><b>FIRES</b> → <b>Approve</b> → <code>restockFromReturn()</code>; <b>Generate Credit Note</b> → <code>postCreditNoteToLedger()</code>.</div>
+      </div>
+    </details>
+
+    <div class="grid2">
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Deal Health Score</div><div class="ps-blurb">Read-only risk scoring on open pipeline.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <p style="font-size:0.88rem; color:var(--ink-soft); margin-top:12px;">Scores every Pending quotation and active order (Recency, Staleness, Win Rate, Value Deviation, Salesperson Conversion) into a 0–100 score and a <span class="chip chip--success" style="margin:0 2px;">Low</span> / <span class="chip chip--warning" style="margin:0 2px;">Medium</span> / <span class="chip chip--critical" style="margin:0 2px;">High</span> risk badge with a recommended action. Only updates when you click <b>Recompute Scores</b>.</p>
+        </div>
+      </details>
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Team Performance</div><div class="ps-blurb">Live per-salesperson leaderboard.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <p style="font-size:0.88rem; color:var(--ink-soft); margin-top:12px;">Fully live on every load, no snapshot table. Revenue, Deals Closed, Avg Deal Size, Conversion %, Target Achievement %, ranked by revenue — period selector: This Month / Last Month / This Quarter / This Year.</p>
+        </div>
+      </details>
+    </div>
+
+    <details class="page-card">
+      <summary><div class="ps-left"><div class="ps-title">Sales Dashboard</div><div class="ps-blurb">The opening screen — today's numbers.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <p style="font-size:0.88rem; color:var(--ink-soft); margin-top:12px;">Today's Sales, Monthly Sales, Pending Orders, Overdue Invoices, Active Customers, Top Customer by Outstanding, a 6-month Revenue Trend chart, and Revenue by Category. Entirely read-only — good place to open the demo.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ FINANCE ============ -->
+  <section id="finance">
+    <div class="section-head">
+      <span class="module-label">Finance</span>
+      <h2>The Ledger that writes itself</h2>
+      <p>The headline feature: nothing above posts to Finance by hand. Every hook below runs inside the same database transaction as the Sales action that triggered it.</p>
+    </div>
+
+    <details class="page-card" open>
+      <summary><div class="ps-left"><div class="ps-title">General Ledger</div><div class="ps-blurb">Auto-posted entries, plus manual Journal Entries.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <div class="chips"><span class="chip chip--warning">Draft</span><span class="chip chip--success">Posted</span><span class="chip chip--critical">Reversed</span></div>
+        <ol>
+          <li>Open this page right after generating a Sales invoice — a <code>Sales</code>-type entry, already <span class="chip chip--success" style="margin:0 2px;">Posted</span>, is already sitting there.</li>
+          <li><b>New Journal Entry</b> → Entry Date, Reference, Description, a repeatable Debit/Credit line table against the Chart of Accounts. A live strip shows Balanced / Unbalanced.</li>
+          <li><b>Post Entry</b> is disabled until balanced — one click both creates and posts it.</li>
+          <li>Open any Posted entry → <b>Reverse Entry</b> creates a brand-new voucher with every line flipped, and marks the original Reversed.</li>
+        </ol>
+      </div>
+    </details>
+
+    <div class="grid2">
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Accounts Payable</div><div class="ps-blurb">Vendors, Bills, Payments.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <div class="chips"><span class="chip chip--warning">Pending</span><span class="chip chip--warning">Partial</span><span class="chip chip--success">Paid</span></div>
+          <ol>
+            <li>Toggle <b>View Vendors</b> / <b>View Bills</b>.</li>
+            <li><b>New Vendor</b> → Name, GSTIN, Contact, State, Payment Terms.</li>
+            <li><b>New Bill</b> → Vendor, Bill Number, Invoice/Due Date, Taxable Value, GST Rate → posts Purchase Expense + GST Input Credit automatically.</li>
+            <li><b>Record Payment</b> per bill → Amount, Mode, Reference No.</li>
+          </ol>
+          <div class="callout"><b>NOTE</b> — the "Overdue" filter option will show nothing; use the Aging column (Current / 0-30 / 31-60 / 61-90 / 90+) instead.</div>
+        </div>
+      </details>
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Accounts Receivable</div><div class="ps-blurb">Same invoices as Sales — Finance just adds aging.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <div class="chips"><span class="chip">Not Started</span><span class="chip chip--warning">Reminder Sent</span><span class="chip chip--warning">Follow-up Scheduled</span><span class="chip chip--critical">Escalated</span><span class="chip chip--critical">Legal</span></div>
+          <ol>
+            <li>No separate table — this is literally the Sales <code>Invoice</code> data, with an Aging bucket, Collection Status, and a DSO metric layered on.</li>
+            <li><b>Send Reminder</b> → logs a reminder (Email/SMS channel + note) — it records the reminder, it does not actually send one.</li>
+            <li><b>Record Payment</b> — same hook as Sales' own payment recording.</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <details class="page-card">
+      <summary><div class="ps-left"><div class="ps-title">Bank Reconciliation</div><div class="ps-blurb">Start → Auto Match → Complete.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <div class="chips"><span class="chip chip--accent">InProgress</span><span class="chip chip--warning">Unmatched</span><span class="chip chip--success">Matched</span><span class="chip chip--success">Completed</span></div>
+        <ol>
+          <li>Pick a bank account → if no session is active, <b>Start Reconciliation</b>.</li>
+          <li><b>Auto Match</b> — pairs bank transactions to GL bank-account lines within ±2 days on matching amount.</li>
+          <li><b>Complete Reconciliation</b> — blocked (422) while any transaction is still unmatched.</li>
+        </ol>
+      </div>
+    </details>
+
+    <div class="grid2">
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Budgeting</div><div class="ps-blurb">Active on creation — click into one to force a live recompute.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <ol>
+            <li><b>New Budget</b> → Department, Period Type, Period Label, Amount → <b>Create</b> (goes straight to <span class="chip chip--accent" style="margin:0 2px;">Active</span>, splits evenly across the period's months).</li>
+            <li>Click into a budget's detail modal — this is the one action that forces Actual spend to recompute fresh against the Posted GL for that department.</li>
+          </ol>
+        </div>
+      </details>
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Fixed Assets</div><div class="ps-blurb">Register → Run Depreciation → Dispose.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <div class="chips"><span class="chip chip--accent">InUse</span><span class="chip chip--warning">UnderMaintenance</span><span class="chip">Retired</span><span class="chip chip--critical">Disposed</span></div>
+          <ol>
+            <li><b>Add Asset</b> → Name, Category, Purchase Date/Cost, Salvage Value, Location.</li>
+            <li>Open it → <b>Run Depreciation</b> (Straight-Line or WDV, per category default) — Debit Depreciation Expense / Credit Accumulated Depreciation.</li>
+            <li><b>Dispose Asset</b> → Disposal Date + Amount → posts the gain/loss and locks the asset read-only.</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <div class="grid2">
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Taxation / GST</div><div class="ps-blurb">Live CGST/SGST/IGST split — this is where that split actually lives.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <ol>
+            <li>Summary tiles (CGST / SGST / IGST / Total Liability / ITC Available) recompute live from that month's invoices &amp; bills — nothing cached.</li>
+            <li>Filing table → <b>File Now</b> on a <span class="chip chip--warning" style="margin:0 2px;">Pending</span> return → flips to <span class="chip chip--success" style="margin:0 2px;">Filed</span> with an acknowledgement number (a status flip, not a real e-filing).</li>
+          </ol>
+        </div>
+      </details>
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Compliance Pack</div><div class="ps-blurb">One-click audit trail across 5 report types.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <ol>
+            <li><b>Generate Full Compliance Pack</b> — creates GST, TDS, Sales Register, Purchase Register, Tax Summary + one bundle record, all marked Ready.</li>
+          </ol>
+          <div class="callout"><b>NOTE</b> — "Generate" writes a metadata record, not a file. The <b>Download</b> button next to it is not wired to anything — don't click it live.</div>
+        </div>
+      </details>
+    </div>
+
+    <div class="grid2">
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Cash Flow Forecast</div><div class="ps-blurb">30/60/90-day walk-forward from real AR/AP/bank.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <p style="font-size:0.88rem; color:var(--ink-soft); margin-top:12px;">Flip the horizon selector (30/60/90 Days) — no button needed, it recomputes on change. <span class="chip chip--success" style="margin:0 2px;">Green</span> / <span class="chip chip--warning" style="margin:0 2px;">Yellow</span> / <span class="chip chip--critical" style="margin:0 2px;">Red</span> risk level based on the lowest projected balance.</p>
+        </div>
+      </details>
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Fraud Detection</div><div class="ps-blurb">Run Scan → 4 heuristics over AP/vendor payments.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <div class="chips"><span class="chip chip--warning">New</span><span class="chip chip--accent">Investigating</span><span class="chip chip--success">Resolved</span><span class="chip">FalsePositive</span></div>
+          <ol>
+            <li><b>Run Scan</b> — checks Duplicate Invoice, Duplicate Payment, Suspicious Vendor, Large Transaction (≥ ₹5,00,000).</li>
+            <li>Open an alert → <b>Investigate</b> / <b>False Positive</b> / <b>Mark Resolved</b>.</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ INVENTORY & MANUFACTURING ============ -->
+  <section id="inventory">
+    <div class="section-head">
+      <span class="module-label">Inventory &amp; Manufacturing</span>
+      <h2>Raw material → Batch → BOM → Work Order → Warehouse</h2>
+      <p>Where the stock that Sales reserves and Finance expenses actually comes from.</p>
+    </div>
+
+    <details class="page-card" open>
+      <summary><div class="ps-left"><div class="ps-title">Stock Management</div><div class="ps-blurb">Master stock view + Adjust action.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <div class="chips"><span class="chip chip--success">In Stock</span><span class="chip chip--warning">Low Stock</span><span class="chip chip--critical">Out of Stock</span></div>
+        <ol>
+          <li>Row → <b>Adjust</b> link → Quantity, Adjustment Type (Damaged / Lost / Expired / Recount Correction), Reason → <b>Submit</b> (creates a Pending adjustment, stock untouched yet).</li>
+          <li>Click a row (not Adjust) → Details / Stock History / Reorder Settings tabs.</li>
+          <li>Approve/Reject the adjustment from the Stock Transfer &amp; Adjustments page (below) — Approving is what actually moves stock.</li>
+        </ol>
+        <div class="callout"><b>FIRES</b> → <b>Approve</b> on a Pending adjustment → decrements stock and, if there's a write-off value, Debit Inventory Write-off Expense / Credit Inventory Asset.</div>
+      </div>
+    </details>
+
+    <div class="grid2">
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Batch / Lot Tracking</div><div class="ps-blurb">Receive → QC → Traceability timeline.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <div class="chips"><span class="chip chip--warning">Pending Inspection</span><span class="chip chip--success">Passed</span><span class="chip chip--critical">Failed</span><span class="chip chip--warning">Quarantined</span></div>
+          <ol>
+            <li><b>New Batch</b> → Product, Warehouse, Mfg/Expiry Date, Supplier, Quantity, Unit Cost → adds straight to available stock, batch starts Pending Inspection.</li>
+            <li>Open it → <b>Mark Passed</b> / <b>Mark Failed</b> / <b>Quarantine</b> (only while Pending Inspection — terminal after).</li>
+            <li>Traceability Timeline shows every stage logged against the batch.</li>
+          </ol>
+        </div>
+      </details>
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Bill of Materials</div><div class="ps-blurb">The recipe — must be Approved before a Work Order can use it.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <div class="chips"><span class="chip chip--warning">Draft</span><span class="chip chip--warning">Pending Approval</span><span class="chip chip--success">Approved</span><span class="chip">Revised</span></div>
+          <ol>
+            <li><b>New BOM</b> → Parent Product + repeatable component lines (item, qty, unit, cost) → starts Draft.</li>
+            <li>Draft → <b>Submit for Approval</b> → Pending Approval → <b>Approve</b> or <b>Reject</b> (Reject bounces back to Draft).</li>
+            <li>Approved → <b>Create New Version</b> clones it as a new Draft v2, marks the old one Revised.</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <details class="page-card" open>
+      <summary><div class="ps-left"><div class="ps-title">Production Planning (Work Orders)</div><div class="ps-blurb">Start reserves the BOM; Complete produces stock and posts to Finance.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <div class="chips"><span class="chip chip--warning">Scheduled</span><span class="chip chip--accent">In Progress</span><span class="chip chip--success">Completed</span><span class="chip chip--critical">Delayed</span><span class="chip">On Hold</span><span class="chip chip--critical">Cancelled</span></div>
+        <ol>
+          <li><b>New Work Order</b> → Product, an <i>Approved</i> BOM, Factory, Production Line, Warehouse, Quantity, dates, Priority, Assigned Team.</li>
+          <li><b>Start Production</b> → reserves every BOM component's required quantity from available stock, order moves to In Progress.</li>
+          <li><b>Mark Complete</b> → consumes the reserved materials, adds the produced quantity to finished-goods stock, creates a brand-new Batch (Passed) tagged to this Work Order, and posts the manufacturing cost to Finance.</li>
+        </ol>
+        <div class="callout"><b>FIRES</b> → <b>Mark Complete</b> → Debit Manufacturing Expense / Credit Inventory Asset. Toast literally reads: <i>"Production completed — finished goods stocked, manufacturing cost posted to Finance."</i></div>
+      </div>
+    </details>
+
+    <div class="grid2">
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Warehouse Management</div><div class="ps-blurb">Capacity, stock mix, zones — per warehouse.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <div class="chips"><span class="chip chip--success">Active</span><span class="chip chip--warning">Near Capacity</span><span class="chip chip--critical">Over Capacity</span><span class="chip">Inactive</span></div>
+          <ol>
+            <li>Click a warehouse card → Overview / Stock Distribution (pie by item type) / Zones tabs.</li>
+            <li><b>Add Warehouse</b> → Code, Name, City/State, Contact, Capacity.</li>
+          </ol>
+        </div>
+      </details>
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Stock Transfer &amp; Adjustments</div><div class="ps-blurb">Two tabs, two very different approval realities.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <ol>
+            <li><b>Transfers tab</b> — <b>New Transfer</b> moves stock <i>immediately</i> on submit and is created already <span class="chip chip--success" style="margin:0 2px;">completed</span>.</li>
+            <li><b>Adjustments tab</b> — the same Pending → Approve/Reject flow as Stock Management's Adjust action, just listed here too.</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <div class="grid2">
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Demand Optimization</div><div class="ps-blurb">Reorder urgency from real 90-day sell-through.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <div class="chips"><span class="chip chip--success">Green</span><span class="chip chip--warning">Yellow</span><span class="chip chip--critical">Red</span></div>
+          <p style="font-size:0.88rem; color:var(--ink-soft); margin:10px 0 0;">Red = at/under reorder level or ≤7 days of cover; Yellow = ≤30 days; else Green — all computed live from 90 days of outbound stock movement, no ML. Click a row for the historical + predicted demand chart.</p>
+        </div>
+      </details>
+      <details class="page-card">
+        <summary><div class="ps-left"><div class="ps-title">Live OEE Dashboard</div><div class="ps-blurb">Availability × Performance × Quality, per line.</div></div><span class="ps-toggle"></span></summary>
+        <div class="ps-body">
+          <div class="chips"><span class="chip chip--success">Running</span><span class="chip">Idle</span><span class="chip chip--critical">Down</span><span class="chip chip--warning">Maintenance</span></div>
+          <ol>
+            <li>Pick a Production Line → composite OEE + the 3 sub-metrics + a 7-day trend.</li>
+            <li><b>Log Downtime</b> → Machine, Reason, Start Time, Duration (blank = ongoing, sets the machine Down).</li>
+            <li><b>Resolve</b> link on any Ongoing event → sets the machine back to Running.</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <details class="page-card">
+      <summary><div class="ps-left"><div class="ps-title">Visual Shop-Floor Map</div><div class="ps-blurb">Read-only tile view — zones + machines.</div></div><span class="ps-toggle"></span></summary>
+      <div class="ps-body">
+        <p style="font-size:0.88rem; color:var(--ink-soft); margin-top:12px;">A colored tile grid of every warehouse zone (fill % + status) and, below it, one card per production line with a dot-grid of its machines (green = Running, red = Down, amber = Maintenance, grey = Idle). No actions here — this is the "walk the floor" screen for the demo.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ GOTCHAS ============ -->
+  <section id="gotchas">
+    <div class="section-head">
+      <div class="section-tag">Read before you present</div>
+      <h2>Don't click these live</h2>
+      <p>Real gaps in the current build, found while tracing the code — knowing them ahead of time is cheaper than discovering them mid-sentence in front of the team.</p>
+    </div>
+    <div class="gotcha-list">
+      <div class="gotcha"><span class="tag">AVOID</span><p><b>Quotations' Email button</b> downloads a PDF and opens a Gmail compose draft — it does not send an email itself. Say "download and compose," not "send."</p></div>
+      <div class="gotcha"><span class="tag">AVOID</span><p><b>Compliance Pack's Download button</b> has no click handler at all. "Generate" produces an audit-trail record, not a file — don't promise a download.</p></div>
+      <div class="gotcha"><span class="tag">AVOID</span><p><b>Bank Reconciliation's Import and Manual Match</b> exist on the backend but have no button in the UI. Only Start, Auto Match, and Complete are real click paths.</p></div>
+      <div class="gotcha"><span class="tag">AVOID</span><p><b>Budgeting</b> has no Draft → Approve step. A budget is Active the second it's created — there's nothing to approve.</p></div>
+      <div class="gotcha"><span class="tag">AVOID</span><p><b>Accounts Payable's "Overdue" filter</b> will return nothing — no code path ever sets that status. Use the Aging column instead.</p></div>
+      <div class="gotcha"><span class="tag">AVOID</span><p><b>Stock Transfers</b> created through the current form are already <code>completed</code> the instant you submit — their Approve/Reject buttons are dormant. Don't demo "pending transfer approval."</p></div>
+      <div class="gotcha"><span class="tag">AVOID</span><p><b>Fixed Assets' Run Depreciation</b> is once per calendar month, per asset — a second click in the same month returns an error.</p></div>
+      <div class="gotcha"><span class="tag">AVOID</span><p><b>Customer Master's "New Customer" modal</b> exists in code with no visible open-button on the page yet — edit an existing customer's Sales Profile instead.</p></div>
+    </div>
+  </section>
+
+</div>
+
+<footer>Compiled from the running Sales / Finance / Inventory &amp; Manufacturing codebase — internal use only.</footer>
+</body>
+</html>
