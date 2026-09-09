@@ -27,6 +27,13 @@ app.use('/api/dealers', require('./routes/dealersRoutes'));
 app.use('/api/dealer-requests', require('./routes/dealerAuthRequestRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
 app.use('/api/reseller-products', require('./routes/resellerProductRoutes'));
+app.use('/api/clients', require('./routes/clientRoutes'));
+app.use('/api/quotations', require('./routes/quotationRoutes'));
+app.use('/api/payment-receipts', require('./routes/paymentReceiptRoutes'));
+app.use('/api/vendors', require('./routes/vendorRoutes'));
+app.use('/api/purchases', require('./routes/purchaseRoutes'));
+app.use('/api/tender-tracker', require('./routes/tenderTrackerRoutes'));
+app.use('/api/document-tender', require('./routes/documentTenderRoutes'));
 
 // Health check
 app.get('/', (req, res) => {

@@ -39,6 +39,7 @@ db.TenderPartnerState = require('./TenderPartnerState')(sequelize, DataTypes);
 db.TenderStatusEntry = require('./TenderStatusEntry')(sequelize, DataTypes);
 db.TenderProductSelection = require('./TenderProductSelection')(sequelize, DataTypes);
 db.ParticipatedTenderNote = require('./ParticipatedTenderNote')(sequelize, DataTypes);
+db.TenderTrackerOverride = require('./TenderTrackerOverride')(sequelize, DataTypes);
 db.LibraryItem = require('./LibraryItem')(sequelize, DataTypes);
 
 // ----- Tender Hub / Workspace (see WorkspaceDepartment.js for why these are
@@ -93,5 +94,46 @@ db.PartnerProductSelection.belongsTo(db.PartnerProfile, { foreignKey: 'profileId
 db.PartnerProductSelection.belongsTo(db.ProductMasterItem, { foreignKey: 'productId', as: 'product' });
 db.PartnerProductSelection.belongsTo(db.CompanyCategory, { foreignKey: 'categoryId', as: 'category' });
 db.PartnerProductSelection.belongsTo(db.CompanySubCategory, { foreignKey: 'subCategoryId', as: 'subCategory' });
+
+// ----- Sales & Invoices > Our Clients (see Client.js) -----
+db.Client = require('./Client')(sequelize, DataTypes);
+db.ClientShippingDetail = require('./ClientShippingDetail')(sequelize, DataTypes);
+db.ClientContactLink = require('./ClientContactLink')(sequelize, DataTypes);
+db.ClientAttachment = require('./ClientAttachment')(sequelize, DataTypes);
+
+db.Client.hasMany(db.ClientShippingDetail, { foreignKey: 'clientId', as: 'shippingDetails', onDelete: 'CASCADE' });
+db.ClientShippingDetail.belongsTo(db.Client, { foreignKey: 'clientId', as: 'client' });
+
+db.Client.hasMany(db.ClientContactLink, { foreignKey: 'clientId', as: 'contactLinks', onDelete: 'CASCADE' });
+db.ClientContactLink.belongsTo(db.Client, { foreignKey: 'clientId', as: 'client' });
+db.ClientContactLink.belongsTo(db.PartnerContact, { foreignKey: 'partnerContactId', as: 'contact' });
+
+db.Client.hasMany(db.ClientAttachment, { foreignKey: 'clientId', as: 'attachments', onDelete: 'CASCADE' });
+db.ClientAttachment.belongsTo(db.Client, { foreignKey: 'clientId', as: 'client' });
+
+db.Quotation = require('./Quotation')(sequelize, DataTypes);
+db.Quotation.belongsTo(db.Client, { foreignKey: 'clientId', as: 'client' });
+db.Client.hasMany(db.Quotation, { foreignKey: 'clientId', as: 'quotations' });
+db.Quotation.belongsTo(db.Quotation, { foreignKey: 'linkedInvoiceId', as: 'linkedInvoice' });
+
+db.Vendor = require('./Vendor')(sequelize, DataTypes);
+db.VendorContactLink = require('./VendorContactLink')(sequelize, DataTypes);
+db.VendorAttachment = require('./VendorAttachment')(sequelize, DataTypes);
+db.Vendor.hasMany(db.VendorContactLink, { foreignKey: 'vendorId', as: 'contactLinks', onDelete: 'CASCADE' });
+db.VendorContactLink.belongsTo(db.Vendor, { foreignKey: 'vendorId', as: 'vendor' });
+db.VendorContactLink.belongsTo(db.PartnerContact, { foreignKey: 'partnerContactId', as: 'contact' });
+db.Vendor.hasMany(db.VendorAttachment, { foreignKey: 'vendorId', as: 'attachments', onDelete: 'CASCADE' });
+db.VendorAttachment.belongsTo(db.Vendor, { foreignKey: 'vendorId', as: 'vendor' });
+
+db.Purchase = require('./Purchase')(sequelize, DataTypes);
+db.Purchase.belongsTo(db.Vendor, { foreignKey: 'vendorId', as: 'vendor' });
+db.Vendor.hasMany(db.Purchase, { foreignKey: 'vendorId', as: 'purchases' });
+
+db.PaymentReceipt = require('./PaymentReceipt')(sequelize, DataTypes);
+db.PaymentAllocation = require('./PaymentAllocation')(sequelize, DataTypes);
+db.PaymentReceipt.belongsTo(db.Client, { foreignKey: 'clientId', as: 'client' });
+db.PaymentReceipt.hasMany(db.PaymentAllocation, { foreignKey: 'paymentReceiptId', as: 'allocations', onDelete: 'CASCADE' });
+db.PaymentAllocation.belongsTo(db.PaymentReceipt, { foreignKey: 'paymentReceiptId', as: 'paymentReceipt' });
+db.PaymentAllocation.belongsTo(db.Quotation, { foreignKey: 'invoiceId', as: 'invoice' });
 
 module.exports = db;

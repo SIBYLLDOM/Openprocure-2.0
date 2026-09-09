@@ -135,6 +135,7 @@ export interface DashboardStats {
   topStates: { state: string; count: number }[];
   supportTickets: { open: number; inProgress: number; resolved: number; closed: number; total: number };
   distributors: { total: number; active: number };
+  resellersCount: number;
   contractsTrend: { month: string; count: number; value: number }[];
   userActivity: {
     activeNow: number;

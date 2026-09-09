@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import type { MouseEvent, ReactNode } from 'react';
+import { X } from 'lucide-react';
 
-export type ModalSize = 'sm' | 'md' | 'lg';
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 interface ModalProps {
   open: boolean;
@@ -16,6 +17,8 @@ const maxWidthBySize: Record<ModalSize, string> = {
   sm: '28rem',
   md: '32rem',
   lg: '48rem',
+  xl: '64rem',
+  '2xl': '88rem',
 };
 
 export function Modal({ open, onClose, title, size = 'md', children, footer }: ModalProps) {
@@ -46,6 +49,9 @@ export function Modal({ open, onClose, title, size = 'md', children, footer }: M
         {title && (
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
             <h3 className="text-lg font-bold text-gray-900">{title}</h3>
+            <button type="button" onClick={onClose} aria-label="Close" className="p-1.5 -mr-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg flex-shrink-0">
+              <X size={18} />
+            </button>
           </div>
         )}
 

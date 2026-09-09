@@ -712,7 +712,7 @@ exports.getDashboardStats = async (req, res) => {
       [contractsRow], [incidentsRow], [pendingResponseRow], recentActivity,
       deptSplitRows, [pipelineValueRow], topStates, ticketStatusRows,
       [distributorsRow], contractsTrendRows, [activeNowRow], [loginsTodayRow],
-      [loginsWeekRow], [avgSessionRow], loginTrendRows, topSellers,
+      [loginsWeekRow], [avgSessionRow], loginTrendRows, topSellers, [resellersRow],
     ] = await Promise.all([
       sequelize.query(`SELECT COUNT(*) AS c FROM gem_tenders FORCE INDEX (idx_end_date_dt) WHERE ${ACTIVE_WHERE}`, { type: QueryTypes.SELECT }),
       sequelize.query(
@@ -800,6 +800,10 @@ exports.getDashboardStats = async (req, res) => {
          GROUP BY seller_name ORDER BY revenue DESC LIMIT 5`,
         { type: QueryTypes.SELECT }
       ),
+      sequelize.query(
+        `SELECT COUNT(DISTINCT from_user_id) AS c FROM dealer_auth_requests WHERE to_user_id = :userId AND status = 'approved'`,
+        { replacements: { userId: req.user.id }, type: QueryTypes.SELECT }
+      ),
     ]);
 
     const deptSplit = {
@@ -832,6 +836,7 @@ exports.getDashboardStats = async (req, res) => {
         topStates: topStates.map((r) => ({ state: r.state, count: Number(r.c) })),
         supportTickets,
         distributors: { total: Number(distributorsRow.total) || 0, active: Number(distributorsRow.activeCount) || 0 },
+        resellersCount: Number(resellersRow.c) || 0,
         contractsTrend: contractsTrendRows.map((r) => ({ month: r.month, count: Number(r.c), value: Number(r.val) })),
         userActivity: {
           activeNow: Number(activeNowRow.c),

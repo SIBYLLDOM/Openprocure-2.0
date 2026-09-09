@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { NavLink, Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
-  LayoutDashboard, FileText, LogOut, Building2, Trophy, ChevronRight, BarChart3, Users, Swords,
+  LayoutDashboard, FileText, FileDigit, ReceiptText, HandCoins, ClipboardCheck, Truck, FileMinus, LogOut, Building2, Trophy, ChevronRight, BarChart3, Users, Swords,
   ShoppingCart, FileSpreadsheet, PackageCheck, UserCircle, LayoutPanelLeft, FolderKanban,
   Handshake, Users2, FileSignature, Bell, CheckCheck, Package, PanelLeftClose, PanelLeftOpen, Settings,
+  Receipt, Contact,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { getDefaultRoute } from '../utils/defaultRoute';
@@ -52,6 +53,8 @@ const BASE_NAV_ITEMS: NavItem[] = [
     icon: FileText,
     end: false,
     children: [
+      link('tenders/tender-tracker', 'Tender Tracker', ClipboardCheck),
+      link('tenders/document-tender', 'Offline Tender', FileMinus),
       link('tenders/participated-tender', 'Participated Tender', Trophy),
     ] as ChildItem[],
   },
@@ -83,6 +86,32 @@ const BASE_NAV_ITEMS: NavItem[] = [
     children: [
       link('orders/gem-contracts', 'GeM Contracts', FileSpreadsheet),
       link('orders/carting-dashboard', 'Carting Dashboard', PackageCheck),
+    ] as ChildItem[],
+  },
+  {
+    to: null as string | null,
+    label: 'Sales & Invoices',
+    icon: Receipt,
+    end: false,
+    children: [
+      link('sales/our-clients', 'Our Clients', Contact),
+      link('sales/quotations', 'Quotations', FileText),
+      link('sales/invoices', 'Invoices', FileDigit),
+      link('sales/proforma-invoice', 'Proforma Invoice', ReceiptText),
+      link('sales/payment-receipts', 'Payment Receipts', HandCoins),
+      link('sales/sales-order', 'Sales Order', ClipboardCheck),
+      link('sales/delivery-challan', 'Delivery Challan', Truck),
+      link('sales/credit-note', 'Credit Note', FileMinus),
+    ] as ChildItem[],
+  },
+  {
+    to: null as string | null,
+    label: 'Purchases',
+    icon: ShoppingCart,
+    end: false,
+    children: [
+      link('purchases/purchases-hub', 'Purchases Hub', FileText),
+      link('purchases/our-vendors', 'Our Vendors', Truck),
     ] as ChildItem[],
   },
 ];
@@ -150,7 +179,7 @@ const DashboardShell = ({ expectedType }: { expectedType: 'oem' | 'reseller' }) 
                 const hasChildren = item.children.length > 0;
                 const isOpen = !!expanded[item.label];
                 const rowClasses = (isActive: boolean) =>
-                  `group flex items-center justify-between px-3 py-2.5 rounded-[6px] cursor-pointer transition-colors duration-150 select-none text-[13px] font-medium ${
+                  `group flex items-center justify-between gap-2 px-3 py-2.5 rounded-[6px] cursor-pointer transition-colors duration-150 select-none text-[13px] font-medium whitespace-nowrap ${
                     isActive ? 'bg-white/10 text-white' : 'text-white/60 hover:bg-white/5 hover:text-white/90'
                   }`;
                 return (
@@ -161,21 +190,36 @@ const DashboardShell = ({ expectedType }: { expectedType: 'oem' | 'reseller' }) 
                         onClick={() => setExpanded((prev) => ({ ...prev, [item.label]: !prev[item.label] }))}
                         className={rowClasses(false)}
                       >
-                        <span className="flex items-center gap-2.5">
-                          <Icon size={16} strokeWidth={1.75} className="text-white/50 group-hover:text-white/80" />
-                          {item.label}
+                        <span className="flex items-center gap-2.5 min-w-0">
+                          <Icon size={16} strokeWidth={1.75} className="text-white/50 group-hover:text-white/80 flex-shrink-0" />
+                          <span className="truncate">{item.label}</span>
                         </span>
-                        {hasChildren && <ChevronRight size={14} strokeWidth={2} className={`text-white/40 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`} />}
+                        {hasChildren && <ChevronRight size={14} strokeWidth={2} className={`text-white/40 transition-transform duration-200 flex-shrink-0 ${isOpen ? 'rotate-90' : ''}`} />}
                       </button>
                     ) : (
-                      <NavLink to={`${base}${item.to ? `/${item.to}` : ''}`} end={item.end} className={({ isActive }) => rowClasses(isActive)}>
+                      <NavLink
+                        to={`${base}${item.to ? `/${item.to}` : ''}`}
+                        end={item.end}
+                        onClick={() => { if (hasChildren) setExpanded((prev) => ({ ...prev, [item.label]: true })); }}
+                        className={({ isActive }) => rowClasses(isActive)}
+                      >
                         {({ isActive }) => (
                           <>
-                            <span className="flex items-center gap-2.5">
-                              <Icon size={16} strokeWidth={1.75} className={isActive ? 'text-white' : 'text-white/50 group-hover:text-white/80'} />
-                              {item.label}
+                            <span className="flex items-center gap-2.5 min-w-0">
+                              <Icon size={16} strokeWidth={1.75} className={`flex-shrink-0 ${isActive ? 'text-white' : 'text-white/50 group-hover:text-white/80'}`} />
+                              <span className="truncate">{item.label}</span>
                             </span>
-                            {hasChildren && <ChevronRight size={14} strokeWidth={2} className={`text-white/40 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`} />}
+                            {hasChildren && (
+                              <span
+                                role="button"
+                                tabIndex={0}
+                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setExpanded((prev) => ({ ...prev, [item.label]: !prev[item.label] })); }}
+                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setExpanded((prev) => ({ ...prev, [item.label]: !prev[item.label] })); } }}
+                                className="p-1 -m-1 rounded flex-shrink-0 hover:bg-white/10"
+                              >
+                                <ChevronRight size={14} strokeWidth={2} className={`text-white/40 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`} />
+                              </span>
+                            )}
                           </>
                         )}
                       </NavLink>

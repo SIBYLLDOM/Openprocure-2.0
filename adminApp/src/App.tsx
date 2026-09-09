@@ -23,6 +23,18 @@ import TenderHubPage from './pages/dashboard/TenderHubPage';
 import DistributorsPage from './pages/dashboard/DistributorsPage';
 import DealerAuthLetterPage from './pages/dashboard/DealerAuthLetterPage';
 import OurProductsPage from './pages/dashboard/OurProductsPage';
+import OurClientsPage from './pages/dashboard/OurClientsPage';
+import QuotationsPage from './pages/dashboard/QuotationsPage';
+import InvoicesPage from './pages/dashboard/InvoicesPage';
+import ProformaInvoicePage from './pages/dashboard/ProformaInvoicePage';
+import PaymentReceiptsPage from './pages/dashboard/PaymentReceiptsPage';
+import SalesOrderPage from './pages/dashboard/SalesOrderPage';
+import DeliveryChallanPage from './pages/dashboard/DeliveryChallanPage';
+import CreditNotePage from './pages/dashboard/CreditNotePage';
+import OurVendorsPage from './pages/dashboard/OurVendorsPage';
+import PurchasesHubPage from './pages/dashboard/PurchasesHubPage';
+import TenderTrackerPage from './pages/dashboard/TenderTrackerPage';
+import DocumentTenderPage from './pages/dashboard/DocumentTenderPage';
 
 // Root/unknown-path fallback — sends a logged-in partner to their own
 // OEM/Reseller portal, everyone else to the landing page.
@@ -55,6 +67,8 @@ function App() {
             <Route path="/oem/:name/:id" element={<DashboardShell expectedType="oem" />}>
               <Route index element={<DashboardPage />} />
               <Route path="tenders" element={<TendersListPage />} />
+              <Route path="tenders/tender-tracker" element={<TenderTrackerPage />} />
+              <Route path="tenders/document-tender" element={<DocumentTenderPage />} />
               <Route path="tenders/participated-tender" element={<ParticipatedTendersPage />} />
               <Route path="tenders/workdesk/active-workspaces" element={<ActiveWorkspacesPage />} />
               <Route path="tenders/workdesk/library" element={<LibraryPage />} />
@@ -64,6 +78,16 @@ function App() {
               <Route path="analytics/compare-bidders" element={<CompareBiddersPage />} />
               <Route path="orders/gem-contracts" element={<GemContractsPage />} />
               <Route path="orders/carting-dashboard" element={<CartingDashboardPage />} />
+              <Route path="sales/our-clients" element={<OurClientsPage />} />
+              <Route path="sales/quotations" element={<QuotationsPage />} />
+              <Route path="sales/invoices" element={<InvoicesPage />} />
+              <Route path="sales/proforma-invoice" element={<ProformaInvoicePage />} />
+              <Route path="sales/payment-receipts" element={<PaymentReceiptsPage />} />
+              <Route path="sales/sales-order" element={<SalesOrderPage />} />
+              <Route path="sales/delivery-challan" element={<DeliveryChallanPage />} />
+              <Route path="sales/credit-note" element={<CreditNotePage />} />
+              <Route path="purchases/our-vendors" element={<OurVendorsPage />} />
+              <Route path="purchases/purchases-hub" element={<PurchasesHubPage />} />
               <Route path="dealers/distributors" element={<DistributorsPage />} />
               <Route path="dealers/our-products" element={<OurProductsPage />} />
               <Route path="dealers/authorization-letter" element={<DealerAuthLetterPage />} />
@@ -71,6 +95,8 @@ function App() {
             <Route path="/reseller/:name/:id" element={<DashboardShell expectedType="reseller" />}>
               <Route index element={<DashboardPage />} />
               <Route path="tenders" element={<TendersListPage />} />
+              <Route path="tenders/tender-tracker" element={<TenderTrackerPage />} />
+              <Route path="tenders/document-tender" element={<DocumentTenderPage />} />
               <Route path="tenders/participated-tender" element={<ParticipatedTendersPage />} />
               <Route path="tenders/workdesk/active-workspaces" element={<ActiveWorkspacesPage />} />
               <Route path="tenders/workdesk/library" element={<LibraryPage />} />
@@ -80,6 +106,16 @@ function App() {
               <Route path="analytics/compare-bidders" element={<CompareBiddersPage />} />
               <Route path="orders/gem-contracts" element={<GemContractsPage />} />
               <Route path="orders/carting-dashboard" element={<CartingDashboardPage />} />
+              <Route path="sales/our-clients" element={<OurClientsPage />} />
+              <Route path="sales/quotations" element={<QuotationsPage />} />
+              <Route path="sales/invoices" element={<InvoicesPage />} />
+              <Route path="sales/proforma-invoice" element={<ProformaInvoicePage />} />
+              <Route path="sales/payment-receipts" element={<PaymentReceiptsPage />} />
+              <Route path="sales/sales-order" element={<SalesOrderPage />} />
+              <Route path="sales/delivery-challan" element={<DeliveryChallanPage />} />
+              <Route path="sales/credit-note" element={<CreditNotePage />} />
+              <Route path="purchases/our-vendors" element={<OurVendorsPage />} />
+              <Route path="purchases/purchases-hub" element={<PurchasesHubPage />} />
               <Route path="dealers/distributors" element={<DistributorsPage />} />
               <Route path="dealers/our-products" element={<OurProductsPage />} />
               <Route path="dealers/authorization-letter" element={<DealerAuthLetterPage />} />

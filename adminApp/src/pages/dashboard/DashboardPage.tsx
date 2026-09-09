@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   FileText, Clock, Globe, IndianRupee, TrendingUp, ShieldCheck, AlertCircle,
-  ArrowUpRight, Activity, Users, LogIn, CalendarCheck, Timer, Award, Headset, Building2, MapPin,
+  ArrowUpRight, Activity, Users, LogIn, CalendarCheck, Timer, Award, Headset, Building2, MapPin, Handshake,
 } from 'lucide-react';
 import {
   BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area,
@@ -10,6 +10,7 @@ import {
 import { getDashboardStats } from '../../services/tenderApi';
 import type { DashboardStats } from '../../services/tenderApi';
 import { usePageHeader } from '../../context/PageHeaderContext';
+import { useAuth } from '../../context/AuthContext';
 
 const formatINR = (value: number) => {
   const v = Number(value) || 0;
@@ -72,6 +73,7 @@ const DashboardPage = () => {
   usePageHeader('Tender Dashboard', 'Real-time snapshot of active GeM and open tenders.');
   const navigate = useNavigate();
   const { name, id } = useParams();
+  const { user } = useAuth();
   const [stats, setStats] = useState<DashboardStats | null>(cachedStats);
   const [loading, setLoading] = useState(!cachedStats);
   const tendersPath = (bidUrlId?: string) => `/${window.location.pathname.split('/')[1]}/${name}/${id}/tenders${bidUrlId ? `/${bidUrlId}` : ''}`;
@@ -117,7 +119,11 @@ const DashboardPage = () => {
         <StatCard icon={Globe} color="#0D9488" title="Open Tenders (CPPP)" value={stats.openTenders.toLocaleString('en-IN')} subtitle="Non-GeM portals" onClick={() => navigate(tendersPath())} />
         <StatCard icon={IndianRupee} color="#7C3AED" title="Contract Value" value={formatINR(stats.contracts.totalValue)} subtitle={`${stats.contracts.count.toLocaleString('en-IN')} contracts`} onClick={() => navigate(tendersPath())} />
         <StatCard icon={TrendingUp} color="#16305A" title="Active Pipeline Value" value={formatINR(stats.pipelineValue)} subtitle="Est. value, open tenders" onClick={() => navigate(tendersPath())} />
-        <StatCard icon={ShieldCheck} color="#16A34A" title="EMD Locked" value={formatINR(stats.emdLocked)} subtitle="Across active bids" onClick={() => navigate(tendersPath())} />
+        {user?.partnerType === 'oem' ? (
+          <StatCard icon={Handshake} color="#16A34A" title="Resellers" value={stats.resellersCount.toLocaleString('en-IN')} subtitle="Approved authorizations" onClick={() => navigate(`/${window.location.pathname.split('/')[1]}/${name}/${id}/dealers/authorization-letter`)} />
+        ) : (
+          <StatCard icon={ShieldCheck} color="#16A34A" title="EMD Locked" value={formatINR(stats.emdLocked)} subtitle="Across active bids" onClick={() => navigate(tendersPath())} />
+        )}
         <StatCard icon={AlertCircle} color="#DC2626" title="Open Incidents" value={stats.incidents.pendingResponse.toLocaleString('en-IN')} subtitle={`${stats.incidents.total} total`} onClick={() => navigate(tendersPath())} />
         <StatCard icon={Building2} color="#0D9488" title="Distributor Network" value={stats.distributors.total.toLocaleString('en-IN')} subtitle={`${stats.distributors.active} active`} onClick={() => navigate(tendersPath())} />
       </div>
