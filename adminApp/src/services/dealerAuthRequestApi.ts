@@ -14,26 +14,35 @@ export const getOemSubCategories = (oemUserId: number, categoryId: number) =>
   api.get(`/dealer-requests/oems/${oemUserId}/subcategories`, { params: { categoryId } }).then((r) => r.data as { success: boolean; data: NamedOption[] });
 
 export interface ProductOption { productId: number | null; name: string; custom?: boolean }
-export const getOemProducts = (oemUserId: number, subCategoryId: number) =>
-  api.get(`/dealer-requests/oems/${oemUserId}/products`, { params: { subCategoryId } }).then((r) => r.data as { success: boolean; data: ProductOption[] });
+export const getOemProducts = (oemUserId: number, categoryId: number) =>
+  api.get(`/dealer-requests/oems/${oemUserId}/products`, { params: { categoryId } }).then((r) => r.data as { success: boolean; data: ProductOption[] });
 
-export interface DealerAuthRequestRow {
+export interface DealerAuthRequestItem {
   id: number;
-  refNo: string;
-  fromUserId: number;
-  toUserId: number;
-  fromCompanyName: string;
-  toCompanyName: string;
+  sortOrder: number;
   categoryId: number | null;
   subCategoryId: number | null;
   productId: number | null;
   customProductName: string | null;
+  productCode: string | null;
+  conditionBullets: string[] | null;
   productName: string | null;
-  category?: { name: string };
-  subCategory?: { name: string };
+  category?: { name: string } | null;
+  subCategory?: { name: string } | null;
+}
+
+export interface DealerAuthRequestRow {
+  id: number;
+  refNo: string;
+  authCode: string | null;
+  fromUserId: number;
+  toUserId: number;
+  fromCompanyName: string;
+  toCompanyName: string;
+  productName: string | null;
+  items: DealerAuthRequestItem[];
   validFrom: string;
   validTo: string;
-  conditions: string | null;
   reason: string | null;
   status: 'pending' | 'approved' | 'rejected';
   rejectionRemarks: string | null;
@@ -41,9 +50,13 @@ export interface DealerAuthRequestRow {
   createdAt: string;
 }
 
+export interface AuthRequestItemInput {
+  categoryId?: number; subCategoryId?: number; productId?: number | null; customProductName?: string;
+  productCode?: string; conditionBullets?: string[];
+}
+
 export const createAuthRequest = (payload: {
-  toUserId: number; categoryId?: number; subCategoryId?: number; productId?: number | null; customProductName?: string;
-  validFrom: string; validTo: string; conditions?: string; reason?: string;
+  toUserId: number; validFrom: string; validTo: string; reason?: string; items: AuthRequestItemInput[];
 }) => api.post('/dealer-requests', payload).then((r) => r.data as { success: boolean; data: DealerAuthRequestRow; message?: string });
 
 export const getSentRequests = () => api.get('/dealer-requests/sent').then((r) => r.data as { success: boolean; data: DealerAuthRequestRow[] });

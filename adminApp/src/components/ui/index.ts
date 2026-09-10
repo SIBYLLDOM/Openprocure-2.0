@@ -34,3 +34,5 @@ export { Skeleton } from './Skeleton';
 export { ToastContainer } from './Toast';
 
 export { Pagination, paginate, PAGE_SIZE } from './Pagination';
+
+export { BulletListEditor } from './BulletListEditor';

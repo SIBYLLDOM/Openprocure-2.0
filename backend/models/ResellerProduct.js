@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     userId: { type: DataTypes.INTEGER, allowNull: false, field: 'user_id' },
     dealerAuthRequestId: { type: DataTypes.INTEGER, allowNull: true, field: 'dealer_auth_request_id' },
+    dealerAuthRequestItemId: { type: DataTypes.INTEGER, allowNull: true, field: 'dealer_auth_request_item_id' },
     authSerialNo: { type: DataTypes.STRING, allowNull: true, field: 'auth_serial_no' },
     productName: { type: DataTypes.STRING, allowNull: false, field: 'product_name' },
     decode: { type: DataTypes.STRING, allowNull: true },

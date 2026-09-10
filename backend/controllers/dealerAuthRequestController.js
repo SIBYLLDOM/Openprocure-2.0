@@ -1,7 +1,8 @@
 const { Op } = require('sequelize');
 const {
   User, PartnerProfile, PartnerContact, PartnerCertificate, PartnerTaxRegistration,
-  CompanyCategory, CompanySubCategory, ProductMasterItem, PartnerProductSelection, DealerAuthRequest, ResellerProduct,
+  CompanyCategory, CompanySubCategory, ProductMasterItem, PartnerProductSelection,
+  DealerAuthRequest, DealerAuthRequestItem, ResellerProduct,
 } = require('../models');
 const { notify } = require('../utils/notify');
 
@@ -76,13 +77,16 @@ exports.listOemSubCategories = async (req, res) => {
   }
 };
 
-// @route GET /api/dealer-requests/oems/:oemUserId/products?subCategoryId=
+// @route GET /api/dealer-requests/oems/:oemUserId/products?categoryId=
+// Keyed directly off categoryId (not subCategoryId) — the request form only
+// asks for Category > Product now, and this also avoids silently hiding
+// products whose selection row has an inconsistent/blank sub-category.
 exports.listOemProducts = async (req, res) => {
   try {
     const profileId = await oemProfileId(req.params.oemUserId);
     if (!profileId) return res.json({ success: true, data: [] });
     const selections = await PartnerProductSelection.findAll({
-      where: { profileId, subCategoryId: req.query.subCategoryId },
+      where: { profileId, categoryId: req.query.categoryId },
       include: [{ model: ProductMasterItem, as: 'product' }],
     });
     const data = selections.map((s) => (
@@ -103,30 +107,55 @@ async function nextRefNo() {
   return `${year}_auth_${String(count + 1).padStart(4, '0')}`;
 }
 
+// MDPL/XXXX/YYYY — the user-facing authorization code shown in listings,
+// a running 4-digit sequence plus the current year. Distinct from refNo
+// (see DealerAuthRequest.js for why both exist).
+async function nextAuthCode() {
+  const year = new Date().getFullYear();
+  const count = await DealerAuthRequest.count();
+  return `MDPL/${String(count + 1).padStart(4, '0')}/${year}`;
+}
+
 // @route POST /api/dealer-requests
+// body: { toUserId, validFrom, validTo, reason, items: [{ categoryId, subCategoryId, productId, customProductName, productCode, conditionBullets }] }
 exports.createRequest = async (req, res) => {
   try {
-    const { toUserId, categoryId, subCategoryId, productId, customProductName, validFrom, validTo, conditions, reason } = req.body;
+    const { toUserId, validFrom, validTo, reason } = req.body;
+    const items = Array.isArray(req.body.items) ? req.body.items : [];
+
     if (!toUserId) return res.status(400).json({ success: false, message: 'Select an OEM' });
-    if (!productId && !customProductName) return res.status(400).json({ success: false, message: 'Select a product' });
+    if (!items.length) return res.status(400).json({ success: false, message: 'Add at least one product' });
+    if (items.some((it) => !it.productId && !it.customProductName)) {
+      return res.status(400).json({ success: false, message: 'Select a product for every row' });
+    }
     if (!validFrom || !validTo) return res.status(400).json({ success: false, message: 'Validity from/to dates are required' });
     if (new Date(validTo) < new Date(validFrom)) return res.status(400).json({ success: false, message: 'Validity end date must be after the start date' });
 
     const oem = await User.findOne({ where: { id: toUserId, userType: 'partner', partnerType: 'oem' } });
     if (!oem) return res.status(404).json({ success: false, message: 'OEM not found' });
 
-    const refNo = await nextRefNo();
+    const [refNo, authCode] = await Promise.all([nextRefNo(), nextAuthCode()]);
     const request = await DealerAuthRequest.create({
-      refNo, fromUserId: req.user.id, toUserId, categoryId: categoryId || null, subCategoryId: subCategoryId || null,
-      productId: productId || null, customProductName: productId ? null : (customProductName || null),
-      validFrom, validTo, conditions: conditions || null, reason: reason || null, status: 'pending',
+      refNo, authCode, fromUserId: req.user.id, toUserId,
+      validFrom, validTo, reason: reason || null, status: 'pending',
     });
+
+    await DealerAuthRequestItem.bulkCreate(items.map((it, idx) => ({
+      dealerAuthRequestId: request.id,
+      sortOrder: idx,
+      categoryId: it.categoryId || null,
+      subCategoryId: it.subCategoryId || null,
+      productId: it.productId || null,
+      customProductName: it.productId ? null : (it.customProductName || null),
+      productCode: it.productCode || null,
+      conditionBullets: Array.isArray(it.conditionBullets) ? it.conditionBullets.filter((b) => b && b.trim()) : null,
+    })));
 
     const fromProfile = await PartnerProfile.findOne({ where: { userId: req.user.id } });
     await notify(toUserId, {
       type: 'auth_request',
       title: 'New Authorization Request',
-      message: `${companyLabel(fromProfile) || req.user.name || 'A reseller'} has requested authorization (${refNo}).`,
+      message: `${companyLabel(fromProfile) || req.user.name || 'A reseller'} has requested authorization (${authCode}).`,
       relatedType: 'DealerAuthRequest', relatedId: request.id,
     });
 
@@ -140,9 +169,17 @@ exports.createRequest = async (req, res) => {
 const REQUEST_INCLUDE = [
   { model: User, as: 'fromUser', attributes: ['id', 'name', 'email'] },
   { model: User, as: 'toUser', attributes: ['id', 'name', 'email'] },
-  { model: CompanyCategory, as: 'category' },
-  { model: CompanySubCategory, as: 'subCategory' },
-  { model: ProductMasterItem, as: 'product' },
+  {
+    model: DealerAuthRequestItem,
+    as: 'items',
+    separate: true,
+    order: [['sortOrder', 'ASC']],
+    include: [
+      { model: CompanyCategory, as: 'category' },
+      { model: CompanySubCategory, as: 'subCategory' },
+      { model: ProductMasterItem, as: 'product' },
+    ],
+  },
 ];
 
 async function decorate(rows) {
@@ -152,11 +189,13 @@ async function decorate(rows) {
   const toMap = new Map(toProfiles.map((p) => [p.userId, p]));
   return rows.map((r) => {
     const json = r.toJSON();
+    const items = (json.items || []).map((it) => ({ ...it, productName: it.product?.name || it.customProductName }));
     return {
       ...json,
+      items,
       fromCompanyName: companyLabel(fromMap.get(json.fromUserId)) || json.fromUser?.name,
       toCompanyName: companyLabel(toMap.get(json.toUserId)) || json.toUser?.name,
-      productName: json.product?.name || json.customProductName,
+      productName: items.map((it) => it.productName).filter(Boolean).join(', ') || null,
     };
   });
 }
@@ -238,7 +277,7 @@ exports.approveRequest = async (req, res) => {
   try {
     const request = await DealerAuthRequest.findOne({
       where: { id: req.params.id, toUserId: req.user.id },
-      include: [{ model: ProductMasterItem, as: 'product' }],
+      include: [{ model: DealerAuthRequestItem, as: 'items', include: [{ model: ProductMasterItem, as: 'product' }] }],
     });
     if (!request) return res.status(404).json({ success: false, message: 'Request not found' });
     if (request.status !== 'pending') return res.status(400).json({ success: false, message: 'This request has already been decided' });
@@ -252,24 +291,30 @@ exports.approveRequest = async (req, res) => {
 
     // Push straight into the reseller's Our Products list — an approved
     // authorization IS a product they're now cleared to sell, so they
-    // shouldn't have to re-enter it by hand (see ResellerProduct.js).
-    await ResellerProduct.findOrCreate({
-      where: { dealerAuthRequestId: request.id },
-      defaults: {
-        userId: request.fromUserId,
-        dealerAuthRequestId: request.id,
-        authSerialNo: request.refNo,
-        productName: request.product?.name || request.customProductName || 'Authorized Product',
-        oemBy: oemName,
-        validFrom: request.validFrom,
-        validTo: request.validTo,
-      },
-    });
+    // shouldn't have to re-enter it by hand (see ResellerProduct.js). One
+    // row per item now that a request can cover multiple products.
+    for (const item of request.items || []) {
+      await ResellerProduct.findOrCreate({
+        where: { dealerAuthRequestItemId: item.id },
+        defaults: {
+          userId: request.fromUserId,
+          dealerAuthRequestId: request.id,
+          dealerAuthRequestItemId: item.id,
+          authSerialNo: request.authCode || request.refNo,
+          productName: item.product?.name || item.customProductName || 'Authorized Product',
+          decode: item.productCode || null,
+          technicalSpecification: (item.conditionBullets || []).join('\n'),
+          oemBy: oemName,
+          validFrom: request.validFrom,
+          validTo: request.validTo,
+        },
+      });
+    }
 
     await notify(request.fromUserId, {
       type: 'auth_approved',
       title: 'Authorization Request Approved',
-      message: `${oemName} approved your request (${request.refNo}) — added to Our Products.`,
+      message: `${oemName} approved your request (${request.authCode || request.refNo}) — added to Our Products.`,
       relatedType: 'DealerAuthRequest', relatedId: request.id,
     });
 
@@ -299,7 +344,7 @@ exports.rejectRequest = async (req, res) => {
     await notify(request.fromUserId, {
       type: 'auth_rejected',
       title: 'Authorization Request Rejected',
-      message: `${companyLabel(toProfile) || req.user.name || 'The OEM'} rejected your request (${request.refNo}): ${remarks.trim()}`,
+      message: `${companyLabel(toProfile) || req.user.name || 'The OEM'} rejected your request (${request.authCode || request.refNo}): ${remarks.trim()}`,
       relatedType: 'DealerAuthRequest', relatedId: request.id,
     });
 

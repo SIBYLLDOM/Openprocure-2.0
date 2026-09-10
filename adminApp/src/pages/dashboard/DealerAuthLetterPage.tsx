@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Plus, FileSignature, X, Building2, Loader2 } from 'lucide-react';
+import { Plus, FileSignature, X, Building2, Loader2, Trash2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import {
-  getOemOptions, getOemCategories, getOemSubCategories, getOemProducts, createAuthRequest,
+  getOemOptions, getOemCategories, getOemProducts, createAuthRequest,
   getSentRequests, getReceivedRequests, getRequestDetail, getResellerProfile, approveRequest, rejectRequest,
 } from '../../services/dealerAuthRequestApi';
-import type { DealerAuthRequestRow, ResellerProfileData } from '../../services/dealerAuthRequestApi';
-import { Button, Modal } from '../../components/ui';
+import type { DealerAuthRequestRow, DealerAuthRequestItem, ResellerProfileData } from '../../services/dealerAuthRequestApi';
+import { Button, Modal, BulletListEditor } from '../../components/ui';
 import { SearchableSelect } from '../../components/ui/SearchableSelect';
 import { useToast } from '../../context/ToastContext';
 import { usePageHeader } from '../../context/PageHeaderContext';
@@ -19,6 +19,26 @@ const STATUS_STYLE: Record<DealerAuthRequestRow['status'], string> = {
 
 const fmtDate = (d: string | null) => (d ? new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A');
 
+// One product row inside "2. Choose Product" — its own category/subcategory/
+// product cascade, a free-text product code (the master catalog has no code
+// field, so this is the reseller's own reference), and its own bullet-point
+// conditions. Several of these make up one request now, replacing the old
+// single-product-plus-one-shared-conditions-textarea shape.
+interface ProductRow {
+  key: number;
+  categoryId: string;
+  productId: string; // '' | 'custom:<name>' | numeric id as string
+  productCode: string;
+  conditionBullets: string[];
+  categories: { value: string; label: string }[];
+  products: { value: string; label: string; custom?: boolean }[];
+}
+let rowKeySeq = 0;
+const emptyProductRow = (): ProductRow => ({
+  key: ++rowKeySeq, categoryId: '', productId: '', productCode: '', conditionBullets: [''],
+  categories: [], products: [],
+});
+
 // ---- New Request wizard (reseller side) ----
 const NewRequestModal = ({ onClose, onCreated }: { onClose: () => void; onCreated: () => void }) => {
   const { show } = useToast();
@@ -26,16 +46,10 @@ const NewRequestModal = ({ onClose, onCreated }: { onClose: () => void; onCreate
   const [oemOptions, setOemOptions] = useState<{ value: string; label: string }[]>([]);
   const [toUserId, setToUserId] = useState('');
 
-  const [categories, setCategories] = useState<{ value: string; label: string }[]>([]);
-  const [categoryId, setCategoryId] = useState('');
-  const [subCategories, setSubCategories] = useState<{ value: string; label: string }[]>([]);
-  const [subCategoryId, setSubCategoryId] = useState('');
-  const [products, setProducts] = useState<{ value: string; label: string; custom?: boolean }[]>([]);
-  const [productId, setProductId] = useState('');
+  const [rows, setRows] = useState<ProductRow[]>([emptyProductRow()]);
 
   const [validFrom, setValidFrom] = useState('');
   const [validTo, setValidTo] = useState('');
-  const [conditions, setConditions] = useState('');
   const [reason, setReason] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -45,38 +59,51 @@ const NewRequestModal = ({ onClose, onCreated }: { onClose: () => void; onCreate
     getOemOptions(oemQuery).then((r) => setOemOptions(r.data.map((o) => ({ value: String(o.userId), label: o.name }))));
   }, [oemQuery]);
 
+  // Selecting a different OEM invalidates every row's category/product
+  // cascade (they're all scoped to that OEM's own product selections).
   useEffect(() => {
-    setCategoryId(''); setSubCategoryId(''); setProductId(''); setSubCategories([]); setProducts([]);
-    if (!toUserId) { setCategories([]); return; }
-    getOemCategories(Number(toUserId)).then((r) => setCategories(r.data.map((c) => ({ value: String(c.id), label: c.name }))));
-  }, [toUserId]);
+    setRows([emptyProductRow()]);
+    if (!toUserId) return;
+    getOemCategories(Number(toUserId)).then((r) => {
+      const opts = r.data.map((c) => ({ value: String(c.id), label: c.name }));
+      setRows((rs) => rs.map((row) => ({ ...row, categories: opts })));
+    });
+  }, [toUserId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    setSubCategoryId(''); setProductId(''); setProducts([]);
-    if (!toUserId || !categoryId) { setSubCategories([]); return; }
-    getOemSubCategories(Number(toUserId), Number(categoryId)).then((r) => setSubCategories(r.data.map((c) => ({ value: String(c.id), label: c.name }))));
-  }, [toUserId, categoryId]);
+  const updateRow = (key: number, patch: Partial<ProductRow>) => setRows((rs) => rs.map((r) => (r.key === key ? { ...r, ...patch } : r)));
 
-  useEffect(() => {
-    setProductId('');
-    if (!toUserId || !subCategoryId) { setProducts([]); return; }
-    getOemProducts(Number(toUserId), Number(subCategoryId)).then((r) => setProducts(r.data.map((p) => ({ value: p.productId ? String(p.productId) : `custom:${p.name}`, label: p.name, custom: p.custom }))));
-  }, [toUserId, subCategoryId]);
+  const setRowCategory = async (key: number, categoryId: string) => {
+    updateRow(key, { categoryId, productId: '', products: [] });
+    if (!toUserId || !categoryId) return;
+    const r = await getOemProducts(Number(toUserId), Number(categoryId));
+    updateRow(key, { products: r.data.map((p) => ({ value: p.productId ? String(p.productId) : `custom:${p.name}`, label: p.name, custom: p.custom })) });
+  };
 
-  const canSubmit = toUserId && productId && validFrom && validTo;
+  const addRow = () => {
+    const first = rows[0];
+    setRows((rs) => [...rs, { ...emptyProductRow(), categories: first?.categories || [] }]);
+  };
+  const removeRow = (key: number) => setRows((rs) => (rs.length > 1 ? rs.filter((r) => r.key !== key) : rs));
+
+  const canSubmit = toUserId && validFrom && validTo && rows.every((r) => r.productId);
 
   const submit = async () => {
     if (!canSubmit) return;
     setSubmitting(true);
     try {
-      const isCustom = productId.startsWith('custom:');
       await createAuthRequest({
         toUserId: Number(toUserId),
-        categoryId: categoryId ? Number(categoryId) : undefined,
-        subCategoryId: subCategoryId ? Number(subCategoryId) : undefined,
-        productId: isCustom ? null : Number(productId),
-        customProductName: isCustom ? productId.slice(7) : undefined,
-        validFrom, validTo, conditions, reason,
+        validFrom, validTo, reason,
+        items: rows.map((r) => {
+          const isCustom = r.productId.startsWith('custom:');
+          return {
+            categoryId: r.categoryId ? Number(r.categoryId) : undefined,
+            productId: isCustom ? null : Number(r.productId),
+            customProductName: isCustom ? r.productId.slice(7) : undefined,
+            productCode: r.productCode || undefined,
+            conditionBullets: r.conditionBullets.filter((b) => b.trim()),
+          };
+        }),
       });
       show('Authorization request sent.', 'success');
       onCreated();
@@ -86,7 +113,7 @@ const NewRequestModal = ({ onClose, onCreated }: { onClose: () => void; onCreate
   };
 
   return (
-    <Modal open onClose={onClose} title="New Authorization Request" size="lg"
+    <Modal open onClose={onClose} title="New Authorization Request" size="xl"
       footer={<><Button variant="secondary" onClick={onClose}>Cancel</Button><Button loading={submitting} disabled={!canSubmit} onClick={submit}>Send Request</Button></>}>
       <div className="space-y-4">
         <div>
@@ -102,12 +129,26 @@ const NewRequestModal = ({ onClose, onCreated }: { onClose: () => void; onCreate
 
         <div>
           <label className="label">2. Choose Product *</label>
-          <div className="grid sm:grid-cols-3 gap-3">
-            <SearchableSelect value={categoryId} onChange={setCategoryId} options={categories} placeholder={toUserId ? (categories.length ? 'Category…' : 'No categories') : 'Select OEM first'} searchPlaceholder="Search…" />
-            <SearchableSelect value={subCategoryId} onChange={setSubCategoryId} options={subCategories} placeholder={categoryId ? (subCategories.length ? 'Sub-category…' : 'No sub-categories') : 'Select category first'} searchPlaceholder="Search…" />
-            <SearchableSelect value={productId} onChange={setProductId} options={products} placeholder={subCategoryId ? (products.length ? 'Product…' : 'No products') : 'Select sub-category first'} searchPlaceholder="Search…" />
+          <div className="rounded-xl border border-gray-100 overflow-hidden">
+            <div className="grid grid-cols-[32px_1fr_1fr_140px_1fr_28px] gap-2 px-3 py-2 bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-wide">
+              <span>#</span><span>Category</span><span>Product</span><span>Product Code</span><span>Condition</span><span />
+            </div>
+            <div className="divide-y divide-gray-50">
+              {rows.map((row, idx) => (
+                <div key={row.key} className="grid grid-cols-[32px_1fr_1fr_140px_1fr_28px] gap-2 px-3 py-3 items-start">
+                  <span className="text-sm text-gray-500 pt-2">{idx + 1}</span>
+                  <SearchableSelect value={row.categoryId} onChange={(v) => setRowCategory(row.key, v)} options={row.categories} placeholder={toUserId ? (row.categories.length ? 'Category…' : 'No categories') : 'Select OEM first'} searchPlaceholder="Search…" />
+                  <SearchableSelect value={row.productId} onChange={(v) => updateRow(row.key, { productId: v })} options={row.products} placeholder={row.categoryId ? (row.products.length ? 'Product…' : 'No products') : 'Select category first'} searchPlaceholder="Search…" />
+                  <input className="input !py-1.5 !text-sm" placeholder="Code" value={row.productCode} onChange={(e) => updateRow(row.key, { productCode: e.target.value })} />
+                  <BulletListEditor value={row.conditionBullets} onChange={(bullets) => updateRow(row.key, { conditionBullets: bullets })} placeholder="Add a condition…" />
+                  <button type="button" onClick={() => removeRow(row.key)} disabled={rows.length === 1} className="p-1.5 mt-1 text-gray-300 hover:text-danger-600 disabled:opacity-30 disabled:pointer-events-none"><Trash2 size={14} /></button>
+                </div>
+              ))}
+            </div>
+            <div className="p-2.5 bg-gray-50">
+              <button type="button" onClick={addRow} className="text-xs font-semibold text-primary-600 hover:underline flex items-center gap-1"><Plus size={12} /> Add Product</button>
+            </div>
           </div>
-          <p className="text-[11px] text-gray-400 mt-1">One product per authorization request.</p>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -122,12 +163,7 @@ const NewRequestModal = ({ onClose, onCreated }: { onClose: () => void; onCreate
         </div>
 
         <div>
-          <label className="label">4. Conditions</label>
-          <textarea rows={3} className="input" placeholder="e.g. Price range ₹1,000 – ₹2,000 per unit, minimum order quantity, territory restrictions…" value={conditions} onChange={(e) => setConditions(e.target.value)} />
-        </div>
-
-        <div>
-          <label className="label">5. Reason for Authorization</label>
+          <label className="label">4. Reason for Authorization</label>
           <textarea rows={3} className="input" placeholder="e.g. I have a GeM tender opportunity and need authorization to bid on your behalf…" value={reason} onChange={(e) => setReason(e.target.value)} />
         </div>
       </div>
@@ -147,7 +183,7 @@ const RejectModal = ({ request, onClose, onDone }: { request: DealerAuthRequestR
   };
   return (
     <Modal open onClose={onClose} title="Reject Authorization Request" size="sm" footer={<><Button variant="secondary" onClick={onClose} disabled={saving}>Cancel</Button><Button variant="danger" loading={saving} disabled={!remarks.trim()} onClick={submit}>Reject</Button></>}>
-      <p className="text-sm text-gray-600 mb-3">This notifies <strong className="text-gray-900">{request.fromCompanyName}</strong> that their request ({request.refNo}) was rejected, along with your reason.</p>
+      <p className="text-sm text-gray-600 mb-3">This notifies <strong className="text-gray-900">{request.fromCompanyName}</strong> that their request ({request.authCode || request.refNo}) was rejected, along with your reason.</p>
       <label className="label">Reason for Rejection *</label>
       <textarea autoFocus rows={3} className="input" value={remarks} onChange={(e) => setRemarks(e.target.value)} placeholder="Explain why this request can't be approved…" />
     </Modal>
@@ -237,7 +273,7 @@ const RequestDetailModal = ({ request, isOem, onClose, onChanged }: { request: D
 
   return (
     <>
-      <Modal open onClose={onClose} title={`Authorization Request — ${request.refNo}`} size="lg"
+      <Modal open onClose={onClose} title={`Authorization Request — ${request.authCode || request.refNo}`} size="lg"
         footer={
           isOem && request.status === 'pending' ? (
             <>
@@ -257,18 +293,33 @@ const RequestDetailModal = ({ request, isOem, onClose, onChanged }: { request: D
             <span className={`px-2.5 py-1 rounded-full text-xs font-bold uppercase ${STATUS_STYLE[request.status]}`}>{request.status}</span>
           </div>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
+            <div><label className="text-[11px] font-bold text-gray-500 uppercase">Authorization Code</label><p className="font-mono text-gray-800">{request.authCode || 'N/A'}</p></div>
             <div><label className="text-[11px] font-bold text-gray-500 uppercase">Ref No.</label><p className="font-mono text-gray-800">{request.refNo}</p></div>
             <div><label className="text-[11px] font-bold text-gray-500 uppercase">Date</label><p className="text-gray-800">{fmtDate(request.createdAt)}</p></div>
             <div><label className="text-[11px] font-bold text-gray-500 uppercase">From (Reseller)</label><p className="font-semibold text-gray-800">{request.fromCompanyName}</p></div>
             <div><label className="text-[11px] font-bold text-gray-500 uppercase">To (OEM)</label><p className="font-semibold text-gray-800">{request.toCompanyName}</p></div>
-            <div><label className="text-[11px] font-bold text-gray-500 uppercase">Product</label><p className="text-gray-800">{request.productName || 'N/A'}</p></div>
-            <div><label className="text-[11px] font-bold text-gray-500 uppercase">Category</label><p className="text-gray-800">{request.category?.name || 'N/A'} {request.subCategory?.name ? `/ ${request.subCategory.name}` : ''}</p></div>
             <div><label className="text-[11px] font-bold text-gray-500 uppercase">Valid From</label><p className="text-gray-800">{fmtDate(request.validFrom)}</p></div>
             <div><label className="text-[11px] font-bold text-gray-500 uppercase">Valid To</label><p className="text-gray-800">{fmtDate(request.validTo)}</p></div>
           </div>
+
           <div className="mt-4">
-            <label className="text-[11px] font-bold text-gray-500 uppercase">Conditions</label>
-            <p className="text-sm text-gray-700 mt-1 whitespace-pre-wrap">{request.conditions || 'None specified.'}</p>
+            <label className="text-[11px] font-bold text-gray-500 uppercase mb-2 block">Products &amp; Conditions</label>
+            <div className="space-y-2">
+              {(request.items || []).map((item: DealerAuthRequestItem, idx: number) => (
+                <div key={item.id} className="rounded-lg border border-gray-100 bg-white p-3">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-semibold text-gray-800">{idx + 1}. {item.productName || 'N/A'}</p>
+                    {item.productCode && <span className="text-xs font-mono text-gray-400">{item.productCode}</span>}
+                  </div>
+                  {item.category?.name && <p className="text-xs text-gray-500 mt-0.5">{item.category.name}{item.subCategory?.name ? ` / ${item.subCategory.name}` : ''}</p>}
+                  {item.conditionBullets && item.conditionBullets.length > 0 && (
+                    <ul className="mt-2 list-disc list-inside space-y-0.5">
+                      {item.conditionBullets.map((b, i) => <li key={i} className="text-sm text-gray-700">{b}</li>)}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
           <div className="mt-4">
             <label className="text-[11px] font-bold text-gray-500 uppercase">Reason for Authorization</label>
@@ -300,6 +351,7 @@ const RequestTable = ({ rows, isOem, onOpen }: { rows: DealerAuthRequestRow[]; i
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-gray-50 text-left text-[11px] font-bold text-gray-500 uppercase tracking-wide">
+              <th className="px-4 py-3">Authorization Code</th>
               <th className="px-4 py-3">Ref No.</th>
               <th className="px-4 py-3">{isOem ? 'Reseller' : 'OEM'}</th>
               <th className="px-4 py-3">Product</th>
@@ -310,6 +362,7 @@ const RequestTable = ({ rows, isOem, onOpen }: { rows: DealerAuthRequestRow[]; i
           <tbody>
             {rows.map((r) => (
               <tr key={r.id} onClick={() => onOpen(r)} className="border-t border-gray-50 hover:bg-gray-50/60 cursor-pointer">
+                <td className="px-4 py-3 font-mono text-xs font-semibold text-primary-700">{r.authCode || '—'}</td>
                 <td className="px-4 py-3 font-mono text-xs text-gray-700">{r.refNo}</td>
                 <td className="px-4 py-3 font-semibold text-gray-800">{isOem ? r.fromCompanyName : r.toCompanyName}</td>
                 <td className="px-4 py-3 text-gray-600">{r.productName || 'N/A'}</td>

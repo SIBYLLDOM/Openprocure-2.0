@@ -57,16 +57,20 @@ db.PartnerDistributor = require('./PartnerDistributor')(sequelize, DataTypes);
 // DealerAuthRequest.js. Replaces the earlier single-tenant "generate my own
 // letter" version of this feature.
 db.DealerAuthRequest = require('./DealerAuthRequest')(sequelize, DataTypes);
+db.DealerAuthRequestItem = require('./DealerAuthRequestItem')(sequelize, DataTypes);
 db.Notification = require('./Notification')(sequelize, DataTypes);
 db.DealerAuthRequest.belongsTo(db.User, { foreignKey: 'fromUserId', as: 'fromUser' });
 db.DealerAuthRequest.belongsTo(db.User, { foreignKey: 'toUserId', as: 'toUser' });
-db.DealerAuthRequest.belongsTo(db.CompanyCategory, { foreignKey: 'categoryId', as: 'category' });
-db.DealerAuthRequest.belongsTo(db.CompanySubCategory, { foreignKey: 'subCategoryId', as: 'subCategory' });
-db.DealerAuthRequest.belongsTo(db.ProductMasterItem, { foreignKey: 'productId', as: 'product' });
+db.DealerAuthRequest.hasMany(db.DealerAuthRequestItem, { foreignKey: 'dealerAuthRequestId', as: 'items', onDelete: 'CASCADE' });
+db.DealerAuthRequestItem.belongsTo(db.DealerAuthRequest, { foreignKey: 'dealerAuthRequestId', as: 'request' });
+db.DealerAuthRequestItem.belongsTo(db.CompanyCategory, { foreignKey: 'categoryId', as: 'category' });
+db.DealerAuthRequestItem.belongsTo(db.CompanySubCategory, { foreignKey: 'subCategoryId', as: 'subCategory' });
+db.DealerAuthRequestItem.belongsTo(db.ProductMasterItem, { foreignKey: 'productId', as: 'product' });
 
 // Product Management > Our Products (reseller-only) — see ResellerProduct.js.
 db.ResellerProduct = require('./ResellerProduct')(sequelize, DataTypes);
 db.ResellerProduct.belongsTo(db.DealerAuthRequest, { foreignKey: 'dealerAuthRequestId', as: 'authRequest' });
+db.ResellerProduct.belongsTo(db.DealerAuthRequestItem, { foreignKey: 'dealerAuthRequestItemId', as: 'authRequestItem' });
 
 db.User.hasOne(db.PartnerProfile, { foreignKey: 'userId', as: 'partnerProfile' });
 db.PartnerProfile.belongsTo(db.User, { foreignKey: 'userId', as: 'user' });
