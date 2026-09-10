@@ -129,8 +129,8 @@ const NewRequestModal = ({ onClose, onCreated }: { onClose: () => void; onCreate
 
         <div>
           <label className="label">2. Choose Product *</label>
-          <div className="rounded-xl border border-gray-100 overflow-hidden">
-            <div className="grid grid-cols-[32px_1fr_1fr_140px_1fr_28px] gap-2 px-3 py-2 bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-wide">
+          <div className="rounded-xl border border-gray-100">
+            <div className="grid grid-cols-[32px_1fr_1fr_140px_1fr_28px] gap-2 px-3 py-2 bg-gray-50 rounded-t-xl text-[10px] font-bold text-gray-500 uppercase tracking-wide">
               <span>#</span><span>Category</span><span>Product</span><span>Product Code</span><span>Condition</span><span />
             </div>
             <div className="divide-y divide-gray-50">
@@ -145,7 +145,7 @@ const NewRequestModal = ({ onClose, onCreated }: { onClose: () => void; onCreate
                 </div>
               ))}
             </div>
-            <div className="p-2.5 bg-gray-50">
+            <div className="p-2.5 bg-gray-50 rounded-b-xl">
               <button type="button" onClick={addRow} className="text-xs font-semibold text-primary-600 hover:underline flex items-center gap-1"><Plus size={12} /> Add Product</button>
             </div>
           </div>
