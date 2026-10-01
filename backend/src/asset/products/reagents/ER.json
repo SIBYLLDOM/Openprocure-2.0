@@ -1,0 +1,478 @@
+[
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "ALBERS-01",
+        "product_name": "ALBUMIN",
+        "pack_size": "10 x 44",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "ALPERS-01",
+        "product_name": "ALKALINE PHOSPHATASE",
+        "pack_size": "2 x 44 / 2 x 11",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "AMYERS-01",
+        "product_name": "AMYLASE",
+        "pack_size": "5 x 22",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "BIDERS-01",
+        "product_name": "BILIRUBIN DIRECT (DCA)",
+        "pack_size": "6 x 44 / 3 x 22",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "BITERS-01",
+        "product_name": "BILIRUBIN TOTAL (DCA)",
+        "pack_size": "6 x 44 / 3 x 22",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "CAAERS-01",
+        "product_name": "CALCIUM (A)",
+        "pack_size": "10 x 12",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "CHDERS-01",
+        "product_name": "CHLORIDE",
+        "pack_size": "10 x 12",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "CHOERS-01",
+        "product_name": "CHOLESTEROL",
+        "pack_size": "10 x 44",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "CKMERS-01",
+        "product_name": "CREATINE KINASE MB",
+        "pack_size": "2 x 44 / 2 x 11",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "CKNERS-01",
+        "product_name": "CREATINE KINASE NAC",
+        "pack_size": "2 x 44 / 2 x 11",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "CREERS-01",
+        "product_name": "CREATININE",
+        "pack_size": "5 x 44 / 5 x 11",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "GGTERS-01",
+        "product_name": "GAMMA GLUTAMYL TRANSFERASE",
+        "pack_size": "2 x 44 / 2 x 11",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "GLUERS-01",
+        "product_name": "GLUCOSE",
+        "pack_size": "10 x 44",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "GOTERS-01",
+        "product_name": "ASAT (GOT)",
+        "pack_size": "6 x 44 / 3 x 22",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "GPTERS-01",
+        "product_name": "ALAT (GPT)",
+        "pack_size": "6 x 44 / 3 x 22",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "LDHERS-01",
+        "product_name": "LDH-P",
+        "pack_size": "2 x 44 / 2 x 11",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "LIPERS-01",
+        "product_name": "LIPASE",
+        "pack_size": "2 x 44 / 2 x 11",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "MAGERS-01",
+        "product_name": "MAGNESIUM",
+        "pack_size": "2 x 44",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "MTPERS-01",
+        "product_name": "MICROPROTEIN",
+        "pack_size": "10 x 12",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "PHOERS-01",
+        "product_name": "PHOSPHORUS",
+        "pack_size": "10 x 12",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "TPRERS-01",
+        "product_name": "TOTAL PROTEIN",
+        "pack_size": "10 x 44",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "TRGERS-01",
+        "product_name": "TRIGLYCERIDE",
+        "pack_size": "5 x 44 / 5 x 11",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "URCERS-01",
+        "product_name": "URIC ACID",
+        "pack_size": "5 x 44 / 5 x 11",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "UREERS-01",
+        "product_name": "UREA",
+        "pack_size": "5 x 44 / 5 x 11",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "HDLERS-01",
+        "product_name": "HDL-C Direct",
+        "pack_size": "4 x 30 / 4 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "LDLERS-01",
+        "product_name": "LDL-C Direct",
+        "pack_size": "2 x 30 / 2 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "CRPERS-01",
+        "product_name": "CRP",
+        "pack_size": "2 x 40 / 2 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "AirQuantERReagents",
+        "sub_category": "ER",
+        "product_code": "MALERS-01",
+        "product_name": "Microalbumin",
+        "pack_size": "2 x 30 / 2 x 10",
+        "pricing": {
+            "mrp": null,
+            "ctp": null
+        },
+        "tier_pricing": {
+            "tier_1": null,
+            "tier_2": null,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Disinfection & Sterilization",
+    "type": "Surface and Equipment Disinfectant",
+    "product_code": "",
+    "instrument_name": "MIREY™ 70% IPA",
+    "brand": "Meril",
+    "sub_brand": "MIREY™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "manufacturer": "Meril Medical Innovation Pvt. Ltd.",
+    "marketed_by": "Meril Life Sciences India Pvt. Ltd.",
+    "tagline": "The Power to Eliminate. The Promise to Protect.",
+    "description": "Isopropyl Alcohol IP – 70% Solution for effective surface disinfection and equipment cleaning.",
+    "availability_status": "Available",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "generic_name": "Isopropyl Rubbing Alcohol IP",
+      "composition": [
+        "Isopropyl Alcohol IP – 70%"
+      ],
+      "active_ingredient": "Isopropyl Alcohol IP",
+      "concentration_percent": 70,
+      "formulation": "Ready-to-use solution",
+      "dosage_form": "Trigger spray bottle",
+      "key_properties": [
+        "Ready-to-use disinfectant",
+        "Rapid Evaporation",
+        "No harsh chemicals",
+        "Disinfects effectively"
+      ],
+      "application_areas": [
+        "Surfaces",
+        "Electronic equipment"
+      ],
+      "pack_size": {
+        "bottle": "250 ml",
+        "carton": "20 Bottles"
+      }
+    },
+    "usage_instructions": {
+      "for_surface": [
+        "Wipe the surface to physically remove any contaminants",
+        "Spray from a distance of 6–8 inches on surface",
+        "Apply directly onto surfaces ensuring even coverage",
+        "Keep surfaces visibly wet for effective disinfection",
+        "Always close the nozzle after use"
+      ],
+      "for_electronic_equipment": [
+        "Spray MIREY 70% IPA onto a sterile gauze to moisten it",
+        "Do not spray directly on screens or sensitive electronic equipment",
+        "Wipe the screen or surface gently in one direction only to avoid streaks and static damage"
+      ]
+    },
+    "precaution": [
+      "Avoid use on alcohol-sensitive materials such as acrylic glass"
+    ],
+    "features": {
+      "key_properties": [
+        "Ready-to-use disinfectant requiring no dilution",
+        "Rapid evaporation leaves no residue",
+        "Safe for electronic equipment when applied via gauze",
+        "Effective surface disinfection and equipment cleaning"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Hospital surface disinfection",
+        "Medical equipment and electronic device cleaning",
+        "Operating theatres, ICUs and clinical areas",
+        "Routine environmental hygiene protocols"
+      ],
+      "key_strengths": [
+        "70% IPA at pharmacopoeial (IP) grade",
+        "Ready-to-use with trigger spray convenience",
+        "Rapid evaporation with no harsh chemicals",
+        "Economical 250 ml bottle, 20 per carton"
+      ]
+    }
+  }
+]

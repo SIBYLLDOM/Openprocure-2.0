@@ -1,0 +1,254 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene",
+    "type": "Alcohol Based Hand Rub",
+    "product_code": "",
+    "instrument_name": "MIREX™ Alcohol Rub",
+    "brand": "Meril",
+    "sub_brand": "MIREX™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "manufacturer": "Meril Medical Innovation Pvt. Ltd.",
+    "marketed_by": "Meril Life Sciences India Pvt. Ltd.",
+    "tagline": "Clean Hands, Prepped Skin - The Perfect Start To Infection Prevention",
+    "description": "MIREX Alcohol Rub is a ready-to-use, alcohol-based hand rub designed for rapid disinfection without the need for water or a wash basin. It plays a vital role in infection prevention across various healthcare and industrial settings where hand hygiene is essential.",
+    "availability_status": "Available",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "generic_name": "2-Propanol, 1-Propanol & Mecetronium Ethyl Sulphate Solution",
+      "product_type": "Antimicrobial Handrub",
+      "formulation": "Ready-to-use, no dilution or water required",
+      "composition_basis": "Each 100 gms Contains",
+      "composition": [
+        "2-Propanol: 45.0 g",
+        "1-Propanol: 30.0 g",
+        "Ethyl-hexadecyl-dimethyl ammonium-ethylsulphate: 0.2 g",
+        "Excipients: Glycerin",
+        "Colour - Brilliant Blue FCF",
+        "Purified water IP (QS)"
+      ],
+      "actives": {
+        "2_propanol_g_per_100g": 45.0,
+        "1_propanol_g_per_100g": 30.0,
+        "mecetronium_ethyl_sulphate_g_per_100g": 0.2
+      },
+      "product_properties": [
+        "Excellent action",
+        "Excellent skin tolerability even with long term use"
+      ],
+      "usage_time": {
+        "hygienic_hand_disinfection": "30 seconds",
+        "surgical_hand_disinfection": "1.5 minutes"
+      },
+      "pack_sizes": [
+        {
+          "pack_size": "100 ml (with Dispenser)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "100 ml (Flip Top)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "500 ml (with Dispenser)",
+          "carton": "20 Bottles"
+        },
+        {
+          "pack_size": "5 L",
+          "carton": "2 Cans"
+        }
+      ]
+    },
+    "microbiology": {
+      "spectrum": [
+        "Bactericidal",
+        "Yeasticidal",
+        "Tuberculocidal",
+        "Mycobactericidal",
+        "Virucidal against enveloped viruses"
+      ],
+      "viruses_covered": [
+        "HBV (Hepatitis B Virus)",
+        "HCV (Hepatitis C Virus)",
+        "HIV (Human Immunodeficiency Virus)",
+        "Adenovirus",
+        "Polyomavirus",
+        "Rotavirus"
+      ]
+    },
+    "directions_for_use": [
+      "Hygienic Hand Disinfection: Apply 3 ml of MIREX Alcohol Rub onto clean, dry hands and nail grooves. Rub thoroughly for 30 sec",
+      "Surgical Hand Disinfection: Apply 6 ml of MIREX Alcohol Rub onto clean, dry hands, nail grooves, and up to the elbow. Rub thoroughly for 1.5 minutes"
+    ],
+    "areas_of_application": [
+      "Critical care areas: ICU, ICCU, NICU, MICU, AKD",
+      "Operation theatres and surgical units",
+      "Departments managing infectious diseases and burn care",
+      "Diagnostic laboratories and treatment rooms",
+      "Dental and ophthalmology departments",
+      "Ambulances and emergency medical services",
+      "Hospital kitchens and canteens",
+      "Home care settings and home dialysis"
+    ],
+    "features": {
+      "product_properties": [
+        "Excellent action",
+        "Excellent skin tolerability even with long term use",
+        "Ready-to-use, no water or wash basin required",
+        "Effective for both hygienic and surgical hand disinfection"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Critical care and operation theatre hand hygiene",
+        "Surgical hand disinfection",
+        "Infectious disease and burn care departments",
+        "Emergency medical services and home care"
+      ],
+      "key_strengths": [
+        "Broad virucidal coverage including HBV, HCV and HIV",
+        "30 second hygienic and 1.5 minute surgical protocols",
+        "Skin tolerable with glycerin emollient for long term use",
+        "Four pack formats from 100 ml to 5 L"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene",
+    "type": "Alcohol Based Hand Rub",
+    "product_code": "",
+    "instrument_name": "BAKTIO™ BLUE Alcohol Rub",
+    "brand": "Meril",
+    "sub_brand": "BAKTIO™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "description": "BAKTIO BLUE Alcohol Rub is a ready-to-use, alcohol-based hand rub designed for rapid disinfection.",
+    "availability_status": "Available",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "generic_name": "2-Propanol, 1-Propanol & Mecetronium Ethyl Sulphate Solution",
+      "product_type": "Antimicrobial Handrub",
+      "formulation": "Ready-to-use",
+      "composition_basis": "Each 100 gms Contains",
+      "composition": [
+        "2-Propanol: 45.0 g",
+        "1-Propanol: 30.0 g",
+        "Ethyl-hexadecyl-dimethyl ammonium-ethylsulphate: 0.2 g",
+        "Excipients: Glycerin",
+        "Colour - Brilliant Blue FCF",
+        "Purified water IP (QS)"
+      ],
+      "actives": {
+        "2_propanol_g_per_100g": 45.0,
+        "1_propanol_g_per_100g": 30.0,
+        "mecetronium_ethyl_sulphate_g_per_100g": 0.2
+      },
+      "product_properties": [
+        "Excellent action",
+        "Excellent skin tolerability even with long term use"
+      ],
+      "usage_time": {
+        "hygienic_hand_disinfection": "30 seconds",
+        "surgical_hand_disinfection": "1.5 minutes"
+      },
+      "pack_sizes": [
+        {
+          "pack_size": "100 ml (with Dispenser)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "100 ml (Flip Top)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "500 ml (with Dispenser)",
+          "carton": "20 Bottles"
+        },
+        {
+          "pack_size": "5 L",
+          "carton": "2 Cans"
+        }
+      ]
+    },
+    "microbiology": {
+      "spectrum": [
+        "Bactericidal",
+        "Yeasticidal",
+        "Tuberculocidal",
+        "Mycobactericidal",
+        "Virucidal against enveloped viruses"
+      ],
+      "viruses_covered": [
+        "HBV (Hepatitis B Virus)",
+        "HCV (Hepatitis C Virus)",
+        "HIV (Human Immunodeficiency Virus)",
+        "Adenovirus",
+        "Polyomavirus",
+        "Rotavirus",
+        "Norovirus"
+      ]
+    },
+    "directions_for_use": [
+      "Hygienic Hand Disinfection: Apply 3 ml of BAKTIO BLUE Alcohol Rub onto clean, dry hands and nail grooves. Rub thoroughly for 30 sec",
+      "Surgical Hand Disinfection: Apply 6 ml of BAKTIO BLUE Alcohol Rub onto clean, dry hands, nail grooves, and up to the elbow. Rub thoroughly for 1.5 minutes"
+    ],
+    "areas_of_application": {
+      "moments_of_use": [
+        "Before & after patient contact",
+        "Aseptic tasks",
+        "After exposure to body fluids",
+        "In surgical & procedural areas",
+        "Routine Hospital & Clinical Settings",
+        "Non-Clinical Areas"
+      ],
+      "detailed_applications": [
+        "Critical care areas: ICU, ICCU, NICU, MICU, AKD",
+        "Operation theatres and surgical units",
+        "Departments managing infectious diseases and burn care",
+        "Diagnostic laboratories and treatment rooms",
+        "Dental and ophthalmology departments",
+        "Ambulances and emergency medical services",
+        "Hospital kitchens and canteens",
+        "Home care settings and home dialysis"
+      ]
+    },
+    "features": {
+      "product_properties": [
+        "Excellent action",
+        "Excellent skin tolerability even with long term use",
+        "Ready-to-use for rapid disinfection",
+        "Effective for both hygienic and surgical hand disinfection"
+      ]
+    },
+    "relationship_to_other_products": {
+      "note": "Composition, usage times, directions for use and pack sizes are identical to MIREX™ Alcohol Rub; BAKTIO BLUE additionally claims Norovirus coverage.",
+      "equivalent_to": "MIREX™ Alcohol Rub"
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Routine hospital and clinical hand hygiene",
+        "Surgical and procedural areas",
+        "Non-clinical and general settings",
+        "WHO 5 Moments hand hygiene programmes"
+      ],
+      "key_strengths": [
+        "Broad virucidal coverage including Norovirus",
+        "30 second hygienic and 1.5 minute surgical protocols",
+        "Skin tolerable for long term use",
+        "Four pack formats from 100 ml to 5 L"
+      ]
+    }
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Skin Preparation",
+    "type": "Povidone Iodine Antiseptic",
+    "series_name": "MIDOR™ Povidone Iodine Range",
+    "brand": "Meril",
+    "sub_brand": "MIDOR™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Available",
+    "shared_technical_specifications": {
+      "generic_name": "Povidone-Iodine Solution IP",
+      "antimicrobial_efficacy": {
+        "description": "Midor range exhibits a broad-spectrum antimicrobial activity",
+        "spectrum": [
+          "Bactericidal – Gram+ & Gram- bacteria",
+          "Fungicidal – Yeasts & fungi",
+          "Tuberculocidal – M. tuberculosis",
+          "Virucidal – Wide range of viruses",
+          "Sporicidal – Effective against spores"
+        ]
+      },
+      "pack_sizes": [
+        {
+          "pack_size": "100 ml",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "500 ml",
+          "carton": "20 Bottles"
+        },
+        {
+          "pack_size": "2 L",
+          "carton": "4 Bottles"
+        }
+      ]
+    },
+    "product_code": "",
+    "instrument_name": "MIDOR™ 5%",
+    "product_category": "Topical preparation",
+    "composition": "Povidone Iodine IP 5% w/v",
+    "concentration_percent": 5,
+    "available_iodine_percent": 0.5,
+    "antimicrobial_strength": "Moderate",
+    "application_focus": "Routine skin prep, minor wounds",
+    "residual_effect": "Shorter duration",
+    "mucosal_use": "Yes (diluted)",
+    "time_of_kill": "Rapid action, within 2 minutes. Good residual effect",
+    "common_use": "Routine antisepsis, pre-op skin disinfection, minor wounds, mucosal disinfection (with dilution)",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Skin Preparation",
+    "type": "Povidone Iodine Antiseptic",
+    "series_name": "MIDOR™ Povidone Iodine Range",
+    "brand": "Meril",
+    "sub_brand": "MIDOR™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Available",
+    "shared_technical_specifications": {
+      "generic_name": "Povidone-Iodine Solution IP",
+      "antimicrobial_efficacy": {
+        "description": "Midor range exhibits a broad-spectrum antimicrobial activity",
+        "spectrum": [
+          "Bactericidal – Gram+ & Gram- bacteria",
+          "Fungicidal – Yeasts & fungi",
+          "Tuberculocidal – M. tuberculosis",
+          "Virucidal – Wide range of viruses",
+          "Sporicidal – Effective against spores"
+        ]
+      },
+      "pack_sizes": [
+        {
+          "pack_size": "100 ml",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "500 ml",
+          "carton": "20 Bottles"
+        },
+        {
+          "pack_size": "2 L",
+          "carton": "4 Bottles"
+        }
+      ]
+    },
+    "product_code": "",
+    "instrument_name": "MIDOR™ 7.5%",
+    "product_category": "Surgical Scrub",
+    "composition": "Povidone Iodine IP 7.5% w/v",
+    "concentration_percent": 7.5,
+    "available_iodine_percent": 0.75,
+    "antimicrobial_strength": "Strong",
+    "application_focus": "Surgical scrubs, contaminated wounds",
+    "residual_effect": "Longer residual action",
+    "mucosal_use": "Limited (diluted)",
+    "time_of_kill": "Effective with 2.5 – 3 minutes surgical scrub",
+    "common_use": "Surgical hand scrubs, skin prep before procedures, wound & burn care, hygienic hand disinfection",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Skin Preparation",
+    "type": "Povidone Iodine Antiseptic",
+    "series_name": "MIDOR™ Povidone Iodine Range",
+    "brand": "Meril",
+    "sub_brand": "MIDOR™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Available",
+    "shared_technical_specifications": {
+      "generic_name": "Povidone-Iodine Solution IP",
+      "antimicrobial_efficacy": {
+        "description": "Midor range exhibits a broad-spectrum antimicrobial activity",
+        "spectrum": [
+          "Bactericidal – Gram+ & Gram- bacteria",
+          "Fungicidal – Yeasts & fungi",
+          "Tuberculocidal – M. tuberculosis",
+          "Virucidal – Wide range of viruses",
+          "Sporicidal – Effective against spores"
+        ]
+      },
+      "pack_sizes": [
+        {
+          "pack_size": "100 ml",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "500 ml",
+          "carton": "20 Bottles"
+        },
+        {
+          "pack_size": "2 L",
+          "carton": "4 Bottles"
+        }
+      ]
+    },
+    "product_code": "",
+    "instrument_name": "MIDOR™ 10%",
+    "product_category": "Surgical Skin Preparation",
+    "composition": "Povidone Iodine IP 10% w/v",
+    "concentration_percent": 10,
+    "available_iodine_percent": 1.0,
+    "antimicrobial_strength": "Very strong",
+    "application_focus": "High-risk surgeries, deep wounds",
+    "residual_effect": "Longest residual activity",
+    "mucosal_use": "Rare; requires careful dilution",
+    "time_of_kill": "Effective with 2.5 – 3 minutes surgical scrub",
+    "common_use": "Pre-op prep for major surgeries, high-risk infections, deep wound care, critical surgical disinfection",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

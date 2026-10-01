@@ -1,0 +1,92 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene & Skin Preparation",
+    "type": "Upcoming Antiseptic Range",
+    "series_name": "Hand Hygiene & Skin Prep — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Chlorhexidine and cetrimide based antiseptics",
+        "Alcohol-based antiseptic liquids",
+        "Incise drapes (plain, CHG and iodine)",
+        "Surgical clippers and blades"
+      ]
+    },
+    "sr_no": 11,
+    "product_code": "",
+    "instrument_name": "CUTWELL Incise Drape - Plain",
+    "product_category": "Incise Drapes",
+    "variant": "Plain",
+    "composition": null,
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene & Skin Preparation",
+    "type": "Upcoming Antiseptic Range",
+    "series_name": "Hand Hygiene & Skin Prep — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Chlorhexidine and cetrimide based antiseptics",
+        "Alcohol-based antiseptic liquids",
+        "Incise drapes (plain, CHG and iodine)",
+        "Surgical clippers and blades"
+      ]
+    },
+    "sr_no": 12,
+    "product_code": "",
+    "instrument_name": "CUTWELL Incise Drape - CHG",
+    "product_category": "Incise Drapes",
+    "variant": "CHG",
+    "composition": null,
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene & Skin Preparation",
+    "type": "Upcoming Antiseptic Range",
+    "series_name": "Hand Hygiene & Skin Prep — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Chlorhexidine and cetrimide based antiseptics",
+        "Alcohol-based antiseptic liquids",
+        "Incise drapes (plain, CHG and iodine)",
+        "Surgical clippers and blades"
+      ]
+    },
+    "sr_no": 13,
+    "product_code": "",
+    "instrument_name": "CUTWELL Incise Drape - Iodine",
+    "product_category": "Incise Drapes",
+    "variant": "Iodine",
+    "composition": null,
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

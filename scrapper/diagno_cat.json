@@ -1,0 +1,186 @@
+[
+  {
+    "sno": 1,
+    "item_category": "Biochemistry Analyzer (Semi-Automated)"
+  },
+  {
+    "sno": 2,
+    "item_category": "Electrolyte Analyzer"
+  },
+  {
+    "sno": 3,
+    "item_category": "Fully Automatic Biochemistry Analyzer (V2)"
+  },
+  {
+    "sno": 4,
+    "item_category": "Veterinary Hematology Analyzer (V2)"
+  },
+  {
+    "sno": 5,
+    "item_category": "Immunoassay Analyzer (V3)"
+  },
+  {
+    "sno": 6,
+    "item_category": "Veterinary Biochemistry Analyzer (V2)"
+  },
+  {
+    "sno": 7,
+    "item_category": "3 Part Automated Hematology Analyzer (V2)"
+  },
+  {
+    "sno": 8,
+    "item_category": "ELISA Reader and Washer - Semi Automated"
+  },
+  {
+    "sno": 9,
+    "item_category": "Semi Automated Coagulation Analyzer (V2)"
+  },
+  {
+    "sno": 10,
+    "item_category": "Hematology Analyzer (Fully-Automated)"
+  },
+  {
+    "sno": 11,
+    "item_category": "ELISA Plate Washer (V2)"
+  },
+  {
+    "sno": 12,
+    "item_category": "ELISA Reader (V2)"
+  },
+  {
+    "sno": 13,
+    "item_category": "6 Part Automated Hematology Analyzer"
+  },
+  {
+    "sno": 14,
+    "item_category": "Coagulation Analyzer Reagents for Human Samples"
+  },
+  {
+    "sno": 15,
+    "item_category": "Electrolyte Analyzer Reagents for Human Samples"
+  },
+  {
+    "sno": 16,
+    "item_category": "Calibrators for Diagnostic Analyzers"
+  },
+  {
+    "sno": 17,
+    "item_category": "Controls for Diagnostic Analyzers"
+  },
+  {
+    "sno": 18,
+    "item_category": "Wash Solution for Diagnostic Analyzers"
+  },
+  {
+    "sno": 19,
+    "item_category": "Biochemistry Reagent Kit for Human Samples"
+  },
+  {
+    "sno": 20,
+    "item_category": "Point of Care Testing (POCT) Equipment"
+  },
+  {
+    "sno": 21,
+    "item_category": "Haematology Analyzer Reagents (V2)"
+  },
+  {
+    "sno": 22,
+    "item_category": "Immunoassay Analyzer Reagent Kit for Human Samples"
+  },
+  {
+    "sno": 23,
+    "item_category": "Typhoid Rapid Test Kits"
+  },
+  {
+    "sno": 24,
+    "item_category": "Point of Care Rapid Test Kits for Humans – Dengue, Malaria, Typhoid & Others"
+  },
+  {
+    "sno": 25,
+    "item_category": "Rapid Pregnancy Test Kit"
+  },
+  {
+    "sno": 26,
+    "item_category": "Rapid Test Kit for HIV / Syphilis / Hepatitis B Virus (HBV) / Hepatitis C Virus (HCV)"
+  },
+  {
+    "sno": 27,
+    "item_category": "C-Reactive Protein (CRP) Test Kit - Latex Agglutination Method for Human Samples"
+  },
+  {
+    "sno": 28,
+    "item_category": "Rapid Urine Drug Screening Kit"
+  },
+  {
+    "sno": 29,
+    "item_category": "Anti - A Blood Grouping Reagent"
+  },
+  {
+    "sno": 30,
+    "item_category": "Anti - B Blood Grouping Reagent"
+  },
+  {
+    "sno": 31,
+    "item_category": "Anti - D Blood Grouping Reagent"
+  },
+  {
+    "sno": 32,
+    "item_category": "Anti-A1 Lectin Reagent (V2)"
+  },
+  {
+    "sno": 33,
+    "item_category": "Anti - AB Blood Grouping Reagent (V2)"
+  },
+  {
+    "sno": 34,
+    "item_category": "High Performance Liquid Chromatography (HPLC) System"
+  },
+  {
+    "sno": 35,
+    "item_category": "Viral Transport Medium (VTM) Kit ( Q2 )"
+  },
+  {
+    "sno": 36,
+    "item_category": "HBsAg ELISA Test Kits (Q2)"
+  },
+  {
+    "sno": 37,
+    "item_category": "HCV ELISA Test Kits"
+  },
+  {
+    "sno": 38,
+    "item_category": "HIV ELISA Test Kits"
+  },
+  {
+    "sno": 39,
+    "item_category": "ELISA Testing Kits"
+  },
+  {
+    "sno": 40,
+    "item_category": "Dengue Elisa Test Kit"
+  },
+  {
+    "sno": 41,
+    "item_category": "Real Time PCR Kit for SARS - CoV - 2 / COVID - 19"
+  },
+  {
+    "sno": 42,
+    "item_category": "Rapid Antigen Test Kit for SARS - CoV - 2 / COVID - 19"
+  },
+  {
+    "sno": 43,
+    "item_category": "Viral Transport Medium (VTM) Kit"
+  },
+  {
+    "sno": 44,
+    "item_category": "Viral RNA Extraction Kits"
+  },
+  {
+    "sno": 45,
+    "item_category": "Real Time PCR Kits (V2)"
+  },
+  {
+    "sno": 46,
+    "item_category": "ELISA Test Kits (V2)"
+  }
+]

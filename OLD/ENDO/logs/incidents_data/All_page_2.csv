@@ -1,0 +1,7 @@
+Severity,Incident_ID,Reason,Product_Category,Status,Escalated_Date,Incident_Date,SCN_Sent_Date,Raised_Against,Organisation_Name,Seller_Organisation_Name,Product_ID,Incident_For,SCN_End_Date,Last_Modified_Role,Last_Modified_Date,Maker_Role
+Grave,1700214,Mis-declaration of Maximum Retail Price (MRP),Sutures (V2),Rejected,--,12/09/2023,--,SELLER,--,MERIL ENDO SURGERY PRIVATE LIMITED,5116877-69460690491-cat,CATALOG,--,PRODUCT ADMIN,18/09/2023,--
+Grave,1662535,Mis-declaration of Maximum Retail Price (MRP),Sutures (V2),Closed,--,15/08/2023,25/08/2023,SELLER,--,MERIL ENDO SURGERY PRIVATE LIMITED,5116877-42197603484-cat,CATALOG,30/08/2023,ADMIN,12/09/2023,--
+Grave,1662533,Mis-declaration of Maximum Retail Price (MRP),Sutures (V2),Closed,--,15/08/2023,25/08/2023,SELLER,--,MERIL ENDO SURGERY PRIVATE LIMITED,5116877-29969611624-cat,CATALOG,30/08/2023,ADMIN,12/09/2023,--
+Grave,1654845,Mis-declaration of Maximum Retail Price (MRP),Sutures (V2),Closed,--,08/08/2023,03/10/2023,SELLER,--,MERIL ENDO SURGERY PRIVATE LIMITED,5116877-52655075384-cat,CATALOG,08/10/2023,ADMIN,05/10/2023,--
+Grave,1622632,Mis-declaration of Maximum Retail Price (MRP),Hernia Fixation Device,Closed,11/07/2023,14/06/2023,11/07/2023,SELLER,--,S.V. ENTERPRISES,5116877-45559990529-cat,CATALOG,16/07/2023,SYSTEM,12/09/2023,--
+Grave,1622628,Mis-declaration of Maximum Retail Price (MRP),Hernia Fixation Device,Closed,11/07/2023,14/06/2023,11/07/2023,SELLER,--,AADI HEALTH CARE,5116877-29384728478-cat,CATALOG,16/07/2023,ADMIN,16/07/2023,--

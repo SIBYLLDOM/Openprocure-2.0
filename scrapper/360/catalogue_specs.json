@@ -1,0 +1,109 @@
+{
+  "https://bidplus.gem.gov.in/bidding/bid/showCatalogue/eWMOuFXqbHTqSmmEAbGpguKe97O6Vq4ooh_RNokqXFU": [
+    {
+      "category": "GENERAL FEATURES",
+      "specification": "Product Name",
+      "allowed_values": "Horizontal Autoclave"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "All piping material",
+      "allowed_values": "SS 304 / SS 316 / SS 316 L"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Door Construction Material",
+      "allowed_values": "Chrome plated MS"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Heater material",
+      "allowed_values": "SS 304 / SS 316 / SS 316 L"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Wall Type",
+      "allowed_values": "Double walled"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Door",
+      "allowed_values": "Single door"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Door operation mechanism",
+      "allowed_values": "Radial locking"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Finishing",
+      "allowed_values": "Mirror finished inner and external surface"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Design Type",
+      "allowed_values": "Rectangular"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Boiler Specifications",
+      "allowed_values": "Made of SS 304 / SS 316 / SS 316 L sheet, Water inlet & outlet valves, Water level glass window, Boiler safety valve"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Boiler type",
+      "allowed_values": "External"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Insulation",
+      "allowed_values": "Glass wool"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Multiport valve",
+      "allowed_values": "Yes"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Working temperature (degree celsius)",
+      "allowed_values": "121 to 149"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Working pressure (PSI)",
+      "allowed_values": "15 to 52"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Sterilization Period (minutes)",
+      "allowed_values": "≤ 25 minutes"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Controller type",
+      "allowed_values": "PID temperature controller"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Pressure",
+      "allowed_values": "Automatic pressure control switch, Analog dial type pressure gauge, Manual pressure release valves for chamber & jacket"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Volume (Capacity)",
+      "allowed_values": "75 to 3000 litres"
+    },
+    {
+      "category": "PRODUCT INFORMATION",
+      "specification": "Standard fittings",
+      "allowed_values": "Mains MCB, Silicon gasket, Pressure safety valve"
+    },
+    {
+      "category": "WARRANTY",
+      "specification": "Warranty in years (Option of comprehensive warranty is available through bidding only, which if opted will supersede normal warranty in the catalogue)",
+      "allowed_values": "1, 2, 3, 4, 5 Or higher"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+Severity,Incident_ID,Reason,Product_Category,Status,Escalated_Date,Incident_Date,SCN_Sent_Date,Raised_Against,Organisation_Name,Seller_Organisation_Name,Product_ID,Incident_For,SCN_End_Date,Last_Modified_Role,Last_Modified_Date,Maker_Role
+Mild,2338354,Delay in payment post CRAC generation,3 Part Automated Hematology Analyzer (V2),In-Progress,--,13/02/2026,--,BUYER,FIELD UNIT AMBAJHARI,MERIL DIAGNOSTICS PRIVATE LIMITED,5116877-35929737181-cat,ORDER,--,SELLER,23/02/2026,--

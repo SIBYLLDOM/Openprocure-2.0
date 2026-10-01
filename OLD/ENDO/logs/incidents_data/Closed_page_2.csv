@@ -1,0 +1,11 @@
+Severity,Incident_ID,Reason,Product_Category,Status,Escalated_Date,Incident_Date,SCN_Sent_Date,Raised_Against,Organisation_Name,Seller_Organisation_Name,Product_ID,Incident_For,SCN_End_Date,Last_Modified_Role,Last_Modified_Date,Maker_Role
+Grave,1654845,Mis-declaration of Maximum Retail Price (MRP),Sutures (V2),Closed,--,08/08/2023,03/10/2023,SELLER,--,MERIL ENDO SURGERY PRIVATE LIMITED,5116877-52655075384-cat,CATALOG,08/10/2023,ADMIN,05/10/2023,--
+Grave,1622632,Mis-declaration of Maximum Retail Price (MRP),Hernia Fixation Device,Closed,11/07/2023,14/06/2023,11/07/2023,SELLER,--,S.V. ENTERPRISES,5116877-45559990529-cat,CATALOG,16/07/2023,SYSTEM,12/09/2023,--
+Grave,1622628,Mis-declaration of Maximum Retail Price (MRP),Hernia Fixation Device,Closed,11/07/2023,14/06/2023,11/07/2023,SELLER,--,AADI HEALTH CARE,5116877-29384728478-cat,CATALOG,16/07/2023,ADMIN,16/07/2023,--
+Grave,1327214,Submission of fake documents or false statement,Sutures-Rev 1,Closed,--,05/11/2022,--,SELLER,155 Base Hospital,MERIL ENDO SURGERY PRIVATE LIMITED,--,ORDER,--,BUYER,13/12/2022,--
+Grave,1224070,Mis-declaration of Maximum Retail Price (MRP),Sutures-Rev 1,Closed,31/08/2022,04/06/2022,31/08/2022,SELLER,--,JAI AMBEY TRADERS,5116877-68856177165-cat,CATALOG,05/09/2022,ADMIN,07/09/2022,--
+Grave,783663,Mis-declaration of Maximum Retail Price (MRP),Hemorrhoid Stapler,Closed,--,21/08/2021,--,SELLER,--,AADI HEALTHCARE,5116877-13983320889-cat,CATALOG,--,PRODUCT ADMIN,09/09/2021,--
+Serious,731805,Delay in Delivery,sutures,Closed,--,02/08/2021,--,SELLER,command military dental centre alipore kolkata,MERIL ENDO SURGERY PRIVATE LIMITED,--,ORDER,--,SYSTEM,08/09/2021,--
+Serious,644645,Auto Cancel / Decline of Order in DP / L-1 purchase,sutures,Closed,--,01/07/2021,--,SELLER,10140027-HPBP Trichy,MERIL ENDO SURGERY PRIVATE LIMITED,--,ORDER,--,SYSTEM,07/08/2021,--
+Severe,624687,"Non delivery of Products/services after placement of the contract, for Bid / RA.",sutures,Closed,--,30/06/2021,--,SELLER,command military dental centre alipore kolkata,MERIL ENDO SURGERY PRIVATE LIMITED,--,ORDER,--,SYSTEM,06/08/2021,--
+Severe,270010,"Uploading/delivering Fake or counterfeit, or refurbished products",Hernia Fixation Device,Closed,--,08/07/2020,--,SELLER,--,Sushrut Medical Devices,5116877-85854801475-cat,CATALOG,--,--,08/07/2020,--

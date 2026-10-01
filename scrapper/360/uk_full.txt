@@ -1,0 +1,347 @@
+Screen Reader Access
+
+
+
+
+11-Sep-2026	Search | Active Tenders | Tenders by Closing Date | Corrigendum | Results of Tenders	
+	
+	
+
+
+	
+« STANDARD BID DOCUMENT FOR PROCUREMNET OF WORKS	« REQUEST FOR PROPOSAL FOR PROCUREMENT OF CONSULTANCY SERVICES	« Procurement Rules 2025	« STANDARD BIDDING DOCUMENT FOR PROCUREMENT OF OF GOODS	« Guidelines regarding Standard Bidding Document (SBD) for works e-tenders up to Rs. 10 crore
+
+
+
+
+
+MIS Reports
+
+
+Tenders by Location
+
+
+Tenders by Organisation
+
+
+Tenders by Classification
+
+
+Tenders in Archive
+
+
+Tenders Status
+
+
+Cancelled/Retendered
+
+
+Downloads
+
+
+Announcements
+
+
+Debarment List
+
+
+Recognitions
+
+
+Site compatibility
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+	
+ 
+
+Advanced Tender Search	Back
+
+ 
+ 
+
+  Please Select Tender Type
+
+
+Tender Type *	
+-Select-
+Open Tender
+Limited Tender
+	Tender ID	
+Secretariat Type	
+-Select-
+State Govt and UT
+
+Secretariat	
+-Select-
+Agriculture and Agriculture Education
+Animal Husbandry
+Chairman (Drinking Water)
+Civil Aviation
+Cooperative
+Dairy Development
+Disaster Management
+Energy
+Fisheries
+Homeopathy
+Horticulture
+Housing
+Information
+Irrigation Department
+Medical Education
+MHFW
+Mining
+Non-conventional Energy
+Panchayati Raj
+Planning
+Public Works Department
+RES
+Rural Development
+School Education
+Secretariat Administration (SAD) Dehradun
+SIIDCUL
+Social Welfare
+Sports
+Sugar and Sugarcane
+Tourism
+Training
+Transport
+Urban Development
+USIDCL
+World Bank/ADB Tenders
+Youth Welfare and PRD
+
+Organisation	
+-Select-
+Add. Secretary (Urban Development)
+CEO (Uttarakhand Civil Aviation Development Authority)
+CEO (Uttarakhand Rural Roads Development Agency)
+CEO (Uttarakhand State Rural Livelihood Mission)
+CEO (Uttarakhand Tourism Development Board)
+CGM (Drinking Water) Jal Sansthan
+Chief Administrator Uttarakhand Housing and Urban Development Authority Dehradun
+DG - Information and Public Relation Department Dehradun
+DG - Uttarakhand Landslide Mitigation and Management Center (ULMMC) Dehradun
+Director (Agriculture)
+Director (Animal Husbandry)
+Director Directorate of Geology and Mining Uttarakhand
+Director (Fisheries)
+Director (Homeopathy)
+Director (Horticulture)
+Director (NHM Uttarakhand Health and Family Welfare Society Dehradun)
+Director (Panchayati Raj)
+Director (Social Welfare)
+Director (Training)
+Director (Urban Development Directorate)
+Director (UREDA)
+Director (Youth Welfare and PRD)
+Executive Director (Doiwala Sugar Company Ltd. Doiwala Dehradun)
+Executive Director (Kichha Sugar Co. Ltd. U.S. Nagar)
+Executive Officer Nagar Palika Parishad Bhimtal (Nainital)
+Executive Officer Nagar Palika Parishad Champawat
+Executive Officer Nagar Palika Parishad Doiwala (Dehradun)
+Executive Officer Nagar Palika Parishad Mussorie
+Executive Officer Nagar Palika Parishad Pithoragarh
+Executive Officer Nagar Palika Parishad Ramnagar (Nainital)
+Executive Officer Nagar Palika Parishad Ranikhet Chilianaula (Almora)
+Executive Officer Nagar Palika Parishad Sitarganj (U.S. Nagar)
+Executive Officer Nagar Panchayat Chamiyala (Tehri Garhwal)
+Executive Officer Nagar Panchayat Lalkuan (Nainital)
+Executive Officer Nagar Panchayat Purola (Uttarkashi)
+Executive Officer Nagar Panchayat Tapovan (Tehri Garhwal)
+GM (Bhartiya Co-operative Gramin Vikas Evam Nirman Ltd. Uttarakhand)
+GM (The Bazpur Co-operative Sugar Factory Ltd.)
+GM (The Kisan Sahkari Chini Mills Ltd. Nadehi)
+IRD - Chief Engineer
+MD - BRIDCUL
+MD (Drinking Water) Peyjal Nigam GoUK
+MD (Drinking Water) Peyjal Nigam GoUK - World Bank
+MD - GMVN
+MD - Kumaun Mandal Vikas Nigam Ltd. Nainital
+MD (Power Transmisison Corporation of Uttarakhand Limited)
+MD - SIIDCUL
+MD - Transport
+MD - UCDF Ltd. Haldwani
+MD- UJVN
+MD - UPCL
+MD - UPDCC Ltd.
+MD Uttarakhand Agriculture Produce Marketing Board Rudrapur
+MD Uttarakhand Investment and Infrastructure Development Board (UIIDB)
+MD - Uttarakhand State Co-operative Federation Ltd.
+MD Uttarakhand Upbhokta Shakari Sangh Ltd. Dehradun
+MHFW - DG (Medical Health)
+Municipal Commissioner Nagar Nigam Dehradun
+Municipal Commissioner Nagar Nigam Haldwani-Kathgodam
+Municipal Commissioner Nagar Nigam Haridwar
+Municipal Commissioner Nagar Nigam Kashipur
+Municipal Commissioner Nagar Nigam Kotdwar
+Municipal Commissioner Nagar Nigam Rishikesh
+Municipal Commissioner Nagar Nigam Roorkee
+Municipal Commissioner Srinagar (Pauri Garhwal)
+PD (PMU Uttarakhand Green Resilient and Inclusive Development Project) - World Bank
+PD (Uttarakhand Urban Sector Development Agency IPMU) - ADB
+PM (Project Implementation Unit - PWD) U-PREPARE - World Bank
+PMS B.D. Pandey Male Hospital Nainital
+Principal - Government Doon Medical College Dehradun
+Principal - Government Medical College Haldwani
+Principal Nehru Institute of Mountaineering Uttarkashi
+Project Director PMU BIIU ADB PWD Dehradun
+Project Management Unit- UCRRFP
+PWD
+RES - Chief Engineer
+Secretary Board of School Education Uttarakhand Ramnagar (Nainital)
+Secretary (SAD)
+SE-UPCL Corporate (Contract and Procurement)
+Vice Chairman Haridwar-Roorkee Development Authority Haridwar
+	Tender Reference Number	
+Department	
+-Select-
+	Work/Item Title	
+Division	
+-Select-
+	Tender Category	
+-Select-
+Goods
+Services
+Works
+
+Sub Division	
+-Select-
+	Product Category	
+-Select-
+Access Control System
+Agricultural or Forestry
+Civil Construction Goods
+Civil Works
+Civil Works - Bridges
+Civil Works - Buildings
+Civil Works - Canal
+Civil Works - Others
+Civil Works - Roads
+Civil Works - Water Works
+Composite Works
+Computer- H/W
+Construction Works
+Consultancy
+Consumables (Hospital / Lab)
+Electrical Work/ Equipment
+Electrical Works
+Electronics Equipment
+Farm Machinery and Equipments
+Food Products
+Hotel/ Catering
+Housekeeping/ Cleaning
+Information Technology
+Lab Chemistry Reagents
+Laboratory and scientific equipment
+Machineries
+Machineries/ Mechanical Engg Items
+Manpower Supply
+Mechanical Engineering Items
+Medical Equipments/Waste
+Medicines
+Miscellaneous Goods
+Miscellaneous Services
+Miscellaneous Works
+Pipe Laying Works
+Power/Energy Projects/Products
+Pumps/Motors
+Repair and Maintenance Services
+Repair and Maintenance Works
+Solar Battery Chargers
+Solar Power Plants
+Solar Street Lights
+Solid Waste Management
+Sports Goods/Equipments
+Supply of Materials
+Survey
+Vehicles/Vehicle Spares
+Weighing System
+
+Form of Contract	
+-Select-
+Empanelment
+EOI
+Fixed-rate
+Item Rate
+Item Wise
+Lump-sum
+Percentage
+PPP-BoT-ToT
+QCBS
+RFP-RFQ
+Turn-key
+
+Pincode	
+Payment Mode	
+-Select-
+Offline
+Online
+Both(Online/Offline)
+Not Applicable
+
+Value Criteria	
+-Select-
+EMD
+Tender Fee
+Processing Fee
+ECV
+	
+-Select-
+Equal
+LessThan
+GreaterThan
+Between
+	  
+Date Criteria	
+-Select-
+Published Date
+Document Download Start Date
+Document Download End Date
+Bid Submission Start Date
+Bid Submission End Date
+	From  	To  
+Selection Criteria	Two Stage Bidding
+NDA Tenders
+Preferential Bidding	GTE
+ITE / TPS	Tender Fee Exemption
+EMD Exemption
+
+Enter Captcha		      Refresh
+
+Provide Captcha and click on Search button to list all active tenders.
+
+ 
+Clear   
+
+
+Visitor No:2534416
+Contents owned and maintained by Government of Uttarakhand
+
+Designed, Developed and Hosted by
+National Informatics Centre	Version : 1.09.24 10-Jun-2026
+(c) 2017 Tenders NIC, All rights reserved.
+Site best viewed with a screen resolution 1920 x 1080.	Portal policies
+

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { FileText, CheckCircle2, Circle, Plus, Upload, FolderOpen, BarChart3, MessageSquare, LayoutDashboard, Users, X, Download, Trash2, ShoppingCart, Tag, Edit2, Wand2, Settings, BrainCog } from 'lucide-react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { FileText, CheckCircle2, Circle, Plus, Upload, FolderOpen, MessageSquare, LayoutDashboard, Users, X, Download, Trash2, ShoppingCart, Tag, Edit2, Wand2, Settings, BrainCog, FileSignature, ShieldCheck } from 'lucide-react';
 
 
 import WorkspaceOverview from "./WorkspaceOverview";
-import WorkspaceTasks from "./WorkspaceTasks";
 import WorkspaceDocuments from "./WorkspaceDocuments";
-import WorkspaceAnalytics from "./WorkspaceAnalytics";
 import WorkspaceProducts from "./WorkspaceProducts";
+import WorkspaceProcessEMD from "./WorkspaceProcessEMD";
 import WorkspaceSettings from "./WorkspaceSettings";
+import WorkspaceDocPrep from "./WorkspaceDocPrep";
+import WorkspaceMyDocs from "./WorkspaceMyDocs";
 import GenerateTasksModal from "./GenerateTasksModal";
+import DecodeStatusBanner from "./DecodeStatusBanner";
 
 
 
@@ -19,7 +21,8 @@ const TenderWorkspace = () => {
   const { "*": tenderId } = useParams();
   const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState('workspace');
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(location.state?.tab || 'overview');
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [departments, setDepartments] = useState([]);
   const [tenderData, setTenderData] = useState(null);
@@ -92,7 +95,45 @@ const TenderWorkspace = () => {
         const dbData = await dbRes.json();
         if (dbData.success && dbData.data) {
           if (dbData.data.detail_url) dbDetailUrl = dbData.data.detail_url;
-          if (dbData.data.json_data) {
+
+          if (dbData.open_source) {
+            // Open tenders don't carry a json_data.links array — their document
+            // links live in downloaded_documents (locally-scraped files) or,
+            // failing that, file_link — same source TenderDetails.jsx reads,
+            // so the workspace's Tender Documents tab shows the same set.
+            const downloadedDocs = dbData.data.downloaded_documents || [];
+            const downloadedLinks = [];
+            if (Array.isArray(downloadedDocs)) {
+              for (const d of downloadedDocs) {
+                const typeLabel = d.type === 'nit' ? 'NIT Document'
+                  : d.type === 'work_item_zip' ? 'Work Item Documents'
+                  : d.type === 'corrigendum' ? 'Corrigendum'
+                  : d.type || 'Document';
+                if (d.local_path) {
+                  downloadedLinks.push({
+                    uri: `${API_BASE_URL}/tenders/download?path=${encodeURIComponent(d.local_path)}`,
+                    text: d.file_name || d.local_path.split(/[\\/]/).pop(),
+                    label: typeLabel,
+                  });
+                } else if (Array.isArray(d.extracted_files)) {
+                  for (const fp of d.extracted_files) {
+                    downloadedLinks.push({
+                      uri: `${API_BASE_URL}/tenders/download?path=${encodeURIComponent(fp)}`,
+                      text: fp.split(/[\\/]/).pop(),
+                      label: typeLabel,
+                    });
+                  }
+                }
+              }
+            }
+            const rawFiles = dbData.data.file_link || [];
+            const fileLinkLinks = Array.isArray(rawFiles) ? rawFiles.map(f => ({
+              uri: f.file_path ? `${API_BASE_URL}/tenders/download?path=${encodeURIComponent(f.file_path)}` : '#',
+              text: f.file_name || f.description || 'Document',
+              label: f.category || f.doc_type || f.description || 'Document',
+            })) : [];
+            json = { links: downloadedLinks.length > 0 ? downloadedLinks : fileLinkLinks };
+          } else if (dbData.data.json_data) {
             if (typeof dbData.data.json_data === 'string') {
               try { json = JSON.parse(dbData.data.json_data); }
               catch (e) { console.error('Failed to parse json_data:', e); }
@@ -105,18 +146,13 @@ const TenderWorkspace = () => {
     } catch (e) { console.warn('DB fetch failed', e); }
 
     if (!json) {
-      // Fallback Step 2
+      // Fallback Step 2 — backend reads the JSON file and returns it inline
       try {
         const pathRes = await fetch(`${API_BASE_URL}/tenders/${encodeURIComponent(cleanTenderId)}/documents/path`, { headers });
         if (pathRes.ok) {
           const pathData = await pathRes.json();
-          if (pathData.json_path) {
-            let jsonPath = pathData.json_path.replace(/^"|"$/g, '');
-            if (/^[a-zA-Z]:/.test(jsonPath) || jsonPath.includes('\\')) {
-              jsonPath = `${JSON_SERVER_URL}/${jsonPath.split(/[/\\]/).pop()}`;
-            }
-            const jsonRes = await fetch(jsonPath);
-            if (jsonRes.ok) json = await jsonRes.json();
+          if (pathData.json_data) {
+            json = pathData.json_data;
           }
         }
       } catch (e) { }
@@ -601,21 +637,8 @@ const TenderWorkspace = () => {
   };
 
   const handleDocTaskSelect = (task) => {
-    // Navigate to the full page document editor
-    // We encode the tenderId if needed, though react-router handles URL params well.
-    // tenderId here is "GEM/..." from splat, we might need to double check path matching
-    // Route is /workspace/:tenderId/doc-editor/:taskId
-    // Workspaces is at /workspace/* so tenderId is the * part.
-    // If we simply use navigate, we should be careful about relative paths.
-    // The App.jsx route is /workspace/:tenderId/doc-editor/:taskId
-    // Workspaces "tenderId" from splat is "GEM/2025/..."
-
-    // We need to match the route definition in App.jsx
-    // Wait, App.jsx defines /workspace/* for Workspaces.
-    // AND /workspace/:tenderId/doc-editor/:taskId separately.
-    // So we need to construct the full path.
-    const encodedId = encodeURIComponent(tenderId);
-    navigate(`/workspace/${encodedId}/doc-editor/${task.id}`);
+    const tidNorm = tenderId.replace(/[^a-zA-Z0-9]/g, '_');
+    navigate(`/Docs/ws_${tidNorm}_task_${task.id}`, { state: { title: task.title } });
   };
 
   const generateAIContent = async () => {
@@ -712,6 +735,49 @@ const TenderWorkspace = () => {
                 <FolderOpen style={{ width: '1.25rem', height: '1.25rem', color: '#2563eb' }} />
                 File Management
               </h3>
+              <button
+                onClick={() => navigate(`/workspace/${encodeURIComponent(tenderId)}/doc-analyzer`)}
+                style={{
+                  padding: '0.65rem 1rem',
+                  background: '#0f766e',
+                  color: 'white',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontWeight: '600',
+                  fontSize: '0.9rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  border: 'none',
+                  marginRight: '0.5rem'
+                }}
+              >
+                <BrainCog size={16} /> Analyze Tender Docs
+              </button>
+
+              <button
+                onClick={() => {
+                  const tidNorm = tenderId.replace(/[^a-zA-Z0-9]/g, '_');
+                  navigate(`/Docs/ws_${tidNorm}_doc_${Date.now()}`);
+                }}
+                style={{
+                  padding: '0.65rem 1rem',
+                  background: '#0369a1',
+                  color: 'white',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontWeight: '600',
+                  fontSize: '0.9rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  border: 'none',
+                  marginRight: '0.5rem'
+                }}
+              >
+                <FileText size={16} /> New Document
+              </button>
+
               <button
                 onClick={() => openDocWizard(selectedDepartment.id)}
                 style={{
@@ -1224,8 +1290,8 @@ const TenderWorkspace = () => {
                         {/* Static Options */}
                         <div
                           onClick={() => {
-                            const encodedId = encodeURIComponent(tenderId);
-                            navigate(`/workspace/${encodedId}/rep-editor`);
+                            const tidNorm = tenderId.replace(/[^a-zA-Z0-9]/g, '_');
+                            navigate(`/Docs/ws_${tidNorm}_rep`, { state: { title: 'Representation Letter' } });
                           }}
                           style={{
                             padding: '1rem', background: '#f0fdf4', borderRadius: '8px', border: '1px solid #bbf7d0',
@@ -1236,10 +1302,10 @@ const TenderWorkspace = () => {
                         >
                           <div>
                             <p style={{ margin: 0, fontWeight: 600, color: '#166534' }}>Representation Letter</p>
-                            <p style={{ margin: '5px 0 0 0', fontSize: '0.8rem', color: '#15803d' }}>Generate official representation letter</p>
+                            <p style={{ margin: '5px 0 0 0', fontSize: '0.8rem', color: '#15803d' }}>Open in document editor</p>
                           </div>
                           <div style={{ background: '#dcfce7', color: '#166534', padding: '5px 10px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 600 }}>
-                            Template
+                            Open Editor
                           </div>
                         </div>
 
@@ -1392,24 +1458,21 @@ const TenderWorkspace = () => {
 
       case 'workspace':
         return renderWorkspace();
-      case 'task':
-        return (
-          <WorkspaceTasks
-            departments={departments}
-            tasks={tasks}
-            onToggleStatus={handleTaskToggle}
-            onGenerateClick={() => setShowGenModal(true)}
-          />
-        );
 
       case 'products':
         return <WorkspaceProducts tenderId={tenderId} />;
 
-      case 'documents':
-        return <WorkspaceDocuments links={tenderData?.links || []} />;
+      case 'process-emd':
+        return <WorkspaceProcessEMD tenderId={tenderId} documentLinks={tenderData?.links || []} />;
 
-      case 'analytics':
-        return <WorkspaceAnalytics />;
+      case 'documents':
+        return <WorkspaceDocuments links={tenderData?.links || []} tenderId={tenderId} />;
+
+      case 'doc-prep':
+        return <WorkspaceDocPrep tenderId={tenderId} tenderLinks={tenderData?.links || []} initialPanel={location.state?.docPrepPanel || null} />;
+
+      case 'my-docs':
+        return <WorkspaceMyDocs tenderId={tenderId} />;
 
       case 'settings':
         return <WorkspaceSettings tenderId={tenderId} />;
@@ -1423,11 +1486,11 @@ const TenderWorkspace = () => {
 
   const navItems = [
     { id: 'overview', label: 'Overview', icon: LayoutDashboard },
-    { id: 'workspace', label: 'Workspace', icon: FolderOpen },
-    { id: 'task', label: 'Tasks', icon: CheckCircle2 },
     { id: 'products', label: 'Products', icon: ShoppingCart },
+    { id: 'process-emd', label: 'Process EMD', icon: ShieldCheck },
     { id: 'documents', label: 'Documents', icon: FileText },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+    { id: 'doc-prep', label: 'Doc Prep', icon: FileSignature },
+    { id: 'my-docs', label: 'My Docs', icon: FileText },
     ...(isAdminRole ? [{ id: 'settings', label: 'Settings', icon: Settings }] : [])
   ];
 
@@ -1485,21 +1548,27 @@ const TenderWorkspace = () => {
 
   return (
     <>
-      <div style={{ minHeight: '100vh', background: '#f3f6fb' }}>
+      {/* Fixed app-shell layout: this outer box is exactly the viewport height
+          below the global navbar and never scrolls itself — only the content
+          pane inside it does. That makes the sidebar genuinely static instead
+          of relying on position:sticky (which silently breaks depending on
+          ancestor scroll containers). */}
+      <div style={{ height: 'calc(100vh - 64px)', background: '#f3f6fb', overflow: 'hidden' }}>
         <GenerateTasksModal
           isOpen={showGenModal}
           onClose={() => setShowGenModal(false)}
           onGenerate={handleGenerateTasks}
           isGenerating={isGeneratingTasks}
         />
-        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-          {/* Sidebar */}
+        <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+          {/* Sidebar — fixed in place; scrolls internally only if its own nav list overflows. */}
           <div style={{
-            width: '100%',
-            maxWidth: '16rem',
+            width: '16rem',
+            flexShrink: 0,
             background: '#ffffff',
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-            minHeight: '100vh'
+            height: '100%',
+            overflowY: 'auto'
           }}>
             <div style={{ padding: '1.5rem', borderBottom: '1px solid #e5e7eb' }}>
               <h1 style={{
@@ -1541,7 +1610,15 @@ const TenderWorkspace = () => {
                       background: isActive ? '#2563eb' : 'transparent',
                       color: isActive ? '#ffffff' : '#1f2937',
                       fontWeight: isActive ? '600' : '500',
-                      fontSize: '0.95rem'
+                      fontSize: '0.95rem',
+                      // A fast/double click on a nav item was selecting its
+                      // label text — the browser's default selection
+                      // highlight (white/light background) then sat on top
+                      // of the label, making it unreadable against the
+                      // active item's blue pill. Nav items aren't text to
+                      // select, so disable selection on them entirely.
+                      userSelect: 'none',
+                      WebkitUserSelect: 'none',
                     }}
                     onMouseEnter={(e) => {
                       if (!isActive) e.target.style.background = '#f8fafc';
@@ -1557,9 +1634,13 @@ const TenderWorkspace = () => {
             </nav>
           </div>
 
-          {/* Main Content */}
-          <div style={{ flex: 1, padding: '2rem', minWidth: 0 }}>
-            <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          {/* Main Content — the only scrollable pane in this layout */}
+          <div style={{ flex: 1, padding: activeTab === 'process-emd' ? '1rem 1.25rem' : '2rem', minWidth: 0, height: '100%', overflowY: 'auto' }}>
+            <div style={activeTab === 'process-emd' ? {} : { maxWidth: '1400px', margin: '0 auto' }}>
+              {/* Process Decode / pricing state for this tender, with the action
+                  that matters for the current role — re-apply after a rejection
+                  for Sales and Zonal Head, review for Finance. */}
+              <DecodeStatusBanner tenderId={tenderId} />
               {renderContent()}
             </div>
           </div>

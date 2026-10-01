@@ -1,12 +1,17 @@
-import React, { useEffect, useState, useCallback } from 'react';
+﻿import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Papa from 'papaparse';
 import ProductSearchModal from '../../components/common/ProductSearchModal';
 import ItemCategorySelectorModal from '../../components/common/ItemCategorySelectorModal';
 import DeviationModal from './DeviationModal';
 import PreBidModal from './PreBidModal';
-import { Wand2, Download } from 'lucide-react';
+import ShareDeviationModal from './ShareDeviationModal';
+import { Wand2, Download, Tag, X, Clock, Loader2, AlertCircle,
+         CheckCircle2, Trophy, XCircle, Ban } from 'lucide-react';
 import * as XLSX from 'xlsx';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import '../../assets/css/TenderDetails.css';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -59,7 +64,7 @@ const AIAnalysisModal = ({ title, content, loading, onClose }) => (
               borderTop: '4px solid #7c3aed', borderRadius: '50%',
               animation: 'spin 1s linear infinite',
             }} />
-            <p style={{ color: '#666' }}>Analyzing ATC Documents with AI...</p>
+            <p style={{ color: '#666' }}>Analyzing Tender Document with AI...</p>
           </div>
         ) : (
           <div style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6', color: '#333' }}>
@@ -251,70 +256,137 @@ const PreBidRemarksModal = ({ data, onClose }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
+// TENDER SUMMARY MODAL (AI) — works for GEM and Open tenders, any division
+// ─────────────────────────────────────────────────────────────────────────────
+
+const TenderSummaryModal = ({ loading, summary, error, onClose, onRegenerate }) => {
+  return (
+    <div className="tender-summary-overlay" onClick={onClose}>
+      <div className="tender-summary-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="tender-summary-header">
+          <div className="tender-summary-title">
+            <span className="tender-summary-icon">🧠</span>
+            <div>
+              <h3>Tender Summary</h3>
+              <p>AI-generated overview, requirements &amp; compliance checklist</p>
+            </div>
+          </div>
+          <button className="tender-summary-close" onClick={onClose} aria-label="Close">
+            <X size={20} />
+          </button>
+        </div>
+
+        <div className="tender-summary-body">
+          {loading && (
+            <div className="tender-summary-status">
+              <div className="tender-summary-spinner" />
+              <p>Analyzing the tender document… this can take a moment.</p>
+            </div>
+          )}
+
+          {!loading && error && (
+            <div className="tender-summary-error">
+              <AlertCircle size={18} />
+              <span>{error}</span>
+            </div>
+          )}
+
+          {!loading && !error && summary && (
+            <div className="tender-summary-markdown">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
+                components={{
+                  table: ({ children }) => (
+                    <div className="tender-summary-table-wrap">
+                      <table>{children}</table>
+                    </div>
+                  ),
+                }}
+              >
+                {summary}
+              </ReactMarkdown>
+            </div>
+          )}
+        </div>
+
+        <div className="tender-summary-footer">
+          <button
+            className="tender-summary-btn tender-summary-btn-regenerate"
+            onClick={onRegenerate}
+            disabled={loading}
+          >
+            🔄 Regenerate
+          </button>
+          <button className="tender-summary-btn tender-summary-btn-close" onClick={onClose}>
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // SUGGESTED PRODUCTS MODAL  ← fully fixed
 // ─────────────────────────────────────────────────────────────────────────────
 
 const SuggestedProductsModal = ({
   products, detectedCategory, selectedProduct,
-  onClose, bidNumber, onUpdate, itemCategoryString,
+  onClose, bidNumber, onUpdate, itemCategoryString, onRefresh, isOpenTender, hasDocument,
+  generatingInBackground, backgroundProgress, onRegenerate,
 }) => {
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
   const [localProducts, setLocalProducts] = useState(products);
   const [showSearch, setShowSearch] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const [showCategorySelector, setShowCategorySelector] = useState(false);
   const [selectedItemCategory, setSelectedItemCategory] = useState(null);
   const [saving, setSaving] = useState(false);
   const [recalculatingRowIndex, setRecalculatingRowIndex] = useState(null);
-  const [emptyProcessingStatus, setEmptyProcessingStatus] = useState('idle'); // 'idle', 'processing', 'done'
+  const [changingProduct, setChangingProduct] = useState(null);   // { product, idx }
+  const [pendingChange, setPendingChange] = useState(null);        // { oldProduct, newProduct }
+  const [changeReason, setChangeReason] = useState('');
+  const [changeLoading, setChangeLoading] = useState(false);
+  const productCodeRefs = useRef([]);
+
+  // Manual Excel/CSV upload (fallback matching, independent of the AI pipeline)
+  const [uploadFiles,  setUploadFiles]  = useState([]);
+  const [uploadPhase,  setUploadPhase]  = useState('idle'); // idle | reading | matching | saving | done
+  const [uploadError,  setUploadError]  = useState(null);
+  const [uploadProgress, setUploadProgress] = useState({ done: 0, total: 0, matched: 0 });
+  const [showManualUpload, setShowManualUpload] = useState(false);
+  const uploadInputRef = useRef(null);
+  const [checkingExisting, setCheckingExisting] = useState(isOpenTender && products.length === 0);
 
   // Parse tender item categories for the "Add Product" flow
   const itemCategories = itemCategoryString && itemCategoryString !== 'N/A'
     ? itemCategoryString.split(/,(?![^()]*\))/).map(s => s.trim()).filter(Boolean)
     : [];
 
-  const hasProcessedEmpty = React.useRef(false);
-
   // Sync when parent re-fetches
   useEffect(() => { setLocalProducts(products); }, [products]);
 
-  // Auto-process empty suggestions
+  // For open tenders that open with no products: check DB once before showing upload zone
   useEffect(() => {
-    if (localProducts.length === 0 && !hasProcessedEmpty.current) {
-      hasProcessedEmpty.current = true;
-      setEmptyProcessingStatus('processing');
-      try {
-        const storedUserStr = localStorage.getItem('user');
-        if (storedUserStr) {
-          const storedUser = JSON.parse(storedUserStr);
-          const userName = storedUser.name || 'System Auto';
-          const userEmail = storedUser.email || 'auto@example.com';
-          const cleanBid = bidNumber.replace(/_/g, '/');
+    if (!isOpenTender || products.length > 0) return;
+    (async () => {
+      try { if (onRefresh) await onRefresh(); }
+      finally { setCheckingExisting(false); }
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-          fetch('https://suggestions.openprocure.ai/process', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              bid_number: cleanBid,
-              user_name: userName,
-              user_email: userEmail
-            })
-          })
-            .then(() => setEmptyProcessingStatus('done'))
-            .catch(err => {
-              console.error('Error auto-processing empty tender:', err);
-              setEmptyProcessingStatus('done');
-            });
-        } else {
-          setEmptyProcessingStatus('done');
-        }
-      } catch (err) {
-        console.error('Failed to trigger auto-process:', err);
-        setEmptyProcessingStatus('done');
-      }
-    }
-  }, [localProducts.length, bidNumber]);
+  // Generation now kicks off silently at the page level as soon as the tender
+  // loads (small corner progress bar + toast on completion) — this modal only
+  // reflects that state via `generatingInBackground`/`backgroundProgress`,
+  // and refetches once generation finishes while it happens to be open.
+  const prevGenerating = useRef(generatingInBackground);
+  useEffect(() => {
+    if (prevGenerating.current && !generatingInBackground && onRefresh) onRefresh();
+    prevGenerating.current = generatingInBackground;
+  }, [generatingInBackground, onRefresh]);
 
   // Derive currently selected product (local state takes priority)
   const currentSelected =
@@ -325,13 +397,52 @@ const SuggestedProductsModal = ({
   const handleRemove = (idx) =>
     setLocalProducts(prev => prev.filter((_, i) => i !== idx));
 
-  const handleAddProductClick = () => {
-    if (itemCategories.length >= 2) {
-      setShowCategorySelector(true);
-    } else {
-      setSelectedItemCategory(itemCategories[0] || null);
-      setShowSearch(true);
+  const handleCellChange = (idx, field, value) =>
+    setLocalProducts(prev => prev.map((p, i) => (i === idx ? { ...p, [field]: value } : p)));
+
+  // ── Product code autocomplete (Edit grid) ───────────────────────────────────
+  const [codeSuggestRowIdx, setCodeSuggestRowIdx] = useState(null);
+  const [codeSuggestOptions, setCodeSuggestOptions] = useState([]);
+  const [codeSuggestLoading, setCodeSuggestLoading] = useState(false);
+  const codeSuggestDebounceRef = useRef(null);
+
+  const fetchProductCodeSuggestions = async (idx, term) => {
+    if (!term || term.trim().length < 2) {
+      setCodeSuggestOptions([]);
+      return;
     }
+    setCodeSuggestLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const API_BASE = import.meta.env.VITE_API_BASE_URL;
+      const res = await fetch(
+        `${API_BASE}/tenders/products/search?q=${encodeURIComponent(term.trim())}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      const data = await res.json();
+      if (data.success) setCodeSuggestOptions((data.data || []).slice(0, 8));
+    } catch (err) {
+      console.error('Product code suggest failed:', err);
+    } finally {
+      setCodeSuggestLoading(false);
+    }
+  };
+
+  const handleProductCodeInput = (idx, value) => {
+    handleCellChange(idx, 'product_code', value);
+    setCodeSuggestRowIdx(idx);
+    clearTimeout(codeSuggestDebounceRef.current);
+    codeSuggestDebounceRef.current = setTimeout(() => fetchProductCodeSuggestions(idx, value), 250);
+  };
+
+  const handleProductCodeSelect = (idx, product) => {
+    setLocalProducts(prev => prev.map((p, i) => (i === idx ? {
+      ...p,
+      product_code: product.product_code,
+      title: product.title || product.product_name || p.title,
+    } : p)));
+    setCodeSuggestRowIdx(null);
+    setCodeSuggestOptions([]);
   };
 
   const handleCategorySelected = (category) => {
@@ -364,9 +475,25 @@ const SuggestedProductsModal = ({
     if (!isEditing) setIsEditing(true);
   };
 
+  // Handles selection from ProductSearchModal — routes to add or change flow
+  const handleProductSelected = (newProduct) => {
+    if (changingProduct) {
+      setPendingChange({ oldProduct: changingProduct.product, newProduct });
+      setShowSearch(false);
+    } else {
+      handleProductAdded(newProduct);
+    }
+  };
+
   const handleCancelEdit = () => {
     setIsEditing(false);
     setLocalProducts(products); // revert to last saved state
+  };
+
+  const handleRecheck = () => {
+    setLocalProducts([]);
+    setIsEditing(false);
+    if (onRegenerate) onRegenerate();
   };
 
   const handleSave = async () => {
@@ -448,10 +575,12 @@ const SuggestedProductsModal = ({
       }
 
       const cleanBid = bidNumber.replace(/_/g, '/');
+      const token = localStorage.getItem('token');
+      const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
-      const res = await fetch('https://deviation.openprocure.ai/recalculate-deviation', {
+      const res = await fetch(`${API_BASE}/tenders/recalculate-deviation`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({
           bid_no: cleanBid,
           item_key: itemKey,
@@ -474,14 +603,152 @@ const SuggestedProductsModal = ({
     }
   };
 
+  const downloadChangeCSV = (row) => {
+    const headers = ['Bid No', 'Item Key', 'Old Product Code', 'Old Product Name', 'New Product Code', 'New Product Name', 'Reason', 'Date'];
+    const escape = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+    const values = [escape(row.bid_no), escape(row.item_key), escape(row.old_code), escape(row.old_name), escape(row.new_code), escape(row.new_name), escape(row.reason), escape(row.date)];
+    const csv = headers.join(',') + '\n' + values.join(',');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `product_change_${String(row.bid_no).replace(/\//g, '_')}_${Date.now()}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // ── Bulk product change via Excel (Download Template / Upload) ─────────────
+  const confirmProductChange = async () => {
+    if (!changeReason.trim()) return;
+    setChangeLoading(true);
+    const { oldProduct, newProduct } = pendingChange;
+    const idx = changingProduct.idx;
+
+    try {
+      let itemKey = oldProduct.item_key || oldProduct.item;
+      if (!itemKey || !itemKey.startsWith('item_')) {
+        const catIndex = itemCategories.findIndex(cat => cat.trim() === oldProduct.item_category?.trim());
+        if (catIndex !== -1) itemKey = `item_${catIndex + 1}`;
+      }
+
+      const cleanBid = bidNumber.replace(/_/g, '/');
+      const token = localStorage.getItem('token');
+      const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
+      const res = await fetch(`${API_BASE}/tenders/recalculate-deviation`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({
+          bid_no: cleanBid,
+          item_key: itemKey,
+          product_code: newProduct.product_code || newProduct.item_code || '',
+        }),
+      });
+      const data = await res.json();
+
+      if (data.status !== 'success') {
+        alert(`Recalculation failed: ${data.message || 'Unknown error'}`);
+        return;
+      }
+
+      const updatedProduct = {
+        ...oldProduct,
+        title: newProduct.title || newProduct.product_name || newProduct.instrument_name || oldProduct.title,
+        product_code: newProduct.product_code || newProduct.item_code || oldProduct.product_code,
+        category: newProduct.category || oldProduct.category,
+        category_label: newProduct.category_label || oldProduct.category_label,
+        dept: newProduct.dept || oldProduct.dept,
+        selected_file: newProduct.selected_file || oldProduct.selected_file,
+        relevancy_score: newProduct.relevancy_score ?? oldProduct.relevancy_score,
+        raw_score: newProduct.raw_score ?? newProduct.relevancy_score ?? oldProduct.raw_score,
+        isNew: false,
+      };
+
+      const updated = [...localProducts];
+      updated[idx] = updatedProduct;
+
+      await fetch(
+        `${API_BASE}/tenders/${encodeURIComponent(cleanBid)}/suggestions`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ products: updated }),
+        }
+      );
+
+      downloadChangeCSV({
+        bid_no: cleanBid,
+        item_key: itemKey || '',
+        old_code: oldProduct.product_code || '',
+        old_name: oldProduct.title || '',
+        new_code: updatedProduct.product_code,
+        new_name: updatedProduct.title,
+        reason: changeReason,
+        date: new Date().toISOString(),
+      });
+
+      setPendingChange(null);
+      setChangingProduct(null);
+      setChangeReason('');
+      if (onUpdate) onUpdate(updated);
+      alert('Product changed successfully! Deviation recalculated.');
+      window.location.reload();
+    } catch (err) {
+      console.error('Product change failed:', err);
+      alert('Error changing product. Please try again.');
+    } finally {
+      setChangeLoading(false);
+    }
+  };
+
   // ── render ─────────────────────────────────────────────────────────────────
 
   const btnStyle = (bg, disabled = false) => ({
-    padding: '7px 14px', background: disabled ? '#9ca3af' : bg,
+    padding: '7px 16px', background: disabled ? '#9ca3af' : bg,
+    color: 'white', border: 'none', borderRadius: '6px',
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    fontSize: '13px', fontWeight: 600,
+    display: 'inline-flex', alignItems: 'center', gap: '5px',
+    transition: 'filter 0.15s',
+  });
+
+  const thStyle = {
+    padding: '11px 14px', color: 'white', fontWeight: 600,
+    fontSize: '12px', textAlign: 'left', letterSpacing: '0.03em',
+    whiteSpace: 'nowrap', border: 'none',
+  };
+
+  const tdStyle = {
+    padding: '12px 14px', verticalAlign: 'middle',
+    borderBottom: '1px solid #e5e7eb',
+  };
+
+  const actionBtn = (bg, disabled = false) => ({
+    padding: '5px 10px', background: disabled ? '#94a3b8' : bg,
     color: 'white', border: 'none', borderRadius: '5px',
     cursor: disabled ? 'not-allowed' : 'pointer',
-    fontSize: '13px', fontWeight: 500,
+    fontSize: '11px', fontWeight: 600,
+    display: 'inline-flex', alignItems: 'center', gap: '4px',
+    whiteSpace: 'nowrap',
   });
+
+  const gridThStyle = {
+    padding: '9px 10px', color: '#374151', fontWeight: 700,
+    fontSize: '12px', textAlign: 'left', letterSpacing: '0.02em',
+    whiteSpace: 'nowrap', border: '1px solid #d1d5db',
+  };
+
+  const gridTdStyle = {
+    padding: '2px', verticalAlign: 'middle',
+    border: '1px solid #e5e7eb',
+  };
+
+  const cellInputStyle = {
+    width: '100%', boxSizing: 'border-box',
+    padding: '8px 10px', border: '1px solid transparent',
+    background: 'transparent', font: 'inherit', color: '#1f2937',
+    borderRadius: '3px',
+  };
 
   return (
     <>
@@ -497,197 +764,624 @@ const SuggestedProductsModal = ({
           style={{ maxWidth: '960px', display: 'flex', flexDirection: 'column', maxHeight: '90vh' }}
         >
           {/* Header */}
-          <div className="modal-header">
+          <div className="modal-header" style={{
+            background: 'linear-gradient(135deg, #084f9a 0%, #1565c0 100%)',
+            padding: '20px 24px',
+            borderRadius: '12px 12px 0 0',
+            flexShrink: 0,
+          }}>
             <div>
-              <h2 style={{ margin: 0 }}>Suggested Products</h2>
+              <h2 style={{ margin: 0, color: 'white', fontSize: '18px', fontWeight: 700, letterSpacing: '-0.2px' }}>
+                🎯 Suggested Products
+              </h2>
               {detectedCategory && (
-                <div style={{ fontSize: '13px', color: '#084f9a', marginTop: '4px' }}>
-                  Detected:&nbsp;<strong>{detectedCategory}</strong>
+                <div style={{ fontSize: '12px', color: '#bfdbfe', marginTop: '5px' }}>
+                  Category:&nbsp;<strong style={{ color: 'white' }}>{detectedCategory}</strong>
                 </div>
               )}
             </div>
-            <button className="modal-close" onClick={onClose}>×</button>
+            <button
+              className="modal-close"
+              onClick={onClose}
+              style={{ color: 'white', opacity: 0.75, fontSize: '22px', background: 'none', border: 'none', cursor: 'pointer', lineHeight: 1 }}
+            >×</button>
           </div>
 
-          {/* Toolbar */}
-          <div style={{
-            padding: '10px 20px', display: 'flex',
-            justifyContent: 'flex-end', gap: '8px',
-            borderBottom: '1px solid #f3f4f6',
-          }}>
-            {!isEditing ? (
-              <>
-                <button onClick={() => setIsEditing(true)} style={btnStyle('#084f9a')}>Edit Selection</button>
-                <button onClick={handleAddProductClick} style={btnStyle('#16a34a')}>+ Add Product</button>
-              </>
-            ) : (
-              <>
-                <button onClick={handleCancelEdit} disabled={saving} style={btnStyle('#6b7280', saving)}>Cancel</button>
-                <button onClick={handleSave} disabled={saving} style={btnStyle('#16a34a', saving)}>
-                  {saving ? 'Saving…' : 'Save Changes'}
-                </button>
-                <button onClick={handleAddProductClick} style={btnStyle('#084f9a')}>+ Add Product</button>
-              </>
-            )}
-          </div>
+          {/* Toolbar — hidden while chat is active */}
+          {localProducts.length > 0 && (
+            <div style={{
+              padding: '10px 20px', display: 'flex',
+              justifyContent: 'space-between', alignItems: 'center',
+              borderBottom: '1px solid #e5e7eb',
+              background: '#f8fafc', flexShrink: 0,
+            }}>
+              <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 500 }}>
+                {localProducts.length} product{localProducts.length !== 1 ? 's' : ''} found
+                {isEditing && <span style={{ color: '#d97706', marginLeft: '8px' }}>● Editing</span>}
+              </span>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button onClick={handleRecheck} style={btnStyle('#7c3aed')}>⟳ Recheck</button>
+              </div>
+            </div>
+          )}
 
           {/* Body */}
-          <div className="modal-body" style={{ overflowY: 'auto', flex: 1 }}>
-            {localProducts.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '40px', color: '#6b7280' }}>
-                <p>No suggested products found for this tender.</p>
-                {emptyProcessingStatus === 'processing' || emptyProcessingStatus === 'done' ? (
-                  <div style={{
-                    marginTop: '20px', padding: '15px', background: '#eff6ff',
-                    borderRadius: '8px', border: '1px solid #bfdbfe', color: '#1e3a8a',
-                    maxWidth: '450px', margin: '20px auto 0'
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '8px', fontWeight: '600' }}>
-                      {emptyProcessingStatus === 'processing' && (
-                        <div style={{
-                          width: '16px', height: '16px', border: '3px solid #bfdbfe',
-                          borderTop: '3px solid #2563eb', borderRadius: '50%',
-                          animation: 'spin 1s linear infinite'
-                        }} />
-                      )}
-                      {emptyProcessingStatus === 'processing' ? 'Processing Bid...' : 'Processing Initiated!'}
-                    </div>
-                    <p style={{ margin: 0, fontSize: '14px', lineHeight: '1.5' }}>
-                      The bid is processing and the suggested product and deviation will be created and sent shortly.
+          <div
+            className="modal-body"
+            style={{
+              flex: 1,
+              display: 'flex', flexDirection: 'column',
+              overflow: localProducts.length === 0 ? 'hidden' : 'auto',
+              padding: localProducts.length === 0 ? 0 : undefined,
+            }}
+          >
+            {checkingExisting ? (
+              /* ── Checking DB for existing results (open tender mount check) ── */
+              <div style={{
+                flex: 1, display: 'flex', alignItems: 'center',
+                justifyContent: 'center', gap: '12px', padding: '40px',
+              }}>
+                <div style={{
+                  width: '28px', height: '28px', borderRadius: '50%',
+                  border: '3px solid #dbeafe', borderTopColor: '#084f9a',
+                  animation: 'spin 0.8s linear infinite',
+                }} />
+                <span style={{ fontSize: '13px', color: '#6b7280' }}>Checking for results…</span>
+              </div>
+            ) : (showManualUpload || (isOpenTender && !hasDocument && !generatingInBackground)) ? (
+              /* ── Manual Excel/CSV upload ── */
+              <div style={{
+                flex: 1, display: 'flex', flexDirection: 'column',
+                alignItems: 'center', justifyContent: 'center',
+                gap: '16px', padding: '32px 24px',
+              }}>
+                {hasDocument ? (
+                  <button
+                    onClick={() => { setShowManualUpload(false); setUploadError(null); }}
+                    style={{
+                      alignSelf: 'flex-start', background: 'none', border: 'none', cursor: 'pointer',
+                      color: '#6b7280', fontSize: '12px', marginBottom: '-8px',
+                    }}
+                  >
+                    ← Back
+                  </button>
+                ) : (
+                  <>
+                    <div style={{ fontSize: '36px' }}>📂</div>
+                    <p style={{ margin: 0, fontWeight: 600, color: '#1e3a5f', fontSize: '15px' }}>
+                      No tender document available
                     </p>
-                  </div>
-                ) : null}
-                <button onClick={handleAddProductClick} style={{ ...btnStyle('#084f9a'), marginTop: '24px' }}>
-                  + Add Product Manually
-                </button>
+                    <p style={{ margin: 0, color: '#6b7280', fontSize: '13px', maxWidth: '360px', textAlign: 'center' }}>
+                      Upload a document (Excel, CSV, PDF, or Word) to match products for this tender.
+                    </p>
+                  </>
+                )}
+                {/* Drop zone */}
+                    <div
+                      onClick={() => { setUploadError(null); uploadInputRef.current?.click(); }}
+                      onDragOver={e => { e.preventDefault(); e.currentTarget.style.borderColor = '#084f9a'; }}
+                      onDragLeave={e => { e.currentTarget.style.borderColor = '#93c5fd'; }}
+                      onDrop={e => {
+                        e.preventDefault();
+                        e.currentTarget.style.borderColor = '#93c5fd';
+                        setUploadError(null);
+                        setUploadFiles(prev => {
+                          const existing = prev.map(f => f.name);
+                          const added = Array.from(e.dataTransfer.files).filter(f => !existing.includes(f.name));
+                          return [...prev, ...added];
+                        });
+                      }}
+                      style={{
+                        width: '100%', maxWidth: '420px',
+                        border: '2px dashed #93c5fd', borderRadius: '10px',
+                        padding: '28px 20px', textAlign: 'center',
+                        cursor: 'pointer', background: '#f0f6ff',
+                        transition: 'border-color 0.2s',
+                      }}
+                    >
+                      <div style={{ fontSize: '36px', marginBottom: '8px' }}>📂</div>
+                      <p style={{ margin: '0 0 4px', fontWeight: 600, color: '#1e3a5f', fontSize: '14px' }}>
+                        Drop file here or click to browse
+                      </p>
+                      <p style={{ margin: 0, color: '#6b7280', fontSize: '12px' }}>
+                        XLS · XLSX · CSV · PDF · DOC · DOCX
+                      </p>
+                    </div>
+                    <input
+                      ref={uploadInputRef}
+                      type="file"
+                      accept=".csv,.xlsx,.xls,.pdf,.doc,.docx"
+                      style={{ display: 'none' }}
+                      onChange={e => {
+                        setUploadError(null);
+                        setUploadFiles(prev => {
+                          const existing = prev.map(f => f.name);
+                          const added = Array.from(e.target.files).filter(f => !existing.includes(f.name));
+                          return [...prev, ...added];
+                        });
+                        e.target.value = '';
+                      }}
+                    />
+                    {/* File list */}
+                    {uploadFiles.length > 0 && (
+                      <div style={{ width: '100%', maxWidth: '420px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        {uploadFiles.map((f, i) => {
+                          const ext = f.name.split('.').pop().toLowerCase();
+                          return (
+                            <div key={i} style={{
+                              display: 'flex', alignItems: 'center', gap: '8px',
+                              background: '#eff6ff', border: '1px solid #bfdbfe',
+                              borderRadius: '6px', padding: '6px 10px', fontSize: '12px',
+                            }}>
+                              <span>{['pdf', 'doc', 'docx'].includes(ext) ? '📄' : '📊'}</span>
+                              <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#1e3a5f' }}>{f.name}</span>
+                              <span style={{ color: '#9ca3af', flexShrink: 0 }}>{(f.size / 1024).toFixed(0)} KB</span>
+                              <span style={{
+                                fontSize: '10px', fontWeight: 600, padding: '1px 6px', borderRadius: '4px',
+                                background: '#dbeafe', color: '#1e40af', flexShrink: 0,
+                              }}>{ext.toUpperCase()}</span>
+                              <button
+                                onClick={() => setUploadFiles(prev => prev.filter((_, j) => j !== i))}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', fontSize: '14px', padding: '0 2px', lineHeight: 1 }}
+                                title="Remove"
+                              >✕</button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                    {/* Inline error */}
+                    {uploadError && (
+                      <div style={{
+                        width: '100%', maxWidth: '420px',
+                        background: '#fef2f2', border: '1px solid #fca5a5',
+                        borderRadius: '8px', padding: '10px 14px',
+                        fontSize: '13px', color: '#991b1b', lineHeight: 1.5,
+                      }}>
+                        ⚠️ {uploadError}
+                      </div>
+                    )}
+                    {uploadPhase !== 'idle' && (
+                      <div style={{ width: '100%', maxWidth: '420px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#475569', fontWeight: 600 }}>
+                          <span>
+                            {uploadPhase === 'reading' && 'Reading file…'}
+                            {uploadPhase === 'matching' && `Checking items… ${uploadProgress.done} of ${uploadProgress.total}`}
+                            {uploadPhase === 'saving' && 'Saving results…'}
+                            {uploadPhase === 'done' && `Done — ${uploadProgress.matched} of ${uploadProgress.total} items matched a product`}
+                          </span>
+                          {uploadPhase === 'matching' && uploadProgress.total > 0 && (
+                            <span>{Math.round((uploadProgress.done / uploadProgress.total) * 100)}%</span>
+                          )}
+                        </div>
+                        <div style={{ width: '100%', height: '6px', borderRadius: '999px', background: '#e2e8f0', overflow: 'hidden' }}>
+                          <div style={{
+                            height: '100%', borderRadius: '999px',
+                            background: uploadPhase === 'done' ? '#16a34a' : '#084f9a',
+                            width: uploadPhase === 'matching' && uploadProgress.total > 0
+                              ? `${(uploadProgress.done / uploadProgress.total) * 100}%`
+                              : uploadPhase === 'saving' ? '95%'
+                              : uploadPhase === 'done' ? '100%'
+                              : '15%',
+                            transition: 'width 0.25s ease',
+                          }} />
+                        </div>
+                      </div>
+                    )}
+                    <button
+                      disabled={!uploadFiles.length || (uploadPhase !== 'idle' && uploadPhase !== 'done')}
+                      onClick={async () => {
+                        const processFile = uploadFiles.find(f => /\.(xls|xlsx|csv|pdf|doc|docx)$/i.test(f.name));
+                        if (!processFile) {
+                          setUploadError('Please select an Excel, CSV, PDF, or Word file.');
+                          return;
+                        }
+                        setUploadError(null);
+                        setUploadPhase('reading');
+                        setUploadProgress({ done: 0, total: 0, matched: 0 });
+                        try {
+                          let items = [];
+                          const ext = processFile.name.split('.').pop().toLowerCase();
+
+                          if (ext === 'pdf' || ext === 'doc' || ext === 'docx') {
+                            // Unstructured document — no client-side parser for this;
+                            // the backend extracts text (with OCR fallback for a
+                            // scanned PDF) and has the model pull out the item list,
+                            // in the same {item_name, hsn_code, specification, sl_no}
+                            // shape the spreadsheet branches below produce, so
+                            // everything downstream (batch-matching, save) is unchanged.
+                            const formData = new FormData();
+                            formData.append('file', processFile);
+                            const API_BASE = import.meta.env.VITE_API_BASE_URL;
+                            const cleanBid = bidNumber.replace(/_/g, '/');
+                            const res = await fetch(
+                              `${API_BASE}/tenders/${encodeURIComponent(cleanBid)}/suggestions/extract-items`,
+                              {
+                                method: 'POST',
+                                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+                                body: formData,
+                              }
+                            );
+                            const data = await res.json();
+                            if (!data.success) throw new Error(data.message || 'Could not extract items from this document.');
+                            items = data.items || [];
+                          } else if (ext === 'csv') {
+                            const text = await spreadsheetFile.text();
+                            const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+                            // Same fuzzy, case-insensitive column matching the Excel branch
+                            // below uses — the previous version only matched 3 exact,
+                            // case-sensitive header strings ("Name of Item"/"Item Name"/
+                            // "Description"); any other real-world header (e.g. "Product
+                            // Description", "ITEM NAME", extra whitespace) fell through to
+                            // "grab whatever the 4th column happens to be", which is how a
+                            // CSV upload could silently "process" with zero real item names
+                            // and no error at all.
+                            const rawKeys = parsed.data.length ? Object.keys(parsed.data[0]) : [];
+                            const findKey = (...needles) => rawKeys.find(k =>
+                              needles.some(n => k.toLowerCase().trim().includes(n))
+                            );
+                            const nameKey = findKey('name', 'item', 'description');
+                            const hsnKey  = findKey('hsn');
+                            const specKey = findKey('spec');
+                            const slKey   = rawKeys.find(k => /^sl|^sr|serial/i.test(k.trim()));
+
+                            items = parsed.data.map(row => ({
+                              item_name: (nameKey ? row[nameKey] : '') || '',
+                              hsn_code: (hsnKey ? row[hsnKey] : '') || '',
+                              specification: (specKey ? row[specKey] : '') || '',
+                              sl_no: (slKey ? row[slKey] : '') || '',
+                            })).filter(it => String(it.item_name).trim());
+                          } else {
+                            const buf = await spreadsheetFile.arrayBuffer();
+                            const wb = XLSX.read(buf, { type: 'array' });
+                            const ws = wb.Sheets[wb.SheetNames[0]];
+                            const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+
+                            // Locate header row (first row containing "name" or "item")
+                            let headerIdx = 0;
+                            for (let i = 0; i < Math.min(6, rows.length); i++) {
+                              if (rows[i].some(c => /name|item|description/i.test(String(c)))) {
+                                headerIdx = i; break;
+                              }
+                            }
+                            const headers = rows[headerIdx].map(h => String(h).toLowerCase().trim());
+                            const nameCol = headers.findIndex(h => h.includes('name') || h.includes('item') || h.includes('description'));
+                            const hsnCol  = headers.findIndex(h => h.includes('hsn'));
+                            const specCol = headers.findIndex(h => h.includes('spec'));
+                            const slCol   = headers.findIndex(h => /^sl|^sr|serial/i.test(h));
+
+                            items = rows.slice(headerIdx + 1)
+                              .filter(row => row.some(c => c !== ''))
+                              .map(row => ({
+                                item_name:     nameCol >= 0 ? String(row[nameCol] || '').trim() : '',
+                                hsn_code:      hsnCol  >= 0 ? String(row[hsnCol]  || '').trim() : '',
+                                specification: specCol >= 0 ? String(row[specCol] || '').trim() : '',
+                                sl_no:         slCol   >= 0 ? String(row[slCol]   || '').trim() : '',
+                              }))
+                              .filter(it => it.item_name);
+                          }
+
+                          if (items.length === 0) {
+                            setUploadError(
+                              (ext === 'pdf' || ext === 'doc' || ext === 'docx')
+                                ? 'No items could be identified in this document.'
+                                : 'No item names found in the spreadsheet. Make sure the file has a "Name of Item" column with data rows.'
+                            );
+                            setUploadPhase('idle');
+                            return;
+                          }
+
+                          const cleanBid = bidNumber.replace(/_/g, '/');
+                          const token = localStorage.getItem('token');
+                          const API_BASE = import.meta.env.VITE_API_BASE_URL;
+                          const encodedBid = encodeURIComponent(cleanBid);
+                          const authHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
+
+                          // Walk the list in visible chunks instead of one opaque
+                          // all-at-once request — lets the UI show real "checked N of
+                          // M" progress as each batch comes back, not just a spinner
+                          // that jumps straight to a final count.
+                          const BATCH_SIZE = 15;
+                          setUploadPhase('matching');
+                          setUploadProgress({ done: 0, total: items.length, matched: 0 });
+
+                          const allSuggestions = [];
+                          for (let start = 0; start < items.length; start += BATCH_SIZE) {
+                            const batch = items.slice(start, start + BATCH_SIZE);
+                            const r = await fetch(
+                              `${API_BASE}/tenders/${encodedBid}/suggestions/from-spreadsheet`,
+                              {
+                                method: 'POST',
+                                headers: authHeaders,
+                                body: JSON.stringify({ items: batch, startIndex: start }),
+                              }
+                            );
+                            const d = await r.json();
+                            if (!d.ok) throw new Error(d.error || `Server error on batch starting at item ${start + 1}`);
+                            allSuggestions.push(...d.suggestions);
+                            setUploadProgress({
+                              done: Math.min(start + BATCH_SIZE, items.length),
+                              total: items.length,
+                              matched: allSuggestions.filter(s => s.relevancy_score > 0).length,
+                            });
+                          }
+
+                          setUploadPhase('saving');
+                          const saveRes = await fetch(
+                            `${API_BASE}/tenders/${encodedBid}/suggestions/save`,
+                            { method: 'POST', headers: authHeaders, body: JSON.stringify({ suggestions: allSuggestions }) }
+                          );
+                          const saveData = await saveRes.json();
+                          if (!saveData.ok) throw new Error(saveData.error || 'Failed to save results');
+
+                          setUploadPhase('done');
+                          if (onRefresh) await onRefresh();
+                        } catch (e) {
+                          setUploadError('Error processing file: ' + e.message);
+                          setUploadPhase('idle');
+                        }
+                      }}
+                      style={{
+                        padding: '10px 28px',
+                        background: (!uploadFiles.length || (uploadPhase !== 'idle' && uploadPhase !== 'done')) ? '#9ca3af' : '#084f9a',
+                        color: '#fff', border: 'none', borderRadius: '7px',
+                        cursor: (!uploadFiles.length || (uploadPhase !== 'idle' && uploadPhase !== 'done')) ? 'not-allowed' : 'pointer',
+                        fontSize: '14px', fontWeight: 600,
+                      }}
+                    >
+                      {uploadPhase === 'reading' ? 'Reading…'
+                        : uploadPhase === 'matching' ? 'Checking…'
+                        : uploadPhase === 'saving' ? 'Saving…'
+                        : uploadPhase === 'done' ? 'Process File Again'
+                        : 'Process File'}
+                    </button>
+              </div>
+            ) : localProducts.length === 0 && generatingInBackground ? (
+              /* ── Generating in the background — small corner progress bar covers this too ── */
+              <div style={{
+                display: 'flex', flexDirection: 'column', flex: 1,
+                alignItems: 'center', justifyContent: 'center',
+                padding: '48px 24px', gap: '18px', textAlign: 'center',
+              }}>
+                <div style={{
+                  width: '40px', height: '40px', borderRadius: '50%',
+                  border: '3px solid #dbeafe', borderTopColor: '#084f9a',
+                  animation: 'spin 0.8s linear infinite',
+                }} />
+                <div style={{ fontSize: '14px', fontWeight: 600, color: '#1e3a5f' }}>
+                  Generating product suggestions…
+                </div>
+                <p style={{ margin: 0, color: '#6b7280', fontSize: '13px', maxWidth: '360px' }}>
+                  {backgroundProgress?.total > 0
+                    ? `Item ${backgroundProgress.current} of ${backgroundProgress.total} — `
+                    : ''}
+                  You can close this and keep working — we'll notify you when it's done.
+                </p>
+                <style>{`
+                  @keyframes spin { to { transform: rotate(360deg); } }
+                `}</style>
+              </div>
+            ) : localProducts.length === 0 ? (
+              /* ── Generation finished (or hasn't started) with no match ── */
+              <div style={{
+                flex: 1, display: 'flex', flexDirection: 'column',
+                alignItems: 'center', justifyContent: 'center',
+                gap: '12px', padding: '40px 24px', textAlign: 'center',
+              }}>
+                <span style={{ fontSize: '32px' }}>✅</span>
+                <p style={{ margin: 0, fontWeight: 600, color: '#1e3a5f', fontSize: '15px' }}>
+                  No product suggestions found
+                </p>
+                <p style={{ margin: 0, color: '#6b7280', fontSize: '13px', maxWidth: '320px' }}>
+                  The analysis finished without a match — this can happen if the check was interrupted. Try running it again.
+                </p>
+                <div style={{ display: 'flex', gap: '8px', marginTop: '4px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                  <button
+                    onClick={async () => { if (onRefresh) await onRefresh(); }}
+                    style={{
+                      padding: '8px 20px',
+                      background: '#fff', color: '#374151',
+                      border: '1px solid #d1d5db', borderRadius: '6px', cursor: 'pointer',
+                      fontSize: '13px', fontWeight: 600,
+                    }}
+                  >
+                    Refresh
+                  </button>
+                  <button
+                    onClick={handleRecheck}
+                    style={{
+                      padding: '8px 20px',
+                      background: '#084f9a', color: '#fff',
+                      border: 'none', borderRadius: '6px', cursor: 'pointer',
+                      fontSize: '13px', fontWeight: 600,
+                    }}
+                  >
+                    ⟳ Retry Analysis
+                  </button>
+                  {isOpenTender && (
+                    <button
+                      onClick={() => setShowManualUpload(true)}
+                      style={{
+                        padding: '8px 20px',
+                        background: 'none', color: '#2563eb',
+                        border: 'none', borderRadius: '6px', cursor: 'pointer',
+                        fontSize: '13px', fontWeight: 600, textDecoration: 'underline',
+                      }}
+                    >
+                      Upload Excel/CSV instead
+                    </button>
+                  )}
+                </div>
               </div>
             ) : (
-              <div className="products-table-wrapper" style={{ overflowX: 'auto' }}>
-                <table className="products-table">
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
                   <thead>
-                    <tr>
-                      {isEditing && <th style={{ width: 50, textAlign: 'center' }}>Remove</th>}
-                      <th>Item Category</th>
-                      <th>Product Name</th>
-                      <th>Product Code</th>
-                      <th style={{ textAlign: 'center' }}>Relevancy Score</th>
-                      <th style={{ textAlign: 'center' }}>Deviation</th>
+                    <tr style={{ background: 'linear-gradient(135deg, #084f9a 0%, #1565c0 100%)' }}>
+                      <th style={{ ...thStyle, textAlign: 'center', width: 50 }}>S.No</th>
+                      <th style={thStyle}>Item Category</th>
+                      <th style={thStyle}>Tender Product</th>
+                      <th style={thStyle}>Product Name</th>
+                      <th style={thStyle}>Product Code</th>
+                      <th style={{ ...thStyle, textAlign: 'center', width: 180 }}>Relevancy Score</th>
+                      <th style={{ ...thStyle, textAlign: 'center' }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {localProducts.map((p, idx) => (
-                      <tr key={`${p.product_code}-${idx}`}>
-                        {/* Remove */}
-                        {isEditing && (
-                          <td style={{ textAlign: 'center' }}>
-                            <button
-                              onClick={() => handleRemove(idx)}
-                              style={{ background: 'none', border: 'none', color: '#dc2626', cursor: 'pointer', fontSize: '16px' }}
-                            >
-                              🗑️
-                            </button>
+                    {localProducts.map((p, idx) => {
+                      const score   = Number(p.relevancy_score ?? -1);
+                      const pct     = score >= 0 ? Math.round(score * 100) : null;
+                      const isZero  = score === 0;
+                      const isHigh  = pct !== null && pct >= 80;
+                      const isMid   = pct !== null && pct >= 50 && pct < 80;
+                      const barColor    = isZero ? '#ef4444' : isHigh ? '#22c55e' : isMid ? '#f59e0b' : '#94a3b8';
+                      const scoreColor  = isZero ? '#dc2626' : isHigh ? '#16a34a' : isMid ? '#d97706' : '#64748b';
+                      const scoreBg     = isZero ? '#fee2e2' : isHigh ? '#dcfce7' : isMid ? '#fef9c3' : '#f1f5f9';
+                      const rowBg       = isZero ? '#fff8f8' : idx % 2 === 0 ? '#ffffff' : '#f9fafb';
+
+                      return (
+                        <tr key={`${p.product_code}-${idx}`} style={{
+                          background: rowBg,
+                          borderLeft: `3px solid ${barColor}`,
+                          transition: 'background 0.15s',
+                        }}
+                          onMouseOver={e => e.currentTarget.style.background = '#f0f6ff'}
+                          onMouseOut={e => e.currentTarget.style.background = rowBg}
+                        >
+                          {/* S.No */}
+                          <td style={{ ...tdStyle, textAlign: 'center', fontWeight: 700, color: '#374151' }}>
+                            {p.item_key ? p.item_key.replace(/^item_/i, '') : idx + 1}
                           </td>
-                        )}
 
-                        {/* Item Category */}
-                        <td>
-                          <div style={{ fontWeight: 500, color: '#1f2937', lineHeight: 1.3 }}>
-                            {p.item_category || p.tender_item_name || '—'}
-                          </div>
-                          {p.dept && (
-                            <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '2px' }}>{p.dept}</div>
-                          )}
-                        </td>
-
-                        {/* Product Name */}
-                        <td style={{ fontSize: '13px' }}>{p.title || '—'}</td>
-
-                        {/* Product Code */}
-                        <td>
-                          <code style={{ fontSize: '12px', color: '#374151', whiteSpace: 'nowrap' }}>
-                            {p.product_code || '—'}
-                          </code>
-                        </td>
-
-                        {/* Relevancy Score */}
-                        <td style={{ textAlign: 'center' }}>
-                          <span style={{
-                            background: '#f3f4f6', color: '#374151',
-                            padding: '2px 8px', borderRadius: '12px',
-                            fontSize: '11px', fontWeight: 600,
-                          }}>
-                            {p.relevancy_score !== undefined ? `${(p.relevancy_score * 100).toFixed(0)}%` : '—'}
-                          </span>
-                        </td>
-
-                        {/* Deviation */}
-                        <td style={{ textAlign: 'center' }}>
-                          <div style={{ display: 'flex', gap: '5px', justifyContent: 'center', alignItems: 'center' }}>
-                            <button
-                              onClick={e => {
-                                e.stopPropagation();
-                                navigate(`/Admin/tenderdetails/${bidNumber}/deviations`);
-                              }}
-                              title="View Deviation"
-                              style={{
-                                padding: '5px 8px', background: '#084f9a',
-                                color: 'white', border: 'none',
-                                borderRadius: '4px', cursor: 'pointer',
-                                display: 'inline-flex', alignItems: 'center',
-                              }}
-                              onMouseOver={e => e.currentTarget.style.background = '#063a73'}
-                              onMouseOut={e => e.currentTarget.style.background = '#084f9a'}
-                            >
-                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                <circle cx="12" cy="12" r="3" />
-                              </svg>
-                            </button>
-
-                            {/* Recalculate Button specifically for added/new products */}
-                            {(p.isNew || p.relevancy_score === 0 || p.relevancy_score === '0' || !p.relevancy_score) && (
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleRecalculateRow(idx, p);
-                                }}
-                                disabled={recalculatingRowIndex === idx}
-                                title="Recalculate deviation for this added product"
-                                style={{
-                                  padding: '3px 8px',
-                                  background: recalculatingRowIndex === idx ? '#d1d5db' : '#10b981',
-                                  color: recalculatingRowIndex === idx ? '#6b7280' : 'white',
-                                  border: 'none',
-                                  borderRadius: '4px',
-                                  cursor: recalculatingRowIndex === idx ? 'not-allowed' : 'pointer',
-                                  display: 'inline-flex', alignItems: 'center', gap: '4px',
-                                  fontSize: '12px', fontWeight: 500
-                                }}
-                                onMouseOver={e => { if (recalculatingRowIndex !== idx) e.currentTarget.style.background = '#059669'; }}
-                                onMouseOut={e => { if (recalculatingRowIndex !== idx) e.currentTarget.style.background = '#10b981'; }}
-                              >
-                                {recalculatingRowIndex === idx ? (
-                                  <span className="spinner" style={{ width: '12px', height: '12px', borderWidth: '2px', borderColor: '#6b7280', borderTopColor: 'transparent' }} />
-                                ) : (
-                                  '🔄 Recalculate'
-                                )}
-                              </button>
+                          {/* Item Category */}
+                          <td style={tdStyle}>
+                            <span style={{
+                              display: 'inline-block',
+                              background: '#dbeafe', color: '#1d4ed8',
+                              padding: '2px 8px', borderRadius: '4px',
+                              fontSize: '11px', fontWeight: 700,
+                              marginBottom: p.dept ? '4px' : 0,
+                            }}>
+                              {p.item_category || p.tender_item_name || '—'}
+                            </span>
+                            {p.dept && (
+                              <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '3px' }}>{p.dept}</div>
                             )}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                            {p.isNew && (
+                              <span style={{
+                                display: 'inline-block', marginTop: '4px',
+                                background: '#fef9c3', color: '#854d0e',
+                                padding: '1px 7px', borderRadius: '4px',
+                                fontSize: '10px', fontWeight: 600,
+                              }}>✨ New</span>
+                            )}
+                          </td>
+
+                          {/* Tender Product */}
+                          <td style={{ ...tdStyle, color: '#374151', maxWidth: 200 }}>
+                            <span style={{ fontSize: '12px' }}>
+                              {p.tender_item_name || '—'}
+                            </span>
+                          </td>
+
+                          {/* Product Name */}
+                          <td style={{ ...tdStyle, fontWeight: 600, color: '#1e293b' }}>
+                            {p.title || '—'}
+                          </td>
+
+                          {/* Product Code */}
+                          <td style={tdStyle}>
+                            <code style={{
+                              background: '#ede9fe', color: '#6d28d9',
+                              padding: '3px 8px', borderRadius: '5px',
+                              fontSize: '12px', fontWeight: 700, whiteSpace: 'nowrap',
+                            }}>
+                              {p.product_code || '—'}
+                            </code>
+                          </td>
+
+                          {/* Relevancy Score */}
+                          <td style={{ ...tdStyle, textAlign: 'center' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '7px', width: '100%' }}>
+                                <div style={{
+                                  flex: 1, height: '5px', background: '#e2e8f0',
+                                  borderRadius: '3px', overflow: 'hidden',
+                                }}>
+                                  <div style={{
+                                    width: `${pct ?? 0}%`, height: '100%',
+                                    background: barColor, borderRadius: '3px',
+                                  }} />
+                                </div>
+                                <span style={{
+                                  fontSize: '12px', fontWeight: 800,
+                                  color: scoreColor, background: scoreBg,
+                                  padding: '2px 8px', borderRadius: '4px',
+                                  minWidth: '40px', textAlign: 'center',
+                                }}>
+                                  {pct !== null ? `${pct}%` : '—'}
+                                </span>
+                              </div>
+                              {isZero && (
+                                <span style={{
+                                  background: '#fff7ed', border: '1px solid #fed7aa',
+                                  borderRadius: '4px', padding: '2px 7px',
+                                  fontSize: '10px', fontWeight: 700, color: '#c2410c',
+                                  whiteSpace: 'nowrap',
+                                }}>
+                                  ⚠️ Please Verify From Your End
+                                </span>
+                              )}
+                            </div>
+                          </td>
+
+                          {/* Actions */}
+                          <td style={{ ...tdStyle, textAlign: 'center' }}>
+                            <div style={{ display: 'flex', gap: '5px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                              <button
+                                onClick={e => { e.stopPropagation(); navigate(`/Admin/tenderdetails/${encodeURIComponent(bidNumber)}/deviations`); }}
+                                title="View Deviation"
+                                style={actionBtn('#084f9a')}
+                                onMouseOver={e => e.currentTarget.style.filter = 'brightness(1.15)'}
+                                onMouseOut={e => e.currentTarget.style.filter = 'none'}
+                              >
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
+                                </svg>
+                                Deviation
+                              </button>
+
+                              {(p.isNew || isZero || !p.relevancy_score) && (
+                                <button
+                                  onClick={e => { e.stopPropagation(); handleRecalculateRow(idx, p); }}
+                                  disabled={recalculatingRowIndex === idx}
+                                  title="Recalculate"
+                                  style={actionBtn(recalculatingRowIndex === idx ? '#94a3b8' : '#10b981', recalculatingRowIndex === idx)}
+                                  onMouseOver={e => { if (recalculatingRowIndex !== idx) e.currentTarget.style.filter = 'brightness(1.1)'; }}
+                                  onMouseOut={e => { e.currentTarget.style.filter = 'none'; }}
+                                >
+                                  {recalculatingRowIndex === idx
+                                    ? <><span className="spinner" style={{ width: '11px', height: '11px', borderWidth: '2px', borderColor: '#fff', borderTopColor: 'transparent' }} /> …</>
+                                    : '🔄 Recalc'}
+                                </button>
+                              )}
+
+                              <button
+                                onClick={e => { e.stopPropagation(); setChangingProduct({ product: p, idx }); setShowSearch(true); }}
+                                title="Change Product"
+                                style={actionBtn('#7c3aed')}
+                                onMouseOver={e => e.currentTarget.style.filter = 'brightness(1.1)'}
+                                onMouseOut={e => e.currentTarget.style.filter = 'none'}
+                              >
+                                ✏️ Change
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
-
-                {isEditing && (
-                  <div style={{ padding: '12px 0', textAlign: 'center' }}>
-                    <button onClick={handleAddProductClick} style={btnStyle('#084f9a')}>
-                      + Add Product
-                    </button>
-                  </div>
-                )}
               </div>
             )}
           </div>
@@ -699,6 +1393,153 @@ const SuggestedProductsModal = ({
         </div>
       </div>
 
+      {/* Excel-like grid editor — opened via the Edit button */}
+      {isEditing && (
+        <div style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1300,
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: '8px', width: '95vw', maxWidth: '1100px',
+            maxHeight: '90vh', display: 'flex', flexDirection: 'column',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.35)',
+          }}>
+            {/* Header */}
+            <div style={{
+              padding: '16px 20px', borderBottom: '1px solid #d1d5db',
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              background: '#f3f4f6', borderRadius: '8px 8px 0 0', flexShrink: 0,
+            }}>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 700, color: '#111827' }}>📊 Edit Suggested Products</h3>
+                <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#6b7280' }}>Edit the Product Code — press Enter or Tab to move to the next row</p>
+              </div>
+            </div>
+
+            {/* Grid */}
+            <div style={{ flex: 1, overflow: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                  <tr style={{ background: '#e5e7eb' }}>
+                    <th style={gridThStyle}>#</th>
+                    <th style={gridThStyle}>Item Category</th>
+                    <th style={gridThStyle}>Tender Product</th>
+                    <th style={gridThStyle}>Product Name</th>
+                    <th style={gridThStyle}>Product Code</th>
+                    <th style={{ ...gridThStyle, width: 100 }}>Relevancy %</th>
+                    <th style={{ ...gridThStyle, width: 40 }}></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {localProducts.map((p, idx) => (
+                    <tr key={`grid-row-${idx}`}>
+                      <td style={{ ...gridTdStyle, textAlign: 'center', color: '#6b7280', fontWeight: 600, background: '#f9fafb' }}>
+                        {idx + 1}
+                      </td>
+                      <td style={{ ...gridTdStyle, padding: '8px 10px', background: '#f9fafb', color: '#374151' }}>
+                        {p.item_category || '—'}
+                      </td>
+                      <td style={{ ...gridTdStyle, padding: '8px 10px', background: '#f9fafb', color: '#374151' }}>
+                        {p.tender_item_name || '—'}
+                      </td>
+                      <td style={{ ...gridTdStyle, padding: '8px 10px', background: '#f9fafb', color: '#374151', fontWeight: 600 }}>
+                        {p.title || '—'}
+                      </td>
+                      <td style={{ ...gridTdStyle, position: 'relative' }}>
+                        <input
+                          ref={el => (productCodeRefs.current[idx] = el)}
+                          value={p.product_code || ''}
+                          onChange={e => handleProductCodeInput(idx, e.target.value)}
+                          onFocus={() => { if (p.product_code) fetchProductCodeSuggestions(idx, p.product_code); setCodeSuggestRowIdx(idx); }}
+                          onBlur={() => setTimeout(() => setCodeSuggestRowIdx(prev => (prev === idx ? null : prev)), 150)}
+                          onKeyDown={e => {
+                            if (e.key === 'Escape') {
+                              setCodeSuggestRowIdx(null);
+                              return;
+                            }
+                            if (e.key === 'Enter' || e.key === 'Tab') {
+                              e.preventDefault();
+                              setCodeSuggestRowIdx(null);
+                              const next = productCodeRefs.current[idx + 1];
+                              if (next) next.focus();
+                            }
+                          }}
+                          className="excel-cell"
+                          style={cellInputStyle}
+                          autoComplete="off"
+                        />
+                        {codeSuggestRowIdx === idx && (codeSuggestOptions.length > 0 || codeSuggestLoading) && (
+                          <div style={{
+                            position: 'absolute', top: '100%', left: '8px', right: '8px', zIndex: 30,
+                            background: '#fff', border: '1px solid #d1d5db', borderRadius: '6px',
+                            boxShadow: '0 6px 16px rgba(0,0,0,0.15)', maxHeight: '220px', overflowY: 'auto',
+                            marginTop: '2px', textAlign: 'left',
+                          }}>
+                            {codeSuggestLoading ? (
+                              <div style={{ padding: '8px 10px', fontSize: '12px', color: '#9ca3af' }}>Searching…</div>
+                            ) : (
+                              codeSuggestOptions.map((opt, oi) => (
+                                <div
+                                  key={`${opt.product_code}-${oi}`}
+                                  onMouseDown={e => { e.preventDefault(); handleProductCodeSelect(idx, opt); }}
+                                  style={{
+                                    padding: '6px 10px', cursor: 'pointer',
+                                    borderBottom: oi < codeSuggestOptions.length - 1 ? '1px solid #f3f4f6' : 'none',
+                                  }}
+                                  onMouseEnter={e => (e.currentTarget.style.background = '#f0f6ff')}
+                                  onMouseLeave={e => (e.currentTarget.style.background = '#fff')}
+                                >
+                                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#6d28d9' }}>{opt.product_code}</div>
+                                  <div style={{ fontSize: '11px', color: '#374151', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                    {opt.title || opt.product_name}
+                                  </div>
+                                </div>
+                              ))
+                            )}
+                          </div>
+                        )}
+                      </td>
+                      <td style={{ ...gridTdStyle, padding: '8px 10px', background: '#f9fafb', textAlign: 'center', color: '#374151' }}>
+                        {p.relevancy_score != null ? `${Math.round(p.relevancy_score * 100)}%` : '—'}
+                      </td>
+                      <td style={{ ...gridTdStyle, textAlign: 'center', background: '#f9fafb' }}>
+                        <button
+                          onClick={() => handleRemove(idx)}
+                          title="Remove row"
+                          style={{ background: 'none', border: 'none', color: '#dc2626', cursor: 'pointer', fontSize: '16px', fontWeight: 700 }}
+                        >✕</button>
+                      </td>
+                    </tr>
+                  ))}
+                  {localProducts.length === 0 && (
+                    <tr>
+                      <td colSpan={7} style={{ padding: '30px', textAlign: 'center', color: '#9ca3af' }}>
+                        No rows.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+              <style>{`
+                .excel-cell:hover { background: #f8fafc; }
+                .excel-cell:focus { outline: none; border-color: #2563eb !important; background: #eff6ff !important; }
+              `}</style>
+            </div>
+
+            {/* Footer */}
+            <div style={{
+              padding: '14px 20px', borderTop: '1px solid #d1d5db',
+              display: 'flex', justifyContent: 'flex-end', gap: '10px', flexShrink: 0,
+            }}>
+              <button onClick={handleCancelEdit} disabled={saving} style={btnStyle('#6b7280', saving)}>✕ Cancel</button>
+              <button onClick={handleSave} disabled={saving} style={btnStyle('#16a34a', saving)}>
+                {saving ? '⏳ Saving…' : '💾 Save Changes'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Sub-modals */}
       {showCategorySelector && (
         <ItemCategorySelectorModal
@@ -709,11 +1550,77 @@ const SuggestedProductsModal = ({
       )}
       {showSearch && (
         <ProductSearchModal
-          onClose={() => setShowSearch(false)}
-          onSelect={handleProductAdded}
+          onClose={() => { setShowSearch(false); setChangingProduct(null); }}
+          onSelect={handleProductSelected}
           itemCategory={selectedItemCategory}
           bidNumber={bidNumber}
         />
+      )}
+      {showShareModal && (
+        <ShareDeviationModal
+          tenderId={bidNumber}
+          shareType="suggestions"
+          onClose={() => setShowShareModal(false)}
+        />
+      )}
+
+      {/* Reason modal — shown after user picks a replacement product */}
+      {pendingChange && (
+        <div style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1300,
+        }}>
+          <div style={{
+            background: 'white', borderRadius: '10px', padding: '28px',
+            width: '460px', maxWidth: '95%', boxShadow: '0 4px 24px rgba(0,0,0,0.2)',
+          }}>
+            <h3 style={{ margin: '0 0 16px', fontSize: '1.1rem', color: '#1a1a1a' }}>
+              Why are you changing this product?
+            </h3>
+            <div style={{ fontSize: '13px', color: '#374151', marginBottom: '14px', lineHeight: 1.6 }}>
+              <div><span style={{ color: '#6b7280' }}>From:</span> <strong>{pendingChange.oldProduct.title || pendingChange.oldProduct.product_name || pendingChange.oldProduct.product_code}</strong></div>
+              <div style={{ marginTop: '4px' }}><span style={{ color: '#6b7280' }}>To:</span> <strong>{pendingChange.newProduct.title || pendingChange.newProduct.product_name || pendingChange.newProduct.product_code}</strong></div>
+            </div>
+            <textarea
+              className="form-control"
+              rows={3}
+              placeholder="Enter reason for changing the product..."
+              value={changeReason}
+              onChange={e => setChangeReason(e.target.value)}
+              style={{
+                width: '100%', padding: '8px 10px', fontSize: '13px',
+                border: '1px solid #d1d5db', borderRadius: '6px',
+                resize: 'vertical', boxSizing: 'border-box',
+              }}
+              autoFocus
+            />
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '18px' }}>
+              <button
+                onClick={() => { setPendingChange(null); setChangingProduct(null); setChangeReason(''); }}
+                disabled={changeLoading}
+                style={{
+                  padding: '8px 18px', background: '#6b7280', color: 'white',
+                  border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '13px',
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmProductChange}
+                disabled={!changeReason.trim() || changeLoading}
+                style={{
+                  padding: '8px 18px',
+                  background: !changeReason.trim() || changeLoading ? '#9ca3af' : '#7c3aed',
+                  color: 'white', border: 'none', borderRadius: '6px',
+                  cursor: !changeReason.trim() || changeLoading ? 'not-allowed' : 'pointer',
+                  fontSize: '13px', fontWeight: 600,
+                }}
+              >
+                {changeLoading ? 'Updating...' : 'Confirm Change'}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
@@ -1007,6 +1914,1029 @@ const GenericTableModal = ({ title, data, onClose }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
+// PIPELINE CHAT: maps raw SSE log lines → friendly chat messages
+// ─────────────────────────────────────────────────────────────────────────────
+
+function rawToChat(line) {
+  const t = line.trim();
+  const l = t.toLowerCase();
+
+  // Skip pipeline noise: separators, command echo, stderr indent, process-finished lines
+  if (!t) return null;
+  if (/^[─\-=*▶·\s]{4,}$/.test(t)) return null;
+  if (t.startsWith('▶') || t.startsWith('  ')) return null;
+  if (l.startsWith('process finished') || l.startsWith('failed to start')) return null;
+  if (l.includes('python ') && l.includes('.py')) return null;
+  if (l.includes('node ') && l.includes('.js')) return null;
+  if (l.includes('attempt') && (l.includes('failed') || l.includes('timed out'))) return null;
+  if (l.includes('[dry-run]') || l.includes('dry run')) return null;
+
+  // Step signals
+  if (l.includes('step 1') || l.includes('relevancy check'))
+    return 'Checking if this tender matches our products...';
+  if (l.includes('relevant') && !l.includes('not ') && !l.includes('irrel'))
+    return 'This tender looks relevant to us!';
+  if (l.includes('step 2') || l.includes('downloading') || l.includes('bid document'))
+    return 'Ok! Opened the bid document';
+  if (l.includes('step 3') || l.includes('extracting link'))
+    return 'Scanning all linked documents...';
+
+  // Link count
+  const linkMatch = t.match(/(\d+)\s+(?:internal\s+)?link/i);
+  if (linkMatch) return `Ohh! It has ${linkMatch[1]} internal links`;
+
+  // Category detection
+  if (l.includes('analyser'))                                      return 'This is an Analyser tender';
+  if (l.includes('endo.json') || (l.includes('endo') && l.includes('categ'))) return 'This is an Endo / Surgical tender';
+  if (l.includes('reagent'))                                       return 'This looks like a Reagents tender';
+  if (l.includes('rapid') && l.includes('elisa'))                  return 'This is a Rapid & ELISA tender';
+  if (l.includes('system_pack'))                                   return 'This is a System Packs tender';
+
+  // Ollama / LLM calls — map to friendly reading messages
+  if (l.includes('ollama') || l.includes('llm') || l.includes('attempt')) {
+    // Suppress raw retry noise
+    if (l.includes('failed') || l.includes('timed out') || l.includes('error')) return null;
+    const attemptMatch = t.match(/attempt\s+(\d+)/i);
+    if (attemptMatch) {
+      const n = parseInt(attemptMatch[1], 10);
+      if (n === 1) return 'Reading and understanding the document...';
+      if (n === 2) return 'Taking a closer look at the document...';
+      return 'Going through the document once more...';
+    }
+    if (l.includes('ollama')) return 'Reading and understanding the document...';
+    if (l.includes('llm'))    return 'Analyzing document content...';
+  }
+
+  // Step 4 / matching
+  if (l.includes('step 4') || l.includes('product match'))        return 'Finding the best product match...';
+
+  const fileMatch = t.match(/(?:searching|in)\s+([\w]+\.json)/i);
+  if (fileMatch) return `Looking in ${fileMatch[1].replace('.json', '')} catalog...`;
+
+  const pdfCount = t.match(/(\d+)\s+(?:pdf|file|doc)/i);
+  if (pdfCount) return `Scanning ${pdfCount[1]} document${+pdfCount[1] > 1 ? 's' : ''}...`;
+
+  if (l.includes('product found') || l.includes('match found'))   return 'Found a matching product!';
+  if (l.includes('deviation') || l.includes('specification'))     return 'Calculating specification deviations...';
+  if (l.includes('saving') || l.includes('writing to db'))        return 'Saving your results...';
+  if (l.includes('pipeline complete') || l.includes('all done') || l.includes('finished')) return 'All done!';
+
+  // Short meaningful raw lines (strip log prefix first)
+  const stripped = t.replace(/^\[.*?\]\s*/, '').trim();
+  if (stripped.length >= 20 && stripped.length <= 90 &&
+      !stripped.startsWith('{') && !stripped.startsWith('[') &&
+      !/[=─]/.test(stripped) && !stripped.includes('http')) {
+    return stripped;
+  }
+  return null;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PROCESSING CHAT MODAL
+// ─────────────────────────────────────────────────────────────────────────────
+
+const ProcessingChatModal = ({ bidNumber, userName, onClose }) => {
+  const [messages, setMessages] = useState([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [done, setDone] = useState(false);
+  const bottomRef = useRef(null);
+  const seenKeys = useRef(new Set());
+
+  const addMsg = useCallback((text) => {
+    const key = text.trim().toLowerCase().slice(0, 40);
+    if (seenKeys.current.has(key)) return;
+    seenKeys.current.add(key);
+    setMessages(prev => [...prev, { text, id: Date.now() + Math.random() }]);
+  }, []);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isTyping]);
+
+  useEffect(() => {
+    const greetTimer = setTimeout(() => {
+      addMsg(`Hi ${userName || 'there'}! Let me find the best product match for you...`);
+    }, 400);
+
+    const cleanBid = bidNumber.replace(/_/g, '/');
+    const PIPELINE_URL = import.meta.env.VITE_ENDO_PIPELINE_URL || 'https://suggestions.openprocure.ai';
+    const es = new EventSource(`${PIPELINE_URL}/run/pipeline?bid=${encodeURIComponent(cleanBid)}`);
+
+    let pendingMsg = null;
+    let typingTimer = null;
+    let isDone = false;
+
+    const flushMsg = () => {
+      if (pendingMsg) {
+        const m = pendingMsg;
+        pendingMsg = null;
+        setIsTyping(false);
+        addMsg(m);
+      }
+    };
+
+    const queueMsg = (chatMsg) => {
+      setIsTyping(true);
+      clearTimeout(typingTimer);
+      pendingMsg = chatMsg;
+      typingTimer = setTimeout(flushMsg, 650);
+    };
+
+    // Regular data lines — parse through rawToChat
+    es.onmessage = (event) => {
+      const raw = (event.data || '').trim();
+      if (!raw || raw.startsWith(': ')) return;
+      // Legacy __DONE__ signal (backward compat with older server builds)
+      if (raw === '__DONE__') { handleDone(); return; }
+      const chatMsg = rawToChat(raw);
+      if (chatMsg) queueMsg(chatMsg);
+    };
+
+    // Named 'step' event — guaranteed one message per pipeline step
+    es.addEventListener('step', (event) => {
+      try {
+        const { step, label } = JSON.parse(event.data);
+        const stepMsgs = {
+          1: 'Checking if this tender matches our products...',
+          2: 'Ok! Opened the bid document',
+          3: 'Scanning all document links...',
+          4: 'Finding the best product match...',
+        };
+        const msg = stepMsgs[step] || `Running: ${label}`;
+        queueMsg(msg);
+      } catch (_) {}
+    });
+
+    // Named 'done' event — clean completion signal from updated server
+    const handleDone = () => {
+      if (isDone) return;
+      isDone = true;
+      es.close();
+      clearTimeout(typingTimer);
+      flushMsg();
+      setIsTyping(false);
+      setDone(true);
+      setTimeout(() => addMsg('All done! Refresh the page to see your product suggestions.'), 600);
+    };
+
+    es.addEventListener('done', handleDone);
+    // Fallback: server closed connection or network error
+    es.onerror = () => { if (!isDone) handleDone(); };
+
+    return () => {
+      clearTimeout(greetTimer);
+      clearTimeout(typingTimer);
+      es.close();
+    };
+  }, []); // eslint-disable-line
+
+  const BotAvatar = () => (
+    <div style={{
+      width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0,
+      background: '#084f9a', color: '#fff',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontSize: '10px', fontWeight: 700,
+    }}>AI</div>
+  );
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1200,
+    }}>
+      <div style={{
+        width: '420px', maxWidth: '95vw', height: '520px',
+        background: '#fff', borderRadius: '18px',
+        display: 'flex', flexDirection: 'column',
+        boxShadow: '0 12px 40px rgba(0,0,0,0.3)',
+        overflow: 'hidden',
+      }}>
+        {/* Header */}
+        <div style={{
+          background: 'linear-gradient(135deg, #084f9a, #1a6bc4)',
+          color: '#fff', padding: '14px 18px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{
+              width: '40px', height: '40px', borderRadius: '50%',
+              background: 'rgba(255,255,255,0.15)', border: '2px solid rgba(255,255,255,0.3)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px',
+            }}>🤖</div>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: '15px' }}>Tender AI</div>
+              <div style={{ fontSize: '11px', opacity: 0.85, display: 'flex', alignItems: 'center', gap: '5px' }}>
+                {done ? 'Analysis complete' : (
+                  <>
+                    <span style={{
+                      width: '7px', height: '7px', borderRadius: '50%',
+                      background: '#4ade80', display: 'inline-block',
+                      animation: 'chatPulse 1.5s ease infinite',
+                    }} />
+                    Processing bid...
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+          <button onClick={onClose} style={{
+            background: 'none', border: 'none', color: '#fff',
+            cursor: 'pointer', fontSize: '22px', lineHeight: 1, opacity: 0.8,
+          }}>×</button>
+        </div>
+
+        {/* Messages area */}
+        <div style={{
+          flex: 1, overflowY: 'auto', padding: '16px',
+          background: '#eef2f7',
+          display: 'flex', flexDirection: 'column', gap: '10px',
+        }}>
+          {messages.map(m => (
+            <div key={m.id} style={{
+              display: 'flex', alignItems: 'flex-end', gap: '8px',
+              animation: 'chatIn 0.3s ease',
+            }}>
+              <BotAvatar />
+              <div style={{
+                background: '#fff', color: '#1f2937',
+                padding: '10px 14px', borderRadius: '16px 16px 16px 4px',
+                maxWidth: '80%', fontSize: '14px', lineHeight: '1.5',
+                boxShadow: '0 1px 4px rgba(0,0,0,0.09)',
+              }}>
+                {m.text}
+              </div>
+            </div>
+          ))}
+
+          {isTyping && (
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px' }}>
+              <BotAvatar />
+              <div style={{
+                background: '#fff', padding: '12px 16px',
+                borderRadius: '16px 16px 16px 4px',
+                boxShadow: '0 1px 4px rgba(0,0,0,0.09)',
+              }}>
+                <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                  {[0, 1, 2].map(i => (
+                    <span key={i} style={{
+                      width: '7px', height: '7px', borderRadius: '50%',
+                      background: '#9ca3af', display: 'inline-block',
+                      animation: `chatDot 1.2s ease ${i * 0.15}s infinite`,
+                    }} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div ref={bottomRef} />
+        </div>
+
+        {/* Footer */}
+        <div style={{
+          padding: '12px 16px', borderTop: '1px solid #e5e7eb',
+          background: '#fff', textAlign: done ? 'center' : 'left',
+        }}>
+          {done ? (
+            <button
+              onClick={() => window.location.reload()}
+              style={{
+                padding: '9px 28px', background: '#084f9a', color: '#fff',
+                border: 'none', borderRadius: '8px', cursor: 'pointer',
+                fontWeight: 600, fontSize: '13px',
+              }}
+            >
+              Refresh to See Results
+            </button>
+          ) : (
+            <span style={{ fontSize: '12px', color: '#9ca3af' }}>
+              AI is analyzing your tender documents...
+            </span>
+          )}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes chatIn {
+          from { opacity: 0; transform: translateY(8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes chatDot {
+          0%, 60%, 100% { transform: translateY(0); }
+          30%            { transform: translateY(-6px); }
+        }
+        @keyframes chatPulse {
+          0%, 100% { opacity: 1; }
+          50%       { opacity: 0.35; }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DOCUMENT VIEWER MODAL
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Tender status panel — records proceed / win / lose / close against a bid.
+ *
+ * For a Tender Executive the backend does not write the status directly: a
+ * 'proceed' returns HTTP 202 with pendingApproval, having raised a request for
+ * their Tender Admin (see backend approvals.controller.js). The status only
+ * appears in the history once that admin approves, so we surface that state
+ * explicitly rather than pretending the update succeeded.
+ */
+const STATUS_OPTIONS = [
+  { value: 'proceed', label: 'Proceed', hint: 'Pursue this bid', color: '#0d9488', Icon: CheckCircle2 },
+  { value: 'win', label: 'Win', hint: 'Bid awarded', color: '#15803d', Icon: Trophy },
+  { value: 'lose', label: 'Lose', hint: 'Bid lost', color: '#dc2626', Icon: XCircle },
+  { value: 'close', label: 'Close', hint: 'No further action', color: '#6b7280', Icon: Ban },
+];
+
+const relativeTime = (value) => {
+  if (!value) return '';
+  const then = new Date(value).getTime();
+  if (Number.isNaN(then)) return '';
+  const mins = Math.round((Date.now() - then) / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins} min ago`;
+  const hrs = Math.round(mins / 60);
+  if (hrs < 24) return `${hrs} hr ago`;
+  const days = Math.round(hrs / 24);
+  return days < 30 ? `${days} day${days > 1 ? 's' : ''} ago` : new Date(value).toLocaleDateString();
+};
+
+// Searchable multi-select for "Assign Tender Executive(s)" — lists 5 active
+// Tender Executives by default, narrows as the user types, and lets them pick
+// one or more. Shared logic with the list-page Tender Status modal.
+const ExecutiveAssignField = ({ bidNumber, selected, onChange }) => {
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [searchLoading, setSearchLoading] = useState(false);
+
+    useEffect(() => {
+        const loadAssigned = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch(
+                    `${import.meta.env.VITE_API_BASE_URL}/tenders/${bidNumber.replace(/\//g, '_')}/executives`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                const data = await res.json();
+                if (data.success && data.data.length) onChange(data.data);
+            } catch { /* non-critical */ }
+        };
+        if (bidNumber) loadAssigned();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [bidNumber]);
+
+    useEffect(() => {
+        let cancelled = false;
+        const run = async () => {
+            try {
+                setSearchLoading(true);
+                const token = localStorage.getItem('token');
+                const url = `${import.meta.env.VITE_API_BASE_URL}/tenders/executives/search?limit=5${query ? `&q=${encodeURIComponent(query)}` : ''}`;
+                const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+                const data = await res.json();
+                if (!cancelled && data.success) setResults(data.data);
+            } catch { /* non-critical */ } finally {
+                if (!cancelled) setSearchLoading(false);
+            }
+        };
+        const t = setTimeout(run, 250);
+        return () => { cancelled = true; clearTimeout(t); };
+    }, [query]);
+
+    const addExec = (exec) => {
+        if (!selected.some(s => s.id === exec.id)) onChange([...selected, exec]);
+        setQuery('');
+    };
+    const removeExec = (id) => onChange(selected.filter(s => s.id !== id));
+    const unselectedResults = results.filter(r => !selected.some(s => s.id === r.id));
+
+    return (
+        <div style={{ position: 'relative' }}>
+            {selected.length > 0 && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '8px' }}>
+                    {selected.map(s => (
+                        <span key={s.id} style={{
+                            display: 'inline-flex', alignItems: 'center', gap: '6px',
+                            background: '#eef3fb', color: '#084f9a', border: '1px solid #cfe0f5',
+                            borderRadius: '999px', padding: '4px 6px 4px 10px', fontSize: '12.5px', fontWeight: 600,
+                        }}>
+                            {s.name}
+                            <button
+                                type="button"
+                                onClick={() => removeExec(s.id)}
+                                style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#084f9a', fontWeight: 700, lineHeight: 1, padding: '0 2px' }}
+                            >
+                                ×
+                            </button>
+                        </span>
+                    ))}
+                </div>
+            )}
+            <input
+                type="text"
+                placeholder="Search Tender Executives by name or email..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onFocus={() => setOpen(true)}
+                onBlur={() => setTimeout(() => setOpen(false), 150)}
+                style={{ width: '100%', padding: '9px 12px', borderRadius: '10px', border: '1.5px solid #e2e8f0', fontSize: '13px', outline: 'none', boxSizing: 'border-box' }}
+            />
+            {open && (
+                <div style={{
+                    position: 'absolute', top: '100%', left: 0, right: 0, marginTop: '4px',
+                    background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px',
+                    boxShadow: '0 8px 20px rgba(15,23,42,.12)', zIndex: 20, maxHeight: '220px', overflowY: 'auto',
+                }}>
+                    {searchLoading ? (
+                        <div style={{ padding: '10px 12px', fontSize: '12.5px', color: '#94a3b8' }}>Searching…</div>
+                    ) : unselectedResults.length === 0 ? (
+                        <div style={{ padding: '10px 12px', fontSize: '12.5px', color: '#94a3b8' }}>No matching Tender Executives</div>
+                    ) : (
+                        unselectedResults.map(r => (
+                            <div
+                                key={r.id}
+                                onMouseDown={(e) => { e.preventDefault(); addExec(r); }}
+                                style={{ padding: '9px 12px', cursor: 'pointer', fontSize: '13px', borderBottom: '1px solid #f1f5f9' }}
+                                onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
+                            >
+                                <div style={{ fontWeight: 600, color: '#1f2937' }}>{r.name}</div>
+                                <div style={{ fontSize: '11.5px', color: '#94a3b8' }}>{r.email}</div>
+                            </div>
+                        ))
+                    )}
+                </div>
+            )}
+        </div>
+    );
+};
+
+const TenderStatusModal = ({ bidNumber, onClose }) => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const idForUrl = (bidNumber || '').replace(/\//g, '_');
+
+  const [chosenStatus, setStatus] = useState('proceed');
+  const [remarks, setRemarks] = useState('');
+  const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [notice, setNotice] = useState(null);
+  // A Tender Executive's request sits with their Tender Admin before it takes
+  // effect, so show that waiting state rather than an empty history.
+  const [pending, setPending] = useState(null);
+
+  // Who is logged in right now, shown as "Reporting Name".
+  let currentUser = null;
+  try { currentUser = JSON.parse(localStorage.getItem('user')); } catch { /* ignore */ }
+  const reportingLabel = currentUser?.name
+    ? `${currentUser.name} (${currentUser.email || '-'})`
+    : (currentUser?.email || '-');
+
+  // ZSM auto-resolved for this tender's state, editable via a dropdown.
+  const [zsmInfo, setZsmInfo] = useState(null);
+  const [zsmLoading, setZsmLoading] = useState(false);
+  const [editingZsm, setEditingZsm] = useState(false);
+  const [selectedZsmId, setSelectedZsmId] = useState('');
+
+  const loadZsm = useCallback(async () => {
+    try {
+      setZsmLoading(true);
+      const res = await fetch(`${API_BASE_URL}/tenders/${idForUrl}/zsm`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      const data = await res.json();
+      if (data.success) {
+        setZsmInfo(data.data);
+        setSelectedZsmId(data.data.zsm?.id ? String(data.data.zsm.id) : '');
+      }
+    } catch { /* non-critical */ } finally {
+      setZsmLoading(false);
+    }
+  }, [API_BASE_URL, idForUrl]);
+
+  useEffect(() => { loadZsm(); }, [loadZsm]);
+
+  // Tender Executives assigned to do the documentation work once proceeded.
+  const [selectedExecutives, setSelectedExecutives] = useState([]);
+
+  const loadPending = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/approvals?status=pending&type=tender_proceed`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      const data = await res.json();
+      if (!data.success) return;
+      const mine = (data.data || []).find(
+        r => r.bid_number === bidNumber || r.bid_number === bidNumber.replace(/\//g, '_')
+      );
+      setPending(mine || null);
+    } catch { /* non-critical */ }
+  }, [API_BASE_URL, bidNumber]);
+
+  const loadHistory = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/tenders/${idForUrl}/status/history`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      const data = await res.json();
+      setHistory(data.success ? (data.data || []) : []);
+      if (!data.success) setError(data.message || 'Failed to load status history');
+    } catch {
+      setError('Failed to load status history');
+    } finally {
+      setLoading(false);
+    }
+  }, [API_BASE_URL, idForUrl]);
+
+  useEffect(() => { loadHistory(); loadPending(); }, [loadHistory, loadPending]);
+
+  // Close on Escape, like the other modals on this page.
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+    setNotice(null);
+    try {
+      const res = await fetch(`${API_BASE_URL}/tenders/${idForUrl}/status`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          status, remarks,
+          ...(editingZsm && selectedZsmId ? { assignedZsmId: Number(selectedZsmId) } : {}),
+          ...(status === 'proceed' && selectedExecutives.length
+            ? { assignedExecutiveIds: selectedExecutives.map(e => e.id) }
+            : {}),
+        }),
+      });
+      const data = await res.json();
+
+      if (data.pendingApproval) {
+        // Executive path — nothing is written until a Tender Admin approves.
+        setNotice({ tone: 'pending', text: data.message });
+        setRemarks('');
+        await loadPending();
+      } else if (data.success) {
+        setNotice({ tone: 'ok', text: `Status set to "${status}".` });
+        setRemarks('');
+        await loadHistory();
+      } else {
+        setError(data.message || 'Failed to update status');
+      }
+    } catch {
+      setError('Could not reach the server');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const latest = history[0];
+  const latestMeta = latest && STATUS_OPTIONS.find(o => o.value === latest.status);
+
+  // The tender already has this status — re-applying it would just add a
+  // duplicate history entry, so drop it from the choices.
+  const options = STATUS_OPTIONS.filter(o => o.value !== latest?.status);
+
+  // Derive the effective selection rather than correcting state in an effect:
+  // if the chosen status just became unavailable (history loaded, or a status
+  // was applied), fall through to the first option that is still offered.
+  const status = options.some(o => o.value === chosenStatus)
+    ? chosenStatus
+    : options[0]?.value;
+  const current = STATUS_OPTIONS.find(o => o.value === status);
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.5)',
+        backdropFilter: 'blur(2px)', display: 'flex', alignItems: 'center',
+        justifyContent: 'center', zIndex: 10002, padding: '16px',
+      }}
+    >
+      <style>{`
+        @keyframes tsm-in { from { opacity: 0; transform: translateY(8px) scale(.98) } to { opacity: 1; transform: none } }
+        @keyframes tsm-spin { to { transform: rotate(360deg) } }
+        .tsm-card { animation: tsm-in .16s ease-out }
+        .tsm-opt { transition: border-color .12s, background .12s, box-shadow .12s }
+        .tsm-opt:hover { background: #f8fafc }
+        .tsm-submit { transition: filter .12s, opacity .12s }
+        .tsm-submit:hover:not(:disabled) { filter: brightness(1.08) }
+        .tsm-x:hover { background: #f1f5f9; color: #0f172a }
+      `}</style>
+
+      <div
+        className="tsm-card"
+        onClick={e => e.stopPropagation()}
+        style={{
+          background: '#fff', borderRadius: '16px', width: 'min(900px, 100%)',
+          maxHeight: '88vh', display: 'flex', flexDirection: 'column',
+          boxShadow: '0 20px 50px -12px rgba(15,23,42,.35)', overflow: 'hidden',
+        }}
+      >
+        {/* Header */}
+        <div style={{
+          padding: '18px 22px 16px', borderBottom: '1px solid #eef2f7',
+          display: 'flex', alignItems: 'flex-start', gap: '12px',
+        }}>
+          <div style={{
+            width: '38px', height: '38px', borderRadius: '10px', flexShrink: 0,
+            background: '#eef3fb', color: '#084f9a',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <Tag size={18} />
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#0f172a' }}>
+              Tender Status
+            </h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px', flexWrap: 'wrap' }}>
+              <code style={{
+                fontSize: '11.5px', color: '#475569', background: '#f1f5f9',
+                padding: '2px 7px', borderRadius: '5px', fontFamily: 'ui-monospace, monospace',
+              }}>{bidNumber}</code>
+              {latestMeta && (
+                <span style={{
+                  fontSize: '11px', fontWeight: 700, letterSpacing: '.02em',
+                  color: latestMeta.color, background: `${latestMeta.color}14`,
+                  border: `1px solid ${latestMeta.color}33`,
+                  padding: '2px 8px', borderRadius: '999px', textTransform: 'uppercase',
+                }}>{latestMeta.label}</span>
+              )}
+            </div>
+          </div>
+
+          <button
+            className="tsm-x"
+            onClick={onClose}
+            aria-label="Close"
+            style={{
+              border: 'none', background: 'none', cursor: 'pointer', color: '#94a3b8',
+              width: '30px', height: '30px', borderRadius: '8px', flexShrink: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div style={{ padding: '18px 22px', overflowY: 'auto' }}>
+          {pending && (
+            <div style={{
+              display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '16px',
+              padding: '12px 14px', borderRadius: '10px',
+              background: '#fffbeb', border: '1px solid #fde68a',
+            }}>
+              <Clock size={16} style={{ color: '#b45309', flexShrink: 0, marginTop: '1px' }} />
+              <div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#b45309' }}>
+                  Waiting for approval
+                </div>
+                <div style={{ fontSize: '12.5px', color: '#92400e', marginTop: '2px', lineHeight: 1.45 }}>
+                  Your request to mark this tender <b>Proceed</b> is with your Tender Admin.
+                  It will be applied once approved.
+                </div>
+                <div style={{ fontSize: '11.5px', color: '#a16207', marginTop: '4px' }}>
+                  Raised {relativeTime(pending.created_at)}
+                  {pending.division ? ` · ${pending.division}` : ''}{pending.source ? `-${pending.source}` : ''}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px', marginBottom: '18px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#64748b', letterSpacing: '.04em', textTransform: 'uppercase', marginBottom: '6px' }}>
+                Reporting Name
+              </label>
+              <div style={{ padding: '9px 12px', borderRadius: '10px', border: '1.5px solid #e2e8f0', background: '#f8fafc', fontSize: '13px', color: '#334155' }}>
+                {reportingLabel}
+              </div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#64748b', letterSpacing: '.04em', textTransform: 'uppercase', marginBottom: '6px' }}>
+                Assigned To (ZSM)
+              </label>
+              {zsmLoading ? (
+                <div style={{ padding: '9px 12px', fontSize: '12.5px', color: '#94a3b8' }}>Resolving zonal manager…</div>
+              ) : !editingZsm ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ padding: '9px 12px', borderRadius: '10px', border: '1.5px solid #e2e8f0', background: '#f8fafc', fontSize: '13px', color: '#334155', flex: 1, minWidth: 0 }}>
+                    {zsmInfo?.zsm
+                      ? `${zsmInfo.zsm.name} (${zsmInfo.zsm.email})${zsmInfo.isOverridden ? ' — manual' : ''}`
+                      : 'No ZSM mapped'}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setEditingZsm(true)}
+                    style={{ padding: '9px 12px', borderRadius: '10px', border: '1.5px solid #e2e8f0', background: '#fff', color: '#084f9a', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}
+                  >
+                    Edit
+                  </button>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <select
+                    value={selectedZsmId}
+                    onChange={e => setSelectedZsmId(e.target.value)}
+                    style={{ flex: 1, minWidth: 0, padding: '9px 12px', borderRadius: '10px', border: '1.5px solid #e2e8f0', fontSize: '13px', background: '#fff' }}
+                  >
+                    <option value="">-- Select ZSM --</option>
+                    {(zsmInfo?.allZsms || []).map(z => (
+                      <option key={z.id} value={z.id}>{z.name} ({z.email})</option>
+                    ))}
+                  </select>
+                  <button
+                    type="button"
+                    onClick={() => setEditingZsm(false)}
+                    style={{ padding: '9px 12px', borderRadius: '10px', border: 'none', background: '#084f9a', color: '#fff', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}
+                  >
+                    Done
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div style={{ marginBottom: '18px' }}>
+            <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#64748b', letterSpacing: '.04em', textTransform: 'uppercase', marginBottom: '6px' }}>
+              Assign Tender Executive(s)
+            </label>
+            <ExecutiveAssignField
+              bidNumber={bidNumber}
+              selected={selectedExecutives}
+              onChange={setSelectedExecutives}
+            />
+            <div style={{ fontSize: '11.5px', color: '#94a3b8', marginTop: '6px' }}>
+              Assigned executives will be notified and only they (plus you) will see this tender in Active Workspaces once marked Proceed.
+            </div>
+          </div>
+
+          <form onSubmit={submit}>
+            <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#64748b', letterSpacing: '.04em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              Status
+            </label>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(128px, 1fr))', gap: '8px', marginBottom: '18px' }}>
+              {options.map((opt) => {
+                const { value, label, hint, color } = opt;
+                const OptIcon = opt.Icon;
+                const active = status === value;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    className="tsm-opt"
+                    onClick={() => setStatus(value)}
+                    style={{
+                      textAlign: 'left', cursor: 'pointer', padding: '10px 12px',
+                      borderRadius: '10px', background: active ? `${color}0f` : '#fff',
+                      border: `1.5px solid ${active ? color : '#e2e8f0'}`,
+                      boxShadow: active ? `0 0 0 3px ${color}1a` : 'none',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                      <OptIcon size={15} style={{ color: active ? color : '#94a3b8', flexShrink: 0 }} />
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: active ? color : '#334155' }}>{label}</span>
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>{hint}</div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <label style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px', fontWeight: 700, color: '#64748b', letterSpacing: '.04em', textTransform: 'uppercase', marginBottom: '6px' }}>
+              <span>Remarks <span style={{ textTransform: 'none', fontWeight: 500, letterSpacing: 0 }}>(optional)</span></span>
+              <span style={{ fontWeight: 500, letterSpacing: 0, color: remarks.length > 480 ? '#dc2626' : '#cbd5e1' }}>{remarks.length}/500</span>
+            </label>
+            <textarea
+              value={remarks}
+              maxLength={500}
+              onChange={e => setRemarks(e.target.value)}
+              rows={3}
+              placeholder={`Why is this tender being marked "${current?.label}"?`}
+              style={{
+                width: '100%', padding: '10px 12px', borderRadius: '10px',
+                border: '1.5px solid #e2e8f0', fontSize: '13px', resize: 'vertical',
+                fontFamily: 'inherit', outline: 'none', boxSizing: 'border-box',
+              }}
+            />
+
+            {error && (
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', marginTop: '12px', padding: '10px 12px', borderRadius: '9px', background: '#fef2f2', border: '1px solid #fecaca', color: '#b91c1c', fontSize: '12.5px' }}>
+                <AlertCircle size={15} style={{ flexShrink: 0, marginTop: '1px' }} />
+                <span>{error}</span>
+              </div>
+            )}
+            {notice && (
+              <div style={{
+                display: 'flex', gap: '8px', alignItems: 'flex-start', marginTop: '12px',
+                padding: '10px 12px', borderRadius: '9px', fontSize: '12.5px',
+                background: notice.tone === 'pending' ? '#fffbeb' : '#f0fdf4',
+                border: `1px solid ${notice.tone === 'pending' ? '#fde68a' : '#bbf7d0'}`,
+                color: notice.tone === 'pending' ? '#b45309' : '#15803d',
+              }}>
+                {notice.tone === 'pending' ? <Clock size={15} style={{ flexShrink: 0, marginTop: '1px' }} /> : <CheckCircle2 size={15} style={{ flexShrink: 0, marginTop: '1px' }} />}
+                <span>{notice.text}</span>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="tsm-submit"
+              disabled={submitting}
+              style={{
+                width: '100%', marginTop: '14px', padding: '11px', borderRadius: '10px',
+                border: 'none', cursor: submitting ? 'not-allowed' : 'pointer',
+                background: current?.color || '#084f9a', color: '#fff',
+                fontSize: '13.5px', fontWeight: 700, opacity: submitting ? .7 : 1,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+              }}
+            >
+              {submitting
+                ? <><Loader2 size={15} style={{ animation: 'tsm-spin .8s linear infinite' }} /> Saving…</>
+                : <>Mark as {current?.label}</>}
+            </button>
+          </form>
+
+          {/* History */}
+          <div style={{ marginTop: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+              <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748b', letterSpacing: '.04em', textTransform: 'uppercase' }}>History</span>
+              {history.length > 0 && (
+                <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', background: '#f1f5f9', padding: '1px 7px', borderRadius: '999px' }}>{history.length}</span>
+              )}
+              <div style={{ flex: 1, height: '1px', background: '#eef2f7' }} />
+            </div>
+
+            {loading && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94a3b8', fontSize: '13px', padding: '8px 0' }}>
+                <Loader2 size={14} style={{ animation: 'tsm-spin .8s linear infinite' }} /> Loading history…
+              </div>
+            )}
+
+            {!loading && history.length === 0 && (
+              <div style={{ textAlign: 'center', padding: '22px 12px', border: '1px dashed #e2e8f0', borderRadius: '10px', background: '#fafbfc' }}>
+                <Clock size={20} style={{ color: '#cbd5e1' }} />
+                <div style={{ fontSize: '13px', fontWeight: 600, color: '#475569', marginTop: '6px' }}>No status recorded yet</div>
+                <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>
+                  {pending
+                    ? 'Your pending request will appear here once approved.'
+                    : 'The first update you make will appear here.'}
+                </div>
+              </div>
+            )}
+
+            {!loading && history.map((h, i) => {
+              const meta = STATUS_OPTIONS.find(o => o.value === h.status);
+              const color = meta?.color || '#94a3b8';
+              const HIcon = meta?.Icon || Clock;
+              const last = i === history.length - 1;
+              return (
+                <div key={h.id || i} style={{ display: 'flex', gap: '11px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+                    <div style={{
+                      width: '26px', height: '26px', borderRadius: '50%', background: `${color}14`,
+                      border: `1.5px solid ${color}40`, color,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                      <HIcon size={13} />
+                    </div>
+                    {!last && <div style={{ width: '1.5px', flex: 1, minHeight: '14px', background: '#e9eef5' }} />}
+                  </div>
+
+                  <div style={{ paddingBottom: last ? 0 : '14px', flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 700, color }}>{meta?.label || h.status}</span>
+                      <span style={{ fontSize: '11px', color: '#94a3b8' }} title={h.updated_date ? new Date(h.updated_date).toLocaleString() : ''}>
+                        {relativeTime(h.updated_date)}
+                      </span>
+                    </div>
+                    {h.remarks && (
+                      <div style={{ fontSize: '12.5px', color: '#475569', marginTop: '3px', wordBreak: 'break-word' }}>{h.remarks}</div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const DocumentViewerModal = ({ title, url, onClose }) => {
+  const [blobUrl, setBlobUrl] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [fetchError, setFetchError] = React.useState(null);
+
+  React.useEffect(() => {
+    let objectUrl = null;
+    const load = async () => {
+      try {
+        // GeM/BHEL servers don't send CORS headers (and some redirect during
+        // preflight, which browsers reject outright), so route through the
+        // backend proxy which fetches server-side and streams the result back.
+        const fetchUrl = /gem\.gov\.in|bhel\.in/i.test(url)
+          ? `${import.meta.env.VITE_API_BASE_URL}/tenders/proxy-document?url=${encodeURIComponent(url)}`
+          : url;
+
+        const token = localStorage.getItem('token');
+        const res = await fetch(fetchUrl, {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        });
+        if (!res.ok) throw new Error(`Failed to load (HTTP ${res.status})`);
+        const blob = await res.blob();
+        objectUrl = URL.createObjectURL(blob);
+        setBlobUrl(objectUrl);
+      } catch (e) {
+        setFetchError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+    return () => { if (objectUrl) URL.revokeObjectURL(objectUrl); };
+  }, [url]);
+
+  return (
+    <div className="modal-overlay" onClick={onClose} style={{ zIndex: 2000 }}>
+      <div
+        className="modal-content"
+        onClick={e => e.stopPropagation()}
+        style={{ maxWidth: '92vw', width: '1100px', height: '90vh', display: 'flex', flexDirection: 'column', padding: 0 }}
+      >
+        <div className="modal-header" style={{ flexShrink: 0 }}>
+          <h2 style={{ fontSize: '15px', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {title}
+          </h2>
+          <button className="modal-close" onClick={onClose}>×</button>
+        </div>
+
+        <div style={{ flex: 1, overflow: 'hidden', position: 'relative', background: '#f3f4f6' }}>
+          {loading && (
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+              <div style={{ width: '36px', height: '36px', border: '4px solid #e5e7eb', borderTopColor: '#084f9a', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+              <span style={{ fontSize: '14px', color: '#666' }}>Loading document…</span>
+              <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            </div>
+          )}
+          {fetchError && (
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '20px', textAlign: 'center' }}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#dc3545" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <p style={{ color: '#dc3545', fontWeight: 600, margin: 0 }}>Unable to preview this document</p>
+              <p style={{ color: '#666', fontSize: '13px', margin: 0 }}>{fetchError}</p>
+              <a href={url} target="_blank" rel="noopener noreferrer"
+                style={{ padding: '8px 18px', background: '#084f9a', color: 'white', borderRadius: '6px', textDecoration: 'none', fontWeight: 600, fontSize: '13px' }}>
+                Open in New Tab
+              </a>
+            </div>
+          )}
+          {blobUrl && (
+            <iframe
+              src={blobUrl}
+              width="100%"
+              height="100%"
+              style={{ border: 'none', display: 'block' }}
+              title={title}
+            />
+          )}
+        </div>
+
+        <div className="modal-footer" style={{ flexShrink: 0, display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+          <a href={url} target="_blank" rel="noopener noreferrer"
+            style={{ padding: '8px 18px', background: '#084f9a', color: 'white', borderRadius: '6px', textDecoration: 'none', fontWeight: 600, fontSize: '13px' }}>
+            Open in New Tab
+          </a>
+          <button onClick={onClose} className="btn-cancel" style={{ padding: '8px 18px' }}>Close</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // MAIN: TENDER DETAILS PAGE
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -1014,6 +2944,10 @@ const TenderDetails = () => {
   const { tenderId } = useParams();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const JSON_SERVER_URL = import.meta.env.VITE_JSON_SERVER_URL;
+
+  let currentUser = null;
+  try { currentUser = JSON.parse(localStorage.getItem('user')); } catch { /* ignore */ }
+  const isSales = currentUser?.role === 'Sales';
 
   // ── UI state ──────────────────────────────────────────────────────────────
   const [expandedSections, setExpandedSections] = useState({
@@ -1030,6 +2964,7 @@ const TenderDetails = () => {
   const [isInterested, setIsInterested] = useState(false);
   const [preBidAttendance, setPreBidAttendance] = useState(null);
   const [showPreBidModal, setShowPreBidModal] = useState(false);
+  const [viewerDoc, setViewerDoc] = useState(null); // { url, title }
 
   // States to hold sub-components
   const [showScheduleModal, setShowScheduleModal] = useState(false);
@@ -1040,6 +2975,8 @@ const TenderDetails = () => {
   const [consigneeData, setConsigneeData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [docProcessing, setDocProcessing] = useState(false);
+  const [docProcessingAttempts, setDocProcessingAttempts] = useState(0);
   const [raNumber, setRaNumber] = useState(null);
   const [corrigendumData, setCorrigendumData] = useState(null);
   const [representationData, setRepresentationData] = useState(null);
@@ -1059,6 +2996,7 @@ const TenderDetails = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null); // ID or object
   const [showDeviationModal, setShowDeviationModal] = useState(false);
+  const [showTenderShareModal, setShowTenderShareModal] = useState(false);
 
   // Pre-Bid Meeting local state
   // This was already declared above, removing duplicate
@@ -1070,8 +3008,18 @@ const TenderDetails = () => {
   const [preBidRemarksData, setPreBidRemarksData] = useState(null);
   const [fetchingPreBidRemarks, setFetchingPreBidRemarks] = useState(false);
 
+  // Tender Summary (AI)
+  const [showSummaryModal, setShowSummaryModal] = useState(false);
+  const [loadingSummary, setLoadingSummary] = useState(false);
+  const [summaryText, setSummaryText] = useState('');
+  const [summaryError, setSummaryError] = useState('');
+
+  const [isOpenTender, setIsOpenTender] = useState(false);
+  const [openTenderMeta, setOpenTenderMeta] = useState({ refNo: null, organisationChain: null, startDate: null, siteLink: null });
+
   // ── suggestions state ─────────────────────────────────────────────────────
   const [suggestedProducts, setSuggestedProducts] = useState([]);
+  const [showStatusModal, setShowStatusModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [detectedCategory, setDetectedCategory] = useState(null);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
@@ -1084,6 +3032,8 @@ const TenderDetails = () => {
   // ── AI ATC state ──────────────────────────────────────────────────────────
   const [aiLoading, setAiLoading] = useState(false);
   const [aiResult, setAiResult] = useState('');
+  const [aiModalTitle, setAiModalTitle] = useState('ATC EMD Analysis');
+
 
   // ── FETCH SUGGESTIONS ─────────────────────────────────────────────────────
   const fetchSuggestedProducts = useCallback(async () => {
@@ -1112,16 +3062,139 @@ const TenderDetails = () => {
     }
   }, [API_BASE_URL, tenderId]);
 
+  // ── GENERATE SUGGESTIONS IN THE BACKGROUND ───────────────────────────────────
+  // Both GeM and open tenders used to force a blocking "chat" popup while the AI
+  // matched products. Instead, generation runs silently — kicked off as soon as
+  // the tender page loads, or on demand for a retry — with a small corner
+  // progress bar while it's running and a toast (+ browser notification) when
+  // it's done. The user doesn't need to keep the suggestions modal (or this
+  // page) open while it works.
+  const [suggestionsGenerating, setSuggestionsGenerating] = useState(false);
+  const [suggestionsProgress, setSuggestionsProgress] = useState({ current: 0, total: 0 });
+  const [suggestionToast, setSuggestionToast] = useState(null); // { count } | null
+  const suggestionsPrewarmRef = useRef(false);
+
+  const startSuggestionGeneration = React.useCallback(async () => {
+    const PIPELINE_URL = import.meta.env.VITE_ENDO_PIPELINE_URL || 'https://suggestions.openprocure.ai';
+    const token = localStorage.getItem('token');
+    const cleanBid = tenderId.replace(/_/g, '/');
+
+    const refetchSuggestions = async () => {
+      const res = await fetch(
+        `${API_BASE_URL}/tenders/${encodeURIComponent(cleanBid)}/suggestions`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      return res.json();
+    };
+
+    const runWithStream = (es) => {
+      setSuggestionsGenerating(true);
+      setSuggestionsProgress({ current: 0, total: 0 });
+      let finished = false;
+      const finish = async () => {
+        if (finished) return;
+        finished = true;
+        es.close();
+        setSuggestionsGenerating(false);
+        try {
+          const data = await refetchSuggestions();
+          if (data.success) {
+            setSuggestedProducts(data.data || []);
+            setDetectedCategory(data.detected_category);
+            setSelectedProduct(data.selected_product);
+            setSuggestionToast({ count: (data.data || []).length });
+          }
+        } catch (err) {
+          console.error('Suggestion refetch failed:', err);
+        }
+      };
+      es.onmessage = (evt) => {
+        const raw = (evt.data || '').trim();
+        if (raw === '__DONE__') { finish(); return; }
+        const m = /Item (\d+)\/(\d+)/.exec(raw);
+        if (m) setSuggestionsProgress({ current: Number(m[1]), total: Number(m[2]) });
+      };
+      es.addEventListener('done', finish);
+      es.onerror = () => finish();
+    };
+
+    try {
+      if (isOpenTender) {
+        const r = await fetch(`${PIPELINE_URL}/open-tender/upload`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tender_id: tenderId }),
+        });
+        const d = await r.json();
+        if (!d.jobId) return;
+        runWithStream(new EventSource(`${PIPELINE_URL}/open-tender/stream/${d.jobId}`));
+      } else {
+        runWithStream(new EventSource(`${PIPELINE_URL}/run/pipeline?bid=${encodeURIComponent(cleanBid)}`));
+      }
+    } catch (err) {
+      console.error('Background suggestion generation failed:', err);
+      setSuggestionsGenerating(false);
+    }
+  }, [tenderId, isOpenTender, API_BASE_URL]);
+
+  useEffect(() => {
+    // Wait for tender data to finish loading — isOpenTender is only accurate
+    // once `details` is set, and starts false by default before that happens.
+    if (!details || !tenderId) return;
+    if (suggestionsPrewarmRef.current) return;
+    suggestionsPrewarmRef.current = true;
+
+    (async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const cleanBid = tenderId.replace(/_/g, '/');
+        const res = await fetch(
+          `${API_BASE_URL}/tenders/${encodeURIComponent(cleanBid)}/suggestions`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        const data = await res.json();
+        if (data.success && data.data && data.data.length > 0) {
+          setSuggestedProducts(data.data);
+          setDetectedCategory(data.detected_category);
+          setSelectedProduct(data.selected_product);
+          return; // already generated
+        }
+        startSuggestionGeneration();
+      } catch (err) {
+        console.error('Background suggestion pre-warm failed:', err);
+      }
+    })();
+  }, [details, tenderId, API_BASE_URL, startSuggestionGeneration]);
+
+  // Browser notification + auto-dismiss when suggestions finish generating
+  useEffect(() => {
+    if (!suggestionToast) return;
+    if (typeof Notification !== 'undefined') {
+      if (Notification.permission === 'granted') {
+        new Notification('Product suggestions ready', {
+          body: `${suggestionToast.count} match${suggestionToast.count === 1 ? '' : 'es'} found for this tender.`,
+        });
+      } else if (Notification.permission === 'default') {
+        Notification.requestPermission();
+      }
+    }
+    const t = setTimeout(() => setSuggestionToast(null), 8000);
+    return () => clearTimeout(t);
+  }, [suggestionToast]);
+
   // ── FETCH TENDER DATA ─────────────────────────────────────────────────────
   useEffect(() => {
     if (!tenderId) return;
 
+    const MAX_PROCESSING_ATTEMPTS = 20; // ~2 minutes at 6s intervals
+
     const fetchTenderData = async () => {
       try {
-        setLoading(true);
+        setLoading(docProcessingAttempts === 0);
         setError(null);
         let json = null;
         let dbData = null;
+        let hasDetailUrl = false;
 
         // 1. Try DB first
         try {
@@ -1133,9 +3206,10 @@ const TenderDetails = () => {
 
           if (dbRes.ok) {
             dbData = await dbRes.json();
+            hasDetailUrl = !!dbData.data?.detail_url;
 
-            // Fire-and-forget background processing only if json_data is missing
-            if (dbData.success && dbData.data?.detail_url && !dbData.data.json_data) {
+            // Kick off background processing (only on the first pass) if json_data is missing
+            if (docProcessingAttempts === 0 && dbData.success && dbData.data?.detail_url && !dbData.data.json_data) {
               fetch('https://pdf.openprocure.ai/process', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1143,10 +3217,7 @@ const TenderDetails = () => {
                   bid_no: tenderId.replace(/_/g, '/'),
                   pdf_url: dbData.data.detail_url,
                 }),
-              })
-                .then(r => r.json())
-                .then(d => { if (d.status === 'success') window.location.reload(); })
-                .catch(e => console.warn('Background processing failed:', e));
+              }).catch(e => console.warn('Background processing kick-off failed:', e));
             }
 
             if (dbData.success && dbData.data?.json_data) {
@@ -1165,57 +3236,139 @@ const TenderDetails = () => {
             `${API_BASE_URL}/tenders/${encodeURIComponent(tenderId.replace(/_/g, '/'))}/json`,
             { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
           );
-          if (!res.ok) throw new Error(res.status === 404
-            ? `Tender not found. Bid Number: ${tenderId.replace(/_/g, '/')}`
-            : `Server error (HTTP ${res.status})`
-          );
+          if (!res.ok) {
+            // Document exists but hasn't been parsed into JSON yet — this is a
+            // normal "still processing" state, not a real error. Poll instead
+            // of showing a dead-end error screen.
+            if (res.status === 404 && hasDetailUrl && docProcessingAttempts < MAX_PROCESSING_ATTEMPTS) {
+              setDocProcessing(true);
+              setLoading(false);
+              setTimeout(() => setDocProcessingAttempts(a => a + 1), 6000);
+              return;
+            }
+            throw new Error(res.status !== 404
+              ? `Server error (HTTP ${res.status})`
+              : hasDetailUrl
+                ? `This tender's document is taking longer than usual to process. Please try again in a few minutes. Bid Number: ${tenderId.replace(/_/g, '/')}`
+                : `Tender not found. Bid Number: ${tenderId.replace(/_/g, '/')}`
+            );
+          }
           json = await res.json();
         }
+
+        setDocProcessing(false);
 
         // ── Extract fields ────────────────────────────────────────────────
 
         // OPEN TENDER FAST-PATH
+        setIsOpenTender(!!dbData?.open_source);
         if (dbData?.open_source) {
           const o = dbData.data;
+          setOpenTenderMeta({
+            refNo: o.ref_no || null,
+            organisationChain: o.organisation_chain || null,
+            startDate: o.start_date || null,
+            siteLink: o.tender_site_link || o.tender_page_link || null,
+          });
+          // NOTE: tender_details from open-tender scrapers (NIC GePNIC state portals)
+          // is a FLAT key/value object — there is no basic_details/work_item_details/
+          // emd_fee_details nesting. Read keys straight off it.
           const openDetails = o.tender_details || {};
-          const basic = openDetails.basic_details || {};
-          const work = openDetails.work_item_details || {};
-          const emd = openDetails.emd_fee_details || {};
+          const val = (key) => {
+            const v = openDetails[key];
+            return (v === undefined || v === null || v === '' || v === 'NA') ? null : v;
+          };
+          // Some open-tender sources (e.g. nProcure/Gujarat) already include
+          // their own unit in the value (e.g. "24 Months"), unlike NIC/GePNIC
+          // portals which give a bare number of days. Only append " Days" when
+          // the value doesn't already end in a duration word, so it doesn't
+          // render as "24 Months Days".
+          const withDaysSuffix = (v) => {
+            if (!v) return null;
+            return /\b(day|days|month|months|week|weeks|year|years)\s*$/i.test(String(v).trim())
+              ? String(v).trim()
+              : `${v} Days`;
+          };
 
           setDetails({
             bidEndDate: o.end_date || 'N/A',
-            bidOpeningDate: o.opening_date || 'N/A',
-            bidOfferValidity: work['Bid Validity(Days)'] || work['Tender Validity(Days)'] || 'N/A',
-            estimatedBidValue: work['Tender Value in ₹'] || 'N/A',
-            organisationName: o.department || 'N/A',
-            officeName: work.Location || o.state || 'N/A',
-            departmentOrg: basic['Organisation Chain'] || o.department || 'N/A',
-            totalQty: 'N/A', // Not stored discretely for Open Tenders
-            itemCategory: basic['Tender Category'] || work['Product Category'] || o.items || 'N/A',
+            bidOpeningDate: val('Bid Opening Date') || o.opening_date || 'N/A',
+            bidOfferValidity: withDaysSuffix(val('Bid Validity(Days)')) || 'N/A',
+            estimatedBidValue: val('Tender Value in ₹') ? val('Tender Value in ₹').replace(/,/g, '') : 'N/A',
+            organisationName: val('Organisation Name') || o.department || 'N/A',
+            officeName: val('Location') || o.state || 'N/A',
+            departmentOrg: val('Organisation Chain') || o.department || 'N/A',
+            totalQty: 'N/A', // Not published discretely on open-tender portals
+            itemCategory: val('Tender Category') || val('Product Category') || o.items || 'N/A',
             itemCategoryCount: 1,
             documentRequired: 'N/A',
-            evaluationMethod: basic['Form Of Contract'] || 'N/A',
-            emdAmount: emd['EMD Amount in ₹'] || '0',
-            emdRequired: (emd['EMD Amount in ₹'] && emd['EMD Amount in ₹'] !== '0' && emd['EMD Amount in ₹'] !== 'NA') ? 'Yes' : 'No',
+            evaluationMethod: val('Form Of Contract') || 'N/A',
+            emdAmount: val('EMD Amount in ₹') ? `₹ ${val('EMD Amount in ₹')}` : (val('EMD') || '0'),
+            emdRequired: val('EMD Amount in ₹') || val('EMD') ? 'Yes' : 'No',
             advisoryBank: 'N/A',
             epbgPercentage: 'N/A',
             epbgDuration: 'N/A',
             bidToRA: 'N/A',
-            preBidDate: work['Pre Bid Meeting Date'] || 'N/A',
+            preBidDate: val('Pre Bid Meeting Date') || 'N/A',
             preBidTime: 'N/A',
-            preBidVenue: work['Pre Bid Meeting Place'] || 'N/A',
+            preBidVenue: val('Pre Bid Meeting Place') || 'N/A',
             sampleRequired: 'No',
-            schedules: []
+            schedules: [],
+
+            // Extra fields that exist for open tenders but weren't surfaced before
+            tenderFee: val('Tender Fee in ₹') ? `₹ ${val('Tender Fee in ₹')}` : (val('Tender Fee') || 'N/A'),
+            processingFee: val('Processing Fee in ₹') ? `₹ ${val('Processing Fee in ₹')}` : 'N/A',
+            paymentMode: val('Payment Mode') || 'N/A',
+            contractType: val('Contract Type') || 'N/A',
+            withdrawalAllowed: val('Withdrawal Allowed') || 'N/A',
+            periodOfWork: withDaysSuffix(val('Period Of Work(Days)')) || 'N/A',
+            emdPayableTo: [val('EMD Payable To'), val('EMD Payable At')].filter(Boolean).join(', ') || 'N/A',
+            bidSubmissionStart: val('Bid Submission Start Date') || 'N/A',
+            bidSubmissionEnd: val('Bid Submission End Date') || 'N/A',
+            ndaPreQualification: val('NDA/Pre Qualification') || 'N/A',
+            tenderType: val('Tender Type') || 'N/A',
+            noOfCovers: val('No. of Covers') || 'N/A',
+            emdFeeType: val('EMD Fee Type') || 'N/A',
+            workDescription: val('Work Description') || val('Title') || 'N/A',
           });
           setConsigneeData(null);
 
+          // Build document links from downloaded_documents (local files scraped to disk)
+          const downloadedDocs = o.downloaded_documents || [];
+          const downloadedLinks = [];
+          if (Array.isArray(downloadedDocs)) {
+            for (const d of downloadedDocs) {
+              const typeLabel = d.type === 'nit' ? 'NIT Document'
+                : d.type === 'work_item_zip' ? 'Work Item Documents'
+                : d.type === 'corrigendum' ? 'Corrigendum'
+                : d.type || 'Document';
+              if (d.local_path) {
+                downloadedLinks.push({
+                  uri: `${API_BASE_URL}/tenders/download?path=${encodeURIComponent(d.local_path)}`,
+                  text: d.file_name || d.local_path.split(/[\\/]/).pop(),
+                  label: typeLabel,
+                });
+              } else if (Array.isArray(d.extracted_files)) {
+                for (const fp of d.extracted_files) {
+                  downloadedLinks.push({
+                    uri: `${API_BASE_URL}/tenders/download?path=${encodeURIComponent(fp)}`,
+                    text: fp.split(/[\\/]/).pop(),
+                    label: typeLabel,
+                  });
+                }
+              }
+            }
+          }
+
+          // Fall back to file_link entries if no downloaded_documents
           const rawFiles = o.file_link || [];
-          const mappedLinks = Array.isArray(rawFiles) ? rawFiles.map(f => ({
+          const fileLinkLinks = Array.isArray(rawFiles) ? rawFiles.map(f => ({
             uri: f.file_path ? `${API_BASE_URL}/tenders/download?path=${encodeURIComponent(f.file_path)}` : '#',
-            text: f.file_name || 'Document',
-            label: f.category || f.description || 'Document'
+            text: f.file_name || f.description || 'Document',
+            label: f.category || f.doc_type || f.description || 'Document',
           })) : [];
-          setLinks(mappedLinks);
+
+          setLinks(downloadedLinks.length > 0 ? downloadedLinks : fileLinkLinks);
 
           setLoading(false);
           return;
@@ -1408,13 +3561,20 @@ const TenderDetails = () => {
 
       } catch (err) {
         console.error('TenderDetails error:', err);
+        setDocProcessing(false);
         setError(err.message || 'Failed to load tender data');
         setLoading(false);
       }
     };
 
     fetchTenderData();
-  }, [tenderId, API_BASE_URL, JSON_SERVER_URL]);
+  }, [tenderId, API_BASE_URL, JSON_SERVER_URL, docProcessingAttempts]);
+
+  // Reset the polling counter whenever we navigate to a different tender
+  useEffect(() => {
+    setDocProcessingAttempts(0);
+    setDocProcessing(false);
+  }, [tenderId]);
 
   // ── FETCH METADATA ────────────────────────────────────────────────────────
   useEffect(() => {
@@ -1447,7 +3607,7 @@ const TenderDetails = () => {
       try {
         setLoadingPricing(true);
         setPricingError(null);
-        const PRICING_API = import.meta.env.VITE_PRICING_API || 'https://api.openprocure.ai/api/pricing/predict';
+        const PRICING_API = import.meta.env.VITE_PRICING_API || 'http://localhost:5000/api/pricing/predict';
         const productName = details.itemCategory.replace(/\s*\([VvQq]\d+\)/g, '').trim();
         const quantity = parseInt(details.totalQty) || 1;
 
@@ -1490,31 +3650,56 @@ const TenderDetails = () => {
     }
   };
 
+  // ── TENDER SUMMARY (AI) ───────────────────────────────────────────────────
+  const fetchTenderSummary = async (regenerate = false) => {
+    try {
+      setLoadingSummary(true);
+      setSummaryError('');
+      setShowSummaryModal(true);
+      const token = localStorage.getItem('token');
+      const res = await fetch(
+        `${API_BASE_URL}/tenders/${encodeURIComponent(tenderId)}/summary`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ regenerate }),
+        }
+      );
+      const json = await res.json();
+      if (res.ok && json.success) {
+        setSummaryText(json.summary);
+      } else {
+        setSummaryError(json.message || 'Failed to generate tender summary.');
+      }
+    } catch (err) {
+      console.error('fetchTenderSummary:', err);
+      setSummaryError('Failed to generate tender summary.');
+    } finally {
+      setLoadingSummary(false);
+    }
+  };
+
   // ── FETCH TECH SPECS ──────────────────────────────────────────────────────
   const fetchTechSpecs = useCallback(async () => {
     if (techSpecs.length > 0) return;
-    const catalogueLinks = links.filter(l => l.uri.includes('/showCatalogue/'));
-    if (catalogueLinks.length === 0) return;
     try {
       setLoadingTechSpecs(true);
-      const all = await Promise.all(
-        catalogueLinks.map(async link => {
-          const res = await fetch(
-            `${import.meta.env.VITE_SCRAPER_API || 'https://specs.openprocure.ai'}/scrape/catalogue?url=${encodeURIComponent(link.uri)}`
-          );
-          const json = await res.json();
-          return json.status === 'success'
-            ? { title: json.title || 'Technical Specifications', rows: json.data || [] }
-            : null;
-        })
+      const token = localStorage.getItem('token');
+      const res = await fetch(
+        `${API_BASE_URL}/tenders/${encodeURIComponent(tenderId.replace(/_/g, '/'))}/tech-specs`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      setTechSpecs(all.filter(Boolean));
+      const json = await res.json();
+      if (json.success) setTechSpecs(json.data || []);
     } catch (err) {
       console.error('fetchTechSpecs:', err);
     } finally {
       setLoadingTechSpecs(false);
     }
-  }, [links, techSpecs.length]);
+  }, [API_BASE_URL, tenderId, techSpecs.length]);
 
   // ── TOGGLE INTEREST ───────────────────────────────────────────────────────
   const handleToggleInterest = async () => {
@@ -1529,8 +3714,47 @@ const TenderDetails = () => {
     } catch { alert('Failed to update interest status. Please try again.'); }
   };
 
+  // ── Shared: locate the tender's primary document and extract its text ─────
+  const fetchTenderDocumentText = async () => {
+    // FIX: tenderDocumentLinks defined here via local var since we need it in this scope
+    const docLinks = links.filter(
+      l => !l.uri.includes('/showCatalogue/') &&
+        !(l.uri.includes('/catalog_data/') && l.uri.toLowerCase().endsWith('.pdf'))
+    );
+
+    let targetLink =
+      links.find(l => l.uri && (l.uri.toLowerCase().includes('atc') || l.label === 'ATC')) ||
+      links.find(l => l.uri && (l.label === 'Bid Document' || l.text === 'Bid Document')) ||
+      docLinks.find(l => l.uri && l.uri.toLowerCase().endsWith('.pdf'));
+
+    if (!targetLink) throw new Error('No tender document found to analyze.');
+
+    let fetchUrl = targetLink.uri;
+    if (fetchUrl.includes('mkp.gem.gov.in')) fetchUrl = fetchUrl.replace(/https?:\/\/[^/]+/, '/gem-proxy');
+    else if (fetchUrl.includes('fulfilment.gem.gov.in')) fetchUrl = fetchUrl.replace(/https?:\/\/[^/]+/, '/gem-cpa-proxy');
+    else if (fetchUrl.includes('gem.gov.in')) fetchUrl = fetchUrl.replace(/https?:\/\/[^/]+/, '/gem-proxy');
+
+    const fileRes = await fetch(fetchUrl, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    if (!fileRes.ok) throw new Error('Failed to download document from: ' + targetLink.uri);
+
+    const blob = await fileRes.blob();
+    const file = new File([blob], 'document.pdf', { type: 'application/pdf' });
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const parseRes = await fetch(`${API_BASE_URL}/utils/parse-pdf`, { method: 'POST', body: formData });
+    if (!parseRes.ok) throw new Error('Failed to extract text from PDF.');
+    const { text: pdfText } = await parseRes.json();
+
+    if (!pdfText || pdfText.length < 50) throw new Error('Document text is empty or unreadable.');
+    return pdfText;
+  };
+
   // ── AI ATC CHECK ──────────────────────────────────────────────────────────
   const handleCheckATC = async () => {
+    setAiModalTitle('ATC EMD Analysis');
     setShowAIModal(true);
     setAiLoading(true);
     setAiResult('');
@@ -1539,37 +3763,7 @@ const TenderDetails = () => {
       const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
       if (!OPENAI_API_KEY) throw new Error('OpenAI API Key is missing in frontend .env');
 
-      // FIX: tenderDocumentLinks defined here via local var since we need it in this scope
-      const docLinks = links.filter(
-        l => !l.uri.includes('/showCatalogue/') &&
-          !(l.uri.includes('/catalog_data/') && l.uri.toLowerCase().endsWith('.pdf'))
-      );
-
-      let targetLink =
-        links.find(l => l.uri && (l.uri.toLowerCase().includes('atc') || l.label === 'ATC')) ||
-        links.find(l => l.uri && (l.label === 'Bid Document' || l.text === 'Bid Document')) ||
-        docLinks.find(l => l.uri && l.uri.toLowerCase().endsWith('.pdf'));
-
-      if (!targetLink) throw new Error('No ATC or Bid Document found to analyze.');
-
-      let fetchUrl = targetLink.uri;
-      if (fetchUrl.includes('mkp.gem.gov.in')) fetchUrl = fetchUrl.replace(/https?:\/\/[^/]+/, '/gem-proxy');
-      else if (fetchUrl.includes('fulfilment.gem.gov.in')) fetchUrl = fetchUrl.replace(/https?:\/\/[^/]+/, '/gem-cpa-proxy');
-      else if (fetchUrl.includes('gem.gov.in')) fetchUrl = fetchUrl.replace(/https?:\/\/[^/]+/, '/gem-proxy');
-
-      const fileRes = await fetch(fetchUrl);
-      if (!fileRes.ok) throw new Error('Failed to download document from: ' + targetLink.uri);
-
-      const blob = await fileRes.blob();
-      const file = new File([blob], 'document.pdf', { type: 'application/pdf' });
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const parseRes = await fetch(`${API_BASE_URL}/utils/parse-pdf`, { method: 'POST', body: formData });
-      if (!parseRes.ok) throw new Error('Failed to extract text from PDF.');
-      const { text: pdfText } = await parseRes.json();
-
-      if (!pdfText || pdfText.length < 50) throw new Error('Document text is empty or unreadable.');
+      const pdfText = await fetchTenderDocumentText();
 
       const gptRes = await fetch('/openai-proxy/v1/chat/completions', {
         method: 'POST',
@@ -1591,6 +3785,43 @@ const TenderDetails = () => {
 
     } catch (err) {
       console.error('handleCheckATC:', err);
+      setAiResult('Error: ' + (err.message || 'Failed to analyze document.'));
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
+  // ── AI PRE-BID CHECK (from Tender Doc, via Ollama) ─────────────────────────
+  const handleCheckPreBidFromDoc = async () => {
+    setAiModalTitle('Pre-Bid Meeting Check');
+    setShowAIModal(true);
+    setAiLoading(true);
+    setAiResult('');
+
+    try {
+      const pdfText = await fetchTenderDocumentText();
+
+      const res = await fetch(`${API_BASE_URL}/utils/check-prebid`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: pdfText }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to analyze document.');
+
+      if (data.mentioned) {
+        setDetails(prev => ({
+          ...prev,
+          preBidDate: data.date || prev.preBidDate,
+          preBidTime: data.time || prev.preBidTime,
+          preBidVenue: data.venue || prev.preBidVenue,
+        }));
+        setAiResult(`Pre-Bid Meeting found in the tender document:\n\nDate: ${data.date}\nTime: ${data.time}\nVenue: ${data.venue}`);
+      } else {
+        setAiResult('No Pre-Bid Meeting is mentioned in the tender document.');
+      }
+    } catch (err) {
+      console.error('handleCheckPreBidFromDoc:', err);
       setAiResult('Error: ' + (err.message || 'Failed to analyze document.'));
     } finally {
       setAiLoading(false);
@@ -1633,9 +3864,23 @@ const TenderDetails = () => {
     </div>
   );
 
+  if (docProcessing) return (
+    <div style={{ padding: '20px', textAlign: 'center' }}>
+      <div className="spinner" />
+      <h3 style={{ marginTop: '20px' }}>The tender document is being processed…</h3>
+      <p style={{ color: '#666' }}>This page will update automatically once it's ready.</p>
+      <button onClick={() => window.location.reload()} style={{
+        padding: '8px 16px', backgroundColor: '#007bff', color: 'white',
+        border: 'none', borderRadius: '4px', cursor: 'pointer', marginTop: '10px',
+      }}>
+        Check Now
+      </button>
+    </div>
+  );
+
   if (error) return (
     <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h3>The tender document is currently being processed. Please check back shortly.</h3>
+      <h3>{error}</h3>
       <button onClick={() => window.location.reload()} style={{
         padding: '8px 16px', backgroundColor: '#007bff', color: 'white',
         border: 'none', borderRadius: '4px', cursor: 'pointer', marginTop: '10px',
@@ -1671,24 +3916,90 @@ const TenderDetails = () => {
                   <div style={{ gridColumn: '1 / -1' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '40px' }}>
                       <div className="detail-item-left">
-                        <label>Bid No</label>
-                        <p>{tenderId.replace(/_/g, '/')}</p>
+                        <label>{isOpenTender ? 'Tender ID' : 'Bid No'}</label>
+                        <p>{tenderId}</p>
                       </div>
-                      <div className="detail-item-left">
-                        <label>RA No</label>
-                        <p>{raNumber || 'N/A'}</p>
-                      </div>
-                      <div className="detail-item-left">
-                        <label>Bid to RA</label>
-                        <p>{details.bidToRA}</p>
-                      </div>
+                      {isOpenTender ? (
+                        <div className="detail-item-left">
+                          <label>Ref No</label>
+                          <p>{openTenderMeta.refNo || 'N/A'}</p>
+                        </div>
+                      ) : (
+                        <div className="detail-item-left">
+                          <label>RA No</label>
+                          <p>{raNumber || 'N/A'}</p>
+                        </div>
+                      )}
+                      {isOpenTender ? (
+                        <div className="detail-item-left">
+                          <label>Published Date</label>
+                          <p>{openTenderMeta.startDate || 'N/A'}</p>
+                        </div>
+                      ) : (
+                        <div className="detail-item-left">
+                          <label>Bid to RA</label>
+                          <p>{details.bidToRA}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
+
+                  {/* Organisation Chain — Open tenders only */}
+                  {isOpenTender && openTenderMeta.organisationChain && (
+                    <div style={{ gridColumn: '1 / -1' }}>
+                      <div className="detail-item-left">
+                        <label>Organisation Chain</label>
+                        <p style={{ lineHeight: 1.5 }}>{openTenderMeta.organisationChain}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Tender Site Link — Open tenders only */}
+                  {isOpenTender && openTenderMeta.siteLink && (
+                    <div style={{ gridColumn: '1 / -1' }}>
+                      <div className="detail-item-left">
+                        <label>Tender Site Link</label>
+                        <p>
+                          <a
+                            href={openTenderMeta.siteLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              let openUrl = openTenderMeta.siteLink;
+                              try {
+                                const parsed = new URL(openTenderMeta.siteLink);
+                                openUrl = `${parsed.origin}${parsed.pathname}`;
+                              } catch {
+                                // fall back to the raw link if it doesn't parse
+                              }
+                              navigator.clipboard.writeText(tenderId).finally(() => {
+                                window.open(openUrl, '_blank', 'noopener,noreferrer');
+                              });
+                            }}
+                            style={{ color: '#084f9a', wordBreak: 'break-all' }}
+                          >
+                            {(() => {
+                              try {
+                                return new URL(openTenderMeta.siteLink).origin;
+                              } catch {
+                                return openTenderMeta.siteLink;
+                              }
+                            })()}
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="detail-item-left"><label>Bid End Date</label><p>{details.bidEndDate}</p></div>
                   <div className="detail-item-left"><label>Bid Opening Date</label><p>{details.bidOpeningDate}</p></div>
                   <div className="detail-item-left"><label>Bid Offer Validity</label><p>{details.bidOfferValidity}</p></div>
-                  <div className="detail-item-left"><label>Total Quantity</label><p>{details.totalQty}</p></div>
+                  {isOpenTender ? (
+                    <div className="detail-item-left"><label>Tender Fee</label><p>{details.tenderFee}</p></div>
+                  ) : (
+                    <div className="detail-item-left"><label>Total Quantity</label><p>{details.totalQty}</p></div>
+                  )}
 
                   <div className="detail-item-left">
                     <label>
@@ -1753,6 +4064,22 @@ const TenderDetails = () => {
                         : 'Refer Document'}
                     </p>
                   </div>
+
+                  {/* Open-tender only fields, sourced from the scraped tender_details */}
+                  {isOpenTender && (
+                    <>
+                      <div className="detail-item-left" style={{ gridColumn: '1 / -1' }}><label>Work Description</label><p>{details.workDescription}</p></div>
+                      <div className="detail-item-left"><label>Processing Fee</label><p>{details.processingFee}</p></div>
+                      <div className="detail-item-left"><label>Payment Mode</label><p>{details.paymentMode}</p></div>
+                      <div className="detail-item-left"><label>Contract Type</label><p>{details.contractType}</p></div>
+                      <div className="detail-item-left"><label>Withdrawal Allowed</label><p>{details.withdrawalAllowed}</p></div>
+                      <div className="detail-item-left"><label>Period of Work</label><p>{details.periodOfWork}</p></div>
+                      <div className="detail-item-left"><label>EMD Payable To</label><p>{details.emdPayableTo}</p></div>
+                      <div className="detail-item-left"><label>Bid Submission Start</label><p>{details.bidSubmissionStart}</p></div>
+                      <div className="detail-item-left"><label>Bid Submission End</label><p>{details.bidSubmissionEnd}</p></div>
+                      <div className="detail-item-left" style={{ gridColumn: '1 / -1' }}><label>NDA / Pre-Qualification</label><p>{details.ndaPreQualification}</p></div>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -1785,9 +4112,19 @@ const TenderDetails = () => {
               <div className="accordion-content">
                 <div className="key-values-row">
                   <div className="detail-item-left"><label>EMD Required</label><p>{details.emdRequired}</p></div>
-                  <div className="detail-item-left"><label>Advisory Bank</label><p>{details.advisoryBank}</p></div>
-                  <div className="detail-item-left"><label>ePBG Percentage (%)</label><p>{details.epbgPercentage}</p></div>
-                  <div className="detail-item-left"><label>Duration of ePBG (Months)</label><p>{details.epbgDuration}</p></div>
+                  {isOpenTender ? (
+                    <>
+                      <div className="detail-item-left"><label>Tender Type</label><p>{details.tenderType}</p></div>
+                      <div className="detail-item-left"><label>No. of Covers</label><p>{details.noOfCovers}</p></div>
+                      <div className="detail-item-left"><label>EMD Fee Type</label><p>{details.emdFeeType}</p></div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="detail-item-left"><label>Advisory Bank</label><p>{details.advisoryBank}</p></div>
+                      <div className="detail-item-left"><label>ePBG Percentage (%)</label><p>{details.epbgPercentage}</p></div>
+                      <div className="detail-item-left"><label>Duration of ePBG (Months)</label><p>{details.epbgDuration}</p></div>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -1837,6 +4174,20 @@ const TenderDetails = () => {
             </div>
             {expandedSections.preBidDetails && (
               <div className="accordion-content">
+                <div style={{ marginBottom: '16px' }}>
+                  <button
+                    onClick={handleCheckPreBidFromDoc}
+                    style={{
+                      padding: '6px 14px', fontSize: '13px',
+                      background: '#7c3aed', color: 'white', border: 'none',
+                      borderRadius: '6px', cursor: 'pointer',
+                      display: 'inline-flex', alignItems: 'center', gap: '6px',
+                    }}
+                    title="Ask AI to find Pre-Bid meeting details from the tender document"
+                  >
+                    <Wand2 size={14} /> Check from Tender Doc
+                  </button>
+                </div>
                 <div className="key-values-row">
                   <div className="detail-item-left"><label>Pre-Bid Date</label><p>{details.preBidDate}</p></div>
                   <div className="detail-item-left"><label>Pre-Bid Time</label><p>{details.preBidTime}</p></div>
@@ -1968,7 +4319,9 @@ const TenderDetails = () => {
                     let counter = 1;
                     return tenderDocumentLinks.map((link, i) => {
                       let label = '';
-                      if (link.uri.includes('/BoqDocument/') || link.uri.includes('/BoqLineItemsDocument/') || link.uri.includes('/BOQDocument/')) {
+                      if (isOpenTender) {
+                        label = link.text || link.label || 'Document';
+                      } else if (link.uri.includes('/BoqDocument/') || link.uri.includes('/BoqLineItemsDocument/') || link.uri.includes('/BOQDocument/')) {
                         label = 'BOQ Document';
                       } else if (link.uri.includes('/downloadOmppdfile/')) {
                         label = 'OMPPD';
@@ -1988,22 +4341,148 @@ const TenderDetails = () => {
                           padding: '10px 15px', marginBottom: '8px',
                           background: '#f8f9fa', borderRadius: '6px', border: '1px solid #e5e7eb', gap: '15px',
                         }}>
-                          <span style={{ fontWeight: '500', color: '#333', fontSize: '14px', flex: 1, minWidth: '120px' }}>
-                            {label}
-                          </span>
-                          <a
-                            href={link.uri} target="_blank" rel="noopener noreferrer"
-                            style={{
-                              padding: '6px 10px', width: '100px', textAlign: 'center',
-                              background: '#084f9a', color: 'white', textDecoration: 'none',
-                              borderRadius: '4px', fontSize: '13px', fontWeight: '500',
-                              display: 'inline-block', flexShrink: 0,
-                            }}
-                            onMouseOver={e => e.currentTarget.style.background = '#063a73'}
-                            onMouseOut={e => e.currentTarget.style.background = '#084f9a'}
-                          >
-                            Download
-                          </a>
+                          <div style={{ flex: 1, minWidth: '120px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                            <span style={{ fontWeight: '500', color: '#333', fontSize: '14px' }}>
+                              {label}
+                            </span>
+                            {isOpenTender && link.label && (
+                              <span style={{
+                                fontSize: '11px', background: '#e0f2fe', color: '#075985',
+                                padding: '2px 6px', borderRadius: '4px', fontWeight: 600,
+                                alignSelf: 'flex-start',
+                              }}>
+                                {link.label}
+                              </span>
+                            )}
+                          </div>
+                          <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+                            <button
+                              onClick={isOpenTender ? async (e) => {
+                                const btn = e.currentTarget;
+                                btn.disabled = true;
+                                btn.style.opacity = '0.6';
+                                try {
+                                  const token = localStorage.getItem('token');
+                                  const res = await fetch(link.uri, {
+                                    headers: token ? { Authorization: `Bearer ${token}` } : {},
+                                  });
+                                  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                                  const blob = await res.blob();
+                                  const ext = (link.text || '').split('.').pop().toLowerCase();
+
+                                  if (['xls', 'xlsx', 'csv'].includes(ext)) {
+                                    // Render spreadsheet as HTML table in a new tab
+                                    const arrayBuffer = await blob.arrayBuffer();
+                                    const wb = XLSX.read(arrayBuffer, { type: 'array' });
+                                    // Include hidden sheets (BOQ data is often in hidden sheets behind a macro placeholder)
+                                    const allSheetNames = wb.Workbook?.Sheets
+                                      ? wb.Workbook.Sheets.map((s, i) => wb.SheetNames[i]).filter(Boolean)
+                                      : wb.SheetNames;
+                                    const sheetHtml = allSheetNames.map(name => {
+                                      const ws = wb.Sheets[name];
+                                      if (!ws) return '';
+                                      // Skip macro-placeholder sheets (single cell warning, no real data)
+                                      const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+                                      const flatText = rows.flat().join(' ').toLowerCase();
+                                      if (rows.length <= 3 && flatText.includes('macro')) return '';
+                                      if (rows.length === 0) return '';
+                                      return `<h3 style="font-family:Arial;color:#084f9a;margin:20px 0 8px 0">${name}</h3>${XLSX.utils.sheet_to_html(ws)}`;
+                                    }).filter(Boolean).join('<hr style="margin:24px 0;border:none;border-top:1px solid #ddd">');
+                                    const htmlDoc = `<!DOCTYPE html><html><head><meta charset="utf-8">
+                                      <title>${link.text || 'Document'}</title>
+                                      <style>
+                                        body{font-family:Arial,sans-serif;padding:20px;margin:0;background:#fff}
+                                        h2{color:#1a1a1a;margin-bottom:4px}
+                                        p{color:#666;font-size:13px;margin:0 0 20px}
+                                        table{border-collapse:collapse;width:100%;margin-bottom:4px;font-size:13px}
+                                        td,th{border:1px solid #ddd;padding:6px 10px;white-space:nowrap}
+                                        tr:nth-child(even) td{background:#f8f9fa}
+                                        thead tr th{background:#084f9a;color:#fff;font-weight:600}
+                                      </style></head>
+                                      <body>
+                                        <h2>${link.text || 'Document'}</h2>
+                                        <p>${link.label || ''}</p>
+                                        ${sheetHtml}
+                                      </body></html>`;
+                                    const win = window.open('', '_blank');
+                                    if (win) {
+                                      win.document.write(htmlDoc);
+                                      win.document.close();
+                                    } else {
+                                      alert('Pop-ups are blocked. Please allow pop-ups for this site to view documents.');
+                                    }
+                                  } else {
+                                    // PDF and other files — open blob URL in new tab (native viewer)
+                                    const blobUrl = URL.createObjectURL(blob);
+                                    const win = window.open(blobUrl, '_blank');
+                                    if (!win) alert('Pop-ups are blocked. Please allow pop-ups for this site to view documents.');
+                                  }
+                                } catch (err) {
+                                  alert(`Cannot open file: ${err.message}`);
+                                } finally {
+                                  btn.disabled = false;
+                                  btn.style.opacity = '1';
+                                }
+                              } : () => setViewerDoc({ url: link.uri, title: link.text || label })}
+                              style={{
+                                padding: '6px 12px', background: 'white', color: '#084f9a',
+                                border: '1.5px solid #084f9a', borderRadius: '4px',
+                                fontSize: '13px', fontWeight: '600', cursor: 'pointer',
+                                display: 'flex', alignItems: 'center', gap: '5px',
+                              }}
+                              onMouseOver={e => { if (!e.currentTarget.disabled) e.currentTarget.style.background = '#eef3fb'; }}
+                              onMouseOut={e => { e.currentTarget.style.background = 'white'; }}
+                            >
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                              </svg>
+                              View
+                            </button>
+                            <button
+                              onClick={async () => {
+                                try {
+                                  // GeM/BHEL servers don't send CORS headers (and some redirect
+                                  // during preflight, which browsers reject outright), so route
+                                  // through the backend proxy for a same-origin fetch.
+                                  const fetchUrl = /gem\.gov\.in|bhel\.in/i.test(link.uri)
+                                    ? `${import.meta.env.VITE_API_BASE_URL}/tenders/proxy-document?url=${encodeURIComponent(link.uri)}`
+                                    : link.uri;
+                                  const token = localStorage.getItem('token');
+                                  const res = await fetch(fetchUrl, {
+                                    headers: token ? { Authorization: `Bearer ${token}` } : {},
+                                  });
+                                  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                                  const blob = await res.blob();
+                                  const url = URL.createObjectURL(blob);
+                                  const a = document.createElement('a');
+                                  a.href = url;
+                                  a.download = link.text || label;
+                                  document.body.appendChild(a);
+                                  a.click();
+                                  a.remove();
+                                  URL.revokeObjectURL(url);
+                                } catch (err) {
+                                  alert(`Download failed: ${err.message}`);
+                                }
+                              }}
+                              style={{
+                                padding: '6px 12px', background: '#084f9a', color: 'white',
+                                border: 'none', borderRadius: '4px', cursor: 'pointer',
+                                fontSize: '13px', fontWeight: '500',
+                                display: 'inline-flex', alignItems: 'center', gap: '5px',
+                              }}
+                              onMouseOver={e => e.currentTarget.style.background = '#063a73'}
+                              onMouseOut={e => e.currentTarget.style.background = '#084f9a'}
+                            >
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                              </svg>
+                              Download
+                            </button>
+                          </div>
                         </div>
                       );
                     });
@@ -2055,7 +4534,6 @@ const TenderDetails = () => {
               </svg>
               Interested
             </button>
-            <button className="feature-btn">⏰ Set Reminder</button>
             <button
               className="feature-btn"
               onClick={fetchSuggestedProducts}
@@ -2066,15 +4544,37 @@ const TenderDetails = () => {
             <button className="feature-btn" onClick={() => setShowPricingModal(true)}>
               View Suggest Pricing
             </button>
-            <button className="feature-btn" onClick={fetchPreBidRemarks} disabled={fetchingPreBidRemarks}>
-              {fetchingPreBidRemarks ? 'Fetching BOQ...' : '📄 View BOQ'}
+            {!isSales && (
+              <button className="feature-btn" onClick={() => setShowStatusModal(true)}>
+                🏷️ Tender Status
+              </button>
+            )}
+            <button className="feature-btn" onClick={() => fetchTenderSummary(false)} disabled={loadingSummary}>
+              {loadingSummary ? 'Summarizing…' : '🧠 Tender Summary'}
             </button>
-            <button className="feature-btn">↗ Share</button>
+            <button className="feature-btn" onClick={() => setShowTenderShareModal(true)}>↗ Share</button>
           </div>
         </div>
       </div>
 
       {/* ── MODALS ── */}
+      {showStatusModal && (
+        <TenderStatusModal
+          bidNumber={tenderId.replace(/_/g, '/')}
+          onClose={() => setShowStatusModal(false)}
+        />
+      )}
+
+      {showSummaryModal && (
+        <TenderSummaryModal
+          loading={loadingSummary}
+          summary={summaryText}
+          error={summaryError}
+          onClose={() => setShowSummaryModal(false)}
+          onRegenerate={() => fetchTenderSummary(true)}
+        />
+      )}
+
       {showSuggestedModal && (
         <SuggestedProductsModal
           products={suggestedProducts}
@@ -2082,8 +4582,30 @@ const TenderDetails = () => {
           selectedProduct={selectedProduct}
           bidNumber={tenderId}
           itemCategoryString={details?.itemCategory}
+          isOpenTender={isOpenTender}
+          hasDocument={links.length > 0}
+          generatingInBackground={suggestionsGenerating}
+          backgroundProgress={suggestionsProgress}
+          onRegenerate={startSuggestionGeneration}
           onUpdate={newProducts => setSuggestedProducts(newProducts)}
           onClose={() => setShowSuggestedModal(false)}
+          onRefresh={async () => {
+            try {
+              const token = localStorage.getItem('token');
+              const res = await fetch(
+                `${API_BASE_URL}/tenders/${encodeURIComponent(tenderId.replace(/_/g, '/'))}/suggestions`,
+                { headers: { Authorization: `Bearer ${token}` } }
+              );
+              const data = await res.json();
+              if (data.success) {
+                setSuggestedProducts(data.data || []);
+                setDetectedCategory(data.detected_category);
+                setSelectedProduct(data.selected_product);
+              }
+            } catch (err) {
+              console.error('onRefresh failed:', err);
+            }
+          }}
         />
       )}
 
@@ -2101,6 +4623,14 @@ const TenderDetails = () => {
         />
       )}
 
+      {showTenderShareModal && (
+        <ShareDeviationModal
+          tenderId={tenderId}
+          shareType="tender"
+          onClose={() => setShowTenderShareModal(false)}
+        />
+      )}
+
       {showPricingModal && (
         <SuggestPricingModal
           onClose={() => setShowPricingModal(false)}
@@ -2111,7 +4641,8 @@ const TenderDetails = () => {
       )}
 
       {showCorrigendumModal && (
-        <CorrigendumModal
+        <GenericTableModal
+          title="Corrigendum Details"
           data={corrigendumData}
           onClose={() => setShowCorrigendumModal(false)}
         />
@@ -2139,12 +4670,87 @@ const TenderDetails = () => {
 
       {showAIModal && (
         <AIAnalysisModal
-          title="ATC EMD Analysis"
+          title={aiModalTitle}
           content={aiResult}
           loading={aiLoading}
           onClose={() => setShowAIModal(false)}
         />
       )}
+
+      {viewerDoc && (
+        <DocumentViewerModal
+          title={viewerDoc.title}
+          url={viewerDoc.url}
+          onClose={() => setViewerDoc(null)}
+        />
+      )}
+
+      {suggestionsGenerating && (
+        <div style={{
+          position: 'fixed', bottom: '20px', right: '20px', zIndex: 2000,
+          width: '260px', background: '#fff', borderRadius: '10px',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.15)', border: '1px solid #e5e7eb',
+          padding: '12px 14px',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <div style={{
+              width: '14px', height: '14px', borderRadius: '50%',
+              border: '2px solid #dbeafe', borderTopColor: '#084f9a',
+              animation: 'spin 0.8s linear infinite', flexShrink: 0,
+            }} />
+            <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#1e3a5f' }}>
+              Generating product suggestions…
+            </span>
+          </div>
+          <div style={{ height: '5px', borderRadius: '3px', background: '#eef2f7', overflow: 'hidden' }}>
+            <div style={{
+              height: '100%', background: '#084f9a', borderRadius: '3px',
+              width: suggestionsProgress.total > 0
+                ? `${Math.min(100, (suggestionsProgress.current / suggestionsProgress.total) * 100)}%`
+                : '18%',
+              transition: 'width 0.4s ease',
+            }} />
+          </div>
+          {suggestionsProgress.total > 0 && (
+            <div style={{ marginTop: '6px', fontSize: '11px', color: '#6b7280' }}>
+              Item {suggestionsProgress.current} of {suggestionsProgress.total}
+            </div>
+          )}
+        </div>
+      )}
+
+      {suggestionToast && (
+        <div style={{
+          position: 'fixed', bottom: '20px', right: '20px', zIndex: 2000,
+          width: '280px', background: '#0f2f52', color: '#fff', borderRadius: '10px',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.25)', padding: '14px 16px',
+          display: 'flex', flexDirection: 'column', gap: '8px',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+            <span style={{ fontSize: '16px' }}>✅</span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: 600, fontSize: '13px' }}>Product suggestions ready</div>
+              <div style={{ fontSize: '12px', color: '#c7d6e8', marginTop: '2px' }}>
+                {suggestionToast.count} match{suggestionToast.count === 1 ? '' : 'es'} found for this tender.
+              </div>
+            </div>
+            <button
+              onClick={() => setSuggestionToast(null)}
+              style={{ background: 'none', border: 'none', color: '#c7d6e8', cursor: 'pointer', fontSize: '14px' }}
+            >✕</button>
+          </div>
+          <button
+            onClick={() => { setShowSuggestedModal(true); setSuggestionToast(null); }}
+            style={{
+              alignSelf: 'flex-start', background: '#084f9a', color: '#fff', border: 'none',
+              borderRadius: '6px', padding: '6px 12px', fontSize: '12px', fontWeight: 600, cursor: 'pointer',
+            }}
+          >
+            View suggestions
+          </button>
+        </div>
+      )}
+
     </div>
   );
 };

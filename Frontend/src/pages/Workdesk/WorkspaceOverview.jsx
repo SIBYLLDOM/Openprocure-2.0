@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   BarChart3,
@@ -6,25 +6,11 @@ import {
   CheckCircle2,
   FolderOpen,
   Users,
-  TrendingUp,
   AlertCircle
 } from "lucide-react";
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
-} from "recharts";
+import WorkspaceTimeline from "./WorkspaceTimeline";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
-const COLORS = ["#2563eb", "#059669", "#7c3aed", "#dc2626", "#db2777", "#0891b2", "#ea580c", "#16a34a"];
 
 const WorkspaceOverview = () => {
   const { "*": tenderId } = useParams(); // react-router-dom splat catches the tender ID
@@ -82,13 +68,7 @@ const WorkspaceOverview = () => {
     );
   }
 
-  const {
-    tenderDetails,
-    summary,
-    taskTrend,
-    fileSummary,
-    performance
-  } = data;
+  const { tenderDetails, summary } = data;
 
   return (
     <div style={{ minHeight: "100vh", background: "#f3f6fb", padding: "2rem" }}>
@@ -126,50 +106,9 @@ const WorkspaceOverview = () => {
           <SummaryCard label="Workspace Activity" value={summary?.workspaceStatus} icon={<FolderOpen size={28} />} color="#db2777" />
         </div>
 
-        {/* ---------------- TREND CHART ---------------- */}
+        {/* ---------------- TENDER TIMELINE ---------------- */}
         <div style={{ background: "white", padding: "1.5rem", borderRadius: "12px", border: "1px solid #e5e7eb", boxShadow: "0 3px 6px rgba(0,0,0,0.08)" }}>
-          <h2 style={{ margin: 0, marginBottom: "1rem", fontWeight: 600 }}>Daily Task Trend</h2>
-          <div style={{ width: "100%", height: 300 }}>
-            <ResponsiveContainer>
-              <LineChart data={taskTrend && taskTrend.length > 0 ? taskTrend : [{ date: 'Today', tasks: 0 }]}>
-                <CartesianGrid stroke="#e5e7eb" strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis allowDecimals={false} />
-                <Tooltip />
-                <Line type="monotone" dataKey="tasks" name="Active Tasks" stroke="#2563eb" strokeWidth={3} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        {/* ---------------- FILE DISTRIBUTION PIE CHART ---------------- */}
-        <div style={{ background: "white", padding: "1.5rem", borderRadius: "12px", border: "1px solid #e5e7eb", boxShadow: "0 3px 6px rgba(0,0,0,0.08)" }}>
-          <h2 style={{ margin: 0, marginBottom: "1rem", fontWeight: 600 }}>File Distribution by Department</h2>
-          <div style={{ width: "100%", height: 350 }}>
-            {(!fileSummary || fileSummary.length === 0) ? (
-              <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>
-                No files uploaded yet.
-              </div>
-            ) : (
-              <ResponsiveContainer>
-                <PieChart>
-                  <Pie data={fileSummary} dataKey="value" nameKey="name" outerRadius={120} label>
-                    {fileSummary.map((entry, index) => (
-                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Legend />
-                  <Tooltip formatter={(value) => [`${value} files`, "Uploads"]} />
-                </PieChart>
-              </ResponsiveContainer>
-            )}
-          </div>
-        </div>
-
-        {/* ---------------- PERFORMANCE INDICATORS ---------------- */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
-          <TrendCard label="Task Completion Rate" value={performance?.taskCompletionRate || "0%"} metric="Completion %" />
-          <TrendCard label="Accumulated Drive Files" value={performance?.fileUploads || 0} metric="Documents" />
+          <WorkspaceTimeline tenderId={tenderId} />
         </div>
       </div>
     </div>
@@ -194,16 +133,6 @@ const DetailItem = ({ label, value, color }) => (
   <div style={{ borderLeft: `4px solid ${color}`, paddingLeft: "1rem" }}>
     <p style={{ margin: 0, fontSize: "0.85rem", color: "#6b7280", fontWeight: 600, textTransform: "uppercase" }}>{label}</p>
     <p style={{ margin: "0.25rem 0 0 0", fontSize: "1rem", fontWeight: 600, color: "#111827", textTransform: 'capitalize' }}>{value}</p>
-  </div>
-);
-
-const TrendCard = ({ label, value, metric }) => (
-  <div style={{ background: "white", padding: "1.5rem", borderRadius: "12px", border: "1px solid #e5e7eb", boxShadow: "0 2px 4px rgba(0,0,0,0.08)" }}>
-    <p style={{ margin: 0, fontSize: "0.9rem", color: "#6b7280", fontWeight: 600 }}>{label}</p>
-    <p style={{ margin: "0.3rem 0 0 0", fontSize: "2rem", fontWeight: 700, color: "#111827" }}>{value}</p>
-    <p style={{ margin: "0.4rem 0 0 0", color: "#059669", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.85rem" }}>
-      <TrendingUp size={16} /> {metric}
-    </p>
   </div>
 );
 

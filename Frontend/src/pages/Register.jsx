@@ -7,17 +7,35 @@ import ppl from '../assets/img/1.jpg';
 import Logo from '../assets/img/logo.png';
 import API_BASE_URL from '../config/api';
 
+const DEPARTMENTS = [
+    { value: 'Endo', label: 'EndoSurgery' },
+    { value: 'Diagno', label: 'Diagnostic' },
+    { value: '360', label: '360' },
+];
+
+const FIELDS = [
+    { value: 'GEM', label: 'GEM' },
+    { value: 'Open', label: 'Open Tender' },
+];
+
+const INDIA_STATES = [
+    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Delhi', 'Goa',
+    'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jammu and Kashmir', 'Jharkhand', 'Karnataka',
+    'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland',
+    'Odisha', 'Puducherry', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana',
+    'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal',
+];
+
 // All roles - pre-tender system roles & post-tender system roles
 const ALL_ROLES = [
-    { value: 'pre-tender', label: 'Pre-Tender (Tender Team)', system: 'Pre-Tender' },
-    { value: 'Admin', label: 'Admin', system: 'Pre-Tender' },
-    { value: 'Management', label: 'Management', system: 'Pre-Tender' },
+    { value: 'Tender Admin', label: 'Tender Admin', system: 'Pre-Tender' },
+    { value: 'Tender Executive', label: 'Tender Executive', system: 'Pre-Tender' },
+    { value: 'Zonal Head', label: 'Zonal Head', system: 'Pre-Tender' },
     { value: 'Sales', label: 'Sales', system: 'Pre-Tender' },
-    { value: 'Tender', label: 'Tender Executive', system: 'Pre-Tender' },
-    { value: 'Post', label: 'Post-Tender Executive', system: 'Post-Tender' },
-    { value: 'Finance', label: 'Finance', system: 'Post-Tender' },
-    { value: 'Logistics', label: 'Logistics', system: 'Post-Tender' },
-    { value: 'QC', label: 'Quality Control (QC)', system: 'Post-Tender' },
+    { value: 'Finance Team', label: 'Finance Team', system: 'Post-Tender' },
+    { value: 'Legal', label: 'Legal (DSC / authorization)', system: 'Pre-Tender' },
+    { value: 'Documentation', label: 'Documentation / Ops', system: 'Pre-Tender' },
+    { value: 'Admin', label: 'Admin', system: 'Pre-Tender' },
 ];
 
 const Register = () => {
@@ -27,6 +45,9 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [role, setRole] = useState('');
+    const [states, setStates] = useState([]);
+    const [departments, setDepartments] = useState([]);
+    const [fields, setFields] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -53,6 +74,20 @@ const Register = () => {
             return;
         }
 
+        const isScopedRole = role === 'Sales' || role === 'Zonal Head';
+        if (isScopedRole && states.length === 0) {
+            alert('Select at least one state you cover.');
+            return;
+        }
+        if (isScopedRole && departments.length === 0) {
+            alert('Select at least one department you cover.');
+            return;
+        }
+        if (isScopedRole && fields.length === 0) {
+            alert('Select at least one field (GEM/Open) you cover.');
+            return;
+        }
+
         if (password !== confirmPassword) {
             alert('Passwords do not match.');
             return;
@@ -68,7 +103,12 @@ const Register = () => {
             const response = await fetch(`${API_BASE_URL}/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password, role }),
+                body: JSON.stringify({
+                    name, email, password, role,
+                    states: isScopedRole ? states : undefined,
+                    departments: isScopedRole ? departments : undefined,
+                    fields: isScopedRole ? fields : undefined,
+                }),
             });
 
             const data = await response.json();
@@ -157,7 +197,14 @@ const Register = () => {
                             <label>Role</label>
                             <select
                                 value={role}
-                                onChange={(e) => setRole(e.target.value)}
+                                onChange={(e) => {
+                                setRole(e.target.value);
+                                if (e.target.value !== 'Sales' && e.target.value !== 'Zonal Head') {
+                                    setStates([]);
+                                    setDepartments([]);
+                                    setFields([]);
+                                }
+                            }}
                                 style={{
                                     width: '100%',
                                     padding: '12px 14px',
@@ -191,6 +238,139 @@ const Register = () => {
                                 </small>
                             )}
                         </div>
+
+                        {/* Department (Sales / Zonal Head) */}
+                        {(role === 'Sales' || role === 'Zonal Head') && (
+                            <div className="form-group">
+                                <label>Department ({departments.length} selected)</label>
+                                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                                    {DEPARTMENTS.map(d => {
+                                        const checked = departments.includes(d.value);
+                                        return (
+                                            <label
+                                                key={d.value}
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '6px',
+                                                    fontSize: '14px',
+                                                    color: '#111',
+                                                    cursor: 'pointer',
+                                                    padding: '8px 14px',
+                                                    border: '1.5px solid #d1d5db',
+                                                    borderRadius: '10px',
+                                                    background: checked ? '#eff6ff' : '#fff',
+                                                    borderColor: checked ? '#2563eb' : '#d1d5db',
+                                                }}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={checked}
+                                                    onChange={() => {
+                                                        setDepartments(prev =>
+                                                            checked ? prev.filter(x => x !== d.value) : [...prev, d.value]
+                                                        );
+                                                    }}
+                                                    style={{ cursor: 'pointer' }}
+                                                />
+                                                {d.label}
+                                            </label>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Field / Tender source (Sales / Zonal Head) */}
+                        {(role === 'Sales' || role === 'Zonal Head') && (
+                            <div className="form-group">
+                                <label>Tender field you cover ({fields.length} selected)</label>
+                                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                                    {FIELDS.map(f => {
+                                        const checked = fields.includes(f.value);
+                                        return (
+                                            <label
+                                                key={f.value}
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '6px',
+                                                    fontSize: '14px',
+                                                    color: '#111',
+                                                    cursor: 'pointer',
+                                                    padding: '8px 14px',
+                                                    border: '1.5px solid #d1d5db',
+                                                    borderRadius: '10px',
+                                                    background: checked ? '#eff6ff' : '#fff',
+                                                    borderColor: checked ? '#2563eb' : '#d1d5db',
+                                                }}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={checked}
+                                                    onChange={() => {
+                                                        setFields(prev =>
+                                                            checked ? prev.filter(x => x !== f.value) : [...prev, f.value]
+                                                        );
+                                                    }}
+                                                    style={{ cursor: 'pointer' }}
+                                                />
+                                                {f.label}
+                                            </label>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* States (Sales / Zonal Head) */}
+                        {(role === 'Sales' || role === 'Zonal Head') && (
+                            <div className="form-group">
+                                <label>States you cover ({states.length} selected)</label>
+                                <div
+                                    style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(2, 1fr)',
+                                        gap: '6px 12px',
+                                        maxHeight: '220px',
+                                        overflowY: 'auto',
+                                        padding: '10px 12px',
+                                        border: '1.5px solid #d1d5db',
+                                        borderRadius: '10px',
+                                        background: '#fff',
+                                    }}
+                                >
+                                    {INDIA_STATES.map(st => {
+                                        const checked = states.includes(st);
+                                        return (
+                                            <label
+                                                key={st}
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '6px',
+                                                    fontSize: '13px',
+                                                    color: '#111',
+                                                    cursor: 'pointer',
+                                                }}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={checked}
+                                                    onChange={() => {
+                                                        setStates(prev =>
+                                                            checked ? prev.filter(s => s !== st) : [...prev, st]
+                                                        );
+                                                    }}
+                                                    style={{ cursor: 'pointer' }}
+                                                />
+                                                {st}
+                                            </label>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Password */}
                         <div className="form-group">

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ title }}</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; background: #0f172a; color: #e2e8f0; }
+  h1 { font-size: 1.4rem; }
+  .card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .name { font-weight: 600; }
+  .status { font-size: 0.85rem; padding: 0.15rem 0.5rem; border-radius: 999px; }
+  .status.idle { background: #334155; color: #94a3b8; }
+  .status.running { background: #854d0e; color: #fde68a; }
+  .status.done { background: #14532d; color: #86efac; }
+  .status.failed { background: #7f1d1d; color: #fca5a5; }
+  button { background: #2563eb; color: white; border: none; border-radius: 6px; padding: 0.4rem 0.9rem; cursor: pointer; font-size: 0.9rem; }
+  button:disabled { background: #475569; cursor: not-allowed; }
+  button.stop { background: #b45309; }
+  button.delete { background: #b91c1c; }
+  .actions { display: flex; gap: 0.4rem; }
+  pre { background: #020617; color: #cbd5e1; padding: 0.6rem; border-radius: 6px; max-height: 200px; overflow: auto; font-size: 0.75rem; margin-top: 0.6rem; white-space: pre-wrap; display: none; }
+  pre.visible { display: block; }
+  .schedule-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.6rem; font-size: 0.85rem; color: #94a3b8; }
+  .schedule-row input[type="time"] { background: #0f172a; color: #e2e8f0; border: 1px solid #334155; border-radius: 4px; padding: 0.2rem 0.4rem; }
+  .schedule-row button { padding: 0.2rem 0.6rem; font-size: 0.8rem; background: #334155; }
+  .schedule-row button:disabled { background: #475569; }
+  .next-run { color: #64748b; }
+  .tab-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #334155; }
+  .tab-bar a {
+    padding: 0.6rem 1.2rem; text-decoration: none; color: #94a3b8;
+    font-weight: 600; font-size: 0.95rem; border-bottom: 2px solid transparent;
+  }
+  .tab-bar a.active { color: #e2e8f0; border-bottom-color: #2563eb; }
+  .tab-bar a:hover { color: #e2e8f0; }
+</style>
+</head>
+<body>
+<div class="tab-bar">
+  {% for tab in tabs %}
+  <a href="{{ tab.url }}" class="{{ 'active' if tab.key == active_tab else '' }}">{{ tab.label }}</a>
+  {% endfor %}
+</div>
+<h1>{{ title }}</h1>
+<div id="cards"></div>
+
+<script>
+let scripts = [];
+const container = document.getElementById("cards");
+
+function cardHtml(key) {
+  return `
+    <div class="card" id="card-${key}">
+      <div class="card-header">
+        <span class="name">${key}</span>
+        <span class="actions">
+          <span class="status idle" id="status-${key}">idle</span>
+          <button id="btn-${key}" onclick="runScript('${key}')">Start</button>
+          <button id="stop-${key}" class="stop" onclick="stopScript('${key}')" disabled>Stop</button>
+          <button id="del-${key}" class="delete" onclick="deleteScript('${key}')">Delete</button>
+        </span>
+      </div>
+      <div class="schedule-row">
+        <label>
+          <input type="checkbox" id="sched-enabled-${key}"> Run daily at
+        </label>
+        <input type="text" id="sched-times-${key}" placeholder="00:30, 13:00" size="16">
+        <button onclick="saveSchedule('${key}')">Save</button>
+        <span class="next-run" id="next-run-${key}"></span>
+      </div>
+      <pre id="log-${key}"></pre>
+    </div>`;
+}
+
+async function loadScripts() {
+  const res = await fetch("/scripts");
+  const data = await res.json();
+  scripts = data.scripts;
+  container.innerHTML = "";
+  scripts.forEach(key => container.insertAdjacentHTML("beforeend", cardHtml(key)));
+  scripts.forEach(poll);
+  loadSchedules();
+}
+
+async function runScript(key) {
+  const btn = document.getElementById(`btn-${key}`);
+  btn.disabled = true;
+  const res = await fetch(`/run/${key}`, { method: "POST" });
+  if (!res.ok) {
+    const err = await res.json();
+    alert(err.error || "Failed to start");
+    btn.disabled = false;
+    return;
+  }
+  poll(key);
+}
+
+async function stopScript(key) {
+  const btn = document.getElementById(`stop-${key}`);
+  btn.disabled = true;
+  const res = await fetch(`/stop/${key}`, { method: "POST" });
+  if (!res.ok) {
+    const err = await res.json();
+    alert(err.error || "Failed to stop");
+  }
+  poll(key);
+}
+
+async function deleteScript(key) {
+  if (!confirm(`Remove "${key}" from this dashboard? Its schedule will be disabled.`)) return;
+  const res = await fetch(`/delete/${key}`, { method: "POST" });
+  if (!res.ok) {
+    const err = await res.json();
+    alert(err.error || "Failed to delete");
+    return;
+  }
+  document.getElementById(`card-${key}`)?.remove();
+  scripts = scripts.filter(k => k !== key);
+}
+
+async function poll(key) {
+  const statusEl = document.getElementById(`status-${key}`);
+  const btn = document.getElementById(`btn-${key}`);
+  const stopBtn = document.getElementById(`stop-${key}`);
+  const logEl = document.getElementById(`log-${key}`);
+  if (!statusEl) return;
+
+  const tick = async () => {
+    if (!document.getElementById(`card-${key}`)) return; // card was deleted
+    const statusRes = await fetch("/status").then(r => r.json());
+    const job = statusRes[key];
+
+    if (job && job.running) {
+      const logRes = await fetch(`/log/${key}`).then(r => r.json());
+      logEl.textContent = logRes.log;
+      logEl.scrollTop = logEl.scrollHeight;
+      logEl.classList.add("visible");
+
+      statusEl.textContent = "running";
+      statusEl.className = "status running";
+      btn.disabled = true;
+      stopBtn.disabled = false;
+      setTimeout(tick, 3000);
+    } else {
+      // Not running: hide the log view — only a live job's terminal is shown.
+      logEl.classList.remove("visible");
+      btn.disabled = false;
+      stopBtn.disabled = true;
+      if (job) {
+        const ok = job.return_code === 0;
+        statusEl.textContent = ok ? "done" : `failed (${job.return_code})`;
+        statusEl.className = ok ? "status done" : "status failed";
+      }
+    }
+  };
+  tick();
+}
+
+async function saveSchedule(key) {
+  const raw = document.getElementById(`sched-times-${key}`).value;
+  const times = raw.split(",").map(t => t.trim()).filter(Boolean);
+  const enabled = document.getElementById(`sched-enabled-${key}`).checked;
+  if (enabled && times.length === 0) {
+    alert("Enter at least one time, e.g. 00:30, 13:00");
+    return;
+  }
+  const res = await fetch(`/schedule/${key}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ times, enabled }),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    alert(err.error || "Failed to save schedule");
+    return;
+  }
+  loadSchedules();
+}
+
+async function loadSchedules() {
+  const res = await fetch("/schedule");
+  const { schedules, next_runs } = await res.json();
+  scripts.forEach(key => {
+    const cfg = schedules[key];
+    const nextRunEl = document.getElementById(`next-run-${key}`);
+    if (cfg) {
+      document.getElementById(`sched-enabled-${key}`).checked = !!cfg.enabled;
+      const times = cfg.times || (cfg.time ? [cfg.time] : []);
+      document.getElementById(`sched-times-${key}`).value = times.join(", ");
+    }
+    const nextRun = next_runs[key];
+    nextRunEl.textContent = nextRun ? `next run: ${new Date(nextRun).toLocaleString()}` : "";
+  });
+}
+
+// on load, fetch the visible script list and build cards
+loadScripts();
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+ALTER TABLE open_tender_details
+    ADD COLUMN corrigendum JSON NULL;
+
+ALTER TABLE open_tender_details
+    ADD COLUMN withdrawal_allowed                  VARCHAR(10)   NULL,
+    ADD COLUMN tender_type                          VARCHAR(100)  NULL,
+    ADD COLUMN form_of_contract                     VARCHAR(100)  NULL,
+    ADD COLUMN tender_category                      VARCHAR(100)  NULL,
+    ADD COLUMN no_of_covers                         VARCHAR(10)   NULL,
+    ADD COLUMN general_technical_evaluation_allowed VARCHAR(10)   NULL,
+    ADD COLUMN itemwise_technical_evaluation_allowed VARCHAR(10)  NULL,
+    ADD COLUMN payment_mode                         VARCHAR(50)   NULL,
+    ADD COLUMN multi_currency_allowed_boq            VARCHAR(10)   NULL,
+    ADD COLUMN multi_currency_allowed_fee            VARCHAR(10)   NULL,
+    ADD COLUMN two_stage_bidding_allowed             VARCHAR(10)   NULL,
+
+    ADD COLUMN emd_amount                           VARCHAR(50)   NULL,
+
+    ADD COLUMN work_item_title                      VARCHAR(500)  NULL,
+    ADD COLUMN work_description                     TEXT          NULL,
+    ADD COLUMN nda_pre_qualification                TEXT          NULL,
+    ADD COLUMN independent_external_monitor_remarks TEXT          NULL,
+    ADD COLUMN tender_value                         VARCHAR(50)   NULL,
+    ADD COLUMN product_category                     VARCHAR(255)  NULL,
+    ADD COLUMN sub_category                         VARCHAR(255)  NULL,
+    ADD COLUMN contract_type                        VARCHAR(100)  NULL,
+    ADD COLUMN bid_validity_days                    VARCHAR(20)   NULL,
+    ADD COLUMN period_of_work_days                  VARCHAR(20)   NULL,
+    ADD COLUMN location                             VARCHAR(255)  NULL,
+    ADD COLUMN pincode                               VARCHAR(20)   NULL,
+    ADD COLUMN pre_bid_meeting_place                VARCHAR(255)  NULL,
+    ADD COLUMN pre_bid_meeting_address               VARCHAR(500)  NULL,
+    ADD COLUMN pre_bid_meeting_date                 VARCHAR(50)   NULL,
+    ADD COLUMN bid_opening_place                    VARCHAR(255)  NULL,
+    ADD COLUMN nda_tender_allowed                    VARCHAR(10)   NULL,
+    ADD COLUMN preferential_bidder_allowed          VARCHAR(10)   NULL,
+
+    ADD COLUMN nicgep_published_date                VARCHAR(50)   NULL,
+    ADD COLUMN bid_opening_date                      VARCHAR(50)   NULL,
+    ADD COLUMN doc_download_start_date              VARCHAR(50)   NULL,
+    ADD COLUMN doc_download_end_date                VARCHAR(50)   NULL,
+    ADD COLUMN clarification_start_date             VARCHAR(50)   NULL,
+    ADD COLUMN clarification_end_date               VARCHAR(50)   NULL,
+    ADD COLUMN bid_submission_start_date            VARCHAR(50)   NULL,
+    ADD COLUMN bid_submission_end_date              VARCHAR(50)   NULL;

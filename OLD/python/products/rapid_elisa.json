@@ -1,0 +1,351 @@
+[
+  {
+    "category": "Rapids",
+    "technology": "Flow Through",
+    "product_name": "HCV Tredro",
+    "product_code": "HCDRPD-01",
+    "analyte": "Anti-HCV",
+    "pack_size": "10 Tests",
+    "intended_use": "3 dot Rapid test device with flow through technology for detection of Anti HCV",
+    "principle": "Sandwich Immunoassay",
+    "technique": "Indirect Immunoassay",
+    "detection": "Flow Through",
+    "capture": "Antibodies to HCV",
+    "conjugate": "Highly purified Recombinant antigens - Core, NS3, NS4 and NS5",
+    "specimen_type": "Serum or Plasma",
+    "specimen_volume": "50 µl (1 Drop)",
+    "result_time": "3 minutes",
+    "diagnostic_sensitivity": ">99%",
+    "diagnostic_specificity": ">98%",
+    "evaluations": "National Institute of Biologicals"
+  },
+  {
+    "category": "Rapids",
+    "technology": "Flow Through",
+    "product_name": "HCV Tredro",
+    "product_code": "HCDRPD-03",
+    "analyte": "Anti-HCV",
+    "pack_size": "50 Tests",
+    "intended_use": "3 dot Rapid test device with flow through technology for detection of Anti HCV",
+    "principle": "Sandwich Immunoassay",
+    "technique": "Indirect Immunoassay",
+    "detection": "Flow Through",
+    "capture": "Antibodies to HCV",
+    "conjugate": "Highly purified Recombinant antigens - Core, NS3, NS4 and NS5",
+    "specimen_type": "Serum or Plasma",
+    "specimen_volume": "50 µl (1 Drop)",
+    "result_time": "3 minutes",
+    "diagnostic_sensitivity": ">99%",
+    "diagnostic_specificity": ">98%",
+    "evaluations": "National Institute of Biologicals"
+  },
+  {
+    "category": "Rapids",
+    "technology": "Flow Through",
+    "product_name": "HIV Quadro",
+    "product_code": "HD4RPD-01",
+    "analyte": "HIV 1-2 Ab",
+    "pack_size": "10 Tests"
+  },
+  {
+    "category": "Rapids",
+    "technology": "Flow Through",
+    "product_name": "HIV Quadro",
+    "product_code": "HD4RPD-03",
+    "analyte": "HIV 1-2 Ab",
+    "pack_size": "50 Tests"
+  },
+  {
+    "category": "Rapids",
+    "test_type": "Dengue IgG/IgM",
+    "product_name": "Dengue Onset",
+    "product_code": "RPDDAB-01",
+    "analyte": "Dengue IgG/IgM",
+    "pack_size": "20 Tests"
+  },
+  {
+    "category": "Rapids",
+    "test_type": "Dengue NS1",
+    "product_name": "Dengue Onset",
+    "product_code": "RPDDAG-01",
+    "analyte": "Dengue NS1",
+    "pack_size": "10 Tests"
+  },
+  {
+    "category": "Rapids",
+    "test_type": "Dengue Onset (Combo)",
+    "product_name": "Dengue Onset",
+    "product_code": "RPDDON-01",
+    "analyte": "Dengue NS1/IgG/IgM",
+    "pack_size": "10 Tests"
+  },
+  {
+    "category": "Rapids",
+    "test_type": "Malaria",
+    "product_name": "Malaria_Pf/Pan",
+    "product_code": "RPDMFP-01",
+    "analyte": "Malaria Pf/Pan",
+    "pack_size": "30 Tests"
+  },
+  {
+    "category": "Rapids",
+    "test_type": "Malaria",
+    "product_name": "Malaria_Pf/Pv",
+    "product_code": "RPDMFV-01",
+    "analyte": "Malaria Pf/Pv",
+    "pack_size": "30 Tests"
+  },
+  {
+    "category": "Rapids",
+    "test_type": "Malaria",
+    "product_name": "Malaria_Pan",
+    "product_code": "RPDMPN-01",
+    "analyte": "Malaria Pan",
+    "pack_size": "30 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "HBsAg Rapid Test",
+    "product_name": "Rapid HBsAg",
+    "product_code": "RPDHBV-01",
+    "analyte": "HBsAg",
+    "pack_size": "50 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "HCV Rapid Test",
+    "product_name": "Rapid HCV",
+    "product_code": "RPDHCV-01",
+    "analyte": "Anti-HCV",
+    "pack_size": "50 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "HIV Rapid Test",
+    "product_name": "Rapid HIV",
+    "product_code": "RPDHIV-01",
+    "analyte": "HIV 1-2 Ab",
+    "pack_size": "50 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "HBsAg Rapid Test",
+    "product_name": "HBsAg Advance",
+    "product_code": "RDHBWB-01",
+    "analyte": "HBsAg",
+    "pack_size": "50 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "HIV Rapid Test",
+    "product_name": "HIV 4th Generation Rapid Test",
+    "product_code": "RPDHIV-03",
+    "analyte": "HIV Ag/Ab (4th Gen)",
+    "pack_size": "50 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "Pregnancy Test",
+    "product_name": "hCG",
+    "product_code": "RPDHCG-01",
+    "analyte": "hCG",
+    "pack_size": "50 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "Sickle Cell Test",
+    "product_name": "Sickle Cell",
+    "product_code": "RPDSCT-01",
+    "analyte": "HbS",
+    "pack_size": "25 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "Syphilis Rapid Test",
+    "product_name": "Syphilis",
+    "product_code": "RPDSYP-01",
+    "analyte": "Treponema pallidum Ab",
+    "pack_size": "30 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "HIV+Syphilis Combo",
+    "product_name": "HIV+Syphilis",
+    "product_code": "RPDVIB-01",
+    "analyte": "HIV 1-2 Ab / Treponema pallidum Ab",
+    "pack_size": "50 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "Typhoid Rapid Test",
+    "product_name": "Typhoid IgG/IgM Antibody Detection Test",
+    "product_code": "RDTPAB-02",
+    "analyte": "Typhoid IgG/IgM",
+    "pack_size": "50 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "H. Pylori Rapid Test",
+    "product_name": "H. Pylori Ab. Test",
+    "product_code": "RPDHPA-01",
+    "analyte": "H. Pylori Ab",
+    "pack_size": "25 Tests"
+  },
+  {
+    "category": "Rapids",
+    "brand_line": "MeriScreen",
+    "test_type": "H. Pylori Rapid Test",
+    "product_name": "H. Pylori Ab. Test",
+    "product_code": "RPDHPA-02",
+    "analyte": "H. Pylori Ab",
+    "pack_size": "50 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "HIV ELISA",
+    "product_name": "HIV_Elisa 4th Gen.",
+    "product_code": "HV4ELI-02",
+    "generation": "4th Gen",
+    "disease": "HIV",
+    "pack_size": "96 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "HIV ELISA",
+    "product_name": "HIV_Elisa 3rd Gen.",
+    "product_code": "HV3ELI-01",
+    "generation": "3rd Gen",
+    "disease": "HIV",
+    "pack_size": "96 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "HCV ELISA",
+    "product_name": "HCV_Elisa 3rd Gen.",
+    "product_code": "HPCELI-03",
+    "generation": "3rd Gen",
+    "disease": "HCV",
+    "pack_size": "96 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "HCV ELISA",
+    "product_name": "HCV_Elisa 4th Gen.",
+    "product_code": "HC4ELI-01",
+    "generation": "4th Generation",
+    "disease": "HCV",
+    "pack_size": "96 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "HBsAg ELISA",
+    "product_name": "HBsAg_Elisa",
+    "product_code": "HPBELI-01",
+    "analyte": "HBsAg",
+    "type": "Quantitative ELISA",
+    "brand": "Meril",
+    "sterility": "Non Sterile",
+    "usage_type": "Disposable",
+    "form": "Wells",
+    "method": "ELISA",
+    "pack_size": "96 Tests",
+    "material": "Plastic",
+    "shelf_life": "15 Months",
+    "result_type": "Semi-Quantitative",
+    "country_of_origin": "Made in India",
+    "usage_application": [
+      "Hospital",
+      "Laboratory",
+      "Blood Bank"
+    ],
+    "availability": "In Stock"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "TFT ELISA",
+    "product_name": "TSH",
+    "product_code": "TSIELI-01",
+    "analyte": "TSH",
+    "pack_size": "96 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "TFT ELISA",
+    "product_name": "T4",
+    "product_code": "ITFELI-01",
+    "analyte": "T4",
+    "pack_size": "96 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "TFT ELISA",
+    "product_name": "T3",
+    "product_code": "ITTELI-01",
+    "analyte": "T3",
+    "pack_size": "96 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "Dengue NS1 ELISA",
+    "product_name": "Dengue Elisa NS1",
+    "product_code": "DNSELI-01",
+    "analyte": "Dengue NS1",
+    "pack_size": "48 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "Dengue NS1 ELISA",
+    "product_name": "Dengue Elisa NS1",
+    "product_code": "DNSELI-02",
+    "analyte": "Dengue NS1",
+    "pack_size": "96 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "Dengue IgG ELISA",
+    "product_name": "Dengue Elisa IgG",
+    "product_code": "DEGELI-02",
+    "analyte": "Dengue IgG",
+    "pack_size": "96 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "Dengue IgM ELISA",
+    "product_name": "Dengue Elisa IgM",
+    "product_code": "DEMELI-01",
+    "analyte": "Dengue IgM",
+    "pack_size": "48 Tests"
+  },
+  {
+    "category": "Elisa",
+    "brand_line": "Merilisa",
+    "test_type": "Malaria PAN ELISA",
+    "product_name": "Malaria PAN Ag",
+    "product_code": "MPNELI-02",
+    "analyte": "Plasmodium PAN Ag (pLDH)",
+    "pack_size": "96 Tests"
+  }
+]

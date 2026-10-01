@@ -1,0 +1,85 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene",
+    "type": "Antiseptic Surgical Hand Scrub",
+    "product_code": "",
+    "instrument_name": "MIREX™ 4% CHG Hand Scrub",
+    "brand": "Meril",
+    "sub_brand": "MIREX™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "description": "MIREX 4% CHG Hand scrub is a disinfectant solution designed for hand and body washing.",
+    "availability_status": "Available",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "generic_name": "Chlorhexidine Gluconate Solution IP 4% w/v",
+      "product_type": "Antiseptic Surgical Handscrub",
+      "composition": [
+        "Chlorhexidine Gluconate Solution IP equivalent to Chlorhexidine Gluconate 4% w/v",
+        "Colour: Carmoisine"
+      ],
+      "actives": {
+        "chlorhexidine_gluconate_percent_wv": 4.0
+      },
+      "pack_sizes": [
+        {
+          "pack_size": "100 ml (with Dispenser)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "100 ml (Flip top)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "500 ml (with Dispenser)",
+          "carton": "20 Bottles"
+        },
+        {
+          "pack_size": "5 L",
+          "carton": "2 Cans"
+        }
+      ]
+    },
+    "microbiology": {
+      "spectrum": [
+        "Bactericidal",
+        "Tuberculocidal",
+        "Fungicidal",
+        "Virucidal"
+      ]
+    },
+    "areas_of_application": [
+      "Ideal for pre-surgical hand disinfection and hygienic handwashing",
+      "Suitable for routine use in hospital wards to help minimize the risk of cross-infection",
+      "Used for full-body disinfection of patients prior to surgery"
+    ],
+    "features": {
+      "salient_features": [
+        "MIREX 4% CHG Hand scrub is a complete Bactericidal, Tuberculocidal, Fungicidal, Virucidal Hands and Body Wash",
+        "Maintains water balance on the skin",
+        "Has a pleasant leave-behind fragrance",
+        "Promotes compliance with hand washing guidelines"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Pre-surgical hand disinfection",
+        "Hygienic handwashing in hospital wards",
+        "Full-body patient disinfection prior to surgery",
+        "Cross-infection control programmes"
+      ],
+      "key_strengths": [
+        "4% CHG dual hand and body wash",
+        "Maintains skin water balance",
+        "Pleasant fragrance drives hand hygiene compliance",
+        "Four pack formats from 100 ml to 5 L"
+      ]
+    }
+  }
+]

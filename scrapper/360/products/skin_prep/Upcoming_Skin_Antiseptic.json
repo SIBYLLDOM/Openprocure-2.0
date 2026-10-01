@@ -1,0 +1,103 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene & Skin Preparation",
+    "type": "Upcoming Antiseptic Range",
+    "series_name": "Hand Hygiene & Skin Prep — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Chlorhexidine and cetrimide based antiseptics",
+        "Alcohol-based antiseptic liquids",
+        "Incise drapes (plain, CHG and iodine)",
+        "Surgical clippers and blades"
+      ]
+    },
+    "sr_no": 4,
+    "product_code": "",
+    "instrument_name": "BAKTIO™ Pink",
+    "product_category": "Alcohol-based Antiseptic with Emollients",
+    "composition": "Each 100 gms contains: Chlorhexidine Gluconate Solution IP 2.5% v/v, Equivalent to Chlorhexidine Gluconate 0.5% w/v, Ethyl Alcohol IP (Denatured) 70% v/v, Colour: Carmoisine, Excipients (QS): Emollients and Moisturizers, Purified Water (qs)",
+    "actives": [
+      "Chlorhexidine Gluconate Solution IP 2.5% v/v (equivalent to Chlorhexidine Gluconate 0.5% w/v)",
+      "Ethyl Alcohol IP (Denatured) 70% v/v",
+      "Emollients and Moisturizers"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene & Skin Preparation",
+    "type": "Upcoming Antiseptic Range",
+    "series_name": "Hand Hygiene & Skin Prep — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Chlorhexidine and cetrimide based antiseptics",
+        "Alcohol-based antiseptic liquids",
+        "Incise drapes (plain, CHG and iodine)",
+        "Surgical clippers and blades"
+      ]
+    },
+    "sr_no": 5,
+    "product_code": "",
+    "instrument_name": "CUTANEX™",
+    "product_category": "Alcohol-based Antiseptic",
+    "composition": "Each 100 gms contains: Iso-Propanol IP 63.0 gms, Benzalkonium Chloride IP 0.025 gms",
+    "actives": [
+      "Iso-Propanol IP 63.0 gms per 100 gms",
+      "Benzalkonium Chloride IP 0.025 gms per 100 gms"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene & Skin Preparation",
+    "type": "Upcoming Antiseptic Range",
+    "series_name": "Hand Hygiene & Skin Prep — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Chlorhexidine and cetrimide based antiseptics",
+        "Alcohol-based antiseptic liquids",
+        "Incise drapes (plain, CHG and iodine)",
+        "Surgical clippers and blades"
+      ]
+    },
+    "sr_no": 6,
+    "product_code": "",
+    "instrument_name": "CUTANEX™ Pro",
+    "product_category": "Alcohol-based Antiseptic (Tinted)",
+    "composition": "Each 100 gms contains: Iso-Propanol IP 63.0 gms, Benzalkonium Chloride IP 0.025 gms, Colour : Carmoisine and Sunset Yellow",
+    "actives": [
+      "Iso-Propanol IP 63.0 gms per 100 gms",
+      "Benzalkonium Chloride IP 0.025 gms per 100 gms"
+    ],
+    "differentiator": "Tinted with Carmoisine and Sunset Yellow for visible application coverage",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

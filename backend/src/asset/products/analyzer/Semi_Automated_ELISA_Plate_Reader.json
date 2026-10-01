@@ -1,0 +1,443 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "ELISA",
+        "type": "Semi Automated ELISA Plate Reader",
+        "product_code": "SAAEIQ-08",
+        "instrument_name": "EIAQuant (with LED)",
+        "brand": "Meril",
+        "model_name": "Merilyzer EIAQuant",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "ELISA Plate Reader",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 100000,
+            "foc_reagents": "2 sets HIV 4th Gen / HBsAg & HCV 3rd Gen OR 2 sets TFT kits",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "detection_principle": "Absorbance",
+            "assay_modes": [
+                "Quantitative",
+                "Semi-Quantitative",
+                "Qualitative"
+            ],
+            "microplate_type": "96 well",
+            "measuring_system": "8-channel fiber optic optical system",
+            "reading_speed": {
+                "monochromatic": "8 sec per 96 wells",
+                "bichromatic": "18 sec per 96 wells"
+            },
+            "light_source": "12V 20W Halogen lamp",
+            "wavelength_range_nm": "405 – 630",
+            "filters": {
+                "standard_filters_nm": [
+                    405,
+                    450,
+                    492,
+                    630
+                ],
+                "optional_filters": 3,
+                "filter_positions": 7
+            },
+            "optical_characteristics": {
+                "bandwidth_nm": "400 – 700",
+                "dynamic_range_od": "0 – 4.0",
+                "photometric_accuracy_od": "±0.005",
+                "repeatability_cv": "< 3%",
+                "linearity_od": {
+                    "400_nm": "0.000 – 3.000",
+                    "450_nm": "0.000 – 2.400"
+                }
+            },
+            "display": {
+                "type": "STN Blue monochrome LCD with LED backlight",
+                "resolution_px": "320 x 240"
+            },
+            "keypad": "Touch screen",
+            "result_calculation_modes": [
+                "Absorbance",
+                "Cut-off",
+                "Multi-standard",
+                "Curve types: Multi-point, Conc, Log-Log, Linear",
+                "Grey zone qualitative analysis",
+                "Abnormal result flagging"
+            ],
+            "storage": {
+                "test_parameters_onboard": 50,
+                "plates_storage": 150,
+                "sample_results": 14000,
+                "curves_per_parameter": 3
+            },
+            "quality_control": {
+                "qc_levels": 4,
+                "features": [
+                    "Levy-Jennings graph display and print",
+                    "Westgard rules"
+                ]
+            },
+            "connectivity": {
+                "interfaces": [
+                    "RS232",
+                    "External USB printer"
+                ]
+            },
+            "power_requirements": {
+                "input_voltage": "100–240V AC",
+                "frequency": "50/60 Hz",
+                "power_consumption": "≤ 65W"
+            },
+            "operating_environment": {
+                "temperature_c": "5 – 40"
+            },
+            "dimensions_mm": {
+                "width": 400,
+                "depth": 525,
+                "height": 185
+            },
+            "weight_kg": 14
+        },
+        "features": {
+            "performance": [
+                "High optical accuracy and stability",
+                "Fast reading speed for routine ELISA testing",
+                "Wide wavelength coverage for infectious and hormone assays"
+            ],
+            "efficiency": [
+                "Direct sample reports",
+                "Intuitive software with minimal training required",
+                "Low maintenance design"
+            ],
+            "user_experience": [
+                "Interactive touch screen interface",
+                "Self-diagnostics",
+                "Copy test function",
+                "Rerun option"
+            ]
+        },
+        "compatibility": {
+            "focused_test_menu": [
+                "HIV 1 & 2",
+                "HIV 4th Gen",
+                "HBsAg",
+                "HCV",
+                "Hepatitis B",
+                "Hepatitis C",
+                "Thyroid (T3, T4, TSH)",
+                "Endocrinology (LH, FSH, Prolactin)",
+                "Infectious diseases",
+                "Metabolism tests",
+                "Dengue (IgG, IgM, NS1)"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "ELISA testing laboratories",
+                "Blood banks",
+                "Small to mid-sized diagnostic centers",
+                "Infectious disease screening programs"
+            ],
+            "key_strengths": [
+                "Wide test menu support",
+                "Advanced QC and result calculation modes",
+                "Reliable optical system",
+                "Competitive pricing with reagent bundles"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "ELISA",
+        "type": "Semi Automated ELISA Plate Reader",
+        "product_code": "SAAEIQ-08",
+        "instrument_name": "EIAQuant (with LED)",
+        "brand": "Meril",
+        "model_name": "Merilyzer EIAQuant",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "ELISA Plate Reader",
+        "commercial_details": {
+            "slab_quantity": 3,
+            "price_per_unit_rs": 950000,
+            "foc_reagents": "2 sets HIV 4th Gen / HBsAg & HCV 3rd Gen OR 2 sets TFT kits",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "detection_principle": "Absorbance",
+            "assay_modes": [
+                "Quantitative",
+                "Semi-Quantitative",
+                "Qualitative"
+            ],
+            "microplate_type": "96 well",
+            "measuring_system": "8-channel fiber optic optical system",
+            "reading_speed": {
+                "monochromatic": "8 sec per 96 wells",
+                "bichromatic": "18 sec per 96 wells"
+            },
+            "light_source": "12V 20W Halogen lamp",
+            "wavelength_range_nm": "405 – 630",
+            "filters": {
+                "standard_filters_nm": [
+                    405,
+                    450,
+                    492,
+                    630
+                ],
+                "optional_filters": 3,
+                "filter_positions": 8
+            },
+            "optical_characteristics": {
+                "bandwidth_nm": "400 – 700",
+                "dynamic_range_od": "0 – 4.0",
+                "photometric_accuracy_od": "±0.005",
+                "repeatability_cv": "< 3%",
+                "linearity_od": {
+                    "400_nm": "0.000 – 3.000",
+                    "450_nm": "0.000 – 2.400"
+                }
+            },
+            "display": {
+                "type": "STN Blue monochrome LCD with LED backlight",
+                "resolution_px": "320 x 240"
+            },
+            "keypad": "Touch screen",
+            "result_calculation_modes": [
+                "Absorbance",
+                "Cut-off",
+                "Multi-standard",
+                "Curve types: Multi-point, Conc, Log-Log, Linear",
+                "Grey zone qualitative analysis",
+                "Abnormal result flagging"
+            ],
+            "storage": {
+                "test_parameters_onboard": 50,
+                "plates_storage": 150,
+                "sample_results": 14000,
+                "curves_per_parameter": 3
+            },
+            "quality_control": {
+                "qc_levels": 4,
+                "features": [
+                    "Levy-Jennings graph display and print",
+                    "Westgard rules"
+                ]
+            },
+            "connectivity": {
+                "interfaces": [
+                    "RS232",
+                    "External USB printer"
+                ]
+            },
+            "power_requirements": {
+                "input_voltage": "100–240V AC",
+                "frequency": "50/60 Hz",
+                "power_consumption": "≤ 65W"
+            },
+            "operating_environment": {
+                "temperature_c": "5 – 40"
+            },
+            "dimensions_mm": {
+                "width": 400,
+                "depth": 525,
+                "height": 185
+            },
+            "weight_kg": 14
+        },
+        "features": {
+            "performance": [
+                "High optical accuracy and stability",
+                "Fast reading speed for routine ELISA testing",
+                "Wide wavelength coverage for infectious and hormone assays"
+            ],
+            "efficiency": [
+                "Direct sample reports",
+                "Intuitive software with minimal training required",
+                "Low maintenance design"
+            ],
+            "user_experience": [
+                "Interactive touch screen interface",
+                "Self-diagnostics",
+                "Copy test function",
+                "Rerun option"
+            ]
+        },
+        "compatibility": {
+            "focused_test_menu": [
+                "HIV 1 & 2",
+                "HIV 4th Gen",
+                "HBsAg",
+                "HCV",
+                "Hepatitis B",
+                "Hepatitis C",
+                "Thyroid (T3, T4, TSH)",
+                "Endocrinology (LH, FSH, Prolactin)",
+                "Infectious diseases",
+                "Metabolism tests",
+                "Dengue (IgG, IgM, NS1)"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "ELISA testing laboratories",
+                "Blood banks",
+                "Small to mid-sized diagnostic centers",
+                "Infectious disease screening programs"
+            ],
+            "key_strengths": [
+                "Wide test menu support",
+                "Advanced QC and result calculation modes",
+                "Reliable optical system",
+                "Competitive pricing with reagent bundles"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "ELISA",
+        "type": "Semi Automated ELISA Plate Reader",
+        "product_code": "SAAEIQ-08",
+        "instrument_name": "EIAQuant (with LED)",
+        "brand": "Meril",
+        "model_name": "Merilyzer EIAQuant",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "ELISA Plate Reader",
+        "commercial_details": {
+            "slab_quantity": 5,
+            "price_per_unit_rs": 900000,
+            "foc_reagents": "2 sets HIV 4th Gen / HBsAg & HCV 3rd Gen OR 2 sets TFT kits",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 3 PDCs"
+        },
+        "technical_specifications": {
+            "detection_principle": "Absorbance",
+            "assay_modes": [
+                "Quantitative",
+                "Semi-Quantitative",
+                "Qualitative"
+            ],
+            "microplate_type": "96 well",
+            "measuring_system": "8-channel fiber optic optical system",
+            "reading_speed": {
+                "monochromatic": "8 sec per 96 wells",
+                "bichromatic": "18 sec per 96 wells"
+            },
+            "light_source": "12V 20W Halogen lamp",
+            "wavelength_range_nm": "405 – 630",
+            "filters": {
+                "standard_filters_nm": [
+                    405,
+                    450,
+                    492,
+                    630
+                ],
+                "optional_filters": 3,
+                "filter_positions": 8
+            },
+            "optical_characteristics": {
+                "bandwidth_nm": "400 – 700",
+                "dynamic_range_od": "0 – 4.0",
+                "photometric_accuracy_od": "±0.005",
+                "repeatability_cv": "< 3%",
+                "linearity_od": {
+                    "400_nm": "0.000 – 3.000",
+                    "450_nm": "0.000 – 2.400"
+                }
+            },
+            "display": {
+                "type": "STN Blue monochrome LCD with LED backlight",
+                "resolution_px": "320 x 240"
+            },
+            "keypad": "Touch screen",
+            "result_calculation_modes": [
+                "Absorbance",
+                "Cut-off",
+                "Multi-standard",
+                "Curve types: Multi-point, Conc, Log-Log, Linear",
+                "Grey zone qualitative analysis",
+                "Abnormal result flagging"
+            ],
+            "storage": {
+                "test_parameters_onboard": 50,
+                "plates_storage": 150,
+                "sample_results": 14000,
+                "curves_per_parameter": 3
+            },
+            "quality_control": {
+                "qc_levels": 4,
+                "features": [
+                    "Levy-Jennings graph display and print",
+                    "Westgard rules"
+                ]
+            },
+            "connectivity": {
+                "interfaces": [
+                    "RS232",
+                    "External USB printer"
+                ]
+            },
+            "power_requirements": {
+                "input_voltage": "100–240V AC",
+                "frequency": "50/60 Hz",
+                "power_consumption": "≤ 65W"
+            },
+            "operating_environment": {
+                "temperature_c": "5 – 40"
+            },
+            "dimensions_mm": {
+                "width": 400,
+                "depth": 525,
+                "height": 185
+            },
+            "weight_kg": 14
+        },
+        "features": {
+            "performance": [
+                "High optical accuracy and stability",
+                "Fast reading speed for routine ELISA testing",
+                "Wide wavelength coverage for infectious and hormone assays"
+            ],
+            "efficiency": [
+                "Direct sample reports",
+                "Intuitive software with minimal training required",
+                "Low maintenance design"
+            ],
+            "user_experience": [
+                "Interactive touch screen interface",
+                "Self-diagnostics",
+                "Copy test function",
+                "Rerun option"
+            ]
+        },
+        "compatibility": {
+            "focused_test_menu": [
+                "HIV 1 & 2",
+                "HIV 4th Gen",
+                "HBsAg",
+                "HCV",
+                "Hepatitis B",
+                "Hepatitis C",
+                "Thyroid (T3, T4, TSH)",
+                "Endocrinology (LH, FSH, Prolactin)",
+                "Infectious diseases",
+                "Metabolism tests",
+                "Dengue (IgG, IgM, NS1)"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "ELISA testing laboratories",
+                "Blood banks",
+                "Small to mid-sized diagnostic centers",
+                "Infectious disease screening programs"
+            ],
+            "key_strengths": [
+                "Wide test menu support",
+                "Advanced QC and result calculation modes",
+                "Reliable optical system",
+                "Competitive pricing with reagent bundles"
+            ]
+        }
+    }
+]

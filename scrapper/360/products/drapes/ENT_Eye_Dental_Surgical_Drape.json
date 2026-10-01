@@ -1,0 +1,75 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "ENT / Eye / Dental Surgical Drape",
+    "series_name": "MEVEL™ ENT / Eye / Dental Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric with SMPE absorbent reinforcement",
+      "fabric_abbreviation_key": {
+        "SMPE": "Spunbond-Meltblown-Polyethylene-Laminated"
+      },
+      "reinforcement": "Premium SMPE absorbent fabric"
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Dental Drape",
+    "description": "The Mevel Dental Drape, measuring 50 cm × 80 cm, is specifically designed for dental and maxillofacial procedures.",
+    "size": "50 cm × 80 cm",
+    "dimensions_cm": {
+      "length": 50,
+      "width": 80
+    },
+    "fenestration": "Centrally placed 10 cm × 10 cm fenestration with pouch",
+    "features": [
+      "Centrally placed 10 cm × 10 cm fenestration with pouch",
+      "Drape is reinforced with premium SMPE absorbent fabric to ensure high fluid absorbency"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "ENT / Eye / Dental Surgical Drape",
+    "series_name": "MEVEL™ ENT / Eye / Dental Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric with SMPE absorbent reinforcement",
+      "fabric_abbreviation_key": {
+        "SMPE": "Spunbond-Meltblown-Polyethylene-Laminated"
+      },
+      "reinforcement": "Premium SMPE absorbent fabric"
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Eye Drape",
+    "description": "Mevel Eye Drape, sized 80 cm × 90 cm, is designed to provide optimal coverage and fluid control during eye surgeries and ophthalmic procedures.",
+    "size": "80 cm × 90 cm",
+    "dimensions_cm": {
+      "length": 80,
+      "width": 90
+    },
+    "fenestration": "8 cm × 8 cm fenestration with pouch",
+    "features": [
+      "8 cm × 8 cm fenestration with pouch",
+      "Reinforced with an SMPE absorbent layer to manage fluids effectively",
+      "Transparent incise film that ensures secure adhesion to patient skin"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

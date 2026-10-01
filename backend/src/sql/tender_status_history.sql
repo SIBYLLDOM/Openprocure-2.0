@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS tender_status_history (
   id INT AUTO_INCREMENT PRIMARY KEY,
   bid_number VARCHAR(100) NOT NULL,
-  status ENUM('proceed', 'win', 'lose', 'on-hold') NOT NULL,
+  status ENUM('proceed', 'win', 'lose', 'close') NOT NULL,
   remarks TEXT,
   created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

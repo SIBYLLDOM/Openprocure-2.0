@@ -1,0 +1,501 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Gown",
+    "series_name": "MAIRA™ Surgical Gowns",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "fabric_construction": "Polypropylene SSMMS non-woven, hydrophobic",
+      "color": "Blue",
+      "design": "Straight Shoulders - Velcro Neck",
+      "closure": "Velcro hook and loop closures for adjustable neckline",
+      "seam_type": "Ultrasonically sealed seams",
+      "tie_type": "Ultrasonic tie",
+      "cuff_types": [
+        "Knitted cuff",
+        "Elastic cuff"
+      ],
+      "sterilization": "EO Sterile as per ISO 11135",
+      "packaging": [
+        "Book folded for aseptic handling and easy usage",
+        "Pouch packed in certified and validated medical-grade packaging"
+      ],
+      "units_per_case": "10 Pcs",
+      "barrier_properties": [
+        "Breathable fabric resists fluid penetration and blood strike-through",
+        "Effective microbial penetration resistance",
+        "Water repellant",
+        "Virtually lint-free"
+      ],
+      "biocompatibility": "Certified free from skin irritation, sensitization and cytotoxicity",
+      "breathability": "Advanced moisture vapor transmission compared to standard SMS gowns",
+      "standard_compliance": [
+        "ANSI/AAMI PB70:2012",
+        "ISO 11135"
+      ],
+      "size_chart": [
+        {
+          "size": "L",
+          "length_cm": 124,
+          "width_cm": 160
+        },
+        {
+          "size": "XL",
+          "length_cm": 134,
+          "width_cm": 160
+        },
+        {
+          "size": "XXL",
+          "length_cm": 144,
+          "width_cm": 160
+        },
+        {
+          "size": "XXXL",
+          "length_cm": 150,
+          "width_cm": 160
+        }
+      ]
+    },
+    "product_code": "",
+    "instrument_name": "MAIRA™ Isolation Gown",
+    "model": "Isolation Gown",
+    "tagline": "Lightweight Protection. Everyday Confidence.",
+    "description": "Isolation Gowns are designed to provide essential protection for healthcare professionals in low-risk environments.",
+    "material": "35 GSM SMS Medical Textiles",
+    "gsm": 35,
+    "aami_level": 1,
+    "design": "Straight Shoulders - Velcro Neck",
+    "cuff": null,
+    "sterilization": "EO Sterile",
+    "units_per_case": "10 Pcs",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Gown",
+    "series_name": "MAIRA™ Surgical Gowns",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "fabric_construction": "Polypropylene SSMMS non-woven, hydrophobic",
+      "color": "Blue",
+      "design": "Straight Shoulders - Velcro Neck",
+      "closure": "Velcro hook and loop closures for adjustable neckline",
+      "seam_type": "Ultrasonically sealed seams",
+      "tie_type": "Ultrasonic tie",
+      "cuff_types": [
+        "Knitted cuff",
+        "Elastic cuff"
+      ],
+      "sterilization": "EO Sterile as per ISO 11135",
+      "packaging": [
+        "Book folded for aseptic handling and easy usage",
+        "Pouch packed in certified and validated medical-grade packaging"
+      ],
+      "units_per_case": "10 Pcs",
+      "barrier_properties": [
+        "Breathable fabric resists fluid penetration and blood strike-through",
+        "Effective microbial penetration resistance",
+        "Water repellant",
+        "Virtually lint-free"
+      ],
+      "biocompatibility": "Certified free from skin irritation, sensitization and cytotoxicity",
+      "breathability": "Advanced moisture vapor transmission compared to standard SMS gowns",
+      "standard_compliance": [
+        "ANSI/AAMI PB70:2012",
+        "ISO 11135"
+      ],
+      "size_chart": [
+        {
+          "size": "L",
+          "length_cm": 124,
+          "width_cm": 160
+        },
+        {
+          "size": "XL",
+          "length_cm": 134,
+          "width_cm": 160
+        },
+        {
+          "size": "XXL",
+          "length_cm": 144,
+          "width_cm": 160
+        },
+        {
+          "size": "XXXL",
+          "length_cm": 150,
+          "width_cm": 160
+        }
+      ]
+    },
+    "product_code": "",
+    "instrument_name": "MAIRA™ Standard Gown",
+    "model": "Standard Gown",
+    "tagline": "Reliable Protection. Everyday Performance.",
+    "description": "Standard Gowns are designed to meet the needs of healthcare professionals in procedures involving low to moderate fluid exposure.",
+    "material": "43 GSM SMS Medical Textiles",
+    "gsm": 43,
+    "aami_level": 2,
+    "design": "Straight Shoulders - Velcro Neck",
+    "cuff": "Elastic Cuff",
+    "sterilization": "EO Sterile",
+    "units_per_case": "10 Pcs",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Gown",
+    "series_name": "MAIRA™ Surgical Gowns",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "fabric_construction": "Polypropylene SSMMS non-woven, hydrophobic",
+      "color": "Blue",
+      "design": "Straight Shoulders - Velcro Neck",
+      "closure": "Velcro hook and loop closures for adjustable neckline",
+      "seam_type": "Ultrasonically sealed seams",
+      "tie_type": "Ultrasonic tie",
+      "cuff_types": [
+        "Knitted cuff",
+        "Elastic cuff"
+      ],
+      "sterilization": "EO Sterile as per ISO 11135",
+      "packaging": [
+        "Book folded for aseptic handling and easy usage",
+        "Pouch packed in certified and validated medical-grade packaging"
+      ],
+      "units_per_case": "10 Pcs",
+      "barrier_properties": [
+        "Breathable fabric resists fluid penetration and blood strike-through",
+        "Effective microbial penetration resistance",
+        "Water repellant",
+        "Virtually lint-free"
+      ],
+      "biocompatibility": "Certified free from skin irritation, sensitization and cytotoxicity",
+      "breathability": "Advanced moisture vapor transmission compared to standard SMS gowns",
+      "standard_compliance": [
+        "ANSI/AAMI PB70:2012",
+        "ISO 11135"
+      ],
+      "size_chart": [
+        {
+          "size": "L",
+          "length_cm": 124,
+          "width_cm": 160
+        },
+        {
+          "size": "XL",
+          "length_cm": 134,
+          "width_cm": 160
+        },
+        {
+          "size": "XXL",
+          "length_cm": 144,
+          "width_cm": 160
+        },
+        {
+          "size": "XXXL",
+          "length_cm": 150,
+          "width_cm": 160
+        }
+      ]
+    },
+    "product_code": "",
+    "instrument_name": "MAIRA™ Reinforced Gown",
+    "model": "Reinforced Gowns",
+    "tagline": "Extra Protection Where It Matters Most.",
+    "description": "Reinforced Gowns are designed for procedures involving moderate fluid exposure, offering AAMI Level 3 protection. The gowns combine strength, comfort, and targeted safety to meet the needs of high-demand clinical settings.",
+    "material": "43 GSM SMS Medical-grade textiles, Reinforced in Critical Zone",
+    "gsm": 43,
+    "reinforcement": "Critical Zone",
+    "aami_level": 3,
+    "design": "Straight Shoulders - Velcro Neck",
+    "cuff": "Elastic Cuff",
+    "sterilization": "EO Sterile",
+    "units_per_case": "10 Pcs",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Gown",
+    "series_name": "MAIRA™ Surgical Gowns",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "fabric_construction": "Polypropylene SSMMS non-woven, hydrophobic",
+      "color": "Blue",
+      "design": "Straight Shoulders - Velcro Neck",
+      "closure": "Velcro hook and loop closures for adjustable neckline",
+      "seam_type": "Ultrasonically sealed seams",
+      "tie_type": "Ultrasonic tie",
+      "cuff_types": [
+        "Knitted cuff",
+        "Elastic cuff"
+      ],
+      "sterilization": "EO Sterile as per ISO 11135",
+      "packaging": [
+        "Book folded for aseptic handling and easy usage",
+        "Pouch packed in certified and validated medical-grade packaging"
+      ],
+      "units_per_case": "10 Pcs",
+      "barrier_properties": [
+        "Breathable fabric resists fluid penetration and blood strike-through",
+        "Effective microbial penetration resistance",
+        "Water repellant",
+        "Virtually lint-free"
+      ],
+      "biocompatibility": "Certified free from skin irritation, sensitization and cytotoxicity",
+      "breathability": "Advanced moisture vapor transmission compared to standard SMS gowns",
+      "standard_compliance": [
+        "ANSI/AAMI PB70:2012",
+        "ISO 11135"
+      ],
+      "size_chart": [
+        {
+          "size": "L",
+          "length_cm": 124,
+          "width_cm": 160
+        },
+        {
+          "size": "XL",
+          "length_cm": 134,
+          "width_cm": 160
+        },
+        {
+          "size": "XXL",
+          "length_cm": 144,
+          "width_cm": 160
+        },
+        {
+          "size": "XXXL",
+          "length_cm": 150,
+          "width_cm": 160
+        }
+      ]
+    },
+    "product_code": "",
+    "instrument_name": "MAIRA™ Fully Reinforced Gown",
+    "model": "Fully Reinforced Gowns",
+    "tagline": "Defining Protection. Delivering Assurance.",
+    "description": "Fully Reinforced Gowns set a new benchmark in surgical apparel protection. Built on a 43 GSM SMS base fabric, these gowns are entirely reinforced from collar to hemline and across full sleeves with a 30 GSM highly breathable film, delivering AAMI Level 4 protection.",
+    "material": "43 GSM SMS Medical-grade textiles, Reinforced in Critical Zone (Sleeves, Chest, and Arm Pit)",
+    "gsm": 43,
+    "reinforcement": "Critical Zone (Sleeves, Chest and Arm Pit), 30 GSM highly breathable film, collar to hemline and full sleeves",
+    "aami_level": 4,
+    "design": "Straight Shoulders - Velcro Neck",
+    "cuff": "Elastic Cuff",
+    "sterilization": "EO Sterile",
+    "ideal_applications": [
+      "Cardiovascular",
+      "Orthopaedic",
+      "High fluid exposure cases"
+    ],
+    "units_per_case": "10 Pcs",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Gown",
+    "series_name": "MAIRA™ Surgical Gowns",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "fabric_construction": "Polypropylene SSMMS non-woven, hydrophobic",
+      "color": "Blue",
+      "design": "Straight Shoulders - Velcro Neck",
+      "closure": "Velcro hook and loop closures for adjustable neckline",
+      "seam_type": "Ultrasonically sealed seams",
+      "tie_type": "Ultrasonic tie",
+      "cuff_types": [
+        "Knitted cuff",
+        "Elastic cuff"
+      ],
+      "sterilization": "EO Sterile as per ISO 11135",
+      "packaging": [
+        "Book folded for aseptic handling and easy usage",
+        "Pouch packed in certified and validated medical-grade packaging"
+      ],
+      "units_per_case": "10 Pcs",
+      "barrier_properties": [
+        "Breathable fabric resists fluid penetration and blood strike-through",
+        "Effective microbial penetration resistance",
+        "Water repellant",
+        "Virtually lint-free"
+      ],
+      "biocompatibility": "Certified free from skin irritation, sensitization and cytotoxicity",
+      "breathability": "Advanced moisture vapor transmission compared to standard SMS gowns",
+      "standard_compliance": [
+        "ANSI/AAMI PB70:2012",
+        "ISO 11135"
+      ],
+      "size_chart": [
+        {
+          "size": "L",
+          "length_cm": 124,
+          "width_cm": 160
+        },
+        {
+          "size": "XL",
+          "length_cm": 134,
+          "width_cm": 160
+        },
+        {
+          "size": "XXL",
+          "length_cm": 144,
+          "width_cm": 160
+        },
+        {
+          "size": "XXXL",
+          "length_cm": 150,
+          "width_cm": 160
+        }
+      ]
+    },
+    "product_code": "",
+    "instrument_name": "MAIRA™ Supreme Gown",
+    "model": "Breathable / BVB Supreme Gown",
+    "tagline": "The Right Balance Between Comfort & Safety.",
+    "description": "Supreme Gowns are designed with 51 GSM advanced fabric, delivering the highest protection (AAMI Level 4) while ensuring all-day comfort. Built with Breathable Viral Barrier (BVB) film technology.",
+    "material": "51 GSM SMS Medical-grade textiles with Breathable Viral Barrier (BVB) film technology",
+    "gsm": 51,
+    "film_technology": "Breathable Viral Barrier (BVB)",
+    "aami_level": 4,
+    "design": "Straight Shoulders - Velcro Neck",
+    "cuff": "Elastic Cuff",
+    "sterilization": "EO Sterile",
+    "ideal_applications": [
+      "Cardiovascular",
+      "Orthopaedic",
+      "High fluid exposure cases"
+    ],
+    "units_per_case": "10 Pcs",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Gown",
+    "series_name": "MAIRA™ Surgical Gowns",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "fabric_construction": "Polypropylene SSMMS non-woven, hydrophobic",
+      "color": "Blue",
+      "design": "Straight Shoulders - Velcro Neck",
+      "closure": "Velcro hook and loop closures for adjustable neckline",
+      "seam_type": "Ultrasonically sealed seams",
+      "tie_type": "Ultrasonic tie",
+      "cuff_types": [
+        "Knitted cuff",
+        "Elastic cuff"
+      ],
+      "sterilization": "EO Sterile as per ISO 11135",
+      "packaging": [
+        "Book folded for aseptic handling and easy usage",
+        "Pouch packed in certified and validated medical-grade packaging"
+      ],
+      "units_per_case": "10 Pcs",
+      "barrier_properties": [
+        "Breathable fabric resists fluid penetration and blood strike-through",
+        "Effective microbial penetration resistance",
+        "Water repellant",
+        "Virtually lint-free"
+      ],
+      "biocompatibility": "Certified free from skin irritation, sensitization and cytotoxicity",
+      "breathability": "Advanced moisture vapor transmission compared to standard SMS gowns",
+      "standard_compliance": [
+        "ANSI/AAMI PB70:2012",
+        "ISO 11135"
+      ],
+      "size_chart": [
+        {
+          "size": "L",
+          "length_cm": 124,
+          "width_cm": 160
+        },
+        {
+          "size": "XL",
+          "length_cm": 134,
+          "width_cm": 160
+        },
+        {
+          "size": "XXL",
+          "length_cm": 144,
+          "width_cm": 160
+        },
+        {
+          "size": "XXXL",
+          "length_cm": 150,
+          "width_cm": 160
+        }
+      ]
+    },
+    "product_code": "",
+    "instrument_name": "MAIRA™ Premium Surgical Gown",
+    "model": "Pro Surgical Premiere Gowns",
+    "tagline": "Ultimate Protection. Professional Confidence.",
+    "description": "The MAIRA™ Premium is built for the highest-risk surgical environments. With 60 GSM trilaminate fabric and AAMI Level 4 certification, these gowns provide maximum fluid and pathogen protection without compromising comfort.",
+    "material": "60 GSM trilaminate Medical-grade textiles",
+    "gsm": 60,
+    "fabric_type": "Trilaminate",
+    "aami_level": 4,
+    "design": "Straight Shoulders - Velcro Neck",
+    "cuff": "Elastic Cuff",
+    "sterilization": "EO Sterile",
+    "ideal_applications": [
+      "Cardiovascular",
+      "Orthopaedic",
+      "High fluid exposure cases"
+    ],
+    "units_per_case": "10 Pcs",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

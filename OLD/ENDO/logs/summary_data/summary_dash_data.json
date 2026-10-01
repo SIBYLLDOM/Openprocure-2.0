@@ -1,0 +1,23 @@
+{
+  "final_rating": "4.43",
+  "delivery_rating": "4.49",
+  "reliability_rating": "4.00",
+  "quality_rating": "4.88",
+  "feedback_rating": "N/A",
+  "buyer_feedback_rating": "5.00",
+  "total_orders": "343",
+  "pending_acceptance": "0",
+  "pending_delivery": "49",
+  "total_bids": "93",
+  "bids_won": "23",
+  "bids_lost": "70",
+  "total_incidents": "18",
+  "pending_response": "0",
+  "pending_resolution": "0",
+  "total_products": "2344",
+  "published_products": "1921",
+  "pending_approval_products": "22",
+  "total_charges": "4.08L",
+  "paid_amount": "3.68L",
+  "pending_amount": "0"
+}

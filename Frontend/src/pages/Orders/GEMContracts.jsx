@@ -2,7 +2,9 @@
 // Route: /orders/gem-contracts
 
 import React, { useState, useMemo } from 'react';
+import * as XLSX from 'xlsx';
 import '../../assets/css/GEMContracts.css';
+import SearchableSelect from '../../components/common/SearchableSelect';
 
 // Dummy data
 const INITIAL_CONTRACTS = [
@@ -420,121 +422,172 @@ const GEMContracts = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sortBy, setSortBy] = useState('contractDate-desc');
   const [loading, setLoading] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [totalValue, setTotalValue] = useState(0);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const scrollSentinelRef = React.useRef(null);
+  const [categoryOptions, setCategoryOptions] = useState([]);
 
   // Search and filter states
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [filters, setFilters] = useState({
-    referenceNo: '',
     state: 'All States',
     departmentType: 'All',
-    department: '',
+    category: '',
     assignBy: 'All',
     assignTo: 'All',
     mailType: 'All',
-    qtyOperator: '>=',
-    qtyValue: '',
-    valueOperator: '>=',
-    valueFrom: '',
-    valueTo: '',
-    valueUnit: 'Lakh'
+    contractDateFrom: '',
+    contractDateTo: ''
   });
 
-  // Fetch contracts from API
+  // Load distinct category names for the Category filter dropdown — scoped to
+  // the selected Department Type, so Endo only lists Endo categories and vice versa
   React.useEffect(() => {
-    const fetchContracts = async () => {
+    const fetchCategories = async () => {
       try {
-        setLoading(true);
-        setError(null);
-
         const token = localStorage.getItem('token');
-        const [sortField, sortOrder] = sortBy.split('-');
-
-        // Build query params
-        const params = new URLSearchParams({
-          page: currentPage,
-          limit: rowsPerPage,
-          sortBy: sortField === 'contractDate' ? 'contract_date' : sortField === 'contractValue' ? 'total_value' : 'contract_date',
-          sortOrder: sortOrder || 'desc'
-        });
-
-        if (searchKeyword) params.append('search', searchKeyword);
-        if (filters.referenceNo) params.append('referenceNo', filters.referenceNo);
-        if (filters.state !== 'All States') params.append('state', filters.state);
+        const params = new URLSearchParams();
         if (filters.departmentType !== 'All') params.append('departmentType', filters.departmentType);
-        if (filters.department) params.append('department', filters.department);
-
-        // Quantity Filter
-        if (filters.qtyValue) {
-          params.append('qtyValue', filters.qtyValue);
-          params.append('qtyOperator', filters.qtyOperator);
-        }
-
-        // Value Filter
-        if (filters.valueFrom || filters.valueTo) {
-          if (filters.valueFrom) params.append('valueFrom', filters.valueFrom);
-          if (filters.valueTo) params.append('valueTo', filters.valueTo);
-          params.append('valueUnit', filters.valueUnit);
-          params.append('valueOperator', filters.valueOperator);
-        }
-
-        const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/contracts?${params}`,
-          {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          }
-        );
-
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/contracts/meta/categories?${params}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
         const data = await response.json();
-
-        if (data.success) {
-          // Map API response to component format
-          const mappedContracts = data.data.map(contract => ({
-            id: contract.id,
-            contractNo: contract.contract_no || 'N/A',
-            contractDate: contract.contract_date || 'N/A',
-            hospitalName: contract.organization_name || 'N/A',
-            hospitalState: contract.state || 'N/A',
-            seller_name: contract.seller_name || 'N/A',  // Seller Name from database
-            merilDB: contract.is_meril_db || 'No', // Meril DB check
-            sellerState: contract.state || 'N/A',  // Seller State → state
-            category: contract.category_name || 'N/A',
-            product: contract.product || 'N/A',
-            brand: contract.brand || 'N/A',
-            merilOthers: (contract.brand && contract.brand.toLowerCase().includes('meril')) ? 'MERIL' : 'OTHERS',
-            companyName: contract.brand || 'N/A',  // Company Name → brand
-            model: contract.model || 'N/A',
-            decode: contract.product || 'N/A',  // Decode → product
-            orderedQty: parseInt(contract.ordered_quantity) || 0,
-            unitPrice: parseFloat(contract.price) || 0,
-            contractValue: parseFloat(contract.total_value?.replace(/,/g, '')) || 0,
-            department: contract.buyer_department || 'N/A',
-            status: contract.order_status || 'N/A',
-            buyerDeptOrg: contract.buyer_dept_org || 'N/A',
-            buyerDesignation: contract.buyer_designation || 'N/A',
-            officeZone: contract.office_zone || 'N/A',
-            buyingMode: contract.buying_mode || 'N/A',
-            downloadLink: contract.download_link || ''
-          }));
-
-          setContracts(mappedContracts);
-          setTotalPages(data.totalPages || 1);
-        } else {
-          setError(data.message || 'Failed to fetch contracts');
-        }
+        if (data.success) setCategoryOptions(data.data);
       } catch (err) {
-        console.error('Error fetching contracts:', err);
-        setError('Failed to fetch contracts');
-      } finally {
-        setLoading(false);
+        console.error('Error fetching categories:', err);
       }
     };
+    fetchCategories();
+  }, [filters.departmentType]);
 
-    fetchContracts();
-  }, [currentPage, rowsPerPage, sortBy, searchKeyword, filters.referenceNo, filters.state, filters.departmentType, filters.department, filters.qtyValue, filters.qtyOperator, filters.valueFrom, filters.valueTo, filters.valueUnit, filters.valueOperator]);
+  // Selected category no longer belongs to the newly chosen department — clear it
+  React.useEffect(() => {
+    if (filters.category && categoryOptions.length && !categoryOptions.includes(filters.category)) {
+      setFilters(f => ({ ...f, category: '' }));
+    }
+  }, [categoryOptions]);
+
+  // Debounce search input so we don't hit the API on every keystroke
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchKeyword);
+      setCurrentPage(1);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [searchKeyword]);
+
+  // Builds the query params shared by the paginated fetch and the export
+  const buildFilterParams = (extra = {}) => {
+    const [sortField, sortOrder] = sortBy.split('-');
+    const params = new URLSearchParams({
+      sortBy: sortField === 'contractDate' ? 'contract_date' : sortField === 'contractValue' ? 'total_value' : 'contract_date',
+      sortOrder: sortOrder || 'desc',
+      ...extra
+    });
+
+    if (debouncedSearch) params.append('search', debouncedSearch);
+    if (filters.state !== 'All States') params.append('state', filters.state);
+    if (filters.departmentType !== 'All') params.append('departmentType', filters.departmentType);
+    if (filters.category) params.append('category', filters.category);
+    if (filters.contractDateFrom) params.append('contractDateFrom', filters.contractDateFrom);
+    if (filters.contractDateTo) params.append('contractDateTo', filters.contractDateTo);
+
+    return params;
+  };
+
+  // Maps a raw API contract row to the component's shape
+  const mapContract = (contract) => ({
+    id: contract.id,
+    contractNo: contract.contract_no || 'N/A',
+    contractDate: contract.contract_date || 'N/A',
+    zonalHead: contract.zonal_head || 'N/A',
+    hospitalName: contract.hospital_name || contract.organization_name || 'N/A',
+    hospitalState: contract.hospital_state || 'N/A',
+    seller_name: contract.seller_name || 'N/A',  // Seller Name from database
+    merilDB: contract.meril_db || contract.is_meril_db || 'No', // Meril DB check
+    sellerState: contract.seller_state || 'N/A',
+    category: contract.category_name || 'N/A',
+    product: contract.product || 'N/A',
+    brand: contract.brand || 'N/A',
+    merilOthers: contract.meril_or_others
+      || ((contract.brand && contract.brand.toLowerCase().includes('meril')) ? 'MERIL' : 'OTHERS'),
+    companyName: contract.company_name || contract.brand || 'N/A',
+    model: contract.model || 'N/A',
+    decode: contract.decode_code || contract.product || 'N/A',
+    orderedQty: parseInt(contract.ordered_quantity) || 0,
+    unitPrice: parseFloat(contract.unit_price ?? contract.price) || 0,
+    contractValue: parseFloat(String(contract.total_value ?? '').replace(/,/g, '')) || 0,
+    department: contract.buyer_department || 'N/A',
+    status: contract.order_status || 'N/A',
+    buyerDeptOrg: contract.buyer_dept_org || 'N/A',
+    buyerDesignation: contract.buyer_designation || 'N/A',
+    officeZone: contract.office_zone || 'N/A',
+    buyingMode: contract.buying_mode || 'N/A',
+    downloadLink: contract.download_link || '',
+    pdfLink: contract.pdf_link || ''
+  });
+
+  // Fetches one page and either replaces the list (a fresh filter/sort/search)
+  // or appends it (infinite scroll asked for another batch).
+  const fetchContractsPage = async (page, { append } = {}) => {
+    try {
+      if (append) setLoadingMore(true); else setLoading(true);
+      setError(null);
+
+      const token = localStorage.getItem('token');
+      const params = buildFilterParams({ page, limit: rowsPerPage });
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/contracts?${params}`,
+        { headers: { 'Authorization': `Bearer ${token}` } }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setContracts(prev => append ? [...prev, ...data.data.map(mapContract)] : data.data.map(mapContract));
+        setTotalPages(data.totalPages || 1);
+        setTotalRecords(data.total || 0);
+        setTotalValue(data.totalValue || 0);
+        setCurrentPage(page);
+      } else {
+        setError(data.message || 'Failed to fetch contracts');
+      }
+    } catch (err) {
+      console.error('Error fetching contracts:', err);
+      setError('Failed to fetch contracts');
+    } finally {
+      setLoading(false);
+      setLoadingMore(false);
+    }
+  };
+
+  // Any filter/sort/search/page-size change starts over from page 1 and
+  // replaces the list — infinite scroll only appends on top of that.
+  React.useEffect(() => {
+    fetchContractsPage(1, { append: false });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rowsPerPage, sortBy, debouncedSearch, filters.state, filters.departmentType, filters.category, filters.contractDateFrom, filters.contractDateTo]);
+
+  // Infinite scroll: load the next page once the sentinel below the table
+  // comes into view, as long as there's more and nothing is already loading.
+  React.useEffect(() => {
+    const el = scrollSentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !loading && !loadingMore && currentPage < totalPages) {
+        fetchContractsPage(currentPage + 1, { append: true });
+      }
+    }, { rootMargin: '400px' });
+    observer.observe(el);
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, totalPages, loading, loadingMore, rowsPerPage, sortBy, debouncedSearch, filters.state, filters.departmentType, filters.category, filters.contractDateFrom, filters.contractDateTo]);
 
   // Handle checkbox selection
   const handleSelectAll = (e) => {
@@ -564,39 +617,79 @@ const GEMContracts = () => {
 
   const handleClearFilters = () => {
     setFilters({
-      referenceNo: '',
       state: 'All States',
       departmentType: 'All',
-      department: '',
+      category: '',
       assignBy: 'All',
       assignTo: 'All',
       mailType: 'All',
-      qtyOperator: '>=',
-      qtyValue: '',
-      valueOperator: '>=',
-      valueFrom: '',
-      valueTo: '',
-      valueUnit: 'Lakh'
+      contractDateFrom: '',
+      contractDateTo: ''
     });
     setSearchKeyword('');
     setCurrentPage(1);
   };
 
-  const handleExportToExcel = () => {
-    console.log('Exporting to Excel:', paginatedContracts);
-    // Generate CSV
-    const headers = ['Month', 'Contract No', 'Contract Date', 'Zonal Head', 'Hospital Name',
-      'Hospital State', 'Seller Name', 'Seller State', 'Category', 'Decode', 'MERIL/OTHERS',
-      'Company Name', 'Ordered Qty', 'Unit Price', 'Contract Value'];
-    const csv = [
-      headers.join(','),
-      ...paginatedContracts.map(c => [
-        c.month, c.contractNo, c.contractDate, c.zonalHead, c.hospitalName, c.hospitalState,
-        c.sellerName, c.sellerState, c.category, c.decode, c.merilOthers, c.companyName,
-        c.orderedQty, c.unitPrice, c.contractValue
-      ].join(','))
-    ].join('\n');
-    console.log(csv);
+  const handleExportToExcel = async () => {
+    setIsExporting(true);
+    try {
+      const token = localStorage.getItem('token');
+      const params = buildFilterParams({ page: 1, limit: 100000 });
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/contracts?${params}`,
+        { headers: { 'Authorization': `Bearer ${token}` } }
+      );
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to fetch contracts for export');
+      }
+
+      const rows = data.data.map(mapContract).map(c => ({
+        'Contract No': c.contractNo,
+        'Bid/Direct': c.buyingMode,
+        'Status': c.status,
+        'Contract Date': c.contractDate,
+        'Zonal Head': c.zonalHead,
+        'Hospital Name': c.hospitalName,
+        'Hospital State': c.hospitalState,
+        'Seller Name': c.seller_name,
+        'Meril DB': c.merilDB,
+        'Seller State': c.sellerState,
+        'Category': c.category,
+        'Decode': c.decode,
+        'MERIL/OTHERS': c.merilOthers,
+        'Company Name': c.companyName,
+        'Qty (Pcs)': c.orderedQty,
+        'Unit Price': c.unitPrice,
+        'Contract Value': c.contractValue,
+        'PDF Link': c.pdfLink
+      }));
+
+      const worksheet = XLSX.utils.json_to_sheet(rows);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'GeM Contracts');
+
+      const filterTag = activeFilterCount > 0 ? 'Filtered' : 'All';
+      const dateTag = new Date().toISOString().slice(0, 10);
+      XLSX.writeFile(workbook, `GeM-Contracts-${filterTag}-${dateTag}.xlsx`);
+    } catch (err) {
+      console.error('Error exporting contracts:', err);
+      setError('Failed to export contracts to Excel');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  // Compact Indian numbering (Lakh/Crore) — a summed total across many
+  // contracts is routinely in the crores, where a plain comma-grouped number
+  // is hard to read at a glance.
+  const formatCompactINR = (value) => {
+    const n = Number(value) || 0;
+    if (n >= 1e7) return `₹${(n / 1e7).toFixed(2)} Cr`;
+    if (n >= 1e5) return `₹${(n / 1e5).toFixed(2)} L`;
+    return `₹${n.toLocaleString('en-IN')}`;
   };
 
   const handleView = (id) => console.log('View contract:', id);
@@ -604,62 +697,107 @@ const GEMContracts = () => {
   const handleCopy = (id) => console.log('Copy contract:', id);
   const handleDownload = (id) => console.log('Download contract:', id);
 
+  const statusSlug = (status) =>
+    String(status || '').toLowerCase().replace(/[^a-z]+/g, '-').replace(/^-|-$/g, '') || 'unknown';
+
+  const activeFilterCount = [
+    filters.state !== 'All States' ? filters.state : '',
+    filters.departmentType !== 'All' ? filters.departmentType : '',
+    filters.department,
+    filters.contractDateFrom,
+    filters.contractDateTo,
+  ].filter(Boolean).length;
+
   return (
     <div className="gem-contracts-page">
       <div className="page-header">
-        <h1>GeM Contracts</h1>
-        <p>Manage and track all Government e-Marketplace contracts</p>
+        <div>
+          <h1>GeM Contracts</h1>
+          <p>Manage and track all Government e-Marketplace contracts</p>
+        </div>
+        <div className="page-header-stats">
+          <div className="header-stat">
+            <span className="header-stat-value">{totalRecords.toLocaleString()}</span>
+            <span className="header-stat-label">Total Contracts</span>
+          </div>
+          <div className="header-stat">
+            <span className="header-stat-value">{formatCompactINR(totalValue)}</span>
+            <span className="header-stat-label">Total Contract Value</span>
+          </div>
+          <div className="header-stat">
+            <span className="header-stat-value">{selectedContracts.length}</span>
+            <span className="header-stat-label">Selected</span>
+          </div>
+        </div>
       </div>
 
       {/* Search and Filter Section */}
       <div className="search-filter-card">
         <div className="search-row">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search by Contract No, Company Name, Category, Decode..."
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-            aria-label="Search contracts"
-          />
+          <div className="search-input-wrap">
+            <svg className="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+              <path d="M21 21l-4.3-4.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search by Contract No, Company Name, Category, Decode..."
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              aria-label="Search contracts"
+            />
+            {searchKeyword && (
+              <button
+                type="button"
+                className="search-clear"
+                onClick={() => setSearchKeyword('')}
+                aria-label="Clear search"
+              >
+                ×
+              </button>
+            )}
+          </div>
           <div className="search-actions">
             <button
-              className="btn-toggle-filters"
+              className={`btn-toggle-filters ${showFilters ? 'active' : ''}`}
               onClick={() => setShowFilters(!showFilters)}
               aria-label="Toggle filters"
             >
-              {showFilters ? '▲' : '▼'} Filters
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+              Filters
+              {activeFilterCount > 0 && <span className="filter-count-badge">{activeFilterCount}</span>}
+              <span className={`chevron ${showFilters ? 'open' : ''}`}>▾</span>
             </button>
-            <button className="btn-export" onClick={handleExportToExcel}>
-              Export to Excel
+            <button className="btn-export" onClick={handleExportToExcel} disabled={isExporting}>
+              {isExporting ? (
+                <span className="spinner" aria-hidden="true" />
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              )}
+              {isExporting ? 'Exporting…' : 'Export to Excel'}
             </button>
           </div>
         </div>
 
         {/* Advanced Filters Panel */}
-        {/* Advanced Filters Panel */}
         <div className={`filters-panel ${showFilters ? 'show' : ''}`}>
 
-          <div className="filters-grid">
-            <div className="filter-group">
-              <label>Reference Number</label>
-              <input
-                type="text"
-                value={filters.referenceNo}
-                onChange={(e) => setFilters({ ...filters, referenceNo: e.target.value })}
-              />
-            </div>
-
+          <div className="filters-row">
             <div className="filter-group">
               <label>State</label>
-              <select
+              <SearchableSelect
+                label="State"
                 value={filters.state}
-                onChange={(e) => setFilters({ ...filters, state: e.target.value })}
-              >
-                {STATES.map(state => (
-                  <option key={state} value={state}>{state}</option>
-                ))}
-              </select>
+                onChange={(val) => setFilters({ ...filters, state: val || 'All States' })}
+                options={STATES}
+                placeholder="All States"
+                searchPlaceholder="Search states..."
+              />
             </div>
 
             <div className="filter-group">
@@ -675,71 +813,40 @@ const GEMContracts = () => {
             </div>
 
             <div className="filter-group">
-              <label>Department Name</label>
-              <input
-                type="text"
-                value={filters.department}
-                onChange={(e) => setFilters({ ...filters, department: e.target.value })}
+              <label>Category</label>
+              <SearchableSelect
+                label="Category"
+                value={filters.category}
+                onChange={(val) => setFilters({ ...filters, category: val })}
+                options={categoryOptions}
+                placeholder="All Categories"
+                searchPlaceholder="Search categories..."
+                emptyLabel="No matching categories"
               />
             </div>
 
             <div className="filter-group">
-              <label>Quantity</label>
+              <label>Contract Date</label>
               <div className="filter-compound">
-                <select
-                  value={filters.qtyOperator}
-                  onChange={(e) => setFilters({ ...filters, qtyOperator: e.target.value })}
-                >
-                  <option value=">=">&gt;=</option>
-                  <option value="<=">&lt;=</option>
-                  <option value="=">=</option>
-                </select>
                 <input
-                  type="number"
-                  placeholder="Value"
-                  value={filters.qtyValue}
-                  onChange={(e) => setFilters({ ...filters, qtyValue: e.target.value })}
-                />
-              </div>
-            </div>
-
-            <div className="filter-group">
-              <label>Tender Value</label>
-              <div className="filter-compound">
-                <select
-                  value={filters.valueOperator}
-                  onChange={(e) => setFilters({ ...filters, valueOperator: e.target.value })}
-                >
-                  <option value=">=">&gt;=</option>
-                  <option value="<=">&lt;=</option>
-                  <option value="=">=</option>
-                </select>
-                <input
-                  type="number"
+                  type="date"
                   placeholder="From"
-                  value={filters.valueFrom}
-                  onChange={(e) => setFilters({ ...filters, valueFrom: e.target.value })}
+                  value={filters.contractDateFrom}
+                  onChange={(e) => setFilters({ ...filters, contractDateFrom: e.target.value })}
                 />
                 <input
-                  type="number"
+                  type="date"
                   placeholder="To"
-                  value={filters.valueTo}
-                  onChange={(e) => setFilters({ ...filters, valueTo: e.target.value })}
+                  value={filters.contractDateTo}
+                  onChange={(e) => setFilters({ ...filters, contractDateTo: e.target.value })}
                 />
-                <select
-                  value={filters.valueUnit}
-                  onChange={(e) => setFilters({ ...filters, valueUnit: e.target.value })}
-                >
-                  <option value="Lakh">Lakh</option>
-                  <option value="Crore">Crore</option>
-                </select>
               </div>
             </div>
-          </div>
 
-          <div className="filter-actions">
-            <button className="btn-search" onClick={handleSearch}>Search</button>
-            <button className="btn-clear" onClick={handleClearFilters}>Clear Filters</button>
+            <div className="filter-actions">
+              <button className="btn-search" onClick={handleSearch}>Search</button>
+              <button className="btn-clear" onClick={handleClearFilters}>Clear Filters</button>
+            </div>
           </div>
 
         </div>
@@ -795,6 +902,7 @@ const GEMContracts = () => {
               <th scope="col">S No</th>
               <th scope="col">Contract No</th>
               <th scope="col">Bid/Direct</th>
+              <th scope="col">Status</th>
               <th scope="col">Contract Date</th>
               <th scope="col">Zonal Head</th>
               <th scope="col">Hospital Name</th>
@@ -806,14 +914,32 @@ const GEMContracts = () => {
               <th scope="col">Decode</th>
               <th scope="col">MERIL/OTHERS</th>
               <th scope="col">Company Name</th>
-              <th scope="col">Qty (Pcs)</th>
-              <th scope="col">Unit Price</th>
-              <th scope="col">Contract Value</th>
+              <th scope="col" className="col-num">Qty (Pcs)</th>
+              <th scope="col" className="col-num">Unit Price</th>
+              <th scope="col" className="col-num">Contract Value</th>
+              <th scope="col">Download</th>
             </tr>
           </thead>
           <tbody>
-            {paginatedContracts.map((contract, index) => (
-              <tr key={contract.id}>
+            {loading && (
+              <tr>
+                <td colSpan={20} className="table-status-cell">
+                  <span className="spinner" aria-hidden="true" /> Loading contracts…
+                </td>
+              </tr>
+            )}
+            {!loading && error && (
+              <tr>
+                <td colSpan={20} className="table-status-cell table-status-error">{error}</td>
+              </tr>
+            )}
+            {!loading && !error && paginatedContracts.length === 0 && (
+              <tr>
+                <td colSpan={20} className="table-status-cell">No contracts found for the current filters</td>
+              </tr>
+            )}
+            {!loading && !error && paginatedContracts.map((contract, index) => (
+              <tr key={contract.id} className={selectedContracts.includes(contract.id) ? 'row-selected' : ''}>
                 <td>
                   <input
                     type="checkbox"
@@ -822,67 +948,68 @@ const GEMContracts = () => {
                     aria-label={`Select contract ${contract.contractNo}`}
                   />
                 </td>
-                <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                <td>{contract.contractNo}</td>
-                <td>{contract.buyingMode}</td>
-                <td>{contract.contractDate}</td>
+                <td className="col-muted">{index + 1}</td>
+                <td className="col-mono">{contract.contractNo}</td>
+                <td>
+                  <span className={`tag tag-mode-${statusSlug(contract.buyingMode)}`}>{contract.buyingMode}</span>
+                </td>
+                <td>
+                  <span className={`status-badge status-${statusSlug(contract.status)}`}>{contract.status}</span>
+                </td>
+                <td className="col-muted">{contract.contractDate}</td>
                 <td>{contract.zonalHead}</td>
                 <td>{contract.hospitalName}</td>
                 <td>{contract.hospitalState}</td>
                 <td>{contract.seller_name}</td>
-                <td>{contract.merilDB}</td>
+                <td>
+                  <span className={`tag tag-${contract.merilDB === 'Yes' ? 'yes' : 'no'}`}>{contract.merilDB}</span>
+                </td>
                 <td>{contract.sellerState}</td>
                 <td>{contract.category}</td>
                 <td>{contract.decode}</td>
-                <td>{contract.merilOthers}</td>
+                <td>
+                  <span className={`tag tag-${contract.merilOthers === 'MERIL' ? 'meril' : 'others'}`}>{contract.merilOthers}</span>
+                </td>
                 <td>{contract.companyName}</td>
-                <td>{contract.orderedQty}</td>
-                <td>₹{contract.unitPrice.toLocaleString()}</td>
-                <td>₹{contract.contractValue.toLocaleString()}</td>
+                <td className="col-num">{contract.orderedQty.toLocaleString()}</td>
+                <td className="col-num">₹{contract.unitPrice.toLocaleString()}</td>
+                <td className="col-num col-emphasis">₹{contract.contractValue.toLocaleString()}</td>
+                <td>
+                  {contract.pdfLink ? (
+                    <a
+                      href={contract.pdfLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-download"
+                      aria-label={`Download contract file for ${contract.contractNo}`}
+                    >
+                      Download
+                    </a>
+                  ) : (
+                    <span className="col-muted">N/A</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* Pagination */}
+      {/* Infinite scroll: loads the next batch automatically as this comes into view */}
       <div className="pagination">
         <div className="pagination-info">
-          Showing {(currentPage - 1) * rowsPerPage + 1} to {Math.min(currentPage * rowsPerPage, sortedContracts.length)} of {sortedContracts.length} entries
+          {totalRecords === 0
+            ? 'No entries found'
+            : `Showing ${contracts.length} of ${totalRecords} entries`}
         </div>
-        <div className="pagination-controls">
-          <button
-            className="btn-page"
-            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          {[...Array(totalPages)].map((_, i) => {
-            const page = i + 1;
-            if (page === 1 || page === totalPages || (page >= currentPage - 1 && page <= currentPage + 1)) {
-              return (
-                <button
-                  key={page}
-                  className={`btn-page ${currentPage === page ? 'active' : ''}`}
-                  onClick={() => setCurrentPage(page)}
-                >
-                  {page}
-                </button>
-              );
-            } else if (page === currentPage - 2 || page === currentPage + 2) {
-              return <span key={page}>...</span>;
-            }
-            return null;
-          })}
-          <button
-            className="btn-page"
-            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div>
+      </div>
+      <div ref={scrollSentinelRef} style={{ display: 'flex', justifyContent: 'center', padding: '1rem 0' }}>
+        {loadingMore && (
+          <span className="spinner" aria-hidden="true" />
+        )}
+        {!loadingMore && currentPage >= totalPages && contracts.length > 0 && (
+          <span style={{ fontSize: 13, color: 'var(--muted, #6b7280)' }}>All contracts loaded</span>
+        )}
       </div>
     </div>
   );

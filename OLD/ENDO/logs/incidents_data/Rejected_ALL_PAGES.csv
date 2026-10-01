@@ -1,0 +1,11 @@
+Severity,Incident_ID,Reason,Product_Category,Status,Escalated_Date,Incident_Date,SCN_Sent_Date,Raised_Against,Organisation_Name,Seller_Organisation_Name,Product_ID,Incident_For,SCN_End_Date,Last_Modified_Role,Last_Modified_Date,Maker_Role,Type
+Grave,1700217,Mis-declaration of Maximum Retail Price (MRP),Sutures (V2),Rejected,--,12/09/2023,--,SELLER,--,MERIL ENDO SURGERY PRIVATE LIMITED,5116877-87390617930-cat,CATALOG,--,PRODUCT ADMIN,18/09/2023,--,rejected
+Grave,1700216,Mis-declaration of Maximum Retail Price (MRP),Sutures (V2),Rejected,--,12/09/2023,--,SELLER,--,MERIL ENDO SURGERY PRIVATE LIMITED,5116877-11670541335-cat,CATALOG,--,PRODUCT ADMIN,18/09/2023,--,rejected
+Grave,1700214,Mis-declaration of Maximum Retail Price (MRP),Sutures (V2),Rejected,--,12/09/2023,--,SELLER,--,MERIL ENDO SURGERY PRIVATE LIMITED,5116877-69460690491-cat,CATALOG,--,PRODUCT ADMIN,18/09/2023,--,rejected
+Serious,559396,Unreasonable offer price,sutures,Rejected,--,28/05/2021,--,SELLER,--,SUNEEL PHARMA & DIAGNOSTICS,5116877-1405955287-cat,CATALOG,--,PRODUCT ADMIN,02/06/2021,--,rejected
+Severe,498251,Misdeclaration of Maximum Retail Price MRP,sutures,Rejected,--,14/01/2021,--,SELLER,--,BOHR SCIENTIFIC PRIVATE LIMITED,5116877-90166544215-cat,CATALOG,--,--,05/02/2021,--,rejected
+Severe,497971,Fake certificates or misdeclaration related to availability of required certifications,sutures,Rejected,--,13/01/2021,--,SELLER,--,JAYA MEDICAL STORE,5116877-69109769855-cat,CATALOG,--,--,14/01/2021,--,rejected
+Severe,497970,Misdeclaration of Maximum Retail Price MRP,sutures,Rejected,--,13/01/2021,--,SELLER,--,ISPA TRADELINK PRIVATE LIMITED,5116877-54129830652-cat,CATALOG,--,--,18/01/2021,--,rejected
+Severe,497969,"Uploading/delivering Fake or counterfeit, or refurbished products",sutures,Rejected,--,13/01/2021,--,SELLER,--,BOHR SCIENTIFIC PRIVATE LIMITED,5116877-55617471428-cat,CATALOG,--,--,14/01/2021,--,rejected
+Severe,497968,"Uploading/delivering Fake or counterfeit, or refurbished products",sutures,Rejected,--,13/01/2021,--,SELLER,--,BOHR SCIENTIFIC PRIVATE LIMITED,5116877-90166544215-cat,CATALOG,--,--,20/01/2021,--,rejected
+Serious,180316,Offering lower prices outside GeM,sutures,Rejected,--,31/12/2019,--,SELLER,--,APEX BIOMEDS PRIVATE LIMITED,5116877-54129830652-cat,CATALOG,--,--,22/04/2020,--,rejected

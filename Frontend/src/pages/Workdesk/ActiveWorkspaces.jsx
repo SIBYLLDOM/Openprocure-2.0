@@ -2,12 +2,13 @@
 // Route: /workdesk/active-workspaces
 
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Loader2, Search, Filter, ExternalLink, Eye, Clock,
   Users, TrendingUp, AlertTriangle, CheckCircle2,
   Folder, ChevronDown, LayoutGrid, List, RefreshCw,
-  Calendar, Zap, MoreHorizontal, FileText
+  FileText, Trash2, X, Calendar
 } from "lucide-react";
 import WorkspaceOverview from "./WorkspaceOverview";
 
@@ -34,10 +35,65 @@ function progColor(p) {
   return p >= 75 ? "#059669" : p >= 40 ? "#d97706" : "#dc2626";
 }
 
-function daysLeft(deadlineStr) {
-  if (!deadlineStr || deadlineStr === "N/A") return null;
-  const diff = Math.ceil((new Date(deadlineStr) - new Date()) / (1000 * 60 * 60 * 24));
-  return diff;
+// bid_end_date comes from the backend as "18-Aug-2026 02:00 PM" (gem_tenders.end_date
+// / open_tender_details.closing_date's own stored format) — parse that shape
+// specifically rather than trusting Date() on an arbitrary string.
+function parseBidEndDate(raw) {
+  if (!raw) return null;
+  const m = String(raw).match(/^(\d{1,2})-([A-Za-z]{3})-(\d{4})\s+(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+  if (!m) {
+    const d = new Date(raw);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  const [, day, mon, year, hh, mm, ampm] = m;
+  const months = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
+  let hour = parseInt(hh, 10);
+  if (ampm) {
+    const upper = ampm.toUpperCase();
+    if (upper === "PM" && hour !== 12) hour += 12;
+    if (upper === "AM" && hour === 12) hour = 0;
+  }
+  const d = new Date(Number(year), months[mon.toLowerCase()] ?? 0, Number(day), hour, Number(mm));
+  return isNaN(d.getTime()) ? null : d;
+}
+
+function isBidEndPast(raw) {
+  const d = parseBidEndDate(raw);
+  return d ? d.getTime() < Date.now() : false;
+}
+
+function formatBidEndDate(raw) {
+  const d = parseBidEndDate(raw);
+  if (!d) return raw;
+  return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+}
+
+// The dashboard's category is a UI-level read of real signals — it is NOT the raw
+// backend `status` (which is only ever 'proceed' | 'win' | 'lose' | 'close', the
+// decision outcome, and would never match "active"/"urgent"/"review"):
+//   review  — a Process Decode request is awaiting Zonal Head/Finance approval
+//   urgent  — the bid closes within 3 days (and hasn't already passed)
+//   active  — everything else still open and in progress
+function deriveWorkspaceStatus(item) {
+  if (item.decode_status === "pending") return "review";
+  const end = parseBidEndDate(item.bid_end_date);
+  if (end) {
+    const daysLeft = (end.getTime() - Date.now()) / 86400000;
+    if (daysLeft >= 0 && daysLeft <= 3) return "urgent";
+  }
+  return "active";
+}
+
+/** 0-8 real milestones -> a percentage. Never jumps ahead of an actual event. */
+function computeProgress(item) {
+  let step = 1; // proceed — always true, this list only ever shows proceeded tenders
+  if (item.decode_status) step = 3;          // Process Decode submitted (drafting-in-progress is invisible server-side, see plan)
+  if (item.decode_stage === "finance" || item.decode_status === "approved") step = 4; // Zonal Head approved
+  if (item.decode_status === "approved") step = 5; // Finance approved
+  if (item.has_summary) step = 6;
+  if (item.zip_downloaded_at) step = 7;
+  if (item.status === "close") step = 8;
+  return Math.round((step / 8) * 100);
 }
 
 /* ─────────────────────────────────────────────
@@ -117,10 +173,10 @@ const ProgressBar = ({ value }) => (
 /* ─────────────────────────────────────────────
    WORKSPACE CARD (grid view)
 ───────────────────────────────────────────── */
-const WorkspaceCard = ({ workspace, index }) => {
+const WorkspaceCard = ({ workspace, index, isAdmin, onDelete, onClose, closingId, navigate }) => {
   const cfg = STATUS_CONFIG[workspace.status] || STATUS_CONFIG.active;
   const Icon = STATUS_ICON[workspace.status] || Folder;
-  const days = daysLeft(workspace.deadline);
+  const isClosing = closingId === workspace.tenderId;
 
   return (
     <div
@@ -148,7 +204,10 @@ const WorkspaceCard = ({ workspace, index }) => {
             <div className="ws-tender-id">{workspace.tenderId}</div>
           </div>
         </div>
-        <StatusBadge status={workspace.status} />
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <ProcessChip stage={workspace.processStage} />
+          <StatusBadge status={workspace.status} />
+        </div>
       </div>
 
       {/* Title */}
@@ -157,23 +216,17 @@ const WorkspaceCard = ({ workspace, index }) => {
       {/* Meta info */}
       <div className="ws-meta">
         <div className="ws-meta-item">
-          <Calendar size={12} color="#94a3b8" />
-          <span style={{ color: days !== null && days < 7 ? "#dc2626" : "#64748b" }}>
-            {workspace.deadline === "N/A"
-              ? "No deadline"
-              : days !== null
-              ? days < 0
-                ? `${Math.abs(days)}d overdue`
-                : days === 0
-                ? "Due today"
-                : `${days}d left`
-              : workspace.deadline}
-          </span>
-        </div>
-        <div className="ws-meta-item">
           <Users size={12} color="#94a3b8" />
-          <span>{workspace.team}</span>
+          <span>Marked by {workspace.markedBy}</span>
         </div>
+        {workspace.bidEndDate && (
+          <div className="ws-meta-item">
+            <Calendar size={12} color={isBidEndPast(workspace.bidEndDate) ? "#dc2626" : "#94a3b8"} />
+            <span style={isBidEndPast(workspace.bidEndDate) ? { color: "#dc2626", fontWeight: 600 } : undefined}>
+              Bid End: {formatBidEndDate(workspace.bidEndDate)}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Progress */}
@@ -194,18 +247,29 @@ const WorkspaceCard = ({ workspace, index }) => {
       <div className="ws-actions">
         <button
           className="ws-btn-primary"
-          onClick={() => window.open(`/workspace/${workspace.tenderId}`, "_blank")}
+          onClick={() => navigate(`/workspace/${workspace.tenderId}`)}
         >
           <ExternalLink size={13} />
           Open Workspace
         </button>
         <button
           className="ws-btn-secondary"
-          onClick={() => console.log("View details", workspace.tenderId)}
+          onClick={() => onClose(workspace)}
+          disabled={isClosing}
+          style={{ opacity: isClosing ? 0.6 : 1, cursor: isClosing ? 'not-allowed' : 'pointer' }}
         >
-          <Eye size={13} />
-          Details
+          {isClosing ? <Loader2 size={13} className="spin" /> : <X size={13} />}
+          {isClosing ? 'Closing…' : 'Close'}
         </button>
+        {isAdmin && (
+          <button
+            className="ws-icon-btn ws-icon-btn-danger"
+            onClick={() => onDelete(workspace)}
+            title="Delete workspace"
+          >
+            <Trash2 size={13} />
+          </button>
+        )}
       </div>
     </div>
   );
@@ -214,8 +278,8 @@ const WorkspaceCard = ({ workspace, index }) => {
 /* ─────────────────────────────────────────────
    WORKSPACE ROW (list view)
 ───────────────────────────────────────────── */
-const WorkspaceRow = ({ workspace, index }) => {
-  const days = daysLeft(workspace.deadline);
+const WorkspaceRow = ({ workspace, index, isAdmin, onDelete, onClose, closingId, navigate }) => {
+  const isClosing = closingId === workspace.tenderId;
   return (
     <tr className="ws-row" style={{ animationDelay: `${index * 30}ms` }}>
       <td style={{ padding: "12px 16px" }}>
@@ -233,35 +297,35 @@ const WorkspaceRow = ({ workspace, index }) => {
         <ProgressBar value={workspace.progress} />
       </td>
       <td style={{ padding: "12px 16px" }}>
-        <span style={{
-          fontSize: 12, fontWeight: 500,
-          color: days !== null && days < 7 ? "#dc2626" : "#64748b",
-        }}>
-          {workspace.deadline === "N/A" ? "—" : days !== null
-            ? days < 0 ? <span style={{ color: "#dc2626" }}>{Math.abs(days)}d overdue</span>
-            : days === 0 ? "Today" : `${days}d`
-            : workspace.deadline}
-        </span>
-      </td>
-      <td style={{ padding: "12px 16px" }}>
-        <Pill color="gray">{workspace.team}</Pill>
+        <Pill color="gray">{workspace.markedBy}</Pill>
       </td>
       <td style={{ padding: "12px 16px" }}>
         <div style={{ display: "flex", gap: 6 }}>
           <button
             className="ws-icon-btn"
-            onClick={() => window.open(`/workspace/${workspace.tenderId}`, "_blank")}
+            onClick={() => navigate(`/workspace/${workspace.tenderId}`)}
             title="Open workspace"
           >
             <ExternalLink size={13} />
           </button>
           <button
             className="ws-icon-btn"
-            onClick={() => console.log("View details", workspace.tenderId)}
-            title="View details"
+            onClick={() => onClose(workspace)}
+            disabled={isClosing}
+            title="Close workspace"
+            style={{ opacity: isClosing ? 0.6 : 1 }}
           >
-            <Eye size={13} />
+            {isClosing ? <Loader2 size={13} className="spin" /> : <X size={13} />}
           </button>
+          {isAdmin && (
+            <button
+              className="ws-icon-btn ws-icon-btn-danger"
+              onClick={() => onDelete(workspace)}
+              title="Delete workspace"
+            >
+              <Trash2 size={13} />
+            </button>
+          )}
         </div>
       </td>
     </tr>
@@ -299,33 +363,102 @@ const StatCard = ({ label, value, icon: Icon, color }) => {
 /* ─────────────────────────────────────────────
    MAIN PAGE
 ───────────────────────────────────────────── */
+
+/**
+ * Where a tender currently sits in the Sales -> Zonal Head -> Finance flow.
+ *
+ * Derived from its newest Process Decode request, so the card says what is
+ * actually happening ("Pricing done", "With Finance") rather than only the
+ * proceed/win/lose status.
+ */
+const PROCESS_STAGE = {
+  none: { label: "Decode pending", color: "#64748b", bg: "#f1f5f9" },
+  zonal_head: { label: "With Zonal Head", color: "#0369a1", bg: "#e0f2fe" },
+  finance: { label: "With Finance", color: "#7c3aed", bg: "#f3e8ff" },
+  awaiting_ack: { label: "Awaiting acknowledgement", color: "#b45309", bg: "#fef3c7" },
+  done: { label: "Pricing done", color: "#15803d", bg: "#dcfce7" },
+  rejected: { label: "Sent back", color: "#dc2626", bg: "#fee2e2" },
+};
+
+const stageOf = (request) => {
+  if (!request) return "none";
+  if (request.status === "rejected") return "rejected";
+  if (request.status === "approved") return request.ack_required ? "awaiting_ack" : "done";
+  return request.stage === "finance" ? "finance" : "zonal_head";
+};
+
+const ProcessChip = ({ stage }) => {
+  const cfg = PROCESS_STAGE[stage] || PROCESS_STAGE.none;
+  return (
+    <span style={{
+      fontSize: 10.5, fontWeight: 700, letterSpacing: ".02em", textTransform: "uppercase",
+      color: cfg.color, background: cfg.bg, border: `1px solid ${cfg.color}33`,
+      padding: "2px 8px", borderRadius: 999, whiteSpace: "nowrap",
+    }}>{cfg.label}</span>
+  );
+};
+
 const ActiveWorkspaces = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm]   = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [teamFilter, setTeamFilter]   = useState("all");
   const [viewMode, setViewMode]       = useState("grid"); // "grid" | "list"
   const [workspaces, setWorkspaces]   = useState([]);
   const [loading, setLoading]         = useState(true);
   const [error, setError]             = useState(null);
   const [refreshing, setRefreshing]   = useState(false);
+  const [deletingId, setDeletingId]   = useState(null);
+  const [closingId,  setClosingId]    = useState(null);
+  const [confirmClose, setConfirmClose] = useState(null); // workspace object pending close confirmation
+  const [closeToast, setCloseToast]   = useState(false);
+
+  let currentUser = null;
+  try { currentUser = JSON.parse(localStorage.getItem("user")); } catch { /* ignore */ }
+  const isAdmin = currentUser?.role === "Admin" || currentUser?.role === "Tender Admin" || currentUser?.role === "Office Administrator";
 
   const fetchWorkspaces = async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/tender-status/tender-status-history`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const base = import.meta.env.VITE_API_BASE_URL;
+      const auth = { headers: { Authorization: `Bearer ${token}` } };
+
+      // Pull the workspaces and the decode requests together — one extra round
+      // trip, rather than one per tender.
+      const [response, ...decodeResponses] = await Promise.all([
+        axios.get(`${base}/tender-status/tender-status-history`, auth),
+        ...["pending", "approved", "rejected"].map((st) =>
+          axios
+            .get(`${base}/approvals?status=${st}&type=process_decode`, auth)
+            .catch(() => ({ data: { data: [] } }))
+        ),
+      ]);
+
+      // Newest request per bid decides the stage shown.
+      const byBid = {};
+      decodeResponses
+        .flatMap((r) => r.data?.data || [])
+        .sort((a, b) => a.id - b.id)
+        .forEach((r) => {
+          const key = String(r.bid_number).replace(/_/g, "/");
+          byBid[key] = r;
+        });
+
       if (response.data.success) {
-        const mapped = response.data.data.map((item) => ({
-          tenderId: item.bid_number,
-          title: item.remarks || `Tender ${item.bid_number}`,
-          deadline: "N/A",
-          team: "Unassigned",
-          status: item.status || "active",
-          progress: 0,
-        }));
+        const mapped = response.data.data
+          // Closed tenders are done — they no longer belong in Active Workspaces.
+          // (Raw backend status: 'proceed' | 'win' | 'lose' | 'close' — checked here,
+          // before it's replaced below by the derived UI category.)
+          .filter((item) => item.status !== "close")
+          .map((item) => ({
+            tenderId: item.bid_number,
+            title: item.remarks || `Tender ${item.bid_number}`,
+            markedBy: item.marked_by_email ? item.marked_by_email.split("@")[0] : "Unassigned",
+            status: deriveWorkspaceStatus(item),
+            processStage: stageOf(byBid[String(item.bid_number).replace(/_/g, "/")]),
+            progress: computeProgress(item),
+            bidEndDate: item.bid_end_date || null,
+          }));
         setWorkspaces(mapped);
       } else {
         setError("Failed to fetch workspaces");
@@ -341,13 +474,82 @@ const ActiveWorkspaces = () => {
 
   useEffect(() => { fetchWorkspaces(); }, []);
 
+  const handleDelete = async (workspace) => {
+    if (!window.confirm(`Delete workspace "${workspace.title}" (${workspace.tenderId})? This permanently wipes its Doc Prep analysis, My Documents, tasks, and deadlines — if this tender is reopened later, it starts completely fresh. This cannot be undone.`)) {
+      return;
+    }
+    setDeletingId(workspace.tenderId);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_BASE_URL}/tender-status/tender-status-history/${encodeURIComponent(workspace.tenderId)}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (response.data.success) {
+        // "My Documents" drafted docs (the /Docs editor's autosaves) live only
+        // in this browser's localStorage — the server has no way to clear
+        // them, so a deleted workspace still needs this wipe here too.
+        const tidNorm = workspace.tenderId.replace(/[^a-zA-Z0-9]/g, "_");
+        const prefixes = [`docs_editor_ws_${tidNorm}`, `docs_editor_docprep_${tidNorm}`];
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+          const key = localStorage.key(i);
+          if (key && prefixes.some((p) => key.startsWith(p))) localStorage.removeItem(key);
+        }
+        setWorkspaces((prev) => prev.filter((w) => w.tenderId !== workspace.tenderId));
+      } else {
+        window.alert(response.data.message || "Failed to delete workspace");
+      }
+    } catch (err) {
+      console.error("Error deleting workspace:", err);
+      window.alert(err.response?.data?.message || "Failed to delete workspace");
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  /** Open the close-confirmation modal (replaces window.confirm). */
+  const handleClose = (workspace) => {
+    setConfirmClose(workspace);
+  };
+
+  /** Actually close the workspace after the user confirms in the modal. */
+  const confirmCloseWorkspace = async () => {
+    const workspace = confirmClose;
+    if (!workspace) return;
+    setConfirmClose(null);
+    setClosingId(workspace.tenderId);
+    try {
+      const token = localStorage.getItem("token");
+      // Same endpoint + underscore-encoded id the Tenders page uses to mark
+      // status (tenders.routes.js -> updateTenderStatus) — one single place
+      // tender status gets marked as closed, consistent across the app.
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/tenders/${workspace.tenderId.replace(/\//g, '_')}/status`,
+        { status: 'close', remarks: workspace.title || workspace.tenderId },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (response.data.success || response.status === 200) {
+        setWorkspaces((prev) => prev.filter((w) => w.tenderId !== workspace.tenderId));
+        setCloseToast(true);
+        setTimeout(() => setCloseToast(false), 2500);
+      } else {
+        window.alert(response.data.message || 'Failed to close workspace');
+      }
+    } catch (err) {
+      console.error('Error closing workspace:', err);
+      window.alert(err.response?.data?.message || 'Failed to close workspace');
+    } finally {
+      setClosingId(null);
+    }
+  };
+
+
   const filtered = workspaces.filter((ws) => {
     const matchSearch =
       ws.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       ws.tenderId.toLowerCase().includes(searchTerm.toLowerCase());
     const matchStatus = statusFilter === "all" || ws.status === statusFilter;
-    const matchTeam   = teamFilter   === "all" || ws.team   === teamFilter;
-    return matchSearch && matchStatus && matchTeam;
+    return matchSearch && matchStatus;
   });
 
   // Summary counts
@@ -394,8 +596,119 @@ const ActiveWorkspaces = () => {
   return (
     <>
       <style>{GLOBAL_CSS}</style>
-      <div className="aw-root">
 
+      {/* ── CLOSE CONFIRMATION MODAL ── */}
+      {confirmClose && (
+        <div
+          onClick={() => setConfirmClose(null)}
+          style={{
+            position: 'fixed', inset: 0,
+            background: 'rgba(15,23,42,0.55)',
+            backdropFilter: 'blur(3px)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            zIndex: 9999,
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              background: '#fff',
+              borderRadius: 16,
+              padding: '2rem',
+              width: 420,
+              maxWidth: '90vw',
+              boxShadow: '0 24px 64px rgba(0,0,0,0.22)',
+              animation: 'fadeUp 0.2s ease both',
+            }}
+          >
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, marginBottom: '1.25rem' }}>
+              <div style={{
+                width: 44, height: 44, borderRadius: 12, flexShrink: 0,
+                background: '#fef2f2',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <X size={22} color="#dc2626" />
+              </div>
+              <div>
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: '#0f172a' }}>
+                  Close Workspace
+                </h3>
+                <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>
+                  This action will mark the tender as closed.
+                </p>
+              </div>
+            </div>
+
+            {/* Tender detail chip */}
+            <div style={{
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              borderRadius: 10,
+              padding: '0.75rem 1rem',
+              marginBottom: '1.25rem',
+            }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '.05em', marginBottom: 4 }}>Tender</div>
+              <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: '#0f172a', fontWeight: 600 }}>{confirmClose.tenderId}</div>
+              <div style={{ fontSize: 13, color: '#475569', marginTop: 2 }}>{confirmClose.title}</div>
+            </div>
+
+            {/* Warning text */}
+            <p style={{ margin: '0 0 1.5rem', fontSize: 13, color: '#374151', lineHeight: 1.6 }}>
+              The workspace data (documents, tasks, members) is <strong>preserved</strong>.
+              This tender will be moved to{' '}
+              <strong style={{ color: '#1d4ed8' }}>Participated Tenders</strong>.
+            </p>
+
+            {/* Actions */}
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => setConfirmClose(null)}
+                style={{
+                  padding: '8px 20px', borderRadius: 8, border: '1px solid #e2e8f0',
+                  background: '#f8fafc', color: '#374151',
+                  fontSize: 13, fontWeight: 600, cursor: 'pointer',
+                  fontFamily: "'DM Sans', sans-serif",
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmCloseWorkspace}
+                style={{
+                  padding: '8px 20px', borderRadius: 8, border: 'none',
+                  background: '#dc2626', color: '#fff',
+                  fontSize: 13, fontWeight: 600, cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', gap: 6,
+                  fontFamily: "'DM Sans', sans-serif",
+                }}
+              >
+                <X size={14} /> Confirm Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── "Tender marked as closed" toast ── */}
+      {closeToast && (
+        <div
+          style={{
+            position: 'fixed', bottom: 28, left: '50%', transform: 'translateX(-50%)',
+            background: '#0f172a', color: '#fff',
+            padding: '10px 20px', borderRadius: 10,
+            fontSize: 13.5, fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
+            display: 'flex', alignItems: 'center', gap: 8,
+            boxShadow: '0 12px 32px rgba(0,0,0,0.28)',
+            zIndex: 9999,
+            animation: 'fadeUp 0.2s ease both',
+          }}
+        >
+          <CheckCircle2 size={16} color="#4ade80" /> Tender is marked as closed
+        </div>
+      )}
+
+      <div className="aw-root">
         {/* ── PAGE HEADER ── */}
         <div className="aw-header">
           <div className="aw-header-left">
@@ -405,7 +718,7 @@ const ActiveWorkspaces = () => {
             <div>
               <h1 className="aw-title">Active Workspaces</h1>
               <p className="aw-desc">
-                Track progress, deadlines, and team assignments in real-time
+                Track progress and who marked each tender proceed, in real-time
               </p>
             </div>
           </div>
@@ -466,23 +779,6 @@ const ActiveWorkspaces = () => {
               <ChevronDown size={13} color="#94a3b8" />
             </div>
 
-            <div className="select-wrap">
-              <Users size={13} color="#94a3b8" />
-              <select
-                className="aw-select"
-                value={teamFilter}
-                onChange={(e) => setTeamFilter(e.target.value)}
-              >
-                <option value="all">All Teams</option>
-                <option value="Team Alpha">Team Alpha</option>
-                <option value="Team Beta">Team Beta</option>
-                <option value="Team Gamma">Team Gamma</option>
-                <option value="Team Delta">Team Delta</option>
-                <option value="Unassigned">Unassigned</option>
-              </select>
-              <ChevronDown size={13} color="#94a3b8" />
-            </div>
-
             {/* View toggle */}
             <div className="view-toggle">
               <button
@@ -508,9 +804,9 @@ const ActiveWorkspaces = () => {
           <span style={{ fontSize: 13, color: "#64748b" }}>
             Showing <strong style={{ color: "#0f172a" }}>{filtered.length}</strong> of {workspaces.length} workspaces
           </span>
-          {(searchTerm || statusFilter !== "all" || teamFilter !== "all") && (
+          {(searchTerm || statusFilter !== "all") && (
             <button
-              onClick={() => { setSearchTerm(""); setStatusFilter("all"); setTeamFilter("all"); }}
+              onClick={() => { setSearchTerm(""); setStatusFilter("all"); }}
               style={{
                 fontSize: 12, color: "#1d4ed8", background: "#eff6ff",
                 border: "1px solid #bfdbfe", borderRadius: 99,
@@ -526,7 +822,7 @@ const ActiveWorkspaces = () => {
         {viewMode === "grid" && filtered.length > 0 && (
           <div className="ws-grid">
             {filtered.map((ws, i) => (
-              <WorkspaceCard key={ws.tenderId + i} workspace={ws} index={i} />
+              <WorkspaceCard key={ws.tenderId + i} workspace={ws} index={i} isAdmin={isAdmin} onDelete={handleDelete} onClose={handleClose} closingId={closingId} navigate={navigate} />
             ))}
           </div>
         )}
@@ -541,14 +837,13 @@ const ActiveWorkspaces = () => {
                   <th>Title</th>
                   <th>Status</th>
                   <th style={{ minWidth: 180 }}>Progress</th>
-                  <th>Deadline</th>
-                  <th>Team</th>
+                  <th>Marked by</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.map((ws, i) => (
-                  <WorkspaceRow key={ws.tenderId + i} workspace={ws} index={i} />
+                  <WorkspaceRow key={ws.tenderId + i} workspace={ws} index={i} isAdmin={isAdmin} onDelete={handleDelete} onClose={handleClose} closingId={closingId} navigate={navigate} />
                 ))}
               </tbody>
             </table>
@@ -563,14 +858,14 @@ const ActiveWorkspaces = () => {
             </div>
             <h3 className="empty-title">No workspaces found</h3>
             <p className="empty-desc">
-              {searchTerm || statusFilter !== "all" || teamFilter !== "all"
+              {searchTerm || statusFilter !== "all"
                 ? "Try adjusting your search or filters."
                 : "No active workspaces at the moment."}
             </p>
-            {(searchTerm || statusFilter !== "all" || teamFilter !== "all") && (
+            {(searchTerm || statusFilter !== "all") && (
               <button
                 className="ws-btn-secondary"
-                onClick={() => { setSearchTerm(""); setStatusFilter("all"); setTeamFilter("all"); }}
+                onClick={() => { setSearchTerm(""); setStatusFilter("all"); }}
                 style={{ marginTop: 14, display: "inline-flex" }}
               >
                 Clear all filters
@@ -704,7 +999,7 @@ const GLOBAL_CSS = `
     transform: translateY(-2px);
   }
   .ws-tender-id {
-    font-family: 'DM Mono', monospace; font-size: 11px; color: #94a3b8;
+    font-family: 'DM Mono', monospace; font-size: 11px; color: #000; font-weight: 700;
   }
   .ws-title {
     font-size: 14px; font-weight: 600; color: #0f172a;
@@ -769,6 +1064,7 @@ const GLOBAL_CSS = `
     color: #64748b; transition: all .15s;
   }
   .ws-icon-btn:hover { background: #f1f5f9; color: #0f172a; border-color: #94a3b8; }
+  .ws-icon-btn-danger:hover { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
 
   /* Empty state */
   .empty-state {
@@ -793,8 +1089,6 @@ const GLOBAL_CSS = `
     .ws-grid { grid-template-columns: 1fr; }
     .filters-bar { flex-direction: column; align-items: stretch; }
     .filter-right { flex-wrap: wrap; }
-    .ws-table th:nth-child(5),
-    .ws-table td:nth-child(5) { display: none; }
   }
   @media (max-width: 480px) {
     .stat-grid { grid-template-columns: 1fr 1fr; }

@@ -61,7 +61,8 @@ ON DUPLICATE KEY UPDATE
   ra_no = VALUES(ra_no),
   ra_url = VALUES(ra_url),
   perfect_cat = VALUES(perfect_cat),
-  sub_cat = VALUES(sub_cat);
+  sub_cat = VALUES(sub_cat),
+  dept = VALUES(dept);
 """
 
 PROCESSING_SQL = """

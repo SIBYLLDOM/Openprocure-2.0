@@ -1,0 +1,52 @@
+{
+  "total_order_value_and_volume": {
+    "order_value": "8.69Cr",
+    "order_volume": "314"
+  },
+  "order_statistics": [
+    {
+      "status": "Order Cancelled",
+      "count": 29
+    },
+    {
+      "status": "Order Paid",
+      "count": 79
+    },
+    {
+      "status": "Delivery In-Progress",
+      "count": 49
+    },
+    {
+      "status": "Order Completed",
+      "count": 158
+    },
+    {
+      "status": "Order Accepted",
+      "count": 26
+    },
+    {
+      "status": "WaitingForPaymentConfirmation",
+      "count": 1
+    },
+    {
+      "status": "Cancellation Requested By Buyer",
+      "count": 1
+    }
+  ],
+  "orders_awaiting_acceptance": {
+    "title": "Orders Awaiting Acceptance",
+    "data": []
+  },
+  "buyer_org_wise_volume": [],
+  "purchase_mode_wise_volume": [],
+  "payment_statistics": [
+    {
+      "status": "Payment Completed",
+      "count": 156
+    },
+    {
+      "status": "Payment Pending",
+      "count": 69
+    }
+  ]
+}

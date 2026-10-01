@@ -1,4 +1,6 @@
 const express = require('express');
+const requireApproval = require('../middlewares/requireApproval.middleware');
+const requireRole = require('../middlewares/requireRole.middleware');
 const router = express.Router();
 const auth = require('../middlewares/auth.middleware');
 const {
@@ -38,8 +40,8 @@ router.get('/:bidNumber/deviations', auth, getDeviationTables);
 router.put('/:bidNumber/deviations', auth, updateDeviationTables);
 
 // Deviation Representation Generation
-router.post('/:bidNumber/generate-representation', auth, generateRepresentationLetter);
-router.post('/:bidNumber/save-representation', auth, saveRepresentationLetter);
+router.post('/:bidNumber/generate-representation', auth, requireRole('Admin', 'Tender Admin', 'Office Administrator', 'Tender Executive'), generateRepresentationLetter);
+router.post('/:bidNumber/save-representation', auth, requireApproval('representation'), saveRepresentationLetter);
 router.get('/:bidNumber/get-representation', auth, getRepresentationLetter);
 
 module.exports = router;

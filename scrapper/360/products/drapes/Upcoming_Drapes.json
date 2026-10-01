@@ -1,0 +1,51 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Upcoming Drapes",
+    "series_name": "MEVEL™ Upcoming Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "pipeline": [
+      {
+        "drape_category": "Orthopaedic Drapes",
+        "types": [
+          "Bilateral Drape",
+          "Arthroscopy Drape",
+          "Lamino Spinal Drape",
+          "Endoplasty Spine Drape"
+        ]
+      },
+      {
+        "drape_category": "Neurology Drapes",
+        "types": [
+          "Craniotomy Drape"
+        ]
+      },
+      {
+        "drape_category": "Urology Drapes",
+        "types": [
+          "TURP Drape",
+          "PCNL Drape"
+        ]
+      },
+      {
+        "drape_category": "Cardiovascular Drapes",
+        "types": [
+          "CABG Drape"
+        ]
+      },
+      {
+        "drape_category": "General Surgery Drapes",
+        "types": [
+          "Laparoscopy Drapes",
+          "Laparotomy Drapes",
+          "Adhesive Drapes"
+        ]
+      }
+    ],
+    "instrument_name": "MEVEL™ Upcoming Drapes"
+  }
+]

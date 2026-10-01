@@ -1,0 +1,38 @@
+{
+  "perfect_category": {
+    "times": ["02:00"],
+    "enabled": true
+  },
+  "gem_open_category": {
+    "times": ["02:03"],
+    "enabled": true
+  },
+  "cppp_states_open_category": {
+    "times": ["02:06"],
+    "enabled": true
+  },
+  "cppp_gem_open_category": {
+    "times": ["02:09"],
+    "enabled": true
+  },
+  "cppp_central_open_category": {
+    "times": ["02:12"],
+    "enabled": true
+  },
+  "ra_scrapper": {
+    "times": ["02:15"],
+    "enabled": true
+  },
+  "cppp_gem_scraper": {
+    "times": ["02:18"],
+    "enabled": true
+  },
+  "cppp_state_organ_open_scrapper": {
+    "times": ["02:21"],
+    "enabled": true
+  },
+  "cppp_states_scraper": {
+    "times": ["02:24"],
+    "enabled": true
+  }
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Cap",
+    "series_name": "MAIRA™ Surgical Caps",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "application": "Sterile surgical environments, clean rooms",
+      "latex_free": true,
+      "purpose": "Contains hair and reduces microbial dispersion from the scalp and hair to protect the sterile field"
+    },
+    "product_code": "",
+    "instrument_name": "MAIRA™ Surgical Cap",
+    "tagline": "Secure. Sterile. Comfortable.",
+    "description": "MAIRA™ Surgical Cap is a high-quality head covering designed for use in sterile surgical environments. It ensures comprehensive protection by containing hair and reducing microbial dispersion from the scalp and hair, thus contributing to a sterile field.",
+    "technical_specifications": {
+      "material": "SMS (Spunbond-Meltblown-Spunbond) Non-woven Fabric",
+      "weight_gsm": "25 – 30",
+      "design": "Elasticated band for snug fit",
+      "breathability": "Air-permeable, minimizes sweating",
+      "barrier_protection": "Limits hair shedding and microbial contamination",
+      "comfort_fit": "Soft texture, skin-friendly",
+      "one_size_fits_all": "Universal fit with secure hold",
+      "latex_free": "Reduces allergy risk",
+      "colour_options": "Standard Blue, White (custom colours optional)",
+      "pack_size": "Pack of 50 Pcs",
+      "sterilization": "EO Sterilized"
+    },
+    "features": {
+      "benefits": [
+        "Infection Prevention: Prevents hair and scalp microbes from contaminating the sterile field",
+        "Enhanced Comfort",
+        "Secure Fit",
+        "Hypoallergenic"
+      ]
+    },
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Cap",
+    "series_name": "MAIRA™ Surgical Caps",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "application": "Sterile surgical environments, clean rooms",
+      "latex_free": true,
+      "purpose": "Contains hair and reduces microbial dispersion from the scalp and hair to protect the sterile field"
+    },
+    "product_code": "",
+    "instrument_name": "MAIRA™ Bouffant Cap",
+    "tagline": "Full Coverage, Maximum Protection, Ultimate Comfort.",
+    "description": "The MAIRA™ Bouffant Cap is a soft, lightweight, and breathable head covering designed to fully encapsulate hair, reducing the risk of hair and microbial shedding in sterile and clean environments. Its roomy design accommodates various hair volumes, ensuring both comfort and infection prevention.",
+    "technical_specifications": {
+      "material": "Spunbond Polypropylene Non-woven Fabric",
+      "gsm_range": "10 – 15 GSM (customizable)",
+      "design": "Pleated, Full-Coverage Circular Design",
+      "elastic_band": "Soft, non-binding elastic for secure yet gentle fit",
+      "air_permeability": "High breathability to reduce sweating",
+      "universal_fit": "Available in 18\", 21\" and 24\" sizes",
+      "available_sizes_inch": [
+        18,
+        21,
+        24
+      ],
+      "latex_free": "Prevents latex allergy concerns",
+      "color_options": "Blue",
+      "pack_size": "Pack of 50 Bouffant Caps"
+    },
+    "features": {
+      "benefits": [
+        "Enhanced Infection Prevention: Prevents hair and particulate contamination in sterile zones",
+        "Comfort for Long Wear",
+        "Versatile Sizing",
+        "Safe for All Users",
+        "Economical"
+      ]
+    },
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

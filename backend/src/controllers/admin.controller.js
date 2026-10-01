@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const { getUserScope, isBlocked, CLASSIFIED } = require('../utils/userScope');
 
 /**
  * GET /api/admin/dashboard-stats
@@ -165,6 +166,245 @@ const getDashboardStats = async (req, res) => {
     }
 };
 
+/**
+ * GET /api/admin/tender-dashboard
+ * Tender-focused dashboard, scoped to a department.
+ * Query Params: ?dept=Diagno|Endo|Both
+ */
+const getTenderDashboardStats = async (req, res) => {
+    try {
+        // The ?dept= query param is a *narrowing* filter only — it can never
+        // widen what the caller is entitled to. A Tender Admin is hard-limited
+        // to their assigned division(s); Admin may pick any. See utils/userScope.js.
+        const scope = await getUserScope(req.user.id);
+        // isBlocked() deliberately exempts Tender Executives (they browse every
+        // division, no assignment required) — so an executive with zero
+        // user_departments rows reaches here with scope.divisions = [], which
+        // would otherwise make `allowed` empty and deptSql() build an invalid
+        // "WHERE ()" predicate. Same empty-divisions -> CLASSIFIED fallback
+        // used everywhere else in utils/userScope.js (tenderScopeSql, deptColumnSql).
+        const allowed = (scope.isAdmin || !scope.divisions.length)
+            ? CLASSIFIED.map(d => d === 'endo' ? 'Endo' : 'Diagno')
+            : scope.divisions;
+        if (isBlocked(scope)) {
+            return res.status(403).json({
+                success: false,
+                message: 'No department assigned. Ask an Admin to assign your division and source.',
+            });
+        }
+
+        const requested = req.query.dept || 'Both';
+        const dept = allowed.includes(requested) ? requested : 'Both';
+        const isBoth = dept === 'Both';
+        const deptLower = dept.toLowerCase();
+
+        // When not narrowed to one division, "Both" means every division the
+        // caller is allowed to see — not every division in the system.
+        const effective = isBoth ? allowed : [dept];
+
+        // Every relevant table (gem_tenders, gem_bids, contracts, incidents,
+        // open_tender_details) uses a column literally named `dept`, so one
+        // helper covers all of them. Only tender_processing_results.dept is
+        // free-text/messy and is deliberately not filtered this way.
+        // Unclassified tenders (dept NULL/'360'/'unknown') match no division and
+        // are therefore hidden from everyone, Admin included. dept = 'both' is a
+        // real, legitimate value (relevant to every division) and is always
+        // included regardless of which division(s) the caller is narrowed to.
+        const deptSql = (col = 'dept') =>
+            `(${effective.map(() => `LOWER(${col}) = ?`).join(' OR ')} OR LOWER(${col}) = 'both')`;
+        const deptParams = effective.map(d => d.toLowerCase());
+
+        const strToDateEnd = "STR_TO_DATE(REPLACE(end_date, '/', '-'), '%d-%m-%Y %h:%i %p')";
+        const activeGemWhere = `
+            WHERE ${deptSql()}
+              AND (ra_no IS NULL OR TRIM(ra_no) = '')
+              AND (marked_not_relevant IS NULL OR marked_not_relevant = 0)
+              AND perfect_cat = 1
+        `;
+
+        const [
+            [[activeRow]],
+            [[closingSoonRow]],
+            [upcomingDeadlines],
+            [[openTendersRow]],
+            [[contractsRow]],
+            [[incidentsRow]],
+            [[pendingResponseRow]],
+            [recentActivity],
+            deptSplitResult,
+            [[pipelineValueRow]],
+            [topStates],
+            [ticketStatusRows],
+            [[distributorsRow]],
+            [contractsTrendRows],
+            [[activeNowRow]],
+            [[loginsTodayRow]],
+            [[loginsWeekRow]],
+            [[avgSessionRow]],
+            [loginTrendRows],
+            [topSellers]
+        ] = await Promise.all([
+            db.query(
+                `SELECT COUNT(*) AS c FROM gem_tenders ${activeGemWhere} AND ${strToDateEnd} >= NOW()`,
+                deptParams
+            ),
+            db.query(
+                `SELECT COUNT(*) AS c FROM gem_tenders ${activeGemWhere}
+                 AND ${strToDateEnd} BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAY)`,
+                deptParams
+            ),
+            db.query(
+                `SELECT bid_number, LEFT(items, 140) AS title, dept, end_date, emd_amount, bid_value, detail_url,
+                        TIMESTAMPDIFF(HOUR, NOW(), ${strToDateEnd}) AS hoursLeft
+                 FROM gem_tenders ${activeGemWhere} AND ${strToDateEnd} >= NOW()
+                 ORDER BY ${strToDateEnd} ASC
+                 LIMIT 8`,
+                deptParams
+            ),
+            db.query(
+                `SELECT COUNT(*) AS c FROM open_tender_details
+                 WHERE relevency_checker IN ('proceed_futher', 'files_downloaded', 'yes')
+                   AND ${deptSql()}
+                   AND (STR_TO_DATE(closing_date, '%d-%M-%Y %h:%i %p') >= NOW() OR closing_date IS NULL OR closing_date = '')`,
+                deptParams
+            ),
+            db.query(
+                `SELECT COUNT(*) AS c, COALESCE(SUM(CAST(total_value AS DECIMAL(18,2))), 0) AS total
+                 FROM contracts WHERE ${deptSql()}`,
+                deptParams
+            ),
+            db.query(
+                `SELECT COUNT(*) AS c FROM incidents WHERE ${deptSql()}`,
+                deptParams
+            ),
+            db.query(
+                `SELECT COUNT(*) AS c FROM incidents
+                 WHERE ${deptSql()} AND status NOT IN ('Closed', 'Rejected', 'closed', 'rejected')`,
+                deptParams
+            ),
+            db.query(
+                `SELECT gt.bid_number, LEFT(gt.items, 140) AS title, gt.dept, tpr.processing_date, tpr.status
+                 FROM tender_processing_results tpr
+                 JOIN gem_tenders gt ON gt.bid_number = tpr.bid_no
+                 WHERE tpr.result = 'yes' AND ${deptSql('gt.dept')}
+                 ORDER BY tpr.processing_date DESC
+                 LIMIT 6`,
+                deptParams
+            ),
+            isBoth
+                ? db.query(
+                    `SELECT LOWER(dept) AS dept, COUNT(*) AS c FROM gem_tenders
+                     ${activeGemWhere} AND ${strToDateEnd} >= NOW()
+                     GROUP BY LOWER(dept)`,
+                    deptParams
+                )
+                : Promise.resolve([[]]),
+            db.query(
+                `SELECT COALESCE(SUM(CAST(bid_value AS DECIMAL(18,2))), 0) AS bidValueSum,
+                        COALESCE(SUM(CAST(emd_amount AS DECIMAL(18,2))), 0) AS emdSum
+                 FROM gem_tenders ${activeGemWhere} AND ${strToDateEnd} >= NOW()`,
+                deptParams
+            ),
+            db.query(
+                `SELECT state, COUNT(*) AS c FROM gem_tenders ${activeGemWhere}
+                 AND ${strToDateEnd} >= NOW() AND state IS NOT NULL AND state != ''
+                 GROUP BY state ORDER BY c DESC LIMIT 6`,
+                deptParams
+            ),
+            db.query(
+                `SELECT COALESCE(status, 'Open') AS status, COUNT(*) AS c FROM support_tickets GROUP BY status`
+            ),
+            db.query(
+                `SELECT COUNT(*) AS total,
+                        SUM(CASE WHEN status = 'Active' THEN 1 ELSE 0 END) AS activeCount
+                 FROM distributors`
+            ),
+            db.query(
+                `SELECT DATE_FORMAT(contract_date, '%b %y') AS month,
+                        COUNT(*) AS c,
+                        COALESCE(SUM(CAST(total_value AS DECIMAL(18,2))), 0) AS val
+                 FROM contracts
+                 WHERE ${deptSql()} AND contract_date >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+                 GROUP BY DATE_FORMAT(contract_date, '%Y-%m'), month
+                 ORDER BY DATE_FORMAT(contract_date, '%Y-%m') ASC`,
+                deptParams
+            ),
+            db.query(
+                `SELECT COUNT(*) AS c FROM user_sessions WHERE is_active = 1 AND last_heartbeat_at >= DATE_SUB(NOW(), INTERVAL 2 MINUTE)`
+            ),
+            db.query(
+                `SELECT COUNT(*) AS c FROM user_login_history WHERE DATE(logged_in_at) = CURDATE()`
+            ),
+            db.query(
+                `SELECT COUNT(*) AS c FROM user_login_history WHERE logged_in_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)`
+            ),
+            db.query(
+                `SELECT AVG(total_active_seconds) AS avgSeconds FROM user_sessions WHERE total_active_seconds > 0`
+            ),
+            db.query(
+                `SELECT DATE(logged_in_at) AS day, COUNT(*) AS c FROM user_login_history
+                 WHERE logged_in_at >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+                 GROUP BY DATE(logged_in_at) ORDER BY day ASC`
+            ),
+            db.query(
+                `SELECT seller_name, COALESCE(SUM(CAST(total_value AS DECIMAL(18,2))), 0) AS revenue, COUNT(*) AS c
+                 FROM contracts
+                 WHERE ${deptSql()} AND seller_name IS NOT NULL AND seller_name != ''
+                 GROUP BY seller_name ORDER BY revenue DESC LIMIT 5`,
+                deptParams
+            )
+        ]);
+
+        const deptSplit = isBoth
+            ? { diagno: 0, endo: 0, ...Object.fromEntries((deptSplitResult[0] || []).map(r => [r.dept, Number(r.c)])) }
+            : null;
+
+        const supportTickets = { open: 0, inProgress: 0, resolved: 0, closed: 0 };
+        ticketStatusRows.forEach(r => {
+            const c = Number(r.c);
+            const s = String(r.status || '').toLowerCase();
+            if (s === 'open') supportTickets.open += c;
+            else if (s === 'in progress' || s === 'in-progress') supportTickets.inProgress += c;
+            else if (s === 'resolved') supportTickets.resolved += c;
+            else if (s === 'closed') supportTickets.closed += c;
+        });
+        supportTickets.total = supportTickets.open + supportTickets.inProgress + supportTickets.resolved + supportTickets.closed;
+
+        res.json({
+            success: true,
+            data: {
+                dept,
+                activeTenders: activeRow.c,
+                closingSoon: closingSoonRow.c,
+                openTenders: openTendersRow.c,
+                contracts: { count: contractsRow.c, totalValue: Number(contractsRow.total) },
+                incidents: { total: incidentsRow.c, pendingResponse: pendingResponseRow.c },
+                deptSplit,
+                pipelineValue: Number(pipelineValueRow.bidValueSum),
+                emdLocked: Number(pipelineValueRow.emdSum),
+                topStates: topStates.map(r => ({ state: r.state, count: Number(r.c) })),
+                supportTickets,
+                distributors: { total: distributorsRow.total, active: Number(distributorsRow.activeCount) || 0 },
+                contractsTrend: contractsTrendRows.map(r => ({ month: r.month, count: Number(r.c), value: Number(r.val) })),
+                userActivity: {
+                    activeNow: activeNowRow.c,
+                    loginsToday: loginsTodayRow.c,
+                    loginsWeek: loginsWeekRow.c,
+                    avgSessionSeconds: Math.round(Number(avgSessionRow.avgSeconds) || 0),
+                    trend: loginTrendRows.map(r => ({ day: r.day, count: Number(r.c) }))
+                },
+                topSellers: topSellers.map(r => ({ sellerName: r.seller_name, revenue: Number(r.revenue), count: Number(r.c) })),
+                upcomingDeadlines,
+                recentActivity
+            }
+        });
+    } catch (err) {
+        console.error('Error fetching tender dashboard stats:', err);
+        res.status(500).json({ success: false, message: 'Failed to fetch tender dashboard stats' });
+    }
+};
+
 module.exports = {
-    getDashboardStats
+    getDashboardStats,
+    getTenderDashboardStats
 };

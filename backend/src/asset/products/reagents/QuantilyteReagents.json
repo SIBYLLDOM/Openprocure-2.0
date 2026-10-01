@@ -1,0 +1,138 @@
+[
+    {
+        "category": "QuantilyteReagents",
+        "sub_category": "QuantilyteReagents",
+        "product_code": "STAELC-02",
+        "product_name": "STD A",
+        "pack_size": "6 x 250 ml",
+        "pricing": {
+            "mrp": 19940,
+            "ctp": 11128
+        },
+        "tier_pricing": {
+            "tier_1": 8902,
+            "tier_2": 7567,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "QuantilyteReagents",
+        "sub_category": "QuantilyteReagents",
+        "product_code": "STBELC-02",
+        "product_name": "STD B",
+        "pack_size": "2 x 250 ml",
+        "pricing": {
+            "mrp": 6000,
+            "ctp": 3349
+        },
+        "tier_pricing": {
+            "tier_1": 2679,
+            "tier_2": 2277,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "QuantilyteReagents",
+        "sub_category": "QuantilyteReagents",
+        "product_code": "CLNELC-02",
+        "product_name": "CLEANING SOLUTION",
+        "pack_size": "1 x 110 ml",
+        "pricing": {
+            "mrp": 5730,
+            "ctp": 3198
+        },
+        "tier_pricing": {
+            "tier_1": 2558,
+            "tier_2": 2174,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "QuantilyteReagents",
+        "sub_category": "QuantilyteReagents",
+        "product_code": "DEPELC-02",
+        "product_name": "Electrode Deprotein. Washing Solution",
+        "pack_size": "1 x 110 ml",
+        "pricing": {
+            "mrp": 3620,
+            "ctp": 2020
+        },
+        "tier_pricing": {
+            "tier_1": 1616,
+            "tier_2": 1373,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "QuantilyteReagents",
+        "sub_category": "QuantilyteReagents",
+        "product_code": "ACTELC-02",
+        "product_name": "ACTIVATING SOLUTION",
+        "pack_size": "1 x 110 ml",
+        "pricing": {
+            "mrp": 5730,
+            "ctp": 3198
+        },
+        "tier_pricing": {
+            "tier_1": 2558,
+            "tier_2": 2174,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "QuantilyteReagents",
+        "sub_category": "QuantilyteReagents",
+        "product_code": "QCSELC-02",
+        "product_name": "QC SOLUTION",
+        "pack_size": "1 x 110 ml",
+        "pricing": {
+            "mrp": 3650,
+            "ctp": 2039
+        },
+        "tier_pricing": {
+            "tier_1": 1631,
+            "tier_2": 1386,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "QuantilyteReagents",
+        "sub_category": "QuantilyteReagents",
+        "product_code": "EISELC-02",
+        "product_name": "ELECTRODE INTERNAL SOLUTION",
+        "pack_size": "1 x 3 ml",
+        "pricing": {
+            "mrp": 2660,
+            "ctp": 1483
+        },
+        "tier_pricing": {
+            "tier_1": 1186,
+            "tier_2": 1008,
+            "tier_3": null,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "QuantilyteReagents",
+        "sub_category": "QuantilyteReagents",
+        "product_code": "REFELC-02",
+        "product_name": "REFERENCE ELECTRODE INTERNAL SOLUTION",
+        "pack_size": "1 x 10 ml",
+        "pricing": {
+            "mrp": 3650,
+            "ctp": 2039
+        },
+        "tier_pricing": {
+            "tier_1": 1631,
+            "tier_2": 1386,
+            "tier_3": null,
+            "tier_4": null
+        }
+    }
+]

@@ -1,0 +1,20 @@
+# Environment / secrets — never commit real credentials (SES keys, DB
+# password, JWT secret...). .env.example documents the required variables
+# without values.
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store

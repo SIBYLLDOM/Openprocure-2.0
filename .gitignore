@@ -1,0 +1,48 @@
+# Repo-wide safety net — catches node_modules / env files in subfolders that
+# don't have (or miss) their own .gitignore. Subfolder .gitignore files still
+# apply on top of this.
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Secrets — never commit real credentials
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Build output / logs
+dist/
+dist-ssr/
+build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Scraped / uploaded data — large binary runtime data, not source. Also
+# includes confidential business documents (uploaded letters, licenses,
+# balance sheets) that must never go to a shared/public repo.
+**/tender_documents/
+backend/uploads/
+
+# Large scraped-data dumps / archives — regenerable, not source, and some
+# exceed GitHub's file-size limits.
+scrapper/row_data_cppp_browse_all.csv
+scrapper/row_data_gem_browse_all.csv
+targeting-system.zip

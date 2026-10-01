@@ -1,0 +1,63 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Mask",
+    "product_code": "",
+    "instrument_name": "MAIRA™ Surgical Mask",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "tagline": "Breathe Easy. Stay Protected.",
+    "description": "The MAIRA™ Surgical Mask is carefully engineered to provide effective respiratory protection for healthcare personnel, patients, and the general public. Designed to cover the nose and mouth, it filters airborne pathogens while allowing for comfortable, normal breathing. Suitable for use in the Operating Theatre (OT), isolation settings, and public health emergencies.",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "protection": "Protects against pathogenic biological airborne particulates",
+      "layer_construction": "3-Layer Protection: Outer Hydrophobic Layer, Middle Meltblown Filter Layer, Inner Soft Absorbent Layer",
+      "layers": [
+        "Outer Hydrophobic Layer",
+        "Middle Meltblown Filter Layer",
+        "Inner Soft Absorbent Layer"
+      ],
+      "filtration_efficiency": "≥ 98% Bacterial Filtration Efficiency (BFE)",
+      "bfe_percent": 98,
+      "breathability": "Low breathing resistance for comfort",
+      "design": "Pleated design for face coverage and easy adjustment",
+      "attachment_type": "Strong, soft tie attachments for a secure and adjustable fit",
+      "nose_clip": "Integrated, flexible nose piece for improved seal",
+      "comfort": "Soft inner lining is gentle on the skin",
+      "usage": "Disposable, single-use",
+      "standard_compliance": "Follows ASTM Level 2 / EN14683 Type IIR equivalent standards",
+      "pack_size": "Pack of 50"
+    },
+    "features": {
+      "benefits": [
+        "Optimal Protection: Filters airborne bacteria and particulates with high efficiency",
+        "Comfortable Fit",
+        "Skin-Friendly",
+        "Enhanced Breathability",
+        "Versatile Applications"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Operating Theatre (OT)",
+        "Isolation settings",
+        "Public health emergencies",
+        "General healthcare and public use"
+      ],
+      "key_strengths": [
+        "≥98% BFE 3-layer construction",
+        "ASTM Level 2 / EN14683 Type IIR equivalent",
+        "Low breathing resistance",
+        "Economical pack of 50"
+      ]
+    }
+  }
+]

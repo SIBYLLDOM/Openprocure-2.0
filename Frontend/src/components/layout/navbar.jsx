@@ -5,6 +5,7 @@ import "../../assets/css/navbar.css";
 import Logo from '../../assets/img/logo.png';
 import Flag from '../../assets/img/image.png';
 import Profile from '../../assets/img/profile.png';
+import NotificationBell from './NotificationBell';
 
 
 const Navbar = () => {
@@ -13,7 +14,7 @@ const Navbar = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
   const role = user?.role || "User";
-  const basePath = (role === "Admin" || role === "pre-tender") ? "/Admin" : "/User";
+  const basePath = ["Admin", "Tender Admin", "Office Administrator", "Tender Executive", "Zonal Head", "Sales", "Finance Team", "Legal", "Documentation"].includes(role) ? "/Admin" : "/User";
 
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,9 +25,32 @@ const Navbar = () => {
   const navRef = useRef(null);
   const profileRef = useRef(null);
 
+  // Real mouse hover only — touch devices report a "hover" on first tap with
+  // no matching mouseleave, which would otherwise leave dropdowns stuck open
+  // and overlapping the navbar until the user taps elsewhere.
+  const [canHover, setCanHover] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const handler = () => setCanHover(mq.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
   const handleLogout = () => {
+    const sessionId = localStorage.getItem('sessionId');
+    const token = localStorage.getItem('token');
+    if (sessionId && token) {
+      const apiBase = import.meta.env.VITE_API_BASE_URL;
+      navigator.sendBeacon(
+        `${apiBase}/monitoring/session/end`,
+        new Blob([JSON.stringify({ sessionId: Number(sessionId) })], { type: 'application/json' })
+      );
+    }
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("sessionId");
     navigate("/login");
   };
 
@@ -44,8 +68,10 @@ const Navbar = () => {
       items: [
         { name: "Tenders", path: `${basePath}/tenders` },
         { name: "Interested Tenders", path: `${basePath}/interested` },
+        { name: "Tender Tracker", path: `${basePath}/tender-tracker` },
         { name: "Archived Tenders", path: `${basePath}/archive` },
         { name: "Prebid Meetings", path: `${basePath}/prebid-meetings` },
+        { name: "Document Tender", path: `${basePath}/document-tender` },
       ],
     },
     {
@@ -65,6 +91,8 @@ const Navbar = () => {
       items: [
         { name: "Workdesk", path: `${basePath}/workdesk` },
         { name: "Active Workspaces", path: `${basePath}/workdesk/active-workspaces` },
+        { name: "Library", path: `${basePath}/workdesk/library` },
+        { name: "Letter Generate", path: `${basePath}/workdesk/letter-generate` },
       ],
     },
     {
@@ -72,50 +100,89 @@ const Navbar = () => {
       items: [
         { name: "GeM Contracts", path: "/orders/gem-contracts" },
         { name: "Carting Dashboard", path: "/orders/carting-dashboard" },
-        { name: "Work Orders", path: "/orders/work-orders" },
-        { name: "PO Tracking", path: "/orders/po-tracking" },
-        { name: "Billing & Invoices", path: "/orders/billing-invoices" },
       ],
     },
     {
       label: "Dealer Management",
       items: [
         { name: "Dealers", path: "/dealers/distributors" },
-        { name: "OEMs", path: "/dealers/OEMs" },
-        { name: "Dealer Performance", path: "/dealers/Dealer-performance" },
-        { name: "Product Catalogs", path: "/dealers/product-catalogs" },
+        { name: "Dealer Authorization Letter", path: "/dealers/authorization-letter" },
       ],
     },
     {
       label: "Support Tools",
       items: [
-        { name: "Product Suggestion Engine", path: "/support/product-suggestion" },
-        { name: "Participated Tenders Report", path: "/support/participated-report" },
-        { name: "Tender Calendar", path: "/support/tender-calendar" },
-        { name: "Document Templates", path: "/support/document-templates" },
-        { name: "BOQ Calculator", path: "/support/boq-calculator" },
-        { name: "Probability Simulator", path: "/support/probability-simulator" },
+        { name: "AI Drive", path: "/support/ai-drive" },
+        { name: "Tutorial", path: "/tutorial" },
+        // Budget Targeting System is exclusive to Office Administrator — see below.
+        ...(role === "Office Administrator" ? [{ name: "Budget Targeting System", path: "/support/budget-targeting" }] : []),
       ],
     },
-    {
-      label: "Settings",
+    ...(["Admin", "Tender Admin", "Office Administrator"].includes(role) ? [{
+      label: "Monitor",
       items: [
-        { name: "Departments", path: "/settings/departments" },
-        { name: "Designation", path: "/settings/designation" },
-        { name: "Role Management", path: "/settings/role-management" },
-        { name: "User Management", path: "/settings/user-management" },
-        { name: "Distributors", path: "/settings/distributors" },
-        { name: "State–Sales Mapping", path: "/settings/state-sales-mapping" },
-        { name: "Profile", path: "/settings/profile" },
-        { name: "System Logs", path: "/settings/system-logs" },
-        { name: "API Keys", path: "/settings/api-keys" },
+        { name: "Monitor Dashboard", path: "/Admin/monitor" },
+        { name: "Approvals", path: "/Admin/approvals" },
+        { name: "Automation", path: "/Admin/automation" },
+        { name: "Scrapers", path: "/Admin/scrapers" },
+        { name: "User Management", path: "/Admin/users" },
+        { name: "Field Team", path: "/Admin/field-team" },
+        { name: "Support Tickets", path: "/Admin/support-tickets" },
+        { name: "Product Categories", path: "/Admin/product-categories" },
       ],
-    },
+    }] : []),
+    ...(role === "Zonal Head" ? [{
+      label: "Team",
+      items: [
+        { name: "User Management", path: "/Admin/users" },
+      ],
+    }] : []),
   ];
 
+  // Finance Team only price and sign off Process Decode sheets — the tender
+  // pipeline, workdesk, orders, dealers, support tools and settings are not
+  // part of that job, so those sections are dropped for them.
+  // Tender Workdesk stays visible: Finance review the Process Decode sheet and
+  // act on approvals from inside the workdesk (see DecodeStatusBanner).
+  const HIDDEN_FOR_FINANCE = [
+    "Tender Insights",
+    "Order Management",
+    "Dealer Management",
+    "Support Tools",
+  ];
+
+  // Approvals lives under "Monitor", which only Admin and Tender Admin see —
+  // so every other role in the approval chain gets a direct entry instead.
+  const APPROVAL_ROLES = ["Tender Executive", "Zonal Head", "Sales", "Finance Team"];
+
+  // Pricing is Finance's main workspace, so it gets its own entry.
+  const PRICING_ROLES = ["Finance Team", "Admin"];
+
+  // Legal signs Dealer Authorization Letters first, then Admin (Ravi Kiran) —
+  // both need a direct entry to Pending Signatures.
+  const SIGNOFF_ROLES = ["Legal", "Admin", "Tender Admin", "Office Administrator"];
+
+  const visibleNavItems = (
+    role === "Finance Team"
+      ? navItems.filter(i => !HIDDEN_FOR_FINANCE.includes(i.label))
+      : navItems
+  ).concat(
+    PRICING_ROLES.includes(role)
+      ? [{ label: "Pricing", items: [{ name: "Tender Pricing", path: "/Admin/pricing" }] }]
+      : []
+  ).concat(
+    APPROVAL_ROLES.includes(role)
+      ? [{ label: "Approvals", items: [{ name: "Approvals", path: "/Admin/approvals" }] }]
+      : []
+  ).concat(
+    SIGNOFF_ROLES.includes(role)
+      ? [{ label: "Signatures", items: [{ name: "Pending Signatures", path: "/dealers/signatures" }] }]
+      : []
+  );
+
   const profileItems = [
-    { name: "Profile", path: "/profile" },
-    { name: "Change Password", path: "/change-password" },
+    { name: "My Profile", path: "/profile" },
+    { name: "My Support Tickets", path: "/support" },
     { name: "Logout", path: "/logout" },
   ];
 
@@ -153,11 +220,11 @@ const Navbar = () => {
   const handleTopKeyDown = (e, idx) => {
     if (e.key === "ArrowRight") {
       e.preventDefault();
-      const next = (idx + 1) % navItems.length;
+      const next = (idx + 1) % visibleNavItems.length;
       document.getElementById(`nav-top-${next}`)?.focus();
     } else if (e.key === "ArrowLeft") {
       e.preventDefault();
-      const prev = (idx - 1 + navItems.length) % navItems.length;
+      const prev = (idx - 1 + visibleNavItems.length) % visibleNavItems.length;
       document.getElementById(`nav-top-${prev}`)?.focus();
     } else if (e.key === "Enter" || e.key === " ") {
       // toggle dropdown on Enter/Space
@@ -210,12 +277,12 @@ const Navbar = () => {
 
         {/* Main Menu */}
         <ul className={`navbar-menu ${mobileMenuOpen ? "mobile-open" : ""}`} role="menubar">
-          {navItems.map((top, idx) => (
+          {visibleNavItems.map((top, idx) => (
             <li
               className="navbar-item"
               key={top.label}
-              onMouseEnter={() => !mobileMenuOpen && setActiveDropdown(idx)}
-              onMouseLeave={() => !mobileMenuOpen && setActiveDropdown(null)}
+              onMouseEnter={() => canHover && !mobileMenuOpen && setActiveDropdown(idx)}
+              onMouseLeave={() => canHover && !mobileMenuOpen && setActiveDropdown(null)}
               role="none"
             >
               <button
@@ -229,7 +296,10 @@ const Navbar = () => {
                     : "false"
                 }
                 onKeyDown={(e) => handleTopKeyDown(e, idx)}
-                onClick={() => mobileMenuOpen && toggleMobileSubmenu(idx)}
+                onClick={() => {
+                  if (mobileMenuOpen) toggleMobileSubmenu(idx);
+                  else if (!canHover) setActiveDropdown((cur) => (cur === idx ? null : idx));
+                }}
                 role="menuitem"
               >
                 <span>{top.label}</span>
@@ -282,6 +352,8 @@ const Navbar = () => {
         </ul>
 
         {/* Profile area */}
+        <NotificationBell />
+
         <div className="navbar-profile" ref={profileRef}>
           <button
             className="navbar-profile-btn"

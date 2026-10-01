@@ -618,9 +618,9 @@
   color: #991b1b;
 }
 
-.status-badge.on-hold {
-  background-color: #fef3c7;
-  color: #92400e;
+.status-badge.close {
+  background-color: #e5e7eb;
+  color: #374151;
 }
 
 /* Pagination */

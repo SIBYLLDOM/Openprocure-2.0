@@ -1,0 +1,10 @@
+{
+  "cppp_open_endo": {
+    "times": [
+      "02:30",
+      "13:00",
+      "18:00"
+    ],
+    "enabled": true
+  }
+}

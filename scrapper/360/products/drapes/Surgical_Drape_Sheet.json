@@ -1,0 +1,227 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Surgical Drape Sheet",
+    "series_name": "MEVEL™ Surgical Drape Sheet",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven drape fabric",
+      "color": "Royal Blue",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Fenestrated Drape",
+    "size": "90 cm - 100 cm",
+    "fenestration": "Diameter of fenestrations – 11 cm",
+    "adhesive": false,
+    "features": [
+      "Diameter of fenestrations – 11 cm"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Surgical Drape Sheet",
+    "series_name": "MEVEL™ Surgical Drape Sheet",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven drape fabric",
+      "color": "Royal Blue",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Medium Drape",
+    "size": "160 cm - 100 cm",
+    "adhesive": true,
+    "features": [
+      "With adhesive absorbent"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Surgical Drape Sheet",
+    "series_name": "MEVEL™ Surgical Drape Sheet",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven drape fabric",
+      "color": "Royal Blue",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Half Drape",
+    "size": "160 cm - 110 cm",
+    "adhesive": true,
+    "features": [
+      "With Adhesive"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Surgical Drape Sheet",
+    "series_name": "MEVEL™ Surgical Drape Sheet",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven drape fabric",
+      "color": "Royal Blue",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Large Drape",
+    "size": "190 cm - 160 cm",
+    "adhesive": true,
+    "features": [
+      "With adhesive"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Surgical Drape Sheet",
+    "series_name": "MEVEL™ Surgical Drape Sheet",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven drape fabric",
+      "color": "Royal Blue",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Utility Drape",
+    "size": "100 cm - 100 cm",
+    "adhesive": true,
+    "features": [
+      "With adhesive"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Surgical Drape Sheet",
+    "series_name": "MEVEL™ Surgical Drape Sheet",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven drape fabric",
+      "color": "Royal Blue",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Top Drape",
+    "size": "100 cm - 160 cm",
+    "adhesive": true,
+    "features": [
+      "With Adhesive"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Surgical Drape Sheet",
+    "series_name": "MEVEL™ Surgical Drape Sheet",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven drape fabric",
+      "color": "Royal Blue",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Bottom Drape",
+    "size": "190 cm - 160 cm",
+    "adhesive": true,
+    "features": [
+      "With Adhesive"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Surgical Drape Sheet",
+    "series_name": "MEVEL™ Surgical Drape Sheet",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven drape fabric",
+      "color": "Royal Blue",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Side Drape",
+    "size": "50 cm - 80 cm",
+    "adhesive": true,
+    "features": [
+      "With Adhesive"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

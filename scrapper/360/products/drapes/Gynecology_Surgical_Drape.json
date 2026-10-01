@@ -1,0 +1,47 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Gynecology Surgical Drape",
+    "series_name": "MEVEL™ Gynecology Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric combined with absorbent non-woven layers",
+      "barrier_properties": [
+        "Resistant to fluid penetration, fluid concentration and blood strike-through",
+        "Free from skin irritation, sensitization and cytotoxicity",
+        "Resistant to microbial penetration",
+        "Virtually lint-free",
+        "Abrasion-resistant"
+      ],
+      "packaging": "Pouch-packed in certified and validated packs",
+      "sterilization": "Ethylene Oxide (EO) sterilized as per ISO 11135",
+      "purpose": "Isolates the surgical site from other areas of the patient's body and non-sterile zones of the OR table, reducing risk of surgical site infections (SSI)"
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ C Section Drape",
+    "model": "C-Section Drape with Fluid Collection Pouch",
+    "description": "The Mevel C-Section Drape with Fluid Collection Pouch, measuring 190 cm × 230 cm, is specially designed for cesarean section procedures, offering comprehensive coverage, fluid control, and safety.",
+    "size": "190 cm × 230 cm",
+    "dimensions_cm": {
+      "length": 190,
+      "width": 230
+    },
+    "fenestration": "Large 20 cm diameter fenestration",
+    "features": [
+      "Large 20 cm (diameter) fenestration",
+      "Reinforced backdrop to provide enhanced protection against fluid penetration and pooling",
+      "Integrated fluid collection pouch",
+      "Equipped with Tube Holder and Cord Organizer"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

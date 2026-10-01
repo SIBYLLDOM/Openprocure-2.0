@@ -16,7 +16,7 @@ router.get(/^\/my-role\/(.+)$/, auth, (req, res, next) => {
 }, workspaceController.getMyWorkspaceRole);
 
 // Workspace Overview Analytics Route
-router.get(/^\/(.+)\/overview$/, (req, res, next) => {
+router.get(/^\/(.+)\/overview$/, auth, (req, res, next) => {
     if (req.params[0]) req.params.tenderId = req.params[0];
     next();
 }, workspaceController.getWorkspaceOverview);

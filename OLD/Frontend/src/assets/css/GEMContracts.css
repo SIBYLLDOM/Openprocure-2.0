@@ -1,0 +1,606 @@
+:root {
+  --navy: #0f2a4a;
+  --navy-light: #1e3a5f;
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --blue-soft: #eff6ff;
+  --text: #1e293b;
+  --text-strong: #0f172a;
+  --muted: #64748b;
+  --bg: #ffffff;
+  --page-bg: #f4f6fa;
+  --card-bg: #f8fafc;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --radius: 10px;
+
+  --green: #16a34a;
+  --green-bg: #dcfce7;
+  --amber: #b45309;
+  --amber-bg: #fef3c7;
+  --red: #dc2626;
+  --red-bg: #fee2e2;
+  --slate: #475569;
+  --slate-bg: #e2e8f0;
+}
+
+* { box-sizing: border-box; }
+
+.gem-contracts-page {
+  padding: 28px 32px 40px;
+  background: var(--page-bg);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+}
+
+/* ---------- Header ---------- */
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.page-header h1 {
+  margin: 0 0 4px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-strong);
+  letter-spacing: -0.01em;
+}
+
+.page-header p {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.page-header-stats {
+  display: flex;
+  gap: 12px;
+}
+
+.header-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 18px;
+  min-width: 110px;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.header-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Search & filter card ---------- */
+
+.search-filter-card {
+  background: var(--bg);
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+.search-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 13.5px;
+  background: var(--card-bg);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: var(--bg);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.search-clear {
+  position: absolute;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: var(--border);
+  color: var(--muted);
+  border-radius: 50%;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-clear:hover {
+  background: var(--border-strong);
+  color: var(--text);
+}
+
+.search-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.btn-toggle-filters,
+.btn-export {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-toggle-filters:hover,
+.btn-export:hover {
+  background: var(--card-bg);
+  border-color: var(--border-strong);
+}
+
+.btn-toggle-filters.active {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+  color: var(--blue-dark);
+}
+
+.filter-count-badge {
+  background: var(--blue);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chevron {
+  font-size: 11px;
+  transition: transform 0.2s ease;
+  color: var(--muted);
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+.btn-export {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+
+.btn-export:hover {
+  background: var(--navy-light);
+  border-color: var(--navy-light);
+}
+
+/* ---------- Filters panel ---------- */
+
+.filters-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+
+.filters-panel.show {
+  max-height: 3000px;
+  overflow: visible;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.filter-group input,
+.filter-group select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.filter-compound {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-compound select,
+.filter-compound input {
+  flex: 1;
+  min-width: 0;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn-search {
+  background: var(--blue);
+  color: white;
+  border: 1px solid var(--blue);
+  padding: 9px 22px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-search:hover {
+  background: var(--blue-dark);
+}
+
+.btn-clear {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 22px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-clear:hover {
+  background: var(--card-bg);
+  border-color: var(--border-strong);
+}
+
+/* ---------- Table controls ---------- */
+
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 4px 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.table-controls-left,
+.table-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.table-controls select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 13px;
+  color: var(--text);
+}
+
+.table-controls select:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+
+/* ---------- Table ---------- */
+
+.table-wrapper {
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+.contracts-table {
+  width: 100%;
+  min-width: 1500px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.contracts-table th,
+.contracts-table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 200px;
+}
+
+.contracts-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--navy);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  border-bottom: none;
+  white-space: nowrap;
+}
+
+.contracts-table th.col-num,
+.contracts-table td.col-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.contracts-table td.col-emphasis {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.contracts-table td.col-muted {
+  color: var(--muted);
+}
+
+.contracts-table td.col-mono {
+  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 12.5px;
+  color: var(--text);
+}
+
+.contracts-table tbody tr {
+  transition: background 0.1s ease;
+}
+
+.contracts-table tbody tr:nth-child(even) {
+  background: #fafbfd;
+}
+
+.contracts-table tbody tr:hover {
+  background: var(--blue-soft);
+}
+
+.contracts-table tbody tr.row-selected {
+  background: #e9f1ff;
+}
+
+.contracts-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ---------- Status & tag badges ---------- */
+
+.status-badge,
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+
+.status-badge { background: var(--slate-bg); color: var(--slate); }
+.status-badge[class*="delivered"],
+.status-badge[class*="completed"],
+.status-badge[class*="accepted"],
+.status-badge[class*="confirmed"] { background: var(--green-bg); color: var(--green); }
+.status-badge[class*="waiting"],
+.status-badge[class*="pending"],
+.status-badge[class*="progress"] { background: var(--amber-bg); color: var(--amber); }
+.status-badge[class*="cancel"],
+.status-badge[class*="reject"],
+.status-badge[class*="fail"] { background: var(--red-bg); color: var(--red); }
+
+.tag-mode-direct { background: var(--blue-soft); color: var(--blue-dark); }
+.tag-mode-bid { background: #ede9fe; color: #6d28d9; }
+
+.tag-yes { background: var(--green-bg); color: var(--green); }
+.tag-no { background: var(--slate-bg); color: var(--slate); }
+
+.tag-meril { background: #dbeafe; color: var(--navy); font-weight: 700; }
+.tag-others { background: var(--slate-bg); color: var(--slate); }
+
+/* ---------- Table empty / loading states ---------- */
+
+.table-status-cell {
+  text-align: center;
+  padding: 48px 8px !important;
+  color: var(--muted);
+  font-size: 14px;
+  white-space: normal !important;
+}
+
+.table-status-error {
+  color: var(--red);
+}
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: -2px;
+  animation: gem-spin 0.7s linear infinite;
+}
+
+@keyframes gem-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Pagination ---------- */
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 4px;
+}
+
+.pagination-info {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-page {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-page:hover:not(:disabled) {
+  background: var(--card-bg);
+  border-color: var(--border-strong);
+}
+
+.btn-page:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-page.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .gem-contracts-page {
+    padding: 18px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-header-stats {
+    width: 100%;
+  }
+
+  .header-stat {
+    flex: 1;
+    align-items: flex-start;
+  }
+}

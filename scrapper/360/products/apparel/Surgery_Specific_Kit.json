@@ -1,0 +1,41 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgery-Specific Kits",
+    "product_code": "",
+    "instrument_name": "MAYYA™ Surgery-Specific Kits",
+    "brand": "Meril",
+    "sub_brand": "MAYYA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming — the standardized kits and customized surgery-specific kits will be available soon",
+    "description": "Procedure-customized surgical kits that streamline workflows, enhance surgical efficiency, and reduce the risk of contamination through standardized, high-quality components.",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "features": {
+      "benefits": [
+        "Streamlined surgical workflows",
+        "Enhanced surgical efficiency",
+        "Reduced risk of contamination",
+        "Standardized, high-quality components"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Procedure-standardized operating theatres",
+        "Hospitals seeking single-pack surgical setups",
+        "Efficiency-focused tenders"
+      ],
+      "key_strengths": [
+        "Procedure-customized configurations",
+        "Standardized component quality",
+        "Workflow and contamination risk reduction"
+      ]
+    }
+  }
+]

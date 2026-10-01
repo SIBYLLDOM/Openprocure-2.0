@@ -1,9 +1,14 @@
 const db = require('../config/db');
+const { getUserScope, deptColumnSql } = require('../utils/userScope');
 
 /**
  * GET /api/contracts
  * Query Params: page, limit
  * Returns paginated contracts ordered by contract date
+ *
+ * Contracts are all GeM-sourced, so a caller without GEM in their assigned
+ * sources sees none (deptColumnSql fails closed the same way tender listings
+ * do), and dept-scoped callers only see their own division's contracts.
  */
 const getContracts = async (req, res) => {
     try {
@@ -14,7 +19,7 @@ const getContracts = async (req, res) => {
             referenceNo = '',
             state = '',
             departmentType = '', // Diagno or Endo
-            department = '',
+            category = '',
             seller_name = '',
             // status = '', // Removed
             contractDateFrom = '',
@@ -30,24 +35,26 @@ const getContracts = async (req, res) => {
         } = req.query;
 
         const offset = (page - 1) * limit;
-        let where = `WHERE 1=1`;
-        const params = [];
+        const scope = await getUserScope(req.user.id);
+        const deptScope = deptColumnSql(scope, 'dept', 'GEM');
+        let where = `WHERE ${deptScope.sql}`;
+        const params = [...deptScope.params];
 
         // Global Search
         if (search) {
-            where += ` AND (bid_no LIKE ? OR product LIKE ? OR brand LIKE ? OR organization_name LIKE ? OR serial_no LIKE ?)`;
-            params.push(`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`);
+            where += ` AND (contract_no LIKE ? OR product LIKE ? OR brand LIKE ? OR organization_name LIKE ? OR hospital_name LIKE ? OR seller_name LIKE ? OR category_name LIKE ?)`;
+            params.push(`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`);
         }
 
-        // Reference No (bid_no or serial_no)
+        // Reference No (contract_no or bid_no)
         if (referenceNo) {
-            where += ` AND (bid_no LIKE ? OR serial_no LIKE ?)`;
+            where += ` AND (contract_no LIKE ? OR bid_no LIKE ?)`;
             params.push(`%${referenceNo}%`, `%${referenceNo}%`);
         }
 
-        // State Filter
+        // State Filter (hospital_state — `state` holds the buying ministry, not a geographic state)
         if (state && state !== 'All States') {
-            where += ` AND state = ?`;
+            where += ` AND UPPER(hospital_state) = UPPER(?)`;
             params.push(state);
         }
 
@@ -57,10 +64,25 @@ const getContracts = async (req, res) => {
             params.push(departmentType);
         }
 
-        // Department Filter
-        if (department) {
-            where += ` AND buyer_department LIKE ?`;
-            params.push(`%${department}%`);
+        // Category Filter
+        if (category) {
+            where += ` AND category_name LIKE ?`;
+            params.push(`%${category}%`);
+        }
+
+        // Contract Date Filter (contract_date is stored as 'd/m/Y H:i')
+        if (contractDateFrom || contractDateTo) {
+            const contractDateSQL = `STR_TO_DATE(contract_date, '%d/%m/%Y %H:%i')`;
+            if (contractDateFrom && contractDateTo) {
+                where += ` AND ${contractDateSQL} BETWEEN ? AND ?`;
+                params.push(`${contractDateFrom} 00:00`, `${contractDateTo} 23:59`);
+            } else if (contractDateFrom) {
+                where += ` AND ${contractDateSQL} >= ?`;
+                params.push(`${contractDateFrom} 00:00`);
+            } else if (contractDateTo) {
+                where += ` AND ${contractDateSQL} <= ?`;
+                params.push(`${contractDateTo} 23:59`);
+            }
         }
 
         // Seller Name Filter
@@ -118,23 +140,58 @@ const getContracts = async (req, res) => {
             LIMIT ? OFFSET ?
         `;
 
-        // Count Query
-        const countQuery = `SELECT COUNT(*) as total FROM contracts ${where}`;
+        // Count + total value across every matching row (not just this page) —
+        // one query, same WHERE, so the summary card always matches the filters.
+        const summaryQuery = `
+            SELECT
+                COUNT(*) AS total,
+                SUM(CAST(REPLACE(REPLACE(IFNULL(total_value,'0'), ',', ''), ' ', '') AS DECIMAL(15,2))) AS total_value
+            FROM contracts ${where}
+        `;
 
         const [rows] = await db.query(dataQuery, [...params, +limit, +offset]);
-        const [[count]] = await db.query(countQuery, params);
+        const [[summary]] = await db.query(summaryQuery, params);
 
         res.json({
             success: true,
             page: +page,
             limit: +limit,
-            total: count.total,
-            totalPages: Math.ceil(count.total / limit),
+            total: summary.total,
+            totalValue: summary.total_value || 0,
+            totalPages: Math.ceil(summary.total / limit),
             data: rows
         });
     } catch (err) {
         console.error('Error fetching contracts:', err);
         res.status(500).json({ success: false, message: 'Failed to fetch contracts' });
+    }
+};
+
+/**
+ * GET /api/contracts/meta/categories
+ * Distinct category_name values, for filter dropdowns
+ */
+const getContractCategories = async (req, res) => {
+    try {
+        const { departmentType = '' } = req.query;
+        const scope = await getUserScope(req.user.id);
+        const deptScope = deptColumnSql(scope, 'dept', 'GEM');
+        let where = `WHERE category_name IS NOT NULL AND category_name <> '' AND ${deptScope.sql}`;
+        const params = [...deptScope.params];
+
+        if (departmentType && departmentType !== 'All') {
+            where += ` AND dept = ?`;
+            params.push(departmentType);
+        }
+
+        const [rows] = await db.query(
+            `SELECT DISTINCT category_name FROM contracts ${where} ORDER BY category_name ASC`,
+            params
+        );
+        res.json({ success: true, data: rows.map(r => r.category_name) });
+    } catch (err) {
+        console.error('Error fetching contract categories:', err);
+        res.status(500).json({ success: false, message: 'Failed to fetch categories' });
     }
 };
 
@@ -281,7 +338,151 @@ const deleteContract = async (req, res) => {
 module.exports = {
     getContracts,
     getContractById,
+    getContractCategories,
     createContract,
     updateContract,
-    deleteContract
+    deleteContract,
+    getDealers,
+    getDealerSuggestions
 };
+
+/**
+ * GET /api/contracts/dealers/suggestions?q=medi
+ * Returns distinct seller_names matching the query (for autocomplete)
+ * Source: contracts WHERE meril_db = 'YES'
+ */
+async function getDealerSuggestions(req, res) {
+    try {
+        const { q = '' } = req.query;
+        if (!q || q.trim().length < 2) return res.json({ success: true, data: [] });
+
+        const [rows] = await db.query(
+            `SELECT DISTINCT seller_name
+             FROM contracts
+             WHERE meril_db = 'YES'
+               AND seller_name LIKE ?
+             ORDER BY seller_name
+             LIMIT 15`,
+            [`%${q.trim()}%`]
+        );
+        res.json({ success: true, data: rows.map(r => r.seller_name) });
+    } catch (err) {
+        console.error('getDealerSuggestions error:', err);
+        res.status(500).json({ success: false, message: 'Failed to fetch suggestions' });
+    }
+}
+
+/**
+ * GET /api/contracts/dealers
+ * Returns aggregated dealer rows from contracts WHERE meril_db = 'YES'
+ * Each row = one unique seller_name with contract count, total value, etc.
+ *
+ * Query params:
+ *   page, limit, sortBy (seller_name|contract_count|total_value), sortOrder (asc|desc)
+ *   sellerName, state, dept, category, dateFrom, dateTo
+ */
+async function getDealers(req, res) {
+    try {
+        const {
+            page = 1,
+            limit = 25,
+            sortBy = 'contract_count',
+            sortOrder = 'desc',
+            sellerName = '',
+            state = '',
+            dept = '',
+            category = '',
+            dateFrom = '',
+            dateTo = '',
+        } = req.query;
+
+        const offset = (page - 1) * limit;
+
+        // Whitelist sort columns to prevent SQL injection
+        const validSortCols = {
+            seller_name: 'seller_name',
+            contract_count: 'contract_count',
+            total_value: 'total_value_raw',
+        };
+        const sortCol = validSortCols[sortBy] || 'contract_count';
+        const order = sortOrder.toLowerCase() === 'asc' ? 'ASC' : 'DESC';
+
+        const scope = await getUserScope(req.user.id);
+        const deptScope = deptColumnSql(scope, 'c.dept', 'GEM');
+        let where = `WHERE c.meril_db = 'YES' AND ${deptScope.sql}`;
+        const params = [...deptScope.params];
+
+        if (sellerName) {
+            where += ` AND c.seller_name LIKE ?`;
+            params.push(`%${sellerName}%`);
+        }
+        if (state && state !== 'All States') {
+            where += ` AND UPPER(c.seller_state) = UPPER(?)`;
+            params.push(state);
+        }
+        if (dept && dept !== 'All') {
+            where += ` AND c.dept = ?`;
+            params.push(dept);
+        }
+        if (category) {
+            where += ` AND c.category_name LIKE ?`;
+            params.push(`%${category}%`);
+        }
+        if (dateFrom) {
+            where += ` AND STR_TO_DATE(c.contract_date, '%d/%m/%Y %H:%i') >= ?`;
+            params.push(`${dateFrom} 00:00`);
+        }
+        if (dateTo) {
+            where += ` AND STR_TO_DATE(c.contract_date, '%d/%m/%Y %H:%i') <= ?`;
+            params.push(`${dateTo} 23:59`);
+        }
+
+        const dataQuery = `
+            SELECT
+                c.seller_name,
+                MAX(c.seller_state)       AS seller_state,
+                MAX(c.seller_location)    AS seller_location,
+                MAX(c.seller_contact_no)  AS seller_contact_no,
+                MAX(c.seller_email)       AS seller_email,
+                MAX(c.dept)               AS dept,
+                COUNT(*)                  AS contract_count,
+                SUM(CAST(REPLACE(REPLACE(IFNULL(c.total_value,'0'),',',''),' ','') AS DECIMAL(15,2))) AS total_value_raw
+            FROM contracts c
+            ${where}
+            GROUP BY c.seller_name
+            ORDER BY ${sortCol} ${order}
+            LIMIT ? OFFSET ?
+        `;
+
+        const countQuery = `
+            SELECT COUNT(DISTINCT seller_name) AS total
+            FROM contracts c
+            ${where}
+        `;
+
+        const [rows] = await db.query(dataQuery, [...params, +limit, +offset]);
+        const [[countRow]] = await db.query(countQuery, params);
+
+        res.json({
+            success: true,
+            page: +page,
+            limit: +limit,
+            total: countRow.total,
+            totalPages: Math.ceil(countRow.total / limit),
+            data: rows.map(r => ({
+                seller_name: r.seller_name,
+                seller_state: r.seller_state,
+                seller_location: r.seller_location,
+                seller_contact_no: r.seller_contact_no,
+                seller_email: r.seller_email,
+                dept: r.dept,
+                contract_count: r.contract_count,
+                total_value: r.total_value_raw,
+            })),
+        });
+    } catch (err) {
+        console.error('getDealers error:', err);
+        res.status(500).json({ success: false, message: 'Failed to fetch dealers' });
+    }
+}
+

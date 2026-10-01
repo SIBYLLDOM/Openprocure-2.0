@@ -1,0 +1,2151 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Gown",
+    "series_name": "MAIRA™ Surgical Gowns",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "division": "Infection Prevention & Control Division",
+    "solution_family": "360° Infection Prevention Solutions",
+    "manufacturer": "Meril Medical Innovation Pvt. Ltd.",
+    "marketed_by": "Meril Life Sciences India Pvt. Ltd.",
+    "application": "Operating Theatre (OT) and critical care areas",
+    "shared_technical_specifications": {
+      "fabric_construction": "Polypropylene SSMMS non-woven, hydrophobic",
+      "color": "Blue",
+      "design": "Straight Shoulders - Velcro Neck",
+      "closure": "Velcro hook and loop closures for adjustable neckline",
+      "seam_type": "Ultrasonically sealed seams",
+      "tie_type": "Ultrasonic tie",
+      "cuff_types": [
+        "Knitted cuff",
+        "Elastic cuff"
+      ],
+      "sterilization": "EO Sterile as per ISO 11135",
+      "packaging": [
+        "Book folded for aseptic handling and easy usage",
+        "Pouch packed in certified and validated medical-grade packaging"
+      ],
+      "units_per_case": "10 Pcs",
+      "barrier_properties": [
+        "Breathable fabric resists fluid penetration and blood strike-through",
+        "Effective microbial penetration resistance",
+        "Water repellant",
+        "Virtually lint-free"
+      ],
+      "biocompatibility": "Certified free from skin irritation, sensitization and cytotoxicity",
+      "breathability": "Advanced moisture vapor transmission compared to standard SMS gowns",
+      "standard_compliance": [
+        "ANSI/AAMI PB70:2012",
+        "ISO 11135"
+      ],
+      "size_chart": [
+        {
+          "size": "L",
+          "length_cm": 124,
+          "width_cm": 160
+        },
+        {
+          "size": "XL",
+          "length_cm": 134,
+          "width_cm": 160
+        },
+        {
+          "size": "XXL",
+          "length_cm": 144,
+          "width_cm": 160
+        },
+        {
+          "size": "XXXL",
+          "length_cm": 150,
+          "width_cm": 160
+        }
+      ]
+    },
+    "products": [
+      {
+        "product_code": "",
+        "instrument_name": "MAIRA™ Isolation Gown",
+        "model": "Isolation Gown",
+        "tagline": "Lightweight Protection. Everyday Confidence.",
+        "description": "Isolation Gowns are designed to provide essential protection for healthcare professionals in low-risk environments.",
+        "material": "35 GSM SMS Medical Textiles",
+        "gsm": 35,
+        "aami_level": 1,
+        "design": "Straight Shoulders - Velcro Neck",
+        "cuff": null,
+        "sterilization": "EO Sterile",
+        "units_per_case": "10 Pcs",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MAIRA™ Standard Gown",
+        "model": "Standard Gown",
+        "tagline": "Reliable Protection. Everyday Performance.",
+        "description": "Standard Gowns are designed to meet the needs of healthcare professionals in procedures involving low to moderate fluid exposure.",
+        "material": "43 GSM SMS Medical Textiles",
+        "gsm": 43,
+        "aami_level": 2,
+        "design": "Straight Shoulders - Velcro Neck",
+        "cuff": "Elastic Cuff",
+        "sterilization": "EO Sterile",
+        "units_per_case": "10 Pcs",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MAIRA™ Reinforced Gown",
+        "model": "Reinforced Gowns",
+        "tagline": "Extra Protection Where It Matters Most.",
+        "description": "Reinforced Gowns are designed for procedures involving moderate fluid exposure, offering AAMI Level 3 protection. The gowns combine strength, comfort, and targeted safety to meet the needs of high-demand clinical settings.",
+        "material": "43 GSM SMS Medical-grade textiles, Reinforced in Critical Zone",
+        "gsm": 43,
+        "reinforcement": "Critical Zone",
+        "aami_level": 3,
+        "design": "Straight Shoulders - Velcro Neck",
+        "cuff": "Elastic Cuff",
+        "sterilization": "EO Sterile",
+        "units_per_case": "10 Pcs",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MAIRA™ Fully Reinforced Gown",
+        "model": "Fully Reinforced Gowns",
+        "tagline": "Defining Protection. Delivering Assurance.",
+        "description": "Fully Reinforced Gowns set a new benchmark in surgical apparel protection. Built on a 43 GSM SMS base fabric, these gowns are entirely reinforced from collar to hemline and across full sleeves with a 30 GSM highly breathable film, delivering AAMI Level 4 protection.",
+        "material": "43 GSM SMS Medical-grade textiles, Reinforced in Critical Zone (Sleeves, Chest, and Arm Pit)",
+        "gsm": 43,
+        "reinforcement": "Critical Zone (Sleeves, Chest and Arm Pit), 30 GSM highly breathable film, collar to hemline and full sleeves",
+        "aami_level": 4,
+        "design": "Straight Shoulders - Velcro Neck",
+        "cuff": "Elastic Cuff",
+        "sterilization": "EO Sterile",
+        "ideal_applications": [
+          "Cardiovascular",
+          "Orthopaedic",
+          "High fluid exposure cases"
+        ],
+        "units_per_case": "10 Pcs",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MAIRA™ Supreme Gown",
+        "model": "Breathable / BVB Supreme Gown",
+        "tagline": "The Right Balance Between Comfort & Safety.",
+        "description": "Supreme Gowns are designed with 51 GSM advanced fabric, delivering the highest protection (AAMI Level 4) while ensuring all-day comfort. Built with Breathable Viral Barrier (BVB) film technology.",
+        "material": "51 GSM SMS Medical-grade textiles with Breathable Viral Barrier (BVB) film technology",
+        "gsm": 51,
+        "film_technology": "Breathable Viral Barrier (BVB)",
+        "aami_level": 4,
+        "design": "Straight Shoulders - Velcro Neck",
+        "cuff": "Elastic Cuff",
+        "sterilization": "EO Sterile",
+        "ideal_applications": [
+          "Cardiovascular",
+          "Orthopaedic",
+          "High fluid exposure cases"
+        ],
+        "units_per_case": "10 Pcs",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MAIRA™ Premium Surgical Gown",
+        "model": "Pro Surgical Premiere Gowns",
+        "tagline": "Ultimate Protection. Professional Confidence.",
+        "description": "The MAIRA™ Premium is built for the highest-risk surgical environments. With 60 GSM trilaminate fabric and AAMI Level 4 certification, these gowns provide maximum fluid and pathogen protection without compromising comfort.",
+        "material": "60 GSM trilaminate Medical-grade textiles",
+        "gsm": 60,
+        "fabric_type": "Trilaminate",
+        "aami_level": 4,
+        "design": "Straight Shoulders - Velcro Neck",
+        "cuff": "Elastic Cuff",
+        "sterilization": "EO Sterile",
+        "ideal_applications": [
+          "Cardiovascular",
+          "Orthopaedic",
+          "High fluid exposure cases"
+        ],
+        "units_per_case": "10 Pcs",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      }
+    ],
+    "features": {
+      "enhanced_barrier_protection": [
+        "Breathable fabric that resists fluid penetration and blood strike-through",
+        "Effective microbial penetration resistance for infection prevention",
+        "Ultrasonically sealed seams for enhanced durability and fluid protection"
+      ],
+      "safe_for_skin": [
+        "Certified free from skin irritation, sensitization, and cytotoxicity for patient and user safety"
+      ],
+      "custom_fit": [
+        "Velcro hook and loop closures for an adjustable neckline to ensure a personalized fit"
+      ],
+      "virtually_lint_free": [
+        "Advanced moisture vapor transmission allows for breathability compared to standard SMS gowns",
+        "Keeps clinicians cool and comfortable"
+      ],
+      "design_highlights": [
+        "Ultrasonic tie",
+        "Knitted cuff",
+        "Ultrasonic seam",
+        "Collar velcro design",
+        "Water repellant",
+        "Meets AAMI level standard"
+      ]
+    },
+    "aami_level_reference": {
+      "standard": "ANSI/AAMI PB70:2012 - Liquid Barrier Performance",
+      "definitions": {
+        "AAMI": "Association for the Advancement of Medical Instrumentation",
+        "ANSI": "American National Standards Institute"
+      },
+      "levels": [
+        {
+          "aami_level": 1,
+          "protection_level": "Minimal Protection",
+          "summary": "Indicates minimal fluid barrier protection. Ideal for very short surgeries or everyday patient care where the risk of fluid exposure is close to none.",
+          "typical_use": "For general patient care or simple examination procedures, where minimal fluid exposure is anticipated",
+          "fluid_resistance": "Limited resistance to fluids like water or blood",
+          "tests_performed": [
+            "Impact Penetration Test (ISO 22610)",
+            "Barrier Protection Test (ASTM F1670)"
+          ]
+        },
+        {
+          "aami_level": 2,
+          "protection_level": "Low to Moderate Protection",
+          "summary": "Indicates minimal to low fluid barrier protection. Equipment made from this fabric is used in slightly longer surgeries like Endoscopic or Hernia.",
+          "typical_use": "Suitable for procedures where there is a low to moderate risk of fluid exposure, such as during blood draws, suturing, or minor surgeries",
+          "fluid_resistance": "Moderate resistance to fluids and penetration",
+          "tests_performed": [
+            "Impact Penetration Test (ISO 22610)",
+            "Barrier Protection Test (ASTM F1670)"
+          ]
+        },
+        {
+          "aami_level": 3,
+          "protection_level": "Moderate to High Protection",
+          "summary": "Provides moderate fluid barrier protection. Used in surgeries with a moderate risk of fluid exposure and hence used in most of the surgeries.",
+          "typical_use": "Used for moderate to high-risk surgeries or procedures, such as orthopedic surgeries, catheterization, and diagnostic testing, where moderate fluid exposure is expected",
+          "fluid_resistance": "High resistance to fluid splashes and penetration",
+          "tests_performed": [
+            "Impact Penetration Test (ISO 22610)",
+            "Barrier Protection Test (ASTM F1670)",
+            "Water Pressure Test (AAMI PB70)",
+            "Blood Penetration Test (ASTM F1670)"
+          ]
+        },
+        {
+          "aami_level": 4,
+          "protection_level": "High Protection",
+          "summary": "Has the highest barrier protection against fluids and blood borne pathogens in critical areas of the medical protective clothing and is ideal for longer surgeries.",
+          "typical_use": "For high-risk procedures involving high fluid exposure, such as trauma surgeries, organ transplants, and dealing with infectious disease patients, where the risk of contamination is severe",
+          "fluid_resistance": "Maximum resistance to fluid penetration, ensuring complete protection in critical settings",
+          "tests_performed": [
+            "Impact Penetration Test (ISO 22610)",
+            "Barrier Protection Test (ASTM F1670)",
+            "Water Pressure Test (AAMI PB70)",
+            "Blood Penetration Test (ASTM F1670)",
+            "Cyclic Testing (AAMI/ANSI PB70)"
+          ]
+        }
+      ]
+    },
+    "donning_procedure": {
+      "title": "The nine steps of how to put on a MAIRA surgical gown aseptically",
+      "steps": [
+        "Grasp the sterile gown and step into an area where the gown may be opened without risk of contamination. Put both hands into armholes. Hold the gown away from the body, and allow it to unfold completely.",
+        "Slip both hands and forearms into armholes and sleeves; keep hands at shoulder level and away from the body.",
+        "If you are open glove donning, pull cuff to thumb level. If you are closed glove donning, push the hands to the edge of the cuff.",
+        "The circulating nurse should pull the gown over shoulders, touching only the inside of the gown.",
+        "The circulating nurse should arrange hook and loop fixation.",
+        "The circulating nurse should tie the inner belt of the gown.",
+        "Then don gloves. After gloving, grasp the belt card with both hands, separate the left outer belt from the belt card and keep the belt in the left hand.",
+        "Hand the belt card to the circulating nurse, then make a three-fourth turn to the left while the circulating nurse extends the outer belt to its full length.",
+        "Retrieve the outer belt by pulling it out of the belt card held by the circulating nurse and tie it together with the other outer belt on the left-hand side."
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Operating Theatres (OT)",
+        "Critical care areas",
+        "Cardiovascular and orthopaedic procedures",
+        "High fluid exposure surgeries",
+        "Infection prevention focused tenders"
+      ],
+      "key_strengths": [
+        "Complete AAMI Level 1 to 4 range in a single family",
+        "SSMMS hydrophobic polypropylene construction",
+        "Ultrasonically sealed seams and velcro collar design",
+        "EO sterilized as per ISO 11135",
+        "Four sizes (L to XXXL) across all variants"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Cap",
+    "series_name": "MAIRA™ Surgical Caps",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "application": "Sterile surgical environments, clean rooms",
+      "latex_free": true,
+      "purpose": "Contains hair and reduces microbial dispersion from the scalp and hair to protect the sterile field"
+    },
+    "products": [
+      {
+        "product_code": "",
+        "instrument_name": "MAIRA™ Surgical Cap",
+        "tagline": "Secure. Sterile. Comfortable.",
+        "description": "MAIRA™ Surgical Cap is a high-quality head covering designed for use in sterile surgical environments. It ensures comprehensive protection by containing hair and reducing microbial dispersion from the scalp and hair, thus contributing to a sterile field.",
+        "technical_specifications": {
+          "material": "SMS (Spunbond-Meltblown-Spunbond) Non-woven Fabric",
+          "weight_gsm": "25 – 30",
+          "design": "Elasticated band for snug fit",
+          "breathability": "Air-permeable, minimizes sweating",
+          "barrier_protection": "Limits hair shedding and microbial contamination",
+          "comfort_fit": "Soft texture, skin-friendly",
+          "one_size_fits_all": "Universal fit with secure hold",
+          "latex_free": "Reduces allergy risk",
+          "colour_options": "Standard Blue, White (custom colours optional)",
+          "pack_size": "Pack of 50 Pcs",
+          "sterilization": "EO Sterilized"
+        },
+        "features": {
+          "benefits": [
+            "Infection Prevention: Prevents hair and scalp microbes from contaminating the sterile field",
+            "Enhanced Comfort",
+            "Secure Fit",
+            "Hypoallergenic"
+          ]
+        },
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MAIRA™ Bouffant Cap",
+        "tagline": "Full Coverage, Maximum Protection, Ultimate Comfort.",
+        "description": "The MAIRA™ Bouffant Cap is a soft, lightweight, and breathable head covering designed to fully encapsulate hair, reducing the risk of hair and microbial shedding in sterile and clean environments. Its roomy design accommodates various hair volumes, ensuring both comfort and infection prevention.",
+        "technical_specifications": {
+          "material": "Spunbond Polypropylene Non-woven Fabric",
+          "gsm_range": "10 – 15 GSM (customizable)",
+          "design": "Pleated, Full-Coverage Circular Design",
+          "elastic_band": "Soft, non-binding elastic for secure yet gentle fit",
+          "air_permeability": "High breathability to reduce sweating",
+          "universal_fit": "Available in 18\", 21\" and 24\" sizes",
+          "available_sizes_inch": [
+            18,
+            21,
+            24
+          ],
+          "latex_free": "Prevents latex allergy concerns",
+          "color_options": "Blue",
+          "pack_size": "Pack of 50 Bouffant Caps"
+        },
+        "features": {
+          "benefits": [
+            "Enhanced Infection Prevention: Prevents hair and particulate contamination in sterile zones",
+            "Comfort for Long Wear",
+            "Versatile Sizing",
+            "Safe for All Users",
+            "Economical"
+          ]
+        },
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      }
+    ],
+    "positioning_summary": {
+      "ideal_for": [
+        "Operating theatres and sterile zones",
+        "Clean room and clinical environments",
+        "High-volume disposable headwear tenders"
+      ],
+      "key_strengths": [
+        "Latex-free hypoallergenic construction",
+        "Universal and versatile sizing",
+        "Breathable non-woven fabric",
+        "Economical pack of 50"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgical Mask",
+    "product_code": "",
+    "instrument_name": "MAIRA™ Surgical Mask",
+    "brand": "Meril",
+    "sub_brand": "MAIRA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "tagline": "Breathe Easy. Stay Protected.",
+    "description": "The MAIRA™ Surgical Mask is carefully engineered to provide effective respiratory protection for healthcare personnel, patients, and the general public. Designed to cover the nose and mouth, it filters airborne pathogens while allowing for comfortable, normal breathing. Suitable for use in the Operating Theatre (OT), isolation settings, and public health emergencies.",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "protection": "Protects against pathogenic biological airborne particulates",
+      "layer_construction": "3-Layer Protection: Outer Hydrophobic Layer, Middle Meltblown Filter Layer, Inner Soft Absorbent Layer",
+      "layers": [
+        "Outer Hydrophobic Layer",
+        "Middle Meltblown Filter Layer",
+        "Inner Soft Absorbent Layer"
+      ],
+      "filtration_efficiency": "≥ 98% Bacterial Filtration Efficiency (BFE)",
+      "bfe_percent": 98,
+      "breathability": "Low breathing resistance for comfort",
+      "design": "Pleated design for face coverage and easy adjustment",
+      "attachment_type": "Strong, soft tie attachments for a secure and adjustable fit",
+      "nose_clip": "Integrated, flexible nose piece for improved seal",
+      "comfort": "Soft inner lining is gentle on the skin",
+      "usage": "Disposable, single-use",
+      "standard_compliance": "Follows ASTM Level 2 / EN14683 Type IIR equivalent standards",
+      "pack_size": "Pack of 50"
+    },
+    "features": {
+      "benefits": [
+        "Optimal Protection: Filters airborne bacteria and particulates with high efficiency",
+        "Comfortable Fit",
+        "Skin-Friendly",
+        "Enhanced Breathability",
+        "Versatile Applications"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Operating Theatre (OT)",
+        "Isolation settings",
+        "Public health emergencies",
+        "General healthcare and public use"
+      ],
+      "key_strengths": [
+        "≥98% BFE 3-layer construction",
+        "ASTM Level 2 / EN14683 Type IIR equivalent",
+        "Low breathing resistance",
+        "Economical pack of 50"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Orthopedic Surgical Drape",
+    "series_name": "MEVEL™ Orthopedic Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric combined with absorbent non-woven layers",
+      "fabric_abbreviation_key": {
+        "SSMMS": "Spunbond Spunbond Meltblown Meltblown Spunbond",
+        "SMPE": "Spunbond-Meltblown-Polyethylene-Laminated"
+      },
+      "reinforcement": "Premium SMPE absorbent fabric in critical zones",
+      "color": "Royal Blue",
+      "barrier_properties": [
+        "Resistant to fluid penetration, fluid concentration and blood strike-through",
+        "Free from skin irritation, sensitization and cytotoxicity",
+        "Resistant to microbial penetration",
+        "Virtually lint-free",
+        "Abrasion-resistant"
+      ],
+      "packaging": "Pouch-packed in certified and validated packs",
+      "sterilization": "Ethylene Oxide (EO) sterilized as per ISO 11135",
+      "purpose": "Isolates the surgical site from other areas of the patient's body and non-sterile zones of the OR table, reducing risk of surgical site infection (SSI)",
+      "latex_free": true
+    },
+    "products": [
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Hip U Drape",
+        "description": "The Mevel Hip U Drape is a high-performance surgical drape designed for a wide range of procedures that demand efficient fluid management and optimal site access.",
+        "size": "310 cm × 230 cm",
+        "dimensions_cm": {
+          "length": 310,
+          "width": 230
+        },
+        "fenestration": "Centrally located U-shaped split measuring 10 cm x 80 cm",
+        "features": [
+          "Centrally located U-shaped split measuring 10 cm x 80 cm",
+          "Drape is reinforced with premium SMPE absorbent fabric",
+          "Equipped with Tube Holder and Cord Organizer"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Knee O Drape",
+        "description": "The Mevel Knee O Drape, measuring 300 × 230 cm, is a specialized surgical drape designed for knee and lower limb procedures requiring wide coverage and enhanced fluid control.",
+        "size": "300 cm × 230 cm",
+        "dimensions_cm": {
+          "length": 300,
+          "width": 230
+        },
+        "fenestration": "Central hole with a 2.5-inch diameter",
+        "features": [
+          "Central hole with a 2.5-inch diameter",
+          "Layer of latex-free material",
+          "Drape is reinforced with premium SMPE absorbent fabric to ensure high fluid absorbency",
+          "Equipped with Tube Holder and Cord Organizer"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Extremity Drape",
+        "description": "The Mevel Extremity Drape, measuring 360 cm × 240 cm, is designed to provide comprehensive coverage and effective fluid management for upper and lower extremity surgical procedures.",
+        "size": "360 cm × 240 cm",
+        "dimensions_cm": {
+          "length": 360,
+          "width": 240
+        },
+        "fenestration": "Central 2.5-inch diameter hole",
+        "features": [
+          "Central 2.5-inch diameter hole that allows precise access to the surgical site",
+          "Latex free material",
+          "Drape is reinforced with premium SMPE absorbent fabric to ensure high fluid absorbency",
+          "Equipped with Tube Holder and Cord Organizer"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      }
+    ],
+    "positioning_summary": {
+      "ideal_for": [
+        "Orthopaedic surgery",
+        "Knee and lower limb procedures",
+        "Upper and lower extremity procedures",
+        "Hip procedures"
+      ],
+      "key_strengths": [
+        "SMPE reinforced high absorbency zones",
+        "Integrated tube holder and cord organizer",
+        "EO sterilized as per ISO 11135",
+        "Latex-free and virtually lint-free"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Cardiology / Angiography Surgical Drape",
+    "series_name": "MEVEL™ Cardiology Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric and absorbent non-woven fabric",
+      "reinforcement": "Premium SMPE absorbent fabric",
+      "standard_compliance": "Fabrics meet AAMI PB70 level standards",
+      "barrier_properties": [
+        "Resistant to fluid penetration, fluid concentration and blood strike-through",
+        "Free from skin irritation, skin sensitization and cytotoxicity",
+        "Resistant to microbial penetration",
+        "Virtually lint-free",
+        "Abrasion-resistant"
+      ],
+      "purpose": "Isolates the surgical site from other areas of the patient's body and non-sterile areas of the OR table, contributing to a reduction in the risk of surgical site infection (SSI)"
+    },
+    "products": [
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Femoral Angiography Drape",
+        "model": "Mevel Femoral Angiography Drape Ultra",
+        "description": "Mevel Femoral Angiography Drape Ultra of size 300 cm × 230 cm.",
+        "size": "300 cm × 230 cm",
+        "dimensions_cm": {
+          "length": 300,
+          "width": 230
+        },
+        "fenestration": "Two femoral fenestrations of 11 cm diameter",
+        "features": [
+          "Two femoral fenestration of 11 cm diameter",
+          "Drape is reinforced with premium SMPE absorbent fabric to ensure high fluid absorbency"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      }
+    ],
+    "positioning_summary": {
+      "ideal_for": [
+        "Cardiology and cath lab procedures",
+        "Femoral angiography",
+        "Interventional cardiology suites"
+      ],
+      "key_strengths": [
+        "Dual 11 cm femoral fenestrations",
+        "AAMI PB70 compliant fabric",
+        "SMPE reinforced high absorbency"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "ENT / Eye / Dental Surgical Drape",
+    "series_name": "MEVEL™ ENT / Eye / Dental Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric with SMPE absorbent reinforcement",
+      "fabric_abbreviation_key": {
+        "SMPE": "Spunbond-Meltblown-Polyethylene-Laminated"
+      },
+      "reinforcement": "Premium SMPE absorbent fabric"
+    },
+    "products": [
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Dental Drape",
+        "description": "The Mevel Dental Drape, measuring 50 cm × 80 cm, is specifically designed for dental and maxillofacial procedures.",
+        "size": "50 cm × 80 cm",
+        "dimensions_cm": {
+          "length": 50,
+          "width": 80
+        },
+        "fenestration": "Centrally placed 10 cm × 10 cm fenestration with pouch",
+        "features": [
+          "Centrally placed 10 cm × 10 cm fenestration with pouch",
+          "Drape is reinforced with premium SMPE absorbent fabric to ensure high fluid absorbency"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Eye Drape",
+        "description": "Mevel Eye Drape, sized 80 cm × 90 cm, is designed to provide optimal coverage and fluid control during eye surgeries and ophthalmic procedures.",
+        "size": "80 cm × 90 cm",
+        "dimensions_cm": {
+          "length": 80,
+          "width": 90
+        },
+        "fenestration": "8 cm × 8 cm fenestration with pouch",
+        "features": [
+          "8 cm × 8 cm fenestration with pouch",
+          "Reinforced with an SMPE absorbent layer to manage fluids effectively",
+          "Transparent incise film that ensures secure adhesion to patient skin"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      }
+    ],
+    "positioning_summary": {
+      "ideal_for": [
+        "Dental and maxillofacial procedures",
+        "Eye surgeries and ophthalmic procedures",
+        "ENT procedures"
+      ],
+      "key_strengths": [
+        "Fenestration with integrated fluid pouch",
+        "Transparent incise film on eye drape",
+        "SMPE absorbent reinforcement"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Gynecology Surgical Drape",
+    "series_name": "MEVEL™ Gynecology Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric combined with absorbent non-woven layers",
+      "barrier_properties": [
+        "Resistant to fluid penetration, fluid concentration and blood strike-through",
+        "Free from skin irritation, sensitization and cytotoxicity",
+        "Resistant to microbial penetration",
+        "Virtually lint-free",
+        "Abrasion-resistant"
+      ],
+      "packaging": "Pouch-packed in certified and validated packs",
+      "sterilization": "Ethylene Oxide (EO) sterilized as per ISO 11135",
+      "purpose": "Isolates the surgical site from other areas of the patient's body and non-sterile zones of the OR table, reducing risk of surgical site infections (SSI)"
+    },
+    "products": [
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ C Section Drape",
+        "model": "C-Section Drape with Fluid Collection Pouch",
+        "description": "The Mevel C-Section Drape with Fluid Collection Pouch, measuring 190 cm × 230 cm, is specially designed for cesarean section procedures, offering comprehensive coverage, fluid control, and safety.",
+        "size": "190 cm × 230 cm",
+        "dimensions_cm": {
+          "length": 190,
+          "width": 230
+        },
+        "fenestration": "Large 20 cm diameter fenestration",
+        "features": [
+          "Large 20 cm (diameter) fenestration",
+          "Reinforced backdrop to provide enhanced protection against fluid penetration and pooling",
+          "Integrated fluid collection pouch",
+          "Equipped with Tube Holder and Cord Organizer"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      }
+    ],
+    "positioning_summary": {
+      "ideal_for": [
+        "Cesarean section procedures",
+        "Obstetrics and gynecology theatres",
+        "Maternity hospitals"
+      ],
+      "key_strengths": [
+        "Integrated fluid collection pouch",
+        "Large 20 cm fenestration",
+        "Reinforced backdrop against fluid pooling"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Surgical Drape Sheet",
+    "series_name": "MEVEL™ Surgical Drape Sheet",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven drape fabric",
+      "color": "Royal Blue",
+      "latex_free": true
+    },
+    "products": [
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Fenestrated Drape",
+        "size": "90 cm - 100 cm",
+        "fenestration": "Diameter of fenestrations – 11 cm",
+        "adhesive": false,
+        "features": [
+          "Diameter of fenestrations – 11 cm"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Medium Drape",
+        "size": "160 cm - 100 cm",
+        "adhesive": true,
+        "features": [
+          "With adhesive absorbent"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Half Drape",
+        "size": "160 cm - 110 cm",
+        "adhesive": true,
+        "features": [
+          "With Adhesive"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Large Drape",
+        "size": "190 cm - 160 cm",
+        "adhesive": true,
+        "features": [
+          "With adhesive"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Utility Drape",
+        "size": "100 cm - 100 cm",
+        "adhesive": true,
+        "features": [
+          "With adhesive"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Top Drape",
+        "size": "100 cm - 160 cm",
+        "adhesive": true,
+        "features": [
+          "With Adhesive"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Bottom Drape",
+        "size": "190 cm - 160 cm",
+        "adhesive": true,
+        "features": [
+          "With Adhesive"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MEVEL™ Side Drape",
+        "size": "50 cm - 80 cm",
+        "adhesive": true,
+        "features": [
+          "With Adhesive"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      }
+    ],
+    "features": {
+      "key_benefits": [
+        "100% Impermeable — Complete protection against fluids",
+        "High Absorption Capacity & Speed — Rapid absorption minimizes pooling",
+        "Low Linting — Maintains a sterile field by reducing particle contamination",
+        "Soft Feel & Body Conformity — Ensures patient comfort and secure draping",
+        "Latex-Free — Safe for latex-sensitive users and patients"
+      ],
+      "enhanced_features": [
+        "Royal Blue SSMMS Non Woven Drape Fabric: Reduces glare from operating lights, improving visibility",
+        "Standardized Reinforcement: Critical zones reinforced with advanced materials for added protection",
+        "Clear Visual Contrast: Differentiates drape fabric from reinforced areas for better orientation during procedures",
+        "Enhanced Sizing Options: Expanded reinforcement sizing on select codes for optimal fit and coverage"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "General surgery draping",
+        "OR table and equipment covering",
+        "Supplementary draping across specialties"
+      ],
+      "key_strengths": [
+        "Full range of standard drape sheet sizes",
+        "Adhesive variants for secure placement",
+        "100% impermeable low-linting fabric"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Upcoming Drapes",
+    "series_name": "MEVEL™ Upcoming Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "pipeline": [
+      {
+        "drape_category": "Orthopaedic Drapes",
+        "types": [
+          "Bilateral Drape",
+          "Arthroscopy Drape",
+          "Lamino Spinal Drape",
+          "Endoplasty Spine Drape"
+        ]
+      },
+      {
+        "drape_category": "Neurology Drapes",
+        "types": [
+          "Craniotomy Drape"
+        ]
+      },
+      {
+        "drape_category": "Urology Drapes",
+        "types": [
+          "TURP Drape",
+          "PCNL Drape"
+        ]
+      },
+      {
+        "drape_category": "Cardiovascular Drapes",
+        "types": [
+          "CABG Drape"
+        ]
+      },
+      {
+        "drape_category": "General Surgery Drapes",
+        "types": [
+          "Laparoscopy Drapes",
+          "Laparotomy Drapes",
+          "Adhesive Drapes"
+        ]
+      }
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Future specialty-specific draping requirements",
+        "Tender pipeline planning"
+      ],
+      "key_strengths": [
+        "Expansion into orthopaedic, neurology, urology, cardiovascular and general surgery draping"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Apparel",
+    "type": "Surgery-Specific Kits",
+    "product_code": "",
+    "instrument_name": "MAYYA™ Surgery-Specific Kits",
+    "brand": "Meril",
+    "sub_brand": "MAYYA™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming — the standardized kits and customized surgery-specific kits will be available soon",
+    "description": "Procedure-customized surgical kits that streamline workflows, enhance surgical efficiency, and reduce the risk of contamination through standardized, high-quality components.",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "features": {
+      "benefits": [
+        "Streamlined surgical workflows",
+        "Enhanced surgical efficiency",
+        "Reduced risk of contamination",
+        "Standardized, high-quality components"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Procedure-standardized operating theatres",
+        "Hospitals seeking single-pack surgical setups",
+        "Efficiency-focused tenders"
+      ],
+      "key_strengths": [
+        "Procedure-customized configurations",
+        "Standardized component quality",
+        "Workflow and contamination risk reduction"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Disinfection & Sterilization",
+    "type": "Surface and Equipment Disinfectant",
+    "product_code": "",
+    "instrument_name": "MIREY™ 70% IPA",
+    "brand": "Meril",
+    "sub_brand": "MIREY™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "manufacturer": "Meril Medical Innovation Pvt. Ltd.",
+    "marketed_by": "Meril Life Sciences India Pvt. Ltd.",
+    "tagline": "The Power to Eliminate. The Promise to Protect.",
+    "description": "Isopropyl Alcohol IP – 70% Solution for effective surface disinfection and equipment cleaning.",
+    "availability_status": "Available",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "generic_name": "Isopropyl Rubbing Alcohol IP",
+      "composition": [
+        "Isopropyl Alcohol IP – 70%"
+      ],
+      "active_ingredient": "Isopropyl Alcohol IP",
+      "concentration_percent": 70,
+      "formulation": "Ready-to-use solution",
+      "dosage_form": "Trigger spray bottle",
+      "key_properties": [
+        "Ready-to-use disinfectant",
+        "Rapid Evaporation",
+        "No harsh chemicals",
+        "Disinfects effectively"
+      ],
+      "application_areas": [
+        "Surfaces",
+        "Electronic equipment"
+      ],
+      "pack_size": {
+        "bottle": "250 ml",
+        "carton": "20 Bottles"
+      }
+    },
+    "usage_instructions": {
+      "for_surface": [
+        "Wipe the surface to physically remove any contaminants",
+        "Spray from a distance of 6–8 inches on surface",
+        "Apply directly onto surfaces ensuring even coverage",
+        "Keep surfaces visibly wet for effective disinfection",
+        "Always close the nozzle after use"
+      ],
+      "for_electronic_equipment": [
+        "Spray MIREY 70% IPA onto a sterile gauze to moisten it",
+        "Do not spray directly on screens or sensitive electronic equipment",
+        "Wipe the screen or surface gently in one direction only to avoid streaks and static damage"
+      ]
+    },
+    "precaution": [
+      "Avoid use on alcohol-sensitive materials such as acrylic glass"
+    ],
+    "features": {
+      "key_properties": [
+        "Ready-to-use disinfectant requiring no dilution",
+        "Rapid evaporation leaves no residue",
+        "Safe for electronic equipment when applied via gauze",
+        "Effective surface disinfection and equipment cleaning"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Hospital surface disinfection",
+        "Medical equipment and electronic device cleaning",
+        "Operating theatres, ICUs and clinical areas",
+        "Routine environmental hygiene protocols"
+      ],
+      "key_strengths": [
+        "70% IPA at pharmacopoeial (IP) grade",
+        "Ready-to-use with trigger spray convenience",
+        "Rapid evaporation with no harsh chemicals",
+        "Economical 250 ml bottle, 20 per carton"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Disinfection & Sterilization",
+    "type": "Upcoming Disinfectant Range",
+    "series_name": "360° Disinfection & Sterilization — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Surface and equipment disinfectants",
+        "Surface disinfectant concentrates",
+        "Instrument and scope disinfectants",
+        "Hospital fabric and linen disinfectants"
+      ]
+    },
+    "products": [
+      {
+        "sr_no": 1,
+        "product_code": "",
+        "instrument_name": "Inviro",
+        "model_description": "Alcohol based Surface and Equipment Disinfectant",
+        "product_category": "Surface and equipment disinfectant",
+        "composition": "Each 100 gms contains Ethanol (Denatured) 10 gms, 2-Propanol - 9 gms, 1-Propanol - 6 gms",
+        "actives": [
+          "Ethanol (Denatured) 10 gms per 100 gms",
+          "2-Propanol 9 gms per 100 gms",
+          "1-Propanol 6 gms per 100 gms"
+        ],
+        "aldehyde_free": null,
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 2,
+        "product_code": "",
+        "instrument_name": "Inviro Pro",
+        "model_description": "Aldehyde free 4th generation QAC Surface Disinfectant Concentrate",
+        "product_category": "Surface Disinfectant with perfume",
+        "composition": "Each 100 gms contains Didecyldimethyl ammonium chloride 7 gms, Perfume",
+        "actives": [
+          "Didecyldimethyl ammonium chloride 7 gms per 100 gms",
+          "Perfume"
+        ],
+        "aldehyde_free": true,
+        "qac_generation": "4th generation",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 3,
+        "product_code": "",
+        "instrument_name": "Inviro",
+        "model_description": "Aldehyde free 4th generation QAC Surface Disinfectant Concentrate",
+        "product_category": "Surface cleaner / disinfectant",
+        "composition": "Each 100 gms contains Didecyldimethyl ammonium chloride - 7 gms",
+        "actives": [
+          "Didecyldimethyl ammonium chloride 7 gms per 100 gms"
+        ],
+        "aldehyde_free": true,
+        "qac_generation": "4th generation",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 4,
+        "product_code": "",
+        "instrument_name": "Myscan 2% Glutaraldehyde",
+        "model_description": "Myscan 2% Glutaraldehyde",
+        "product_category": "Instrument & Scope Disinfectant",
+        "composition": "Glutaraldehyde Solution 2%",
+        "actives": [
+          "Glutaraldehyde 2%"
+        ],
+        "concentration_percent": 2,
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 5,
+        "product_code": "",
+        "instrument_name": "Myscan 2.45% Glutaraldehyde",
+        "model_description": "Myscan 2.45% Glutaraldehyde",
+        "product_category": "Instrument & Scope Disinfectant",
+        "composition": "Glutaraldehyde Solution 2.45% w/v",
+        "actives": [
+          "Glutaraldehyde 2.45% w/v"
+        ],
+        "concentration_percent": 2.45,
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 6,
+        "product_code": "",
+        "instrument_name": "Myscan OPA",
+        "model_description": "Myscan OPA",
+        "product_category": "Instrument & Scope Disinfectant",
+        "composition": "Orthophathaldehyde - 0.55%, Colour - Alzarine Cynine Green F",
+        "actives": [
+          "Ortho-phthalaldehyde (OPA) 0.55%",
+          "Colour - Alzarine Cynine Green F"
+        ],
+        "concentration_percent": 0.55,
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 7,
+        "product_code": "",
+        "instrument_name": "Mynox",
+        "model_description": "Mynox Linen Disinfectant",
+        "product_category": "Hospital Fabric & Linen Disinfectant",
+        "composition": "Didecyldimethyl ammonium Chloride, Citric acid, Ortho-Phosphoric acid, Enzyme, Fragrance, Purified water",
+        "actives": [
+          "Didecyldimethyl ammonium Chloride",
+          "Citric acid",
+          "Ortho-Phosphoric acid",
+          "Enzyme",
+          "Fragrance",
+          "Purified water"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      }
+    ],
+    "positioning_summary": {
+      "ideal_for": [
+        "Central Sterile Services Department (CSSD)",
+        "Endoscopy and instrument reprocessing units",
+        "Hospital housekeeping and environmental hygiene",
+        "Hospital laundry and linen processing"
+      ],
+      "key_strengths": [
+        "Aldehyde-free 4th generation QAC options",
+        "Glutaraldehyde 2% and 2.45% plus OPA 0.55% for high-level disinfection",
+        "Dedicated linen and fabric disinfectant",
+        "Covers surfaces, instruments, scopes and linen in one range"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene",
+    "type": "Alcohol Based Hand Rub",
+    "product_code": "",
+    "instrument_name": "MIREX™ Alcohol Rub",
+    "brand": "Meril",
+    "sub_brand": "MIREX™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "manufacturer": "Meril Medical Innovation Pvt. Ltd.",
+    "marketed_by": "Meril Life Sciences India Pvt. Ltd.",
+    "tagline": "Clean Hands, Prepped Skin - The Perfect Start To Infection Prevention",
+    "description": "MIREX Alcohol Rub is a ready-to-use, alcohol-based hand rub designed for rapid disinfection without the need for water or a wash basin. It plays a vital role in infection prevention across various healthcare and industrial settings where hand hygiene is essential.",
+    "availability_status": "Available",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "generic_name": "2-Propanol, 1-Propanol & Mecetronium Ethyl Sulphate Solution",
+      "product_type": "Antimicrobial Handrub",
+      "formulation": "Ready-to-use, no dilution or water required",
+      "composition_basis": "Each 100 gms Contains",
+      "composition": [
+        "2-Propanol: 45.0 g",
+        "1-Propanol: 30.0 g",
+        "Ethyl-hexadecyl-dimethyl ammonium-ethylsulphate: 0.2 g",
+        "Excipients: Glycerin",
+        "Colour - Brilliant Blue FCF",
+        "Purified water IP (QS)"
+      ],
+      "actives": {
+        "2_propanol_g_per_100g": 45.0,
+        "1_propanol_g_per_100g": 30.0,
+        "mecetronium_ethyl_sulphate_g_per_100g": 0.2
+      },
+      "product_properties": [
+        "Excellent action",
+        "Excellent skin tolerability even with long term use"
+      ],
+      "usage_time": {
+        "hygienic_hand_disinfection": "30 seconds",
+        "surgical_hand_disinfection": "1.5 minutes"
+      },
+      "pack_sizes": [
+        {
+          "pack_size": "100 ml (with Dispenser)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "100 ml (Flip Top)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "500 ml (with Dispenser)",
+          "carton": "20 Bottles"
+        },
+        {
+          "pack_size": "5 L",
+          "carton": "2 Cans"
+        }
+      ]
+    },
+    "microbiology": {
+      "spectrum": [
+        "Bactericidal",
+        "Yeasticidal",
+        "Tuberculocidal",
+        "Mycobactericidal",
+        "Virucidal against enveloped viruses"
+      ],
+      "viruses_covered": [
+        "HBV (Hepatitis B Virus)",
+        "HCV (Hepatitis C Virus)",
+        "HIV (Human Immunodeficiency Virus)",
+        "Adenovirus",
+        "Polyomavirus",
+        "Rotavirus"
+      ]
+    },
+    "directions_for_use": [
+      "Hygienic Hand Disinfection: Apply 3 ml of MIREX Alcohol Rub onto clean, dry hands and nail grooves. Rub thoroughly for 30 sec",
+      "Surgical Hand Disinfection: Apply 6 ml of MIREX Alcohol Rub onto clean, dry hands, nail grooves, and up to the elbow. Rub thoroughly for 1.5 minutes"
+    ],
+    "areas_of_application": [
+      "Critical care areas: ICU, ICCU, NICU, MICU, AKD",
+      "Operation theatres and surgical units",
+      "Departments managing infectious diseases and burn care",
+      "Diagnostic laboratories and treatment rooms",
+      "Dental and ophthalmology departments",
+      "Ambulances and emergency medical services",
+      "Hospital kitchens and canteens",
+      "Home care settings and home dialysis"
+    ],
+    "features": {
+      "product_properties": [
+        "Excellent action",
+        "Excellent skin tolerability even with long term use",
+        "Ready-to-use, no water or wash basin required",
+        "Effective for both hygienic and surgical hand disinfection"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Critical care and operation theatre hand hygiene",
+        "Surgical hand disinfection",
+        "Infectious disease and burn care departments",
+        "Emergency medical services and home care"
+      ],
+      "key_strengths": [
+        "Broad virucidal coverage including HBV, HCV and HIV",
+        "30 second hygienic and 1.5 minute surgical protocols",
+        "Skin tolerable with glycerin emollient for long term use",
+        "Four pack formats from 100 ml to 5 L"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Skin Preparation",
+    "type": "Surgical Skin Preparation Solution",
+    "product_code": "",
+    "instrument_name": "MIREX™ 2% CHG Skin Prep",
+    "brand": "Meril",
+    "sub_brand": "MIREX™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "description": "MIREX 2% CHG Skin Prep is a comprehensive disinfectant that requires no supplementary products for dressing in minor surgical procedures.",
+    "availability_status": "Available",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "generic_name": "Isopropyl Alcohol & Chlorhexidine Gluconate Solution",
+      "composition": [
+        "Chlorhexidine Gluconate 2.0 % W/V (Equivalent to Chlorhexidine Gluconate Solution IP 10 % V/V)",
+        "Iso Propyl Alcohol IP: 70.0 % V/V"
+      ],
+      "actives": {
+        "chlorhexidine_gluconate_percent_wv": 2.0,
+        "isopropyl_alcohol_percent_vv": 70.0
+      },
+      "formulation": "Ready to use without dilution",
+      "drying_time": "Dries up quickly - within 30 seconds",
+      "exposure_time": "At least 15 seconds",
+      "pack_sizes": [
+        {
+          "pack_size": "500 ml",
+          "carton": "20 Bottles"
+        }
+      ]
+    },
+    "mode_of_use": [
+      "Ready to use without dilution",
+      "Use externally and undiluted only",
+      "Skin disinfection: Wet with a swab of MIREX 2% CHG Skin Prep, in the area to be disinfected and allow to dry",
+      "Dries up quickly - within 30 seconds",
+      "Exposure time at least 15 seconds"
+    ],
+    "range_of_application": [
+      "Pre-surgical skin preparation for patients",
+      "Used before and during catheterization, as well as during dressing changes",
+      "Preparation of intravenous (IV) sites",
+      "Cleaning of surgical sites post-suturing",
+      "Skin treatment before applying casts for fractures"
+    ],
+    "features": {
+      "salient_features": [
+        "MIREX 2% CHG is microbicidal against all bacteria including MRSA, EHEC, fungi and viruses",
+        "It has a residual effect throughout the procedure",
+        "Rapid healing of skin after surgery",
+        "It is highly effective in the prevention of CRBSI and CVC colonization",
+        "It can be used to clean the site prior to CVC insertion and also the maintenance of catheters"
+      ]
+    },
+    "microbiology": {
+      "spectrum": [
+        "Microbicidal against all bacteria including MRSA and EHEC",
+        "Fungi",
+        "Viruses"
+      ],
+      "clinical_claims": [
+        "Prevention of CRBSI (Catheter-Related Bloodstream Infection)",
+        "Prevention of CVC (Central Venous Catheter) colonization"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Pre-surgical patient skin preparation",
+        "CVC insertion and catheter maintenance",
+        "IV site preparation",
+        "Dressing changes and post-suturing site cleaning"
+      ],
+      "key_strengths": [
+        "2% CHG with 70% IPA dual-active formulation",
+        "Persistent residual effect throughout the procedure",
+        "CRBSI and CVC colonization prevention",
+        "30 second dry time, 15 second exposure time"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene",
+    "type": "Antiseptic Surgical Hand Scrub",
+    "product_code": "",
+    "instrument_name": "MIREX™ 4% CHG Hand Scrub",
+    "brand": "Meril",
+    "sub_brand": "MIREX™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "description": "MIREX 4% CHG Hand scrub is a disinfectant solution designed for hand and body washing.",
+    "availability_status": "Available",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "generic_name": "Chlorhexidine Gluconate Solution IP 4% w/v",
+      "product_type": "Antiseptic Surgical Handscrub",
+      "composition": [
+        "Chlorhexidine Gluconate Solution IP equivalent to Chlorhexidine Gluconate 4% w/v",
+        "Colour: Carmoisine"
+      ],
+      "actives": {
+        "chlorhexidine_gluconate_percent_wv": 4.0
+      },
+      "pack_sizes": [
+        {
+          "pack_size": "100 ml (with Dispenser)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "100 ml (Flip top)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "500 ml (with Dispenser)",
+          "carton": "20 Bottles"
+        },
+        {
+          "pack_size": "5 L",
+          "carton": "2 Cans"
+        }
+      ]
+    },
+    "microbiology": {
+      "spectrum": [
+        "Bactericidal",
+        "Tuberculocidal",
+        "Fungicidal",
+        "Virucidal"
+      ]
+    },
+    "areas_of_application": [
+      "Ideal for pre-surgical hand disinfection and hygienic handwashing",
+      "Suitable for routine use in hospital wards to help minimize the risk of cross-infection",
+      "Used for full-body disinfection of patients prior to surgery"
+    ],
+    "features": {
+      "salient_features": [
+        "MIREX 4% CHG Hand scrub is a complete Bactericidal, Tuberculocidal, Fungicidal, Virucidal Hands and Body Wash",
+        "Maintains water balance on the skin",
+        "Has a pleasant leave-behind fragrance",
+        "Promotes compliance with hand washing guidelines"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Pre-surgical hand disinfection",
+        "Hygienic handwashing in hospital wards",
+        "Full-body patient disinfection prior to surgery",
+        "Cross-infection control programmes"
+      ],
+      "key_strengths": [
+        "4% CHG dual hand and body wash",
+        "Maintains skin water balance",
+        "Pleasant fragrance drives hand hygiene compliance",
+        "Four pack formats from 100 ml to 5 L"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene",
+    "type": "Alcohol Based Hand Rub",
+    "product_code": "",
+    "instrument_name": "BAKTIO™ BLUE Alcohol Rub",
+    "brand": "Meril",
+    "sub_brand": "BAKTIO™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "description": "BAKTIO BLUE Alcohol Rub is a ready-to-use, alcohol-based hand rub designed for rapid disinfection.",
+    "availability_status": "Available",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "generic_name": "2-Propanol, 1-Propanol & Mecetronium Ethyl Sulphate Solution",
+      "product_type": "Antimicrobial Handrub",
+      "formulation": "Ready-to-use",
+      "composition_basis": "Each 100 gms Contains",
+      "composition": [
+        "2-Propanol: 45.0 g",
+        "1-Propanol: 30.0 g",
+        "Ethyl-hexadecyl-dimethyl ammonium-ethylsulphate: 0.2 g",
+        "Excipients: Glycerin",
+        "Colour - Brilliant Blue FCF",
+        "Purified water IP (QS)"
+      ],
+      "actives": {
+        "2_propanol_g_per_100g": 45.0,
+        "1_propanol_g_per_100g": 30.0,
+        "mecetronium_ethyl_sulphate_g_per_100g": 0.2
+      },
+      "product_properties": [
+        "Excellent action",
+        "Excellent skin tolerability even with long term use"
+      ],
+      "usage_time": {
+        "hygienic_hand_disinfection": "30 seconds",
+        "surgical_hand_disinfection": "1.5 minutes"
+      },
+      "pack_sizes": [
+        {
+          "pack_size": "100 ml (with Dispenser)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "100 ml (Flip Top)",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "500 ml (with Dispenser)",
+          "carton": "20 Bottles"
+        },
+        {
+          "pack_size": "5 L",
+          "carton": "2 Cans"
+        }
+      ]
+    },
+    "microbiology": {
+      "spectrum": [
+        "Bactericidal",
+        "Yeasticidal",
+        "Tuberculocidal",
+        "Mycobactericidal",
+        "Virucidal against enveloped viruses"
+      ],
+      "viruses_covered": [
+        "HBV (Hepatitis B Virus)",
+        "HCV (Hepatitis C Virus)",
+        "HIV (Human Immunodeficiency Virus)",
+        "Adenovirus",
+        "Polyomavirus",
+        "Rotavirus",
+        "Norovirus"
+      ]
+    },
+    "directions_for_use": [
+      "Hygienic Hand Disinfection: Apply 3 ml of BAKTIO BLUE Alcohol Rub onto clean, dry hands and nail grooves. Rub thoroughly for 30 sec",
+      "Surgical Hand Disinfection: Apply 6 ml of BAKTIO BLUE Alcohol Rub onto clean, dry hands, nail grooves, and up to the elbow. Rub thoroughly for 1.5 minutes"
+    ],
+    "areas_of_application": {
+      "moments_of_use": [
+        "Before & after patient contact",
+        "Aseptic tasks",
+        "After exposure to body fluids",
+        "In surgical & procedural areas",
+        "Routine Hospital & Clinical Settings",
+        "Non-Clinical Areas"
+      ],
+      "detailed_applications": [
+        "Critical care areas: ICU, ICCU, NICU, MICU, AKD",
+        "Operation theatres and surgical units",
+        "Departments managing infectious diseases and burn care",
+        "Diagnostic laboratories and treatment rooms",
+        "Dental and ophthalmology departments",
+        "Ambulances and emergency medical services",
+        "Hospital kitchens and canteens",
+        "Home care settings and home dialysis"
+      ]
+    },
+    "features": {
+      "product_properties": [
+        "Excellent action",
+        "Excellent skin tolerability even with long term use",
+        "Ready-to-use for rapid disinfection",
+        "Effective for both hygienic and surgical hand disinfection"
+      ]
+    },
+    "relationship_to_other_products": {
+      "note": "Composition, usage times, directions for use and pack sizes are identical to MIREX™ Alcohol Rub; BAKTIO BLUE additionally claims Norovirus coverage.",
+      "equivalent_to": "MIREX™ Alcohol Rub"
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Routine hospital and clinical hand hygiene",
+        "Surgical and procedural areas",
+        "Non-clinical and general settings",
+        "WHO 5 Moments hand hygiene programmes"
+      ],
+      "key_strengths": [
+        "Broad virucidal coverage including Norovirus",
+        "30 second hygienic and 1.5 minute surgical protocols",
+        "Skin tolerable for long term use",
+        "Four pack formats from 100 ml to 5 L"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Skin Preparation",
+    "type": "Povidone Iodine Antiseptic",
+    "series_name": "MIDOR™ Povidone Iodine Range",
+    "brand": "Meril",
+    "sub_brand": "MIDOR™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Available",
+    "shared_technical_specifications": {
+      "generic_name": "Povidone-Iodine Solution IP",
+      "antimicrobial_efficacy": {
+        "description": "Midor range exhibits a broad-spectrum antimicrobial activity",
+        "spectrum": [
+          "Bactericidal – Gram+ & Gram- bacteria",
+          "Fungicidal – Yeasts & fungi",
+          "Tuberculocidal – M. tuberculosis",
+          "Virucidal – Wide range of viruses",
+          "Sporicidal – Effective against spores"
+        ]
+      },
+      "pack_sizes": [
+        {
+          "pack_size": "100 ml",
+          "carton": "50 Bottles"
+        },
+        {
+          "pack_size": "500 ml",
+          "carton": "20 Bottles"
+        },
+        {
+          "pack_size": "2 L",
+          "carton": "4 Bottles"
+        }
+      ]
+    },
+    "products": [
+      {
+        "product_code": "",
+        "instrument_name": "MIDOR™ 5%",
+        "product_category": "Topical preparation",
+        "composition": "Povidone Iodine IP 5% w/v",
+        "concentration_percent": 5,
+        "available_iodine_percent": 0.5,
+        "antimicrobial_strength": "Moderate",
+        "application_focus": "Routine skin prep, minor wounds",
+        "residual_effect": "Shorter duration",
+        "mucosal_use": "Yes (diluted)",
+        "time_of_kill": "Rapid action, within 2 minutes. Good residual effect",
+        "common_use": "Routine antisepsis, pre-op skin disinfection, minor wounds, mucosal disinfection (with dilution)",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MIDOR™ 7.5%",
+        "product_category": "Surgical Scrub",
+        "composition": "Povidone Iodine IP 7.5% w/v",
+        "concentration_percent": 7.5,
+        "available_iodine_percent": 0.75,
+        "antimicrobial_strength": "Strong",
+        "application_focus": "Surgical scrubs, contaminated wounds",
+        "residual_effect": "Longer residual action",
+        "mucosal_use": "Limited (diluted)",
+        "time_of_kill": "Effective with 2.5 – 3 minutes surgical scrub",
+        "common_use": "Surgical hand scrubs, skin prep before procedures, wound & burn care, hygienic hand disinfection",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "product_code": "",
+        "instrument_name": "MIDOR™ 10%",
+        "product_category": "Surgical Skin Preparation",
+        "composition": "Povidone Iodine IP 10% w/v",
+        "concentration_percent": 10,
+        "available_iodine_percent": 1.0,
+        "antimicrobial_strength": "Very strong",
+        "application_focus": "High-risk surgeries, deep wounds",
+        "residual_effect": "Longest residual activity",
+        "mucosal_use": "Rare; requires careful dilution",
+        "time_of_kill": "Effective with 2.5 – 3 minutes surgical scrub",
+        "common_use": "Pre-op prep for major surgeries, high-risk infections, deep wound care, critical surgical disinfection",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      }
+    ],
+    "features": {
+      "why_midor": [
+        "Multiple strengths for tailored clinical needs",
+        "Rapid & broad-spectrum antimicrobial action",
+        "Trusted in pre, intra & post-operative infection prevention",
+        "Available in convenient pack sizes (100 ml, 500 ml, 2 L)"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Routine antisepsis and minor wound care (5%)",
+        "Surgical hand scrubs and burn care (7.5%)",
+        "Major and high-risk surgical skin preparation (10%)",
+        "Pre, intra and post-operative infection prevention"
+      ],
+      "key_strengths": [
+        "Three strengths covering routine to critical applications",
+        "Sporicidal in addition to bactericidal, fungicidal, tuberculocidal and virucidal",
+        "Graded residual action from shorter to longest duration",
+        "Convenient 100 ml, 500 ml and 2 L packs"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene & Skin Preparation",
+    "type": "Upcoming Antiseptic Range",
+    "series_name": "Hand Hygiene & Skin Prep — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Chlorhexidine and cetrimide based antiseptics",
+        "Alcohol-based antiseptic liquids",
+        "Incise drapes (plain, CHG and iodine)",
+        "Surgical clippers and blades"
+      ]
+    },
+    "products": [
+      {
+        "sr_no": 1,
+        "product_code": "",
+        "instrument_name": "MIREX™ 1.5% CHG Antiseptic",
+        "product_category": "Antiseptic Solution",
+        "composition": "Chlorhexidine Gluconate Solution IP : 1.5% v/v, Strong Cetrimide solution BP Equivalent to Cetrimide IP 3.0 % w/v, Excipients : Q.S.",
+        "actives": [
+          "Chlorhexidine Gluconate Solution IP 1.5% v/v",
+          "Cetrimide IP 3.0% w/v"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 2,
+        "product_code": "",
+        "instrument_name": "MIREX™ 7.5% CHG Antiseptic",
+        "product_category": "Antiseptic Solution",
+        "composition": "Chlorhexidine Gluconate Solution IP: 7.5% v/v, Cetrimide IP - 15% w/v, Isopropyl Alcohol IP - 7% v/v. Colour: Tartrazine, Purified Water: qs",
+        "actives": [
+          "Chlorhexidine Gluconate Solution IP 7.5% v/v",
+          "Cetrimide IP 15% w/v",
+          "Isopropyl Alcohol IP 7% v/v"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 3,
+        "product_code": "",
+        "instrument_name": "MIREX™ 0.3% CHG Antiseptic",
+        "product_category": "Antiseptic Solution",
+        "composition": "Chlorhexidine Gluconate Solution IP: 0.3% v/v, Cetrimide IP - 0.6% w/v, Isopropyl Alcohol IP - 3.0% v/v. Colour: Tartrazine, Purified Water: qs",
+        "actives": [
+          "Chlorhexidine Gluconate Solution IP 0.3% v/v",
+          "Cetrimide IP 0.6% w/v",
+          "Isopropyl Alcohol IP 3.0% v/v"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 4,
+        "product_code": "",
+        "instrument_name": "BAKTIO™ Pink",
+        "product_category": "Alcohol-based Antiseptic with Emollients",
+        "composition": "Each 100 gms contains: Chlorhexidine Gluconate Solution IP 2.5% v/v, Equivalent to Chlorhexidine Gluconate 0.5% w/v, Ethyl Alcohol IP (Denatured) 70% v/v, Colour: Carmoisine, Excipients (QS): Emollients and Moisturizers, Purified Water (qs)",
+        "actives": [
+          "Chlorhexidine Gluconate Solution IP 2.5% v/v (equivalent to Chlorhexidine Gluconate 0.5% w/v)",
+          "Ethyl Alcohol IP (Denatured) 70% v/v",
+          "Emollients and Moisturizers"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 5,
+        "product_code": "",
+        "instrument_name": "CUTANEX™",
+        "product_category": "Alcohol-based Antiseptic",
+        "composition": "Each 100 gms contains: Iso-Propanol IP 63.0 gms, Benzalkonium Chloride IP 0.025 gms",
+        "actives": [
+          "Iso-Propanol IP 63.0 gms per 100 gms",
+          "Benzalkonium Chloride IP 0.025 gms per 100 gms"
+        ],
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 6,
+        "product_code": "",
+        "instrument_name": "CUTANEX™ Pro",
+        "product_category": "Alcohol-based Antiseptic (Tinted)",
+        "composition": "Each 100 gms contains: Iso-Propanol IP 63.0 gms, Benzalkonium Chloride IP 0.025 gms, Colour : Carmoisine and Sunset Yellow",
+        "actives": [
+          "Iso-Propanol IP 63.0 gms per 100 gms",
+          "Benzalkonium Chloride IP 0.025 gms per 100 gms"
+        ],
+        "differentiator": "Tinted with Carmoisine and Sunset Yellow for visible application coverage",
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 11,
+        "product_code": "",
+        "instrument_name": "CUTWELL Incise Drape - Plain",
+        "product_category": "Incise Drapes",
+        "variant": "Plain",
+        "composition": null,
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 12,
+        "product_code": "",
+        "instrument_name": "CUTWELL Incise Drape - CHG",
+        "product_category": "Incise Drapes",
+        "variant": "CHG",
+        "composition": null,
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 13,
+        "product_code": "",
+        "instrument_name": "CUTWELL Incise Drape - Iodine",
+        "product_category": "Incise Drapes",
+        "variant": "Iodine",
+        "composition": null,
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 14,
+        "product_code": "",
+        "instrument_name": "NEOVA Surgical Clipper",
+        "product_category": "Clipper & Blades",
+        "composition": null,
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 15,
+        "product_code": "",
+        "instrument_name": "NEOVA - Neuro Blades",
+        "product_category": "Clipper & Blades",
+        "composition": null,
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      },
+      {
+        "sr_no": 16,
+        "product_code": "",
+        "instrument_name": "NEOVA - Universal Blades",
+        "product_category": "Clipper & Blades",
+        "composition": null,
+        "commercial_details": {
+          "slab_quantity": 1,
+          "price_per_unit_rs": null,
+          "foc_reagents": null,
+          "warranty": null,
+          "payment_terms": null
+        }
+      }
+    ],
+    "data_notes": [
+      "Brochure numbering skips Sr. No 7 to 10; items 11-16 are listed in separate 'Incise Drapes' and 'Clipper & Blades' tables without composition details."
+    ],
+    "positioning_summary": {
+      "ideal_for": [
+        "Pre-operative skin preparation",
+        "Antiseptic wound cleaning",
+        "Surgical site incise draping",
+        "Pre-operative hair removal"
+      ],
+      "key_strengths": [
+        "Graded CHG strengths from 0.3% to 7.5%",
+        "Alcohol-based antiseptics with emollient and tinted options",
+        "Incise drapes in plain, CHG and iodine variants",
+        "Surgical clipper system with neuro and universal blades"
+      ]
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene",
+    "type": "Clinical Reference",
+    "reference_name": "Steps of Hand Hygiene (WHO Handwash Technique)",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "source": "https://www.who.int/publications/m/item/how-to-handwash",
+    "steps": [
+      "Wet hands with water",
+      "Apply enough soap to cover all hand surfaces",
+      "Rub hands palm to palm",
+      "Right palm over left dorsum with interlaced fingers and vice versa",
+      "Palm to palm with fingers interlaced",
+      "Backs of fingers to opposing palms with fingers interlocked",
+      "Rotational rubbing of left thumb clasped in right palm and vice versa",
+      "Rotational rubbing backwards and forwards with clasped fingers of right hand in left palm and vice versa",
+      "Rinse hands with water",
+      "Dry thoroughly with a single use towel",
+      "Use towel to turn off faucet",
+      "And your hands are safe"
+    ],
+    "positioning_summary": {
+      "ideal_for": [
+        "Hand hygiene training and compliance programmes",
+        "Infection control education material",
+        "Ward and OT signage"
+      ],
+      "key_strengths": [
+        "WHO-sourced 12-step handwash technique",
+        "Supports hand hygiene compliance auditing"
+      ]
+    }
+  }
+]

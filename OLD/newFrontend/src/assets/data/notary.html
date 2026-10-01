@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Undertaking of Non-Blacklisting</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px;
+    background: #e9e9ec;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* ---------- Toolbar ---------- */
+  .toolbar {
+    width: 8.5in;
+    max-width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    padding: 16px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+  }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 12px; font-weight: 600; color: #444; }
+  .field input {
+    font-size: 14px; padding: 8px 10px; border: 1px solid #cbcbd2;
+    border-radius: 6px; min-width: 220px; font-family: inherit;
+  }
+  .field input:focus { outline: none; border-color: #6b6bf0; box-shadow: 0 0 0 3px rgba(107,107,240,0.15); }
+  .btns { display: flex; gap: 10px; margin-left: auto; }
+  .btns button {
+    padding: 10px 18px; font-size: 14px; font-weight: 600; border-radius: 6px;
+    border: none; cursor: pointer;
+  }
+  #btnPdf { background: #d5372b; color: #fff; }
+  #btnPdf:hover { background: #b92e24; }
+  #btnWord { background: #1c5fb0; color: #fff; }
+  #btnWord:hover { background: #164a8a; }
+  .note {
+    width: 8.5in; max-width: 100%; font-size: 12px; color: #666;
+    background: #fff8e1; border: 1px solid #f0d98a; border-radius: 8px;
+    padding: 10px 14px; line-height: 1.5;
+  }
+
+  /* ---------- Document page: replicates the .docx exactly -----------
+     Page size Letter (8.5in x 11in), margins 1in on all sides,
+     matching the original document's <w:pgSz>/<w:pgMar>.
+  ------------------------------------------------------------------ */
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    max-width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    padding: 1in;
+    font-family: 'Bookman Old Style', 'Bookman Old Style MT', Georgia, 'Times New Roman', serif;
+    color: #000;
+  }
+  .page p { margin: 0; }
+
+  .blank {
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    font-family: inherit;
+    font-weight: bold;
+    color: #000;
+    padding: 0 2px;
+    text-align: center;
+    width: 14ch;
+  }
+  #tenderMirror { width: 22ch; }
+  .blank::placeholder { color: #aaa; font-weight: normal; }
+
+  .sig-img {
+    display: block;
+    width: 1.9693in;
+    height: 0.9586in;
+    margin-left: -6px;
+  }
+
+  .page a { color: #000; text-decoration: underline; }
+
+  /* ---------- Print ---------- */
+  @media print {
+    body { background: #fff; padding: 0; margin: 0; display: block; }
+    .toolbar, .note { display: none; }
+    .page {
+      box-shadow: none;
+      width: auto;
+      min-height: auto;
+      margin: 0;
+      padding: 0;
+    }
+    @page { size: 8.5in 11in; margin: 1in; }
+    .blank { border-bottom: 1px solid #000; }
+    .pagebreak { page-break-before: always; break-before: page; }
+    .break-indicator { display: none; }
+  }
+  .break-indicator {
+    margin: 18px 0 22px 0;
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border-top: 1px dashed #ccc;
+    padding-top: 6px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="field">
+      <label for="dateInput">Date</label>
+      <input type="text" id="dateInput" placeholder="DD/MM/YYYY">
+    </div>
+    <div class="field">
+      <label for="tenderInput">Tender No</label>
+      <input type="text" id="tenderInput" placeholder="Enter tender number" style="min-width:280px;">
+    </div>
+    <div class="btns">
+      <button id="btnWord">⬇ Download Word</button>
+      <button id="btnPdf">⬇ Download PDF</button>
+    </div>
+  </div>
+
+  <div class="note">
+    This mirrors the original document's exact page size (8.5&quot; × 11&quot;), 1&quot; margins on
+    every side, and the same paragraph spacing used in the source file — including the blank space
+    above "Date". The document now prints as <b>2 pages</b>: page 1 ends after the signatory line
+    ("...NATIONAL MANAGER- TENDER BUSINESS)"), and page 2 starts at "We hereby declare...". For the
+    closest possible match, print/save as PDF from <b>Chrome</b> with "Margins: None" and "Scale: 100%"
+    in the print dialog (Ctrl/Cmd+P).
+  </div>
+
+  <div class="page" id="docPage">
+    <p style="margin:0 0 0.0pt 0;font-size:10.0pt;line-height:1.0;text-align:right;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;">&nbsp;</p>
+    <p style="margin:0 0 0.0pt 0;font-size:10.0pt;line-height:1.0;text-align:right;padding-left:1.28in;"><b>Date:<input type="text" id="dateMirror" class="blank" style="font-size:10.0pt;"></b></p>
+    <p style="margin:0 0 0.0pt 0;font-size:10.0pt;line-height:1.0;">&nbsp;</p>
+    <p style="margin:0 0 0.0pt 0;font-size:11.0pt;line-height:1.0;text-align:center;">&nbsp;</p>
+    <p style="margin:0 0 0.0pt 0;font-size:11.0pt;line-height:1.0;text-align:center;font-family:'Bookman Old Style',Georgia,serif;font-weight:bold;">UNDERTAKING OF NON-BLACKLISTING</p>
+    <p style="margin:0 0 0.0pt 0;font-size:10.0pt;line-height:1.0;text-align:right;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;"><b><u>Tender No:</u><input type="text" id="tenderMirror" class="blank" style="font-size:10.0pt;"></b></p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;padding-left:1.28in;"> I, <b>Shaiju Varghese </b>the undersigned, representing <b>MERIL DIAGNOSTICS PVT. LTD</b> as  <b>(NATIONAL MANAGER- TENDER BUSINESS)</b>, </p>
+    <p style="margin:0 0 8.0pt 0;font-size:11.0pt;line-height:1.079;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:11.0pt;line-height:1.079;">&nbsp;</p>
+    <div class="break-indicator">— Page 2 starts here —</div>
+    <p class="pagebreak" style="margin:0 0 8.0pt 0;font-size:11.0pt;line-height:1.079;">We hereby declare that we are not blacklisted by any Government, Semi-Government, PSU, or Public Sector organization.</p>
+    <p style="margin:0 0 8.0pt 0;font-size:11.0pt;line-height:1.079;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:11.0pt;line-height:1.079;font-weight:bold;">For MERIL DIAGNOSTICS PVT. LTD,</p>
+    <p style="margin:0 0 8.0pt 0;font-size:11.0pt;line-height:1.079;text-align:justify;"><img class="sig-img" src="data:image/png;base64,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" alt="Signature"></p>
+    <p style="margin:0 0 0.0pt 0;font-size:9.0pt;line-height:1.0;text-align:justify;">Encls: As above</p>
+    <p style="margin:0 0 0.0pt 0;font-size:9.0pt;line-height:1.0;text-align:justify;"><b>Corporate Office:</b> Survey No. 135/ 139, Bilakhia House, Muktanand Marg, Chala, <b>Vapi</b> - 396191</p>
+    <p style="margin:0 0 0.0pt 0;font-size:9.0pt;line-height:1.0;text-align:justify;"><b>Mumbai Sales Office:</b> 601, Midas Tower, Sahar Plaza, Andheri (E) Mumbai 400 059, Maharashtra, India</p>
+    <p style="margin:0 0 0.0pt 0;font-size:9.0pt;line-height:1.0;text-align:justify;"><b>Cell: +91-8140065678</b>&nbsp;&nbsp;<b>Direct Line :</b> +91-22-30732570, Desk : +91-22-30732400 Extn: 570</p>
+    <p style="margin:0 0 0.0pt 0;font-size:9.0pt;line-height:1.0;text-align:justify;"><b>E mail :</b> <a href="mailto:tender.merildiagno@merillife.com">tender.merildiagno@merillife.com</a></p>
+    <p style="margin:0 0 0.0pt 0;font-size:10.0pt;line-height:1.0;">&nbsp;</p>
+    <p style="margin:0 0 0.0pt 0;font-size:10.0pt;line-height:1.0;padding-left:1.28in;">&nbsp;</p>
+    <p style="margin:0 0 8.0pt 0;font-size:10.0pt;line-height:1.079;text-align:justify;">&nbsp;</p>
+  </div>
+
+<script>
+  const dateInput = document.getElementById('dateInput');
+  const tenderInput = document.getElementById('tenderInput');
+  const dateMirror = document.getElementById('dateMirror');
+  const tenderMirror = document.getElementById('tenderMirror');
+
+  function link(a, b) {
+    a.addEventListener('input', () => { b.value = a.value; });
+    b.addEventListener('input', () => { a.value = b.value; });
+  }
+  link(dateInput, dateMirror);
+  link(tenderInput, tenderMirror);
+
+  // Shared by both export buttons — builds the same clean, print-ready
+  // document with the Date/Tender No values baked in as plain text (inputs
+  // don't serialize their live value into markup, so this can't just be
+  // document.documentElement.outerHTML).
+  function buildCleanHtml() {
+    const dateVal = dateInput.value || '____________';
+    const tenderVal = tenderInput.value || '____________________';
+    const imgSrc = document.querySelector('.sig-img').getAttribute('src');
+    const emptyLines = Array.from({length: 20}).map(() =>
+      '<p style="margin:0 0 8pt 0;font-size:10pt;line-height:108%;">&nbsp;</p>').join('');
+
+    return `
+      <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+      <head>
+        <meta charset="utf-8">
+        <title>Undertaking of Non-Blacklisting</title>
+        <!--[if gte mso 9]>
+        <xml>
+          <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>100</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+          </w:WordDocument>
+        </xml>
+        <![endif]-->
+        <style>
+          @page Section1 { size: 8.5in 11.0in; margin: 1.0in 1.0in 1.0in 1.0in; }
+          div.Section1 { page: Section1; }
+          body { font-family: 'Bookman Old Style', Georgia, serif; font-size: 11pt; color:#000; }
+          p { margin: 0; }
+          u { text-decoration: underline; }
+        </style>
+      </head>
+      <body>
+        <div class="Section1">
+          ${emptyLines}
+          <p style="text-align:right;margin:0;font-size:10pt;"><b>Date:${dateVal}</b></p>
+          <p style="margin:0 0 8pt 0;font-size:10pt;">&nbsp;</p>
+          <p style="text-align:center;margin:0;font-size:11pt;">&nbsp;</p>
+          <p style="text-align:center;font-weight:bold;font-family:'Bookman Old Style',Georgia,serif;font-size:11pt;margin:0;">UNDERTAKING OF NON-BLACKLISTING</p>
+          <p style="text-align:right;margin:0;font-size:10pt;">&nbsp;</p>
+          <p style="font-size:10pt;margin:0 0 8pt 0;"><b><u>Tender No:</u>${tenderVal}</b></p>
+          <p style="font-size:10pt;margin:0 0 8pt 0;"> I, <b>Shaiju Varghese</b> the undersigned, representing <b>MERIL DIAGNOSTICS PVT. LTD</b> as  <b>(NATIONAL MANAGER- TENDER BUSINESS)</b>, </p>
+          <p style="margin:0 0 8pt 0;font-size:11pt;">&nbsp;</p>
+          <p style="margin:0 0 8pt 0;font-size:11pt;">&nbsp;</p>
+          <br clear="all" style="mso-break-type:page-break;">
+          <p style="margin:0 0 8pt 0;font-size:11pt;page-break-before:always;">We hereby declare that we are not blacklisted by any Government, Semi-Government, PSU, or Public Sector organization.</p>
+          <p style="margin:0 0 8pt 0;font-size:11pt;">&nbsp;</p>
+          <p style="font-weight:bold;margin:0 0 8pt 0;font-size:11pt;">For MERIL DIAGNOSTICS PVT. LTD,</p>
+          <p style="margin:0;text-align:justify;"><img src="${imgSrc}" width="189" height="92"></p>
+          <p style="margin:0;font-size:9pt;text-align:justify;">Encls: As above</p>
+          <p style="margin:0;font-size:9pt;text-align:justify;"><b>Corporate Office:</b> Survey No. 135/ 139, Bilakhia House, Muktanand Marg, Chala, <b>Vapi</b> - 396191</p>
+          <p style="margin:0;font-size:9pt;text-align:justify;"><b>Mumbai Sales Office:</b> 601, Midas Tower, Sahar Plaza, Andheri (E) Mumbai 400 059, Maharashtra, India</p>
+          <p style="margin:0;font-size:9pt;text-align:justify;"><b>Cell: +91-8140065678</b>&nbsp;&nbsp;<b>Direct Line :</b> +91-22-30732570, Desk : +91-22-30732400 Extn: 570</p>
+          <p style="margin:0;font-size:9pt;text-align:justify;"><b>E mail :</b> <a href="mailto:tender.merildiagno@merillife.com">tender.merildiagno@merillife.com</a></p>
+        </div>
+      </body>
+      </html>`;
+  }
+
+  // Renders the exact filled-in document to a real PDF via the backend's
+  // headless-Chrome (Puppeteer) pipeline \u2014 a genuine file download with no
+  // browser print dialog and none of its auto-injected date/URL/page-number
+  // header-footer (window.print() can't be told to suppress those; only a
+  // programmatic PDF render can).
+  document.getElementById('btnPdf').addEventListener('click', async () => {
+    const btn = document.getElementById('btnPdf');
+    const original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Generating\u2026';
+    try {
+      // Set by the app that opens this file (see handleOpenNotary in
+      // WorkspaceDocPrep.jsx) — falls back to the default dev API port so
+      // this file still works if opened directly instead of via the app.
+      const API_BASE_URL = window.__API_BASE_URL__ || 'http://localhost:5000/api';
+      const headers = { 'Content-Type': 'application/json' };
+      if (window.__AUTH_TOKEN__) headers['Authorization'] = 'Bearer ' + window.__AUTH_TOKEN__;
+      const res = await fetch(`${API_BASE_URL}/doc-prep/print-html-pdf`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ html: buildCleanHtml(), filename: 'Undertaking_of_Non-Blacklisting.pdf' }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `Server error ${res.status}`);
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Undertaking_of_Non-Blacklisting.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      alert('Failed to generate PDF: ' + e.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = original;
+    }
+  });
+
+  document.getElementById('btnWord').addEventListener('click', () => {
+    const html = buildCleanHtml();
+    const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Undertaking_of_Non-Blacklisting.doc';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+</script>
+
+</body>
+</html>

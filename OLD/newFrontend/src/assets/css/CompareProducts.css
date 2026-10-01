@@ -1,0 +1,736 @@
+/* =====================================================
+   PRODUCT COMPARISON — extends PortfolioTracking.css
+   Imports all root variables & base patterns from
+   PortfolioTracking, adds only page-specific extras.
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+/* ── Shared root vars (same palette as PortfolioTracking) ── */
+:root {
+    --navy: #084f9a;
+    --navy-mid: #063a73;
+    --navy-light: #0a62bb;
+    --accent: #fec91b;
+    --accent-soft: #fff3c4;
+    --white: #ffffff;
+    --surface: #f8f9fa;
+    --surface-2: #f0f7ff;
+    --border: #e5e7eb;
+    --border-soft: #eef0f4;
+    --text-primary: #2c3e50;
+    --text-secondary: #4a5568;
+    --text-muted: #6c757d;
+    --green: #28a745;
+    --green-bg: #d4edda;
+    --red: #dc3545;
+    --shadow-xs: 0 2px 4px rgba(0, 0, 0, .06);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, .10);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, .15);
+    --radius-sm: 6px;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --transition: 0.3s ease;
+    /* wonsummary aliases */
+    --primary-blue: #084f9a;
+    --primary-white: #ffffff;
+    --accent-gold: #fec91b;
+    --text-dark: #2c3e50;
+    --text-light: #6c757d;
+    --border-color: #e5e7eb;
+    --success-green: #28a745;
+    --danger-red: #dc3545;
+    --hover-bg: #f8f9fa;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ─── Page container (mirrors portfolio-tracking-page) ── */
+.bid-result-container.product-comparison-page {
+    width: 100%;
+    max-width: 100%;
+    padding: 2rem 1.75rem;
+    background-color: var(--primary-white);
+    min-height: 100vh;
+    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+}
+
+/* ─── Header ── */
+.bid-result-header {
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin: 0;
+    padding-bottom: .5rem;
+    border-bottom: 3px solid var(--accent-gold);
+    display: block;
+    width: 100%;
+}
+
+.pc-subtitle {
+    color: var(--text-muted);
+    font-size: .88rem;
+    margin-top: .4rem;
+}
+
+/* ─── Selector label inside filters-section ── */
+.pc-selector-label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--text-muted);
+}
+
+/* ─── Filters section (copy of portfolio) ── */
+.filters-section {
+    background: var(--primary-white);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.filters-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.active-badge {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: .55rem 1.2rem;
+    border-radius: 100px;
+    font-size: .87rem;
+    font-weight: 600;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: #28a745;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: pc-pulse 2s ease-in-out infinite;
+}
+
+@keyframes pc-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .35;
+        transform: scale(.8);
+    }
+}
+
+.dd-result-pill {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--navy);
+    padding: .45rem 1rem;
+    border-radius: 100px;
+    font-size: .82rem;
+    font-weight: 600;
+}
+
+.results-summary {
+    border-left: 4px solid var(--navy);
+    background: var(--surface-2);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius);
+    font-size: .9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* ─── Spinner (same as portfolio) ── */
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--border);
+    border-top-color: var(--navy);
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: pc-spin .8s linear infinite;
+}
+
+@keyframes pc-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ─── portfolio-main, KPI grid, breakdown-grid, p-card ─
+   All inherited from PortfolioTracking. Below we only
+   OVERRIDE or ADD what's specific to this page.         ─ */
+
+.portfolio-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* 4-column KPI override (portfolio uses 6-col) */
+.pc-kpi-4col {
+    grid-template-columns: repeat(4, 1fr) !important;
+}
+
+/* KPI card base — replicated so this CSS is self-contained */
+.portfolio-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.p-kpi-card {
+    background: var(--white);
+    padding: 1.4rem 1.5rem 1.2rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-xs);
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+    cursor: default;
+}
+
+.p-kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    background: currentColor;
+    opacity: .9;
+}
+
+.p-kpi-card::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: .04;
+}
+
+.p-kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.p-kpi-label {
+    font-size: .67rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--text-muted);
+    z-index: 1;
+    position: relative;
+}
+
+.p-kpi-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -.02em;
+    z-index: 1;
+    position: relative;
+}
+
+.p-blue {
+    color: #084f9a;
+}
+
+.p-green {
+    color: #28a745;
+}
+
+.p-red {
+    color: #dc3545;
+}
+
+.p-orange {
+    color: #fd7e14;
+}
+
+.p-teal {
+    color: #20c997;
+}
+
+.p-purple {
+    color: #6f42c1;
+}
+
+/* Card */
+.breakdown-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.p-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-xs);
+    overflow: hidden;
+    transition: box-shadow var(--transition);
+}
+
+.p-card:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Card header — navy bar with gold pill */
+.p-card-header {
+    background: var(--navy);
+    padding: .95rem 1.5rem;
+    font-size: .72rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, .85);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.p-card-header::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.pc-sub-badge {
+    background: rgba(255, 255, 255, .12);
+    color: rgba(255, 255, 255, .8);
+    padding: .2rem .65rem;
+    border-radius: 100px;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: none;
+    margin-left: auto;
+}
+
+/* Table */
+.portfolio-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.portfolio-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.portfolio-table thead th {
+    background: var(--surface);
+    color: var(--text-secondary);
+    text-align: left;
+    padding: .8rem 1.4rem;
+    font-size: .69rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    border-bottom: 1.5px solid var(--border);
+    white-space: nowrap;
+}
+
+.portfolio-table tbody td {
+    padding: .85rem 1.4rem;
+    font-size: .875rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-soft);
+    transition: background var(--transition);
+}
+
+.portfolio-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.portfolio-table tbody tr:hover td {
+    background: #f0f7ff;
+}
+
+.portfolio-table .bold {
+    font-weight: 700;
+}
+
+.portfolio-table .center {
+    text-align: center;
+}
+
+.portfolio-table .green-text {
+    color: var(--green);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .85rem;
+}
+
+.td-empty {
+    text-align: center;
+    padding: 2.5rem 1rem !important;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Top row highlight (leader) */
+.pc-top-row td {
+    background: #f0f7ff;
+}
+
+.pc-top-row:hover td {
+    background: #e8f3ff !important;
+}
+
+.pc-crown {
+    margin-right: .35rem;
+}
+
+/* ── Market Share Bar ── */
+.pc-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.pc-bar-fill {
+    height: 8px;
+    background: linear-gradient(90deg, var(--navy) 0%, #3b82f6 100%);
+    border-radius: 100px;
+    min-width: 4px;
+    max-width: 160px;
+    transition: width .5s ease;
+}
+
+.pc-bar-label {
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+/* ── Price Intelligence Panel ── */
+.pc-price-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid var(--border);
+}
+
+.pc-price-stat {
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    border-right: 1px solid var(--border-soft);
+}
+
+.pc-price-stat:last-child {
+    border-right: none;
+}
+
+.pc-price-stat-mid {
+    background: var(--surface-2);
+}
+
+.pc-price-stat-lbl {
+    font-size: .67rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--text-muted);
+}
+
+.pc-price-stat-val {
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.pc-price-green {
+    color: #155724;
+}
+
+.pc-price-blue {
+    color: var(--navy);
+}
+
+.pc-price-red {
+    color: var(--red);
+}
+
+/* ── Delta Pills ── */
+.pc-delta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+    padding: .28rem .65rem;
+    border-radius: 100px;
+    font-size: .78rem;
+    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.pc-delta-green {
+    background: #d4edda;
+    color: #155724;
+}
+
+.pc-delta-red {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* ── Searchable Dropdown — mirrors CompetitorSearch ── */
+.pc-dd-root {
+    position: relative;
+    width: 100%;
+}
+
+.pc-dd-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background: #fff;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 0 1rem;
+    height: 50px;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    cursor: text;
+}
+
+.pc-dd-input-wrap.pc-dd-open,
+.pc-dd-input-wrap:focus-within {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(8, 79, 154, .1);
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.pc-dd-icon-left {
+    width: 17px;
+    height: 17px;
+    stroke: var(--navy);
+    flex-shrink: 0;
+}
+
+.pc-dd-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+    min-width: 0;
+    caret-color: var(--navy);
+}
+
+.pc-dd-input::placeholder {
+    color: #a0aec0;
+    font-weight: 400;
+}
+
+.pc-dd-clear-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #e5e7eb;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #6c757d;
+    transition: background .15s, color .15s;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.pc-dd-clear-btn:hover {
+    background: var(--red);
+    color: #fff;
+}
+
+.pc-dd-chevron {
+    width: 17px;
+    height: 17px;
+    stroke: #6c757d;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform .2s, stroke .2s;
+}
+
+.pc-dd-chevron-up {
+    transform: rotate(180deg);
+    stroke: var(--navy);
+}
+
+.pc-dd-count-badge {
+    font-size: .72rem;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: .3rem .5rem;
+}
+
+.pc-dd-list {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 2px solid var(--primary-blue);
+    border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    max-height: 280px;
+    overflow-y: auto;
+    list-style: none;
+    padding: .3rem 0;
+    z-index: 500;
+    box-shadow: 0 8px 24px rgba(8, 79, 154, .13);
+    scroll-behavior: smooth;
+}
+
+.pc-dd-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.pc-dd-list::-webkit-scrollbar-thumb {
+    background: #c7d2fe;
+    border-radius: 10px;
+}
+
+.pc-dd-list::-webkit-scrollbar-thumb:hover {
+    background: var(--navy);
+}
+
+.pc-dd-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .6rem;
+    padding: .65rem 1.25rem;
+    font-size: .9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background .1s;
+}
+
+.pc-dd-item-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pc-dd-item-active {
+    background: #eef2ff;
+    color: var(--navy);
+}
+
+.pc-dd-item-selected {
+    background: #f0f7ff;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.pc-dd-item-selected.pc-dd-item-active {
+    background: #dbeafe;
+}
+
+.pc-dd-check {
+    flex-shrink: 0;
+    stroke: var(--navy);
+}
+
+.pc-dd-empty {
+    padding: 1.25rem;
+    font-size: .85rem;
+    color: #9ca3af;
+    font-style: italic;
+    text-align: center;
+}
+
+mark.pc-dd-highlight {
+    background: #fde68a;
+    color: #92400e;
+    border-radius: 2px;
+    padding: 0 1px;
+    font-weight: 700;
+}
+
+/* ── Responsive ── */
+@media (max-width:1200px) {
+
+    .portfolio-kpi-grid,
+    .pc-kpi-4col {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width:900px) {
+    .breakdown-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width:600px) {
+
+    .portfolio-kpi-grid,
+    .pc-kpi-4col {
+        grid-template-columns: 1fr !important;
+    }
+
+    .bid-result-container.product-comparison-page {
+        padding: 1.25rem 1rem;
+    }
+
+    .pc-price-row {
+        grid-template-columns: 1fr;
+    }
+}

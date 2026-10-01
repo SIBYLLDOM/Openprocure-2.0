@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { Settings as SettingsIcon, Save, Users, Bell, Lock, Palette, Database, Plus, Edit2, Trash2, Calendar, UserPlus, Briefcase, Search, ChevronDown, Check } from 'lucide-react';
 
 const UserSelectDropdown = ({ options, value, onChange }) => {
@@ -195,6 +195,36 @@ const WorkspaceSettings = ({ tenderId }) => {
     const [eligibleUsers, setEligibleUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    // ── Reset Workspace (Danger Zone) ───────────────────────────────────────
+    // Clears the Doc Prep session (discovered annexures, extracted formats,
+    // uploaded bid document) and cached AI Tender Summary for this tender ID,
+    // so a reused ID starts completely fresh instead of carrying over data
+    // from a previous use of the same workspace.
+    const [resettingWorkspace, setResettingWorkspace] = useState(false);
+    const handleResetWorkspace = async () => {
+        if (!window.confirm(
+            `Reset the workspace for ${tenderId}?\n\nThis permanently deletes the Doc Prep analysis (annexures, extracted formats, uploaded bid document) and the cached Tender Summary. Tasks, departments, and deadlines are NOT affected.\n\nThis cannot be undone.`
+        )) return;
+        setResettingWorkspace(true);
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${API_BASE_URL}/doc-prep/${encodeURIComponent(tenderId)}/reset`, {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const json = await res.json();
+            if (json.success) {
+                alert('Workspace reset. Go to Doc Prep and upload the bid document to start a fresh analysis.');
+            } else {
+                alert(json.message || 'Failed to reset workspace');
+            }
+        } catch (e) {
+            alert('Failed to reset workspace: ' + e.message);
+        } finally {
+            setResettingWorkspace(false);
+        }
+    };
 
     // Form states
     const [deptForm, setDeptForm] = useState({ name: '', color: '#2563eb', icon: '📁' });
@@ -837,6 +867,61 @@ const WorkspaceSettings = ({ tenderId }) => {
                             <p style={{ textAlign: 'center', color: '#9ca3af', padding: '2rem 0' }}>No deadlines set</p>
                         )}
                     </div>
+                </div>
+            </div>
+
+            {/* Danger Zone */}
+            <div style={{ marginTop: '2rem' }}>
+                <h2 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '600',
+                    color: '#991b1b',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    marginBottom: '1rem'
+                }}>
+                    <Trash2 size={22} style={{ color: '#dc2626' }} />
+                    Danger Zone
+                </h2>
+                <div style={{
+                    background: '#fef2f2',
+                    border: '1px solid #fecaca',
+                    borderRadius: '12px',
+                    padding: '1.5rem',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: '1rem',
+                    flexWrap: 'wrap'
+                }}>
+                    <div>
+                        <p style={{ fontWeight: 600, color: '#7f1d1d', margin: '0 0 0.25rem' }}>Reset Workspace</p>
+                        <p style={{ fontSize: '0.85rem', color: '#991b1b', margin: 0, maxWidth: '480px' }}>
+                            Deletes the Doc Prep analysis (annexures, extracted formats, uploaded bid document)
+                            and cached Tender Summary for {tenderId}, so this tender ID starts completely fresh.
+                            Tasks, departments, and deadlines are kept. Use this when a tender ID is being
+                            reused for a new/reopened workspace.
+                        </p>
+                    </div>
+                    <button
+                        onClick={handleResetWorkspace}
+                        disabled={resettingWorkspace}
+                        style={{
+                            padding: '0.65rem 1.25rem',
+                            background: '#dc2626',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            cursor: resettingWorkspace ? 'not-allowed' : 'pointer',
+                            fontWeight: 600,
+                            fontSize: '0.9rem',
+                            opacity: resettingWorkspace ? 0.6 : 1,
+                            flexShrink: 0,
+                        }}
+                    >
+                        {resettingWorkspace ? 'Resetting…' : 'Reset Workspace'}
+                    </button>
                 </div>
             </div>
         </div>

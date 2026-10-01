@@ -1,0 +1,5 @@
+Severity,Incident_ID,Reason,Product_Category,Status,Escalated_Date,Incident_Date,SCN_Sent_Date,Raised_Against,Organisation_Name,Seller_Organisation_Name,Product_ID,Incident_For,SCN_End_Date,Last_Modified_Role,Last_Modified_Date,Maker_Role
+Mild,2119308,Delay in payment post CRAC generation,Fully Automatic Biochemistry Analyzer (V2),TOOK_ACTION,--,24/03/2025,14/04/2025,BUYER,Government College Rajahmundry,MERIL DIAGNOSTICS PRIVATE LIMITED,--,ORDER,19/04/2025,--,25/04/2025,--
+Mild,1920843,Delay in payment post CRAC generation,BOQ,TOOK_ACTION,--,29/06/2024,10/07/2024,BUYER,"National Health Mission, Up",MERIL DIAGNOSTICS PRIVATE LIMITED,--,ORDER,15/07/2024,--,21/07/2024,--
+Mild,1920840,Delay in payment post CRAC generation,BOQ,TOOK_ACTION,--,29/06/2024,10/07/2024,BUYER,"National Health Mission, Up",MERIL DIAGNOSTICS PRIVATE LIMITED,--,ORDER,15/07/2024,--,21/07/2024,--
+Mild,1905039,Delay in payment post CRAC generation,BOQ,TOOK_ACTION,--,07/06/2024,19/06/2024,BUYER,Agartala,MERIL DIAGNOSTICS PRIVATE LIMITED,--,ORDER,24/06/2024,--,26/07/2024,--

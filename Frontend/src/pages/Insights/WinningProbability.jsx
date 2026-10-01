@@ -1,20 +1,45 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
 const WinningProbability = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedRAStatus, setSelectedRAStatus] = useState('all');
   const [selectedDepartment, setSelectedDepartment] = useState('all');
+  const [selectedSource, setSelectedSource] = useState('all');
+  const [selectedState, setSelectedState] = useState('all');
+  const [stateOptions, setStateOptions] = useState([]);
   const [startDateFilter, setStartDateFilter] = useState('');
   const [endDateFilter, setEndDateFilter] = useState('');
   const [bidsData, setBidsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // State options — same list /Admin/tenders uses, merged across GeM + Open
+  // since this page shows both sources together.
+  useEffect(() => {
+    const fetchStates = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const [gemRes, openRes] = await Promise.all([
+          fetch(`${API_BASE}/tenders/states?tenderType=GEM`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`${API_BASE}/tenders/states?tenderType=Open`, { headers: { Authorization: `Bearer ${token}` } }),
+        ]);
+        const [gemJson, openJson] = await Promise.all([gemRes.json(), openRes.json()]);
+        const merged = new Set([...(gemJson.data || []), ...(openJson.data || [])]);
+        setStateOptions([...merged].sort());
+      } catch (err) {
+        console.error('Failed to fetch states:', err);
+      }
+    };
+    fetchStates();
+  }, []);
+
   // Fetch data from backend
   useEffect(() => {
     fetchBidsData();
-  }, [searchTerm, selectedStatus, selectedRAStatus, selectedDepartment, startDateFilter, endDateFilter]);
+  }, [searchTerm, selectedStatus, selectedRAStatus, selectedDepartment, selectedSource, selectedState, startDateFilter, endDateFilter]);
 
   const fetchBidsData = async () => {
     try {
@@ -27,10 +52,12 @@ const WinningProbability = () => {
       if (selectedStatus && selectedStatus !== 'all') params.append('bid_status', selectedStatus);
       if (selectedRAStatus && selectedRAStatus !== 'all') params.append('bid_ra_status', selectedRAStatus);
       if (selectedDepartment && selectedDepartment !== 'all') params.append('department', selectedDepartment);
+      if (selectedSource && selectedSource !== 'all') params.append('source', selectedSource);
+      if (selectedState && selectedState !== 'all') params.append('state', selectedState);
       if (startDateFilter) params.append('start_date', startDateFilter);
       if (endDateFilter) params.append('end_date', endDateFilter);
 
-      const url = `http://192.168.1.6:5000/api/gem-bids${params.toString() ? '?' + params.toString() : ''}`;
+      const url = `${API_BASE}/gem-bids${params.toString() ? '?' + params.toString() : ''}`;
 
       const response = await fetch(url, {
         headers: {
@@ -67,6 +94,41 @@ const WinningProbability = () => {
   };
 
 
+
+  const [savingNoteId, setSavingNoteId] = useState(null);
+
+  const saveNote = async (bid, patch) => {
+    const bidNo = bid.bid_no;
+    setSavingNoteId(bid.id);
+    // Optimistic update so typing feels immediate.
+    setBidsData(rows => rows.map(r => r.id === bid.id ? { ...r, ...patch } : r));
+    try {
+      const token = localStorage.getItem('token');
+      await fetch(`${API_BASE}/gem-bids/${encodeURIComponent(bidNo)}/notes`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ra_date: patch.ra_date !== undefined ? patch.ra_date : bid.ra_date,
+          remarks: patch.user_remarks !== undefined ? patch.user_remarks : bid.user_remarks,
+        }),
+      });
+    } catch (e) {
+      console.error('Failed to save note:', e);
+    } finally {
+      setSavingNoteId(null);
+    }
+  };
+
+  const formatDateCell = (value) => {
+    if (!value) return '-';
+    // start_date/end_date/opening_date come back in different shapes
+    // depending on source (varchar 'DD-Mon-YYYY...' for Open, ISO for GeM).
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? value : d.toLocaleDateString();
+  };
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -163,6 +225,27 @@ const WinningProbability = () => {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+          <label style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>State</label>
+          <select
+            value={selectedState}
+            onChange={(e) => setSelectedState(e.target.value)}
+            style={{
+              padding: '0.75rem 1rem',
+              border: '2px solid #e2e8f0',
+              borderRadius: '8px',
+              fontSize: '0.9rem',
+              backgroundColor: 'white',
+              cursor: 'pointer',
+              outline: 'none',
+              height: '44px'
+            }}
+          >
+            <option value="all">All States</option>
+            {stateOptions.map((s) => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
           <label style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>Department</label>
           <select
             value={selectedDepartment}
@@ -181,6 +264,28 @@ const WinningProbability = () => {
             <option value="all">All Departments</option>
             <option value="diagno">Diagno</option>
             <option value="endo">Endo</option>
+          </select>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+          <label style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>Source</label>
+          <select
+            value={selectedSource}
+            onChange={(e) => setSelectedSource(e.target.value)}
+            style={{
+              padding: '0.75rem 1rem',
+              border: '2px solid #e2e8f0',
+              borderRadius: '8px',
+              fontSize: '0.9rem',
+              backgroundColor: 'white',
+              cursor: 'pointer',
+              outline: 'none',
+              height: '44px'
+            }}
+          >
+            <option value="all">All Sources</option>
+            <option value="gem">GeM</option>
+            <option value="open">Open</option>
           </select>
         </div>
 
@@ -228,6 +333,8 @@ const WinningProbability = () => {
             setSelectedStatus('all');
             setSelectedRAStatus('all');
             setSelectedDepartment('all');
+            setSelectedSource('all');
+            setSelectedState('all');
             setStartDateFilter('');
             setEndDateFilter('');
           }}
@@ -256,13 +363,14 @@ const WinningProbability = () => {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ backgroundColor: '#084f9a' }}>
-                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>Bid Number</th>
-                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>RA Number</th>
+                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>S.No</th>
+                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>Bid No</th>
+                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>State</th>
+                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>RA Date</th>
+                <th style={{ padding: '1rem', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>QTY</th>
+                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>Opening Date</th>
                 <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>Status</th>
-                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>RA Status</th>
-                <th style={{ padding: '1rem', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>Quantity</th>
-                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>Start Date</th>
-                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>End Date</th>
+                <th style={{ padding: '1rem', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '0.875rem' }}>Remarks</th>
               </tr>
             </thead>
             <tbody>
@@ -277,8 +385,23 @@ const WinningProbability = () => {
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = index % 2 === 0 ? '#f8fafc' : 'white'}
                 >
+                  <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#475569' }}>{index + 1}</td>
                   <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#084f9a', fontWeight: '500' }}>{bid.bid_no}</td>
-                  <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#475569' }}>{bid.ra_no}</td>
+                  <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#475569' }}>{bid.state || '-'}</td>
+                  <td style={{ padding: '0.5rem 1rem' }}>
+                    <input
+                      type="date"
+                      defaultValue={bid.ra_date ? String(bid.ra_date).slice(0, 10) : ''}
+                      onBlur={(e) => {
+                        const v = e.target.value || null;
+                        if (v !== (bid.ra_date ? String(bid.ra_date).slice(0, 10) : null)) saveNote(bid, { ra_date: v });
+                      }}
+                      disabled={savingNoteId === bid.id}
+                      style={{ padding: '0.4rem 0.5rem', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '0.8125rem', width: '135px' }}
+                    />
+                  </td>
+                  <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#475569', textAlign: 'center', fontWeight: '500' }}>{bid.quantity ?? '-'}</td>
+                  <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#475569' }}>{formatDateCell(bid.opening_date)}</td>
                   <td style={{ padding: '1rem' }}>
                     <span style={{
                       padding: '0.25rem 0.75rem',
@@ -292,22 +415,19 @@ const WinningProbability = () => {
                       {bid.bid_status}
                     </span>
                   </td>
-                  <td style={{ padding: '1rem' }}>
-                    <span style={{
-                      padding: '0.25rem 0.75rem',
-                      borderRadius: '12px',
-                      fontSize: '0.75rem',
-                      fontWeight: '500',
-                      backgroundColor: bid.bid_ra_status === 'Active' ? '#22c55e20' : '#6b728020',
-                      color: bid.bid_ra_status === 'Active' ? '#22c55e' : '#6b7280',
-                      whiteSpace: 'nowrap'
-                    }}>
-                      {bid.bid_ra_status}
-                    </span>
+                  <td style={{ padding: '0.5rem 1rem' }}>
+                    <input
+                      type="text"
+                      defaultValue={bid.user_remarks || ''}
+                      placeholder="Add a remark…"
+                      onBlur={(e) => {
+                        const v = e.target.value;
+                        if (v !== (bid.user_remarks || '')) saveNote(bid, { user_remarks: v });
+                      }}
+                      disabled={savingNoteId === bid.id}
+                      style={{ padding: '0.4rem 0.6rem', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '0.8125rem', width: '200px', boxSizing: 'border-box' }}
+                    />
                   </td>
-                  <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#475569', textAlign: 'center', fontWeight: '500' }}>{bid.quantity}</td>
-                  <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#475569' }}>{bid.start_date}</td>
-                  <td style={{ padding: '1rem', fontSize: '0.875rem', color: '#475569' }}>{bid.end_date}</td>
                 </tr>
               ))}
             </tbody>

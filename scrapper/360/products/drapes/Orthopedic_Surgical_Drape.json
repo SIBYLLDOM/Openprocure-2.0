@@ -1,0 +1,154 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Orthopedic Surgical Drape",
+    "series_name": "MEVEL™ Orthopedic Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric combined with absorbent non-woven layers",
+      "fabric_abbreviation_key": {
+        "SSMMS": "Spunbond Spunbond Meltblown Meltblown Spunbond",
+        "SMPE": "Spunbond-Meltblown-Polyethylene-Laminated"
+      },
+      "reinforcement": "Premium SMPE absorbent fabric in critical zones",
+      "color": "Royal Blue",
+      "barrier_properties": [
+        "Resistant to fluid penetration, fluid concentration and blood strike-through",
+        "Free from skin irritation, sensitization and cytotoxicity",
+        "Resistant to microbial penetration",
+        "Virtually lint-free",
+        "Abrasion-resistant"
+      ],
+      "packaging": "Pouch-packed in certified and validated packs",
+      "sterilization": "Ethylene Oxide (EO) sterilized as per ISO 11135",
+      "purpose": "Isolates the surgical site from other areas of the patient's body and non-sterile zones of the OR table, reducing risk of surgical site infection (SSI)",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Hip U Drape",
+    "description": "The Mevel Hip U Drape is a high-performance surgical drape designed for a wide range of procedures that demand efficient fluid management and optimal site access.",
+    "size": "310 cm × 230 cm",
+    "dimensions_cm": {
+      "length": 310,
+      "width": 230
+    },
+    "fenestration": "Centrally located U-shaped split measuring 10 cm x 80 cm",
+    "features": [
+      "Centrally located U-shaped split measuring 10 cm x 80 cm",
+      "Drape is reinforced with premium SMPE absorbent fabric",
+      "Equipped with Tube Holder and Cord Organizer"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Orthopedic Surgical Drape",
+    "series_name": "MEVEL™ Orthopedic Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric combined with absorbent non-woven layers",
+      "fabric_abbreviation_key": {
+        "SSMMS": "Spunbond Spunbond Meltblown Meltblown Spunbond",
+        "SMPE": "Spunbond-Meltblown-Polyethylene-Laminated"
+      },
+      "reinforcement": "Premium SMPE absorbent fabric in critical zones",
+      "color": "Royal Blue",
+      "barrier_properties": [
+        "Resistant to fluid penetration, fluid concentration and blood strike-through",
+        "Free from skin irritation, sensitization and cytotoxicity",
+        "Resistant to microbial penetration",
+        "Virtually lint-free",
+        "Abrasion-resistant"
+      ],
+      "packaging": "Pouch-packed in certified and validated packs",
+      "sterilization": "Ethylene Oxide (EO) sterilized as per ISO 11135",
+      "purpose": "Isolates the surgical site from other areas of the patient's body and non-sterile zones of the OR table, reducing risk of surgical site infection (SSI)",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Knee O Drape",
+    "description": "The Mevel Knee O Drape, measuring 300 × 230 cm, is a specialized surgical drape designed for knee and lower limb procedures requiring wide coverage and enhanced fluid control.",
+    "size": "300 cm × 230 cm",
+    "dimensions_cm": {
+      "length": 300,
+      "width": 230
+    },
+    "fenestration": "Central hole with a 2.5-inch diameter",
+    "features": [
+      "Central hole with a 2.5-inch diameter",
+      "Layer of latex-free material",
+      "Drape is reinforced with premium SMPE absorbent fabric to ensure high fluid absorbency",
+      "Equipped with Tube Holder and Cord Organizer"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Orthopedic Surgical Drape",
+    "series_name": "MEVEL™ Orthopedic Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric combined with absorbent non-woven layers",
+      "fabric_abbreviation_key": {
+        "SSMMS": "Spunbond Spunbond Meltblown Meltblown Spunbond",
+        "SMPE": "Spunbond-Meltblown-Polyethylene-Laminated"
+      },
+      "reinforcement": "Premium SMPE absorbent fabric in critical zones",
+      "color": "Royal Blue",
+      "barrier_properties": [
+        "Resistant to fluid penetration, fluid concentration and blood strike-through",
+        "Free from skin irritation, sensitization and cytotoxicity",
+        "Resistant to microbial penetration",
+        "Virtually lint-free",
+        "Abrasion-resistant"
+      ],
+      "packaging": "Pouch-packed in certified and validated packs",
+      "sterilization": "Ethylene Oxide (EO) sterilized as per ISO 11135",
+      "purpose": "Isolates the surgical site from other areas of the patient's body and non-sterile zones of the OR table, reducing risk of surgical site infection (SSI)",
+      "latex_free": true
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Extremity Drape",
+    "description": "The Mevel Extremity Drape, measuring 360 cm × 240 cm, is designed to provide comprehensive coverage and effective fluid management for upper and lower extremity surgical procedures.",
+    "size": "360 cm × 240 cm",
+    "dimensions_cm": {
+      "length": 360,
+      "width": 240
+    },
+    "fenestration": "Central 2.5-inch diameter hole",
+    "features": [
+      "Central 2.5-inch diameter hole that allows precise access to the surgical site",
+      "Latex free material",
+      "Drape is reinforced with premium SMPE absorbent fabric to ensure high fluid absorbency",
+      "Equipped with Tube Holder and Cord Organizer"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

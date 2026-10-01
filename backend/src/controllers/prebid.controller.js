@@ -1,6 +1,31 @@
 const db = require('../config/db');
-const nodemailer = require('nodemailer');
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
+const { sendMail } = require('../utils/mailer');
+
+// Same convention as auth.controller.js/notify.js — was hardcoded to
+// localhost:5173, which is unreachable for any real recipient of this email.
+const APP_URL = (process.env.APP_URL || 'https://openprocure.ai').replace(/\/$/, '');
+
+// ── Pre-Bid Meeting attachment upload (any file type — PDF, image, doc, etc.) ──
+const PREBID_ATTACHMENT_DIR = path.join(__dirname, '../../uploads/prebid-attachments');
+const prebidAttachmentStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    fs.mkdirSync(PREBID_ATTACHMENT_DIR, { recursive: true });
+    cb(null, PREBID_ATTACHMENT_DIR);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname) || '';
+    const safeName = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9_-]/g, '_');
+    cb(null, `${Date.now()}-${safeName}${ext}`);
+  },
+});
+exports.uploadAttachmentMiddleware = multer({
+  storage: prebidAttachmentStorage,
+  limits: { fileSize: 25 * 1024 * 1024 },
+}).single('attachment');
 
 exports.getZones = async (req, res) => {
     try {
@@ -62,10 +87,26 @@ exports.getFlsp = async (req, res) => {
 
 exports.sendInvite = async (req, res) => {
     try {
-        const { toEmails, ccEmails, bidNumber, meetingDetails, teamRemarks } = req.body;
+        // multipart/form-data (multer) puts every non-file field on req.body as a
+        // string — arrays/objects sent from the frontend arrive JSON-encoded.
+        const parseField = (v, fallback) => {
+            if (v === undefined || v === null || v === '') return fallback;
+            if (typeof v !== 'string') return v;
+            try { return JSON.parse(v); } catch { return v; }
+        };
+        const toEmails = parseField(req.body.toEmails, []);
+        const ccEmails = parseField(req.body.ccEmails, []);
+        const meetingDetails = parseField(req.body.meetingDetails, {});
+        const bidNumber = req.body.bidNumber;
+        const teamRemarks = (req.body.teamRemarks || '').trim();
+        const attachmentFile = req.file || null;
 
         if ((!toEmails || toEmails.length === 0) && (!ccEmails || ccEmails.length === 0)) {
             return res.status(400).json({ success: false, message: 'No emails provided.' });
+        }
+
+        if (!teamRemarks) {
+            return res.status(400).json({ success: false, message: 'Team Remarks is required.' });
         }
 
         const cleanBid = bidNumber.replace(/[\/\\]/g, '_'); // normalize for db storage
@@ -76,20 +117,8 @@ exports.sendInvite = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Pre-Bid meeting invite has already been sent for this tender.' });
         }
 
-        // Configure nodemailer transporter
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true, // use SSL
-            auth: {
-                user: 'noreply.openprocure.ai@gmail.com',
-                pass: 'sinelulmyxgdwmue' // Application password provided by user
-            }
-        });
-
         // Email content
-        // Email content
-        const tenderLink = `http://localhost:5173/tenders/tenderdetails/${bidNumber.replace(/\//g, '_')}`;
+        const tenderLink = `${APP_URL}/tenders/tenderdetails/${bidNumber.replace(/\//g, '_')}`;
         const preBidDate = meetingDetails?.date || '13-02-2026';
         const preBidTime = meetingDetails?.time || '11:00:00';
         const videoLink = meetingDetails?.link || 'https://meet.google.com/ndh-eiqc-xjb';
@@ -107,11 +136,13 @@ exports.sendInvite = async (req, res) => {
         const finalTo = toEmails && toEmails.length > 0 ? toEmails : ccEmails;
         const finalCc = toEmails && toEmails.length > 0 ? ccEmails : [];
 
-        const mailOptions = {
-            from: 'noreply.openprocure.ai@gmail.com',
+        const result = await sendMail({
             to: finalTo,
-            ...(finalCc.length > 0 && { cc: finalCc }),
+            cc: finalCc,
             subject: `Pre-Bid Meeting Invitation - Tender ${bidNumber.replace(/_/g, '/')}`,
+            attachments: attachmentFile
+                ? [{ filename: attachmentFile.originalname, path: attachmentFile.path }]
+                : undefined,
             html: `
                 <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
                     <h2>Pre-Bid Meeting Invitation</h2>
@@ -131,21 +162,26 @@ exports.sendInvite = async (req, res) => {
                     
                     <p style="margin-top: 30px;"><strong>Tender Details:</strong></p>
                     <p><a href="${tenderLink}" style="display: inline-block; padding: 10px 20px; background-color: #084f9a; color: white; text-decoration: none; border-radius: 5px; margin-right: 15px;">View Tender Page</a>
-                     <a href="http://localhost:5173/flsp-attendance/${tokenId}" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">Mark Attendance</a></p>
+                     <a href="${APP_URL}/flsp-attendance/${tokenId}" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">Mark Attendance</a></p>
                     
                     <hr style="border: 0; border-top: 1px solid #eee; margin-top: 40px;">
                     <p style="font-size: 12px; color: #999;">This is an automated message. Please do not reply.</p>
                 </div>
             `
-        };
+        });
 
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent: ' + info.response);
+        if (!result.ok) {
+            return res.status(502).json({ success: false, message: result.error || 'Failed to send email' });
+        }
 
         // Save to database only after successful email
         await db.query(
-            'INSERT INTO prebid_meeting (bid_no, datetime_venue, zone_head, flsp, team_remarks, token_id) VALUES (?, ?, ?, ?, ?, ?)',
-            [cleanBid, datetimeVenue, zoneHeadStr, flspStr, teamRemarks || '', tokenId]
+            'INSERT INTO prebid_meeting (bid_no, datetime_venue, zone_head, flsp, team_remarks, token_id, attachment_path, attachment_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [
+                cleanBid, datetimeVenue, zoneHeadStr, flspStr, teamRemarks, tokenId,
+                attachmentFile ? attachmentFile.path : null,
+                attachmentFile ? attachmentFile.originalname : null,
+            ]
         );
 
         res.json({ success: true, message: 'Invitations sent successfully.' });
@@ -277,5 +313,102 @@ exports.getAllSummaries = async (req, res) => {
     } catch (error) {
         console.error('Error fetching all summaries:', error);
         res.status(500).json({ success: false, message: 'Server error fetching summaries.', error: error.message });
+    }
+};
+
+// ── Zone Member CRUD ──────────────────────────────────────────────────────────
+
+exports.getZoneMembers = async (req, res) => {
+    try {
+        const { role, search } = req.query;
+        let sql = 'SELECT * FROM zone_data';
+        const params = [];
+        const conditions = [];
+
+        if (role) {
+            conditions.push('role = ?');
+            params.push(role);
+        }
+        if (search) {
+            conditions.push('(name LIKE ? OR email_id LIKE ? OR emp_id LIKE ? OR zone LIKE ? OR state LIKE ?)');
+            const like = `%${search}%`;
+            params.push(like, like, like, like, like);
+        }
+        if (conditions.length) sql += ' WHERE ' + conditions.join(' AND ');
+        sql += ' ORDER BY zone, role DESC, state, name';
+
+        const [members] = await db.query(sql, params);
+        res.json({ success: true, members });
+    } catch (error) {
+        console.error('Error fetching zone members:', error);
+        res.status(500).json({ success: false, message: 'Server error fetching members.', error: error.message });
+    }
+};
+
+exports.createZoneMember = async (req, res) => {
+    try {
+        const { name, email_id, emp_id, role, zone, state } = req.body;
+
+        if (!name || !email_id || !emp_id || !role || !zone) {
+            return res.status(400).json({ success: false, message: 'name, email_id, emp_id, role, and zone are required.' });
+        }
+        if (role === 'FLSP' && !state) {
+            return res.status(400).json({ success: false, message: 'state is required for FLSP.' });
+        }
+
+        const [existing] = await db.query('SELECT emp_id FROM zone_data WHERE emp_id = ?', [emp_id]);
+        if (existing.length > 0) {
+            return res.status(400).json({ success: false, message: `Employee ID "${emp_id}" already exists.` });
+        }
+
+        await db.query(
+            'INSERT INTO zone_data (name, email_id, emp_id, role, zone, state) VALUES (?, ?, ?, ?, ?, ?)',
+            [name, email_id, emp_id, role, zone, role === 'FLSP' ? (state || null) : null]
+        );
+        res.json({ success: true, message: 'Member created successfully.' });
+    } catch (error) {
+        console.error('Error creating zone member:', error);
+        res.status(500).json({ success: false, message: 'Server error creating member.', error: error.message });
+    }
+};
+
+exports.updateZoneMember = async (req, res) => {
+    try {
+        const { emp_id } = req.params;
+        const { name, email_id, role, zone, state } = req.body;
+
+        if (!name || !email_id || !role || !zone) {
+            return res.status(400).json({ success: false, message: 'name, email_id, role, and zone are required.' });
+        }
+        if (role === 'FLSP' && !state) {
+            return res.status(400).json({ success: false, message: 'state is required for FLSP.' });
+        }
+
+        const [result] = await db.query(
+            'UPDATE zone_data SET name = ?, email_id = ?, role = ?, zone = ?, state = ? WHERE emp_id = ?',
+            [name, email_id, role, zone, role === 'FLSP' ? (state || null) : null, emp_id]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ success: false, message: 'Member not found.' });
+        }
+        res.json({ success: true, message: 'Member updated successfully.' });
+    } catch (error) {
+        console.error('Error updating zone member:', error);
+        res.status(500).json({ success: false, message: 'Server error updating member.', error: error.message });
+    }
+};
+
+exports.deleteZoneMember = async (req, res) => {
+    try {
+        const { emp_id } = req.params;
+        const [result] = await db.query('DELETE FROM zone_data WHERE emp_id = ?', [emp_id]);
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ success: false, message: 'Member not found.' });
+        }
+        res.json({ success: true, message: 'Member removed successfully.' });
+    } catch (error) {
+        console.error('Error deleting zone member:', error);
+        res.status(500).json({ success: false, message: 'Server error deleting member.', error: error.message });
     }
 };

@@ -1,0 +1,181 @@
+import React, { useState, useEffect } from "react";
+import "../assets/css/login.css";
+import ADIA from "../assets/img/ADIA.jpeg";
+import recep from "../assets/img/2.jpg";
+import ppl from "../assets/img/1.jpg";
+import API_BASE_URL from "../config/api";
+import Logo from "../assets/img/logo.png";
+import { Link } from "react-router-dom";
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showForgotModal, setShowForgotModal] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [
+    {
+      title: "",
+      subtitle: "",
+      description: "",
+      image: ADIA
+    },
+    {
+      title: " ",
+      subtitle: "",
+      description: "",
+      image: recep
+    },
+    {
+      title: "",
+      subtitle: "",
+      description: "",
+      image: ppl
+    }
+  ];
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4e3);
+    return () => clearInterval(interval);
+  }, []);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          rememberMe
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        alert(data.message || "Login failed");
+        return;
+      }
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      if (data.sessionId) localStorage.setItem("sessionId", String(data.sessionId));
+      const preTenderRoles = ["Admin", "Tender Admin", "Office Administrator", "Tender Executive", "Zonal Head", "Sales", "Finance Team", "Legal", "Documentation"];
+      if (preTenderRoles.includes(data.user.role)) {
+        window.location.href = "/Admin/";
+      } else {
+        window.location.href = "https://post-tender.openprocure.ai/Admin/dashboard";
+      }
+    } catch (error) {
+      alert("Server error. Please try again.");
+    }
+  };
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: resetEmail })
+    });
+    setShowSuccessMessage(true);
+  };
+  return /* @__PURE__ */ React.createElement("div", { className: "login-container" }, /* @__PURE__ */ React.createElement("div", { className: "left-section" }, /* @__PURE__ */ React.createElement("div", { className: "background-carousel" }, slides.map((slide, index) => /* @__PURE__ */ React.createElement(
+    "div",
+    {
+      key: index,
+      className: `background-image ${index === currentSlide ? "active" : ""}`,
+      style: { backgroundImage: `url(${slide.image})` }
+    }
+  )), /* @__PURE__ */ React.createElement("div", { className: "background-overlay" })), /* @__PURE__ */ React.createElement("div", { className: "carousel" }, slides.map((slide, index) => /* @__PURE__ */ React.createElement(
+    "div",
+    {
+      key: index,
+      className: `slide ${index === currentSlide ? "active" : ""}`
+    },
+    /* @__PURE__ */ React.createElement("h1", { className: "slide-title" }, slide.title),
+    /* @__PURE__ */ React.createElement("h1", { className: "slide-subtitle" }, slide.subtitle),
+    /* @__PURE__ */ React.createElement("p", { className: "slide-description" }, slide.description)
+  ))), /* @__PURE__ */ React.createElement("div", { className: "carousel-indicators" }, slides.map((_, index) => /* @__PURE__ */ React.createElement(
+    "div",
+    {
+      key: index,
+      className: `indicator ${index === currentSlide ? "active" : ""}`,
+      onClick: () => setCurrentSlide(index)
+    }
+  )))), /* @__PURE__ */ React.createElement("div", { className: "right-section" }, /* @__PURE__ */ React.createElement("div", { className: "login-form-container" }, /* @__PURE__ */ React.createElement("img", { src: Logo, alt: "Logo", style: { alignContent: "center" }, className: "LogoDesign" }), /* @__PURE__ */ React.createElement("h2", null, "Welcome Back!"), /* @__PURE__ */ React.createElement("p", { className: "subtitle" }, "Tender System"), /* @__PURE__ */ React.createElement("div", { className: "login-form" }, /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Email"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      type: "email",
+      placeholder: "Input your email",
+      value: email,
+      onChange: (e) => setEmail(e.target.value)
+    }
+  )), /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Password"), /* @__PURE__ */ React.createElement("div", { className: "password-input" }, /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      type: showPassword ? "text" : "password",
+      placeholder: "Input your password",
+      value: password,
+      onChange: (e) => setPassword(e.target.value)
+    }
+  ), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      type: "button",
+      className: "toggle-password",
+      onClick: () => setShowPassword(!showPassword)
+    },
+    /* @__PURE__ */ React.createElement("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor" }, showPassword ? /* @__PURE__ */ React.createElement("path", { d: "M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }) : /* @__PURE__ */ React.createElement("path", { d: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))
+  ))), /* @__PURE__ */ React.createElement("div", { className: "form-options" }, /* @__PURE__ */ React.createElement("label", { className: "remember-me" }, /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      type: "checkbox",
+      checked: rememberMe,
+      onChange: (e) => setRememberMe(e.target.checked)
+    }
+  ), /* @__PURE__ */ React.createElement("span", null, "Remember Me")), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      type: "button",
+      className: "forgot-password",
+      onClick: () => setShowForgotModal(true)
+    },
+    "Forgot Password?"
+  )), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      type: "button",
+      className: "login-btn",
+      onClick: handleLogin
+    },
+    "Login"
+  ), /* @__PURE__ */ React.createElement("p", { style: { textAlign: "center", marginTop: "16px", fontSize: "14px", color: "#6b7280" } }, "Don't have an account?", " ", /* @__PURE__ */ React.createElement(Link, { to: "/register", style: { color: "#2563eb", fontWeight: 600, textDecoration: "none" } }, "Register"))))), showForgotModal && /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: () => setShowForgotModal(false) }, /* @__PURE__ */ React.createElement("div", { className: "modal", onClick: (e) => e.stopPropagation() }, !showSuccessMessage ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("h3", null, "Reset Password"), /* @__PURE__ */ React.createElement("p", { className: "modal-description" }, "Enter your email address and we'll send you instructions to reset your password."), /* @__PURE__ */ React.createElement("div", { className: "modal-form" }, /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Email Address"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      type: "email",
+      placeholder: "Enter your email",
+      value: resetEmail,
+      onChange: (e) => setResetEmail(e.target.value)
+    }
+  )), /* @__PURE__ */ React.createElement("div", { className: "modal-buttons" }, /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      type: "button",
+      className: "cancel-btn",
+      onClick: () => setShowForgotModal(false)
+    },
+    "Cancel"
+  ), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      type: "button",
+      className: "submit-btn",
+      onClick: handleForgotPassword
+    },
+    "Submit"
+  )))) : /* @__PURE__ */ React.createElement("div", { className: "success-message" }, /* @__PURE__ */ React.createElement("div", { className: "success-icon" }, "\u2713"), /* @__PURE__ */ React.createElement("h3", null, "Check Your Email"), /* @__PURE__ */ React.createElement("p", null, "We've sent password reset instructions to ", /* @__PURE__ */ React.createElement("strong", null, resetEmail))))));
+};
+export default Login;

@@ -1,0 +1,117 @@
+.searchable-select {
+  position: relative;
+  width: 100%;
+}
+
+.searchable-select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 13.5px;
+  color: #1e293b;
+  cursor: pointer;
+  text-align: left;
+}
+
+.searchable-select-trigger:hover {
+  border-color: #cbd5e1;
+}
+
+.searchable-select-trigger.open {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.searchable-select-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.searchable-select-value.placeholder {
+  color: #94a3b8;
+}
+
+.searchable-select-chevron {
+  font-size: 11px;
+  color: #64748b;
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.searchable-select-chevron.open {
+  transform: rotate(180deg);
+}
+
+.searchable-select-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.14);
+  z-index: 50;
+  overflow: hidden;
+  animation: searchable-select-open 0.12s ease;
+}
+
+@keyframes searchable-select-open {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.searchable-select-search-wrap {
+  padding: 8px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.searchable-select-search {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  font-size: 13px;
+}
+
+.searchable-select-search:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.searchable-select-options {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.searchable-select-option {
+  padding: 8px 12px;
+  font-size: 13.5px;
+  color: #1e293b;
+  cursor: pointer;
+}
+
+.searchable-select-option:hover {
+  background: #eff6ff;
+}
+
+.searchable-select-option.selected {
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.searchable-select-empty {
+  padding: 14px 12px;
+  font-size: 13px;
+  color: #94a3b8;
+  text-align: center;
+}

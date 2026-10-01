@@ -1,0 +1,36 @@
+[
+    {
+        "category": "CelQuant 3i Reagents",
+        "sub_category": "CelQuant 3i Reagents",
+        "product_code": "BDTCCR-02",
+        "product_name": "Diluent",
+        "pack_size": "20 L",
+        "pricing": {
+            "mrp": 10010,
+            "ctp": 4470
+        },
+        "tier_pricing": {
+            "tier_1": 4150,
+            "tier_2": 3497,
+            "tier_3": 3300,
+            "tier_4": null
+        }
+    },
+    {
+        "category": "CelQuant 3i Reagents",
+        "sub_category": "CelQuant 3i Reagents",
+        "product_code": "CLYCCR-03",
+        "product_name": "Lyse",
+        "pack_size": "500 mL",
+        "pricing": {
+            "mrp": 15750,
+            "ctp": 7030
+        },
+        "tier_pricing": {
+            "tier_1": 6350,
+            "tier_2": 5500,
+            "tier_3": 5000,
+            "tier_4": null
+        }
+    }
+]

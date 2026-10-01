@@ -1,0 +1,89 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene & Skin Preparation",
+    "type": "Upcoming Antiseptic Range",
+    "series_name": "Hand Hygiene & Skin Prep — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Chlorhexidine and cetrimide based antiseptics",
+        "Alcohol-based antiseptic liquids",
+        "Incise drapes (plain, CHG and iodine)",
+        "Surgical clippers and blades"
+      ]
+    },
+    "sr_no": 14,
+    "product_code": "",
+    "instrument_name": "NEOVA Surgical Clipper",
+    "product_category": "Clipper & Blades",
+    "composition": null,
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene & Skin Preparation",
+    "type": "Upcoming Antiseptic Range",
+    "series_name": "Hand Hygiene & Skin Prep — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Chlorhexidine and cetrimide based antiseptics",
+        "Alcohol-based antiseptic liquids",
+        "Incise drapes (plain, CHG and iodine)",
+        "Surgical clippers and blades"
+      ]
+    },
+    "sr_no": 15,
+    "product_code": "",
+    "instrument_name": "NEOVA - Neuro Blades",
+    "product_category": "Clipper & Blades",
+    "composition": null,
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Hand Hygiene & Skin Preparation",
+    "type": "Upcoming Antiseptic Range",
+    "series_name": "Hand Hygiene & Skin Prep — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Chlorhexidine and cetrimide based antiseptics",
+        "Alcohol-based antiseptic liquids",
+        "Incise drapes (plain, CHG and iodine)",
+        "Surgical clippers and blades"
+      ]
+    },
+    "sr_no": 16,
+    "product_code": "",
+    "instrument_name": "NEOVA - Universal Blades",
+    "product_category": "Clipper & Blades",
+    "composition": null,
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

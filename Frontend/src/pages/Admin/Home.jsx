@@ -1,438 +1,576 @@
-import React, { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, DollarSign, FileText, AlertCircle, CheckCircle, Clock, Package, Users, BarChart3, PieChart, Activity, Download, Filter, Search, ArrowUpRight, ArrowDownRight, Calendar, Target, Award, Zap } from 'lucide-react';
-import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart as RPieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+    FileText, Clock, Globe, IndianRupee, AlertCircle,
+    ArrowUpRight, Activity, TrendingUp, ShieldCheck,
+    Headset, Building2, MapPin, Users, LogIn, CalendarCheck, Timer, Award
+} from 'lucide-react';
+import {
+    BarChart, Bar, Cell,
+    XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+    AreaChart, Area
+} from 'recharts';
 import '../../assets/css/AdminHome.css';
 
-const AdminHome = () => {
-    const [activeTab, setActiveTab] = useState('participated-tender');
-    const [animatedValues, setAnimatedValues] = useState({});
-    const [dashboardStats, setDashboardStats] = useState({
-        bids: { total: "0", won: "0", lost: "0", totalCharges: "0" },
-        incidents: { total: "0", pendingResponse: "0", pendingResolution: "0" },
-        tenderProcessing: { totalOrders: "0", pendingAcceptance: "0", pendingDelivery: "0" },
-        products: { total: "0", published: "0", pendingApproval: "0" },
-        orders: { pendingAcceptance: "0", pendingDelivery: "0" },
-        incidentTrend: [],
-        recentActivity: []
-    });
+const EMPTY_STATS = {
+    dept: 'Both',
+    activeTenders: 0,
+    closingSoon: 0,
+    openTenders: 0,
+    contracts: { count: 0, totalValue: 0 },
+    incidents: { total: 0, pendingResponse: 0 },
+    deptSplit: null,
+    pipelineValue: 0,
+    emdLocked: 0,
+    topStates: [],
+    supportTickets: { open: 0, inProgress: 0, resolved: 0, closed: 0, total: 0 },
+    distributors: { total: 0, active: 0 },
+    contractsTrend: [],
+    userActivity: { activeNow: 0, loginsToday: 0, loginsWeek: 0, avgSessionSeconds: 0, trend: [] },
+    topSellers: [],
+    upcomingDeadlines: [],
+    recentActivity: []
+};
+
+const AUTO_REFRESH_MS = 60000;
+
+const STATE_COLORS = ['#084f9a', '#0d9488', '#7c3aed', '#d97706', '#0ea5e9', '#dc2626'];
+const CONTRACT_BAR_COLORS = ['#a5c4e8', '#7ba7db', '#4f8bce', '#084f9a', '#0a5fb5', '#063a73'];
+const SELLER_COLORS = ['#084f9a', '#0d9488', '#7c3aed', '#d97706', '#dc2626'];
+
+const formatINR = (value) => {
+    const v = Number(value) || 0;
+    if (v >= 1e7) return `₹${(v / 1e7).toFixed(2)} Cr`;
+    if (v >= 1e5) return `₹${(v / 1e5).toFixed(2)} L`;
+    if (v >= 1e3) return `₹${(v / 1e3).toFixed(1)} K`;
+    return `₹${v.toFixed(0)}`;
+};
+
+const useCountUp = (target, duration = 800) => {
+    const [display, setDisplay] = useState(0);
+    const fromRef = useRef(0);
 
     useEffect(() => {
-        const loadTabStats = async () => {
-            // Fetch live data from backend
-            try {
-                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/admin/dashboard-stats?dept=${activeTab.toLowerCase()}&tenderType=GEM`, {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-                const result = await response.json();
-                if (result.success && result.data) {
-                    setDashboardStats(result.data);
-                }
-            } catch (error) {
-                console.error("Failed to fetch dashboard stats", error);
+        const from = fromRef.current;
+        const to = Number(target) || 0;
+        const start = performance.now();
+        let raf;
+        const tick = (now) => {
+            const p = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            setDisplay(from + (to - from) * eased);
+            if (p < 1) {
+                raf = requestAnimationFrame(tick);
+            } else {
+                fromRef.current = to;
+                setDisplay(to);
             }
         };
+        raf = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(raf);
+    }, [target, duration]);
 
-        loadTabStats();
-    }, [activeTab]);
+    return display;
+};
 
-    const data = dashboardStats;
+const CountUp = ({ value, format }) => {
+    const display = useCountUp(value);
+    return format ? format(display) : Math.round(display).toLocaleString('en-IN');
+};
+
+const toTenderUrlId = (bidNumber) => (bidNumber || '').split('/').join('_');
+
+const urgencyOf = (hoursLeft) => {
+    if (hoursLeft <= 24) return 'danger';
+    if (hoursLeft <= 72) return 'warning';
+    return 'default';
+};
+
+const timeLeftLabel = (hoursLeft) => {
+    if (hoursLeft == null) return '';
+    if (hoursLeft < 1) return '<1 hr left';
+    if (hoursLeft < 48) return `${hoursLeft} hrs left`;
+    return `${Math.floor(hoursLeft / 24)} days left`;
+};
+
+const AdminHome = () => {
+    const navigate = useNavigate();
+
+    // Department scoping is enforced server-side from the caller's assignment
+    // (see backend utils/userScope.js) — the client no longer chooses a dept.
+    const [stats, setStats] = useState(EMPTY_STATS);
+    const [loading, setLoading] = useState(true);
+
+    const loadStats = useCallback(async ({ silent = false } = {}) => {
+        if (!silent) setLoading(true);
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_API_BASE_URL}/admin/tender-dashboard`,
+                { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+            );
+            const result = await response.json();
+            if (result.success && result.data) {
+                setStats(result.data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch tender dashboard stats', error);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setAnimatedValues({});
-        }, 100);
-        return () => clearTimeout(timer);
-    }, [activeTab]);
+        loadStats();
+        const interval = setInterval(() => loadStats({ silent: true }), AUTO_REFRESH_MS);
+        return () => clearInterval(interval);
+    }, [loadStats]);
 
-    const StatCard = ({ icon: Icon, title, value, change, trend, color = 'blue' }) => {
-        const isPositive = change?.startsWith('+');
-        const colorMap = {
-            blue: 'from-blue-500 to-blue-600',
-            green: 'from-green-500 to-green-600',
-            purple: 'from-purple-500 to-purple-600',
-            orange: 'from-orange-500 to-orange-600'
-        };
-
+    const StatCard = ({ icon: Icon, title, value, format, subtitle, color = 'blue', onClick }) => {
         return (
-            <div className="stat-card group">
+            <div className="stat-card group" onClick={onClick} style={onClick ? { cursor: 'pointer' } : undefined}>
                 <div className="stat-card-content">
-                    <div className={`stat-icon bg-gradient-to-br ${colorMap[color]}`}>
-                        <Icon size={24} strokeWidth={2.5} />
-                    </div>
                     <div className="stat-details">
+                        <h3 className="stat-value"><CountUp value={value} format={format} /></h3>
                         <p className="stat-title">{title}</p>
-                        <h3 className="stat-value">{value}</h3>
-                        {change && (
-                            <div className={`stat-change ${isPositive ? 'positive' : 'negative'}`}>
-                                {isPositive ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
-                                <span>{change}</span>
-                            </div>
-                        )}
+                    </div>
+                    <div className={`stat-icon-chip stat-icon-chip--${color}`}>
+                        <Icon size={20} strokeWidth={2} />
                     </div>
                 </div>
-                <div className={`stat-glow ${colorMap[color]}`}></div>
+                {onClick && (
+                    <button
+                        type="button"
+                        className="stat-detail-link"
+                        onClick={(e) => { e.stopPropagation(); onClick(); }}
+                    >
+                        View Details
+                        <ArrowUpRight size={14} />
+                    </button>
+                )}
+                {!onClick && subtitle && (
+                    <div className="stat-change positive">
+                        <span>{subtitle}</span>
+                    </div>
+                )}
             </div>
         );
     };
 
-    const QuickMetric = ({ icon: Icon, label, value, status = 'default' }) => {
-        const statusColors = {
-            success: 'text-green-600 bg-green-50 border-green-200',
-            warning: 'text-orange-600 bg-orange-50 border-orange-200',
-            danger: 'text-red-600 bg-red-50 border-red-200',
-            default: 'text-blue-600 bg-blue-50 border-blue-200'
-        };
+    const deptSplitEntries = stats.deptSplit
+        ? [
+            { name: 'Diagno', value: stats.deptSplit.diagno || 0 },
+            { name: 'Endo', value: stats.deptSplit.endo || 0 }
+        ]
+        : [];
+    const deptSplitTotal = deptSplitEntries.reduce((sum, d) => sum + d.value, 0) || 1;
 
-        return (
-            <div className={`quick-metric ${statusColors[status]}`}>
-                <Icon size={18} />
-                <div>
-                    <p className="metric-label">{label}</p>
-                    <p className="metric-value">{value}</p>
-                </div>
-            </div>
-        );
-    };
+    const loginTrendData = (stats.userActivity.trend || []).map(r => ({
+        day: new Date(r.day).toLocaleDateString('en-IN', { weekday: 'short' }),
+        count: Number(r.count)
+    }));
+
+    const avgSessionLabel = (() => {
+        const s = stats.userActivity.avgSessionSeconds || 0;
+        if (s < 60) return `${s}s`;
+        const m = Math.round(s / 60);
+        if (m < 60) return `${m}m`;
+        return `${(m / 60).toFixed(1)}h`;
+    })();
 
     return (
         <div className="admin-dashboard">
-            {/* Header */}
-
-
-            {/* Category Tabs + Tender Type Filter — single row */}
-            <div className="category-tabs-modern">
-                <button
-                    className={`tab-modern ${activeTab === 'participated-tender' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('participated-tender')}
-                >
-                    <Activity size={20} />
-                    <span>Participated Tender</span>
-                    <div className="tab-indicator"></div>
-                </button>
-                <button
-                    className={`tab-modern ${activeTab === 'workdesk' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('workdesk')}
-                >
-                    <Package size={20} />
-                    <span>Workdesk</span>
-                    <div className="tab-indicator"></div>
-                </button>
-                <button
-                    className={`tab-modern ${activeTab === 'active-workspaces' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('active-workspaces')}
-                >
-                    <Users size={20} />
-                    <span>Active Workspaces</span>
-                    <div className="tab-indicator"></div>
-                </button>
-                <button
-                    className={`tab-modern ${activeTab === 'gem-contracts' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('gem-contracts')}
-                >
-                    <FileText size={20} />
-                    <span>GEM Contracts</span>
-                    <div className="tab-indicator"></div>
-                </button>
-                <button
-                    className={`tab-modern ${activeTab === 'carting-dashboard' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('carting-dashboard')}
-                >
-                    <Zap size={20} />
-                    <span>Carting Dashboard</span>
-                    <div className="tab-indicator"></div>
-                </button>
-            </div>
-
             {/* KPI Cards */}
             <div className="kpi-grid">
                 <StatCard
                     icon={FileText}
-                    title="Total Bids"
-                    value={data.bids?.total || "0"}
+                    title="Active Tenders"
+                    value={stats.activeTenders}
+                    subtitle="Currently pursuing"
                     color="blue"
+                    onClick={() => navigate('/Admin/tenders')}
                 />
                 <StatCard
-                    icon={CheckCircle}
-                    title="Bids Won"
-                    value={data.bids?.won || "0"}
+                    icon={Clock}
+                    title="Closing in 7 Days"
+                    value={stats.closingSoon}
+                    subtitle="Needs action"
+                    color="orange"
+                    onClick={() => navigate('/Admin/tenders')}
+                />
+                <StatCard
+                    icon={Globe}
+                    title="Open Tenders (CPPP)"
+                    value={stats.openTenders}
+                    subtitle="Non-GEM portals"
+                    color="teal"
+                    onClick={() => navigate('/Admin/open-dashboard')}
+                />
+                <StatCard
+                    icon={IndianRupee}
+                    title="Contract Value"
+                    value={stats.contracts.totalValue}
+                    format={formatINR}
+                    subtitle={`${stats.contracts.count} contracts`}
+                    color="purple"
+                    onClick={() => navigate('/orders/gem-contracts')}
+                />
+                <StatCard
+                    icon={TrendingUp}
+                    title="Active Pipeline Value"
+                    value={stats.pipelineValue}
+                    format={formatINR}
+                    subtitle="Est. value, open tenders"
+                    color="navy"
+                    onClick={() => navigate('/Admin/tenders')}
+                />
+                <StatCard
+                    icon={ShieldCheck}
+                    title="EMD Locked"
+                    value={stats.emdLocked}
+                    format={formatINR}
+                    subtitle="Across active bids"
                     color="green"
+                    onClick={() => navigate('/Admin/tenders')}
                 />
                 <StatCard
                     icon={AlertCircle}
-                    title="Bids Lost"
-                    value={data.bids?.lost || "0"}
-                    color="orange"
-                />
-                <StatCard
-                    icon={DollarSign}
-                    title="Published Products"
-                    value={`₹${data.bids?.totalCharges || "0"}`}
-                    color="purple"
+                    title="Open Incidents"
+                    value={stats.incidents.pendingResponse}
+                    subtitle={`${stats.incidents.total} total`}
+                    color="red"
+                    onClick={() => navigate('/insights/Incident')}
                 />
             </div>
 
-            {/* Operational Metrics - Professional Cards */}
-            <div className="operational-metrics-section">
-                <div className="section-header-bar">
-                    <h3 className="section-title">
-                        <Activity size={20} />
-                        Operational Metrics
-                    </h3>
-                </div>
-                <div className="operational-metrics-grid">
-                    {/* Bids Metrics */}
-                    <div className="metric-group-card">
-                        <div className="metric-group-header">
-                            <FileText size={18} />
-                            <span>Bid Statistics</span>
-                        </div>
-                        <div className="metric-items">
-                            <div className="metric-item">
-                                <span className="metric-item-label">Total Bids</span>
-                                <span className="metric-item-value">{data.bids?.total || "0"}</span>
-                            </div>
-                            <div className="metric-item success">
-                                <span className="metric-item-label">Bids Won</span>
-                                <span className="metric-item-value">{data.bids?.won || "0"}</span>
-                            </div>
-                            <div className="metric-item danger">
-                                <span className="metric-item-label">Bids Lost</span>
-                                <span className="metric-item-value">{data.bids?.lost || "0"}</span>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    {/* Incidents Metrics */}
-                    <div className="metric-group-card">
-                        <div className="metric-group-header">
-                            <AlertCircle size={18} />
-                            <span>Incident Tracking</span>
-                        </div>
-                        <div className="metric-items">
-                            <div className="metric-item">
-                                <span className="metric-item-label">Total Incidents</span>
-                                <span className="metric-item-value">{data.incidents?.total || "0"}</span>
-                            </div>
-                            <div className={`metric-item ${data.incidents?.pendingResponse === "0" ? "success" : "warning"}`}>
-                                <span className="metric-item-label">Pending Response</span>
-                                <span className="metric-item-value">{data.incidents?.pendingResponse || "0"}</span>
-                            </div>
-                            <div className="metric-item success">
-                                <span className="metric-item-label">Closed/Rejected</span>
-                                <span className="metric-item-value">{data.incidents?.pendingResolution || "0"}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Orders Metrics */}
-                    <div className="metric-group-card">
-                        <div className="metric-group-header">
-                            <Package size={18} />
-                            <span>Order Management</span>
-                        </div>
-                        <div className="metric-items">
-                            <div className="metric-item">
-                                <span className="metric-item-label">Total Orders</span>
-                                <span className="metric-item-value">{data.tenderProcessing?.totalOrders || "0"}</span>
-                            </div>
-                            <div className={`metric-item ${data.tenderProcessing?.pendingAcceptance === "0" ? "success" : "warning"}`}>
-                                <span className="metric-item-label">Pending Acceptance</span>
-                                <span className="metric-item-value">{data.tenderProcessing?.pendingAcceptance || "0"}</span>
-                            </div>
-                            <div className="metric-item warning">
-                                <span className="metric-item-label">Pending Delivery</span>
-                                <span className="metric-item-value">{data.tenderProcessing?.pendingDelivery || "0"}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Products Metrics */}
-                    <div className="metric-group-card">
-                        <div className="metric-group-header">
-                            <Package size={18} />
-                            <span>Product Catalog</span>
-                        </div>
-                        <div className="metric-items">
-                            <div className="metric-item">
-                                <span className="metric-item-label">Total Products</span>
-                                <span className="metric-item-value">{data.products?.total || "0"}</span>
-                            </div>
-                            <div className="metric-item success">
-                                <span className="metric-item-label">Published</span>
-                                <span className="metric-item-value">{data.products?.published || "0"}</span>
-                            </div>
-                            <div className="metric-item warning">
-                                <span className="metric-item-label">Pending Approval</span>
-                                <span className="metric-item-value">{data.products?.pendingApproval || "0"}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Charts Row 1 */}
-            <div className="charts-row">
-                {/* Incident Tracking Analysis */}
-                <div className="chart-card large">
-                    <div className="chart-header">
-                        <div>
-                            <h3 className="chart-title">Incident Tracking Analysis</h3>
-                            <p className="chart-subtitle">Monthly incident resolution trends</p>
-                        </div>
-                        <div className="chart-legend-custom">
-                            <span className="legend-item"><span className="legend-dot" style={{ background: '#3b82f6' }}></span>Raised</span>
-                            <span className="legend-item"><span className="legend-dot" style={{ background: '#f59e0b' }}></span>Pending</span>
-                            <span className="legend-item"><span className="legend-dot" style={{ background: '#10b981' }}></span>Closed</span>
-                            <span className="legend-item"><span className="legend-dot" style={{ background: '#ef4444' }}></span>Rejected</span>
-                        </div>
-                    </div>
-                    <ResponsiveContainer width="100%" height={300}>
-                        <AreaChart data={data.incidentTrend || []}>
-                            <defs>
-                                <linearGradient id="colorRaised" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.1} />
-                                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
-                                </linearGradient>
-                                <linearGradient id="colorPending" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3} />
-                                    <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
-                                </linearGradient>
-                                <linearGradient id="colorClosed" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-                                    <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
-                                </linearGradient>
-                                <linearGradient id="colorRejected" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3} />
-                                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
-                                </linearGradient>
-                            </defs>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                            <XAxis dataKey="month" stroke="#6b7280" fontSize={12} />
-                            <YAxis stroke="#6b7280" fontSize={12} />
-                            <Tooltip
-                                contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
-                            />
-                            <Area type="monotone" dataKey="raised" stroke="#3b82f6" strokeWidth={2} fillOpacity={1} fill="url(#colorRaised)" />
-                            <Area type="monotone" dataKey="pendingResponse" stroke="#f59e0b" strokeWidth={2} fillOpacity={1} fill="url(#colorPending)" />
-                            <Area type="monotone" dataKey="closed" stroke="#10b981" strokeWidth={2} fillOpacity={1} fill="url(#colorClosed)" />
-                            <Area type="monotone" dataKey="rejected" stroke="#ef4444" strokeWidth={2} fillOpacity={1} fill="url(#colorRejected)" />
-                        </AreaChart>
-                    </ResponsiveContainer>
-                </div>
-
-                {/* Order Status Distribution */}
+            {/* Charts Row: User Activity + Top Sellers */}
+            <div className="charts-row-2">
+                {/* User Activity */}
                 <div className="chart-card">
                     <div className="chart-header">
                         <div>
-                            <h3 className="chart-title">Order Status Distribution</h3>
-                            <p className="chart-subtitle">Order breakdown by status</p>
+                            <h3 className="chart-title">User Activity</h3>
+                            <p className="chart-subtitle">Platform engagement, last 7 days</p>
+                        </div>
+                        <Users size={18} color="#084f9a" />
+                    </div>
+                    <div className="mini-stat-grid">
+                        <div className="mini-stat-item mini-stat-item--live">
+                            <span className="live-dot"></span>
+                            <Activity size={15} color="#10b981" />
+                            <span className="mini-stat-value"><CountUp value={stats.userActivity.activeNow} /></span>
+                            <span className="mini-stat-label">Active Now</span>
+                        </div>
+                        <div className="mini-stat-item">
+                            <LogIn size={15} color="#084f9a" />
+                            <span className="mini-stat-value"><CountUp value={stats.userActivity.loginsToday} /></span>
+                            <span className="mini-stat-label">Logins Today</span>
+                        </div>
+                        <div className="mini-stat-item">
+                            <CalendarCheck size={15} color="#7c3aed" />
+                            <span className="mini-stat-value"><CountUp value={stats.userActivity.loginsWeek} /></span>
+                            <span className="mini-stat-label">Logins / Week</span>
+                        </div>
+                        <div className="mini-stat-item">
+                            <Timer size={15} color="#d97706" />
+                            <span className="mini-stat-value">{avgSessionLabel}</span>
+                            <span className="mini-stat-label">Avg Session</span>
                         </div>
                     </div>
-                    <ResponsiveContainer width="100%" height={300}>
-                        <RPieChart>
-                            <Pie
-                                data={[
-                                    {
-                                        name: 'Completed Orders',
-                                        value: parseInt(data.tenderProcessing.totalOrders) - parseInt(data.tenderProcessing.pendingAcceptance) - parseInt(data.tenderProcessing.pendingDelivery),
-                                        color: '#10b981'
-                                    },
-                                    {
-                                        name: 'Pending Acceptance',
-                                        value: parseInt(data.tenderProcessing.pendingAcceptance),
-                                        color: '#f59e0b'
-                                    },
-                                    {
-                                        name: 'Pending Delivery',
-                                        value: parseInt(data.tenderProcessing.pendingDelivery),
-                                        color: '#3b82f6'
-                                    }
-                                ]}
-                                cx="50%"
-                                cy="50%"
-                                innerRadius={60}
-                                outerRadius={100}
-                                paddingAngle={2}
-                                dataKey="value"
-                            >
-                                {[
-                                    { color: '#10b981' },
-                                    { color: '#f59e0b' },
-                                    { color: '#3b82f6' }
-                                ].map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                ))}
-                            </Pie>
-                            <Tooltip
-                                contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
-                            />
-                        </RPieChart>
-                    </ResponsiveContainer>
-                    <div className="pie-legend">
-                        <div className="pie-legend-item">
-                            <span className="legend-color" style={{ backgroundColor: '#10b981' }}></span>
-                            <span className="legend-text">Completed Orders</span>
-                            <span className="legend-value">{parseInt(data.tenderProcessing.totalOrders) - parseInt(data.tenderProcessing.pendingAcceptance) - parseInt(data.tenderProcessing.pendingDelivery)}</span>
+                    {loginTrendData.some(d => d.count > 0) ? (
+                        <ResponsiveContainer width="100%" height={160}>
+                            <AreaChart data={loginTrendData}>
+                                <defs>
+                                    <linearGradient id="loginFill" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stopColor="#084f9a" stopOpacity={0.25} />
+                                        <stop offset="100%" stopColor="#084f9a" stopOpacity={0} />
+                                    </linearGradient>
+                                </defs>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                <XAxis dataKey="day" stroke="#6b7280" fontSize={12} />
+                                <YAxis stroke="#6b7280" fontSize={12} allowDecimals={false} />
+                                <Tooltip contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }} />
+                                <Area type="monotone" dataKey="count" stroke="#084f9a" strokeWidth={2.5} fill="url(#loginFill)" />
+                            </AreaChart>
+                        </ResponsiveContainer>
+                    ) : (
+                        <p className="dashboard-subtitle" style={{ padding: '16px 0', textAlign: 'center' }}>No login activity this week</p>
+                    )}
+                </div>
+
+                {/* Top Sellers */}
+                <div className="chart-card">
+                    <div className="chart-header">
+                        <div>
+                            <h3 className="chart-title">Top Sellers by Contract Value</h3>
+                            <p className="chart-subtitle">Competitor & own revenue on record</p>
                         </div>
-                        <div className="pie-legend-item">
-                            <span className="legend-color" style={{ backgroundColor: '#f59e0b' }}></span>
-                            <span className="legend-text">Pending Acceptance</span>
-                            <span className="legend-value">{data.tenderProcessing.pendingAcceptance}</span>
-                        </div>
-                        <div className="pie-legend-item">
-                            <span className="legend-color" style={{ backgroundColor: '#3b82f6' }}></span>
-                            <span className="legend-text">Pending Delivery</span>
-                            <span className="legend-value">{data.tenderProcessing.pendingDelivery}</span>
-                        </div>
+                        <Award size={18} color="#d97706" />
                     </div>
+                    {stats.topSellers.length > 0 ? (
+                        <ResponsiveContainer width="100%" height={260}>
+                            <BarChart data={stats.topSellers} layout="vertical" margin={{ left: 20 }}>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
+                                <XAxis type="number" stroke="#6b7280" fontSize={12} tickFormatter={formatINR} />
+                                <YAxis type="category" dataKey="sellerName" stroke="#6b7280" fontSize={12} width={110} />
+                                <Tooltip
+                                    contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
+                                    formatter={(value) => formatINR(value)}
+                                />
+                                <Bar dataKey="revenue" radius={[0, 6, 6, 0]}>
+                                    {stats.topSellers.map((_, index) => (
+                                        <Cell key={`cell-${index}`} fill={SELLER_COLORS[index % SELLER_COLORS.length]} />
+                                    ))}
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
+                    ) : (
+                        <p className="dashboard-subtitle" style={{ padding: '24px 0', textAlign: 'center' }}>No contract data yet</p>
+                    )}
                 </div>
             </div>
 
-
-
-
-
-            {/* Recent Activity */}
-            <div className="activity-section">
-                <div className="section-header-bar">
-                    <h3 className="section-title">
-                        <Clock size={20} />
-                        Recent Activity
-                    </h3>
-                    <button className="view-all-btn">View All</button>
+            {/* Department Split — only shown in combined view */}
+            {stats.deptSplit && (
+                <div className="operational-metrics-section">
+                    <div className="section-header-bar">
+                        <h3 className="section-title">
+                            <Activity size={20} />
+                            Department Split
+                        </h3>
+                    </div>
+                    <div className="department-stats">
+                        {deptSplitEntries.map(d => (
+                            <div className="dept-stat-item" key={d.name}>
+                                <div className="dept-info">
+                                    <span className="dept-name">{d.name}</span>
+                                    <span className="dept-rate">{Math.round((d.value / deptSplitTotal) * 100)}%</span>
+                                </div>
+                                <div className="dept-progress-bar">
+                                    <div className="dept-progress-fill" style={{ width: `${(d.value / deptSplitTotal) * 100}%` }}></div>
+                                </div>
+                                <div className="dept-counts">
+                                    <span>{d.value} active tenders</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-                <div className="activity-list">
-                    {(data.recentActivity || []).map((activity) => {
-                        const statusConfig = {
-                            success: { bg: 'bg-green-100', text: 'text-green-700', icon: CheckCircle },
-                            info: { bg: 'bg-blue-100', text: 'text-blue-700', icon: FileText },
-                            closed: { bg: 'bg-gray-100', text: 'text-gray-700', icon: AlertCircle },
-                            danger: { bg: 'bg-red-100', text: 'text-red-700', icon: AlertCircle }
-                        };
-                        const config = statusConfig[activity.type];
-                        const ActivityIcon = config.icon;
+            )}
 
-                        return (
-                            <div key={activity.id} className="activity-item">
-                                <div className={`activity-icon ${config.bg} ${config.text}`}>
-                                    <ActivityIcon size={18} />
+            {/* Insights row: States, Support Tickets, Distributor Network */}
+            <div className="insights-row">
+                <div className="chart-card">
+                    <div className="chart-header">
+                        <div>
+                            <h3 className="chart-title">Tenders by State</h3>
+                            <p className="chart-subtitle">Top active markets</p>
+                        </div>
+                        <MapPin size={18} color="#084f9a" />
+                    </div>
+                    {stats.topStates.length > 0 ? (
+                        <div className="state-bar-list">
+                            {stats.topStates.map((s, i) => {
+                                const max = stats.topStates[0].count || 1;
+                                return (
+                                    <div className="state-bar-row" key={s.state}>
+                                        <span className="state-bar-label">{s.state}</span>
+                                        <div className="state-bar-track">
+                                            <div
+                                                className="state-bar-fill"
+                                                style={{ width: `${(s.count / max) * 100}%`, background: STATE_COLORS[i % STATE_COLORS.length] }}
+                                            ></div>
+                                        </div>
+                                        <span className="state-bar-count">{s.count}</span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    ) : (
+                        <p className="dashboard-subtitle" style={{ padding: '24px 0', textAlign: 'center' }}>No state data yet</p>
+                    )}
+                </div>
+
+                <div className="chart-card">
+                    <div className="chart-header">
+                        <div>
+                            <h3 className="chart-title">Support Tickets</h3>
+                            <p className="chart-subtitle">{stats.supportTickets.total} total</p>
+                        </div>
+                        <Headset size={18} color="#7c3aed" />
+                    </div>
+                    <div className="ticket-status-grid">
+                        {[
+                            { label: 'Open', value: stats.supportTickets.open, color: '#ef4444' },
+                            { label: 'In Progress', value: stats.supportTickets.inProgress, color: '#f59e0b' },
+                            { label: 'Resolved', value: stats.supportTickets.resolved, color: '#0ea5e9' },
+                            { label: 'Closed', value: stats.supportTickets.closed, color: '#10b981' }
+                        ].map(t => (
+                            <div className="ticket-status-item" key={t.label}>
+                                <span className="ticket-status-dot" style={{ background: t.color }}></span>
+                                <span className="ticket-status-label">{t.label}</span>
+                                <span className="ticket-status-value" style={{ color: t.color }}>{t.value}</span>
+                            </div>
+                        ))}
+                    </div>
+                    <button className="view-all-btn" style={{ width: '100%', marginTop: '16px' }} onClick={() => navigate('/Admin/support-tickets')}>
+                        View All Tickets
+                    </button>
+                </div>
+
+                <div className="chart-card">
+                    <div className="chart-header">
+                        <div>
+                            <h3 className="chart-title">Distributor Network</h3>
+                            <p className="chart-subtitle">Registered dealers</p>
+                        </div>
+                        <Building2 size={18} color="#0d9488" />
+                    </div>
+                    <div className="distributor-stat-block">
+                        <div className="distributor-stat-num"><CountUp value={stats.distributors.total} /></div>
+                        <div className="distributor-stat-label">Total Distributors</div>
+                    </div>
+                    <div className="distributor-progress-wrap">
+                        <div className="dept-progress-bar">
+                            <div
+                                className="dept-progress-fill"
+                                style={{
+                                    width: `${stats.distributors.total > 0 ? (stats.distributors.active / stats.distributors.total) * 100 : 0}%`,
+                                    background: 'linear-gradient(90deg, #0d9488 0%, #10b981 100%)'
+                                }}
+                            ></div>
+                        </div>
+                        <div className="distributor-progress-label">
+                            <span>{stats.distributors.active} active</span>
+                            <span>{stats.distributors.total - stats.distributors.active} inactive</span>
+                        </div>
+                    </div>
+                    <button className="view-all-btn" style={{ width: '100%', marginTop: '16px' }} onClick={() => navigate('/dealers/distributors')}>
+                        View All Distributors
+                    </button>
+                </div>
+            </div>
+
+            {/* Contract Value Trend */}
+            {stats.contractsTrend.length > 0 && (
+                <div className="chart-card" style={{ marginBottom: '24px' }}>
+                    <div className="chart-header">
+                        <div>
+                            <h3 className="chart-title">Contract Value Trend</h3>
+                            <p className="chart-subtitle">Awarded value by month, last 6 months</p>
+                        </div>
+                    </div>
+                    <ResponsiveContainer width="100%" height={220}>
+                        <BarChart data={stats.contractsTrend}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                            <XAxis dataKey="month" stroke="#6b7280" fontSize={12} />
+                            <YAxis stroke="#6b7280" fontSize={12} tickFormatter={formatINR} />
+                            <Tooltip
+                                contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
+                                formatter={(value) => formatINR(value)}
+                            />
+                            <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                                {stats.contractsTrend.map((_, index) => (
+                                    <Cell key={`cell-${index}`} fill={CONTRACT_BAR_COLORS[index % CONTRACT_BAR_COLORS.length]} />
+                                ))}
+                            </Bar>
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
+            )}
+
+            {/* Upcoming Deadlines + Recent Activity */}
+            <div className="dual-section-row">
+                <div className="activity-section">
+                    <div className="section-header-bar">
+                        <h3 className="section-title">
+                            <Clock size={20} />
+                            Upcoming Deadlines
+                        </h3>
+                        <button className="view-all-btn" onClick={() => navigate('/Admin/tenders')}>View All</button>
+                    </div>
+                    <div className="activity-list">
+                        {stats.upcomingDeadlines.length === 0 && (
+                            <p className="dashboard-subtitle" style={{ padding: '12px 0' }}>No active tenders closing soon.</p>
+                        )}
+                        {stats.upcomingDeadlines.map((t) => {
+                            const urgency = urgencyOf(t.hoursLeft);
+                            const iconBg = {
+                                danger: 'bg-red-100 text-red-700',
+                                warning: 'bg-orange-100 text-orange-700',
+                                default: 'bg-blue-100 text-blue-700'
+                            }[urgency];
+                            const valueColor = {
+                                danger: '#ef4444',
+                                warning: '#f59e0b',
+                                default: '#084f9a'
+                            }[urgency];
+
+                            return (
+                                <div
+                                    key={t.bid_number}
+                                    className="activity-item"
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => navigate(`/tenders/tenderdetails/${encodeURIComponent(toTenderUrlId(t.bid_number))}`)}
+                                >
+                                    <div className={`activity-icon ${iconBg}`}>
+                                        <Clock size={18} />
+                                    </div>
+                                    <div className="activity-content">
+                                        <div className="activity-main">
+                                            <span className="activity-action">{t.title || t.bid_number}</span>
+                                            <span className="activity-tender">{t.dept}</span>
+                                        </div>
+                                        <span className="activity-time">{t.bid_number}</span>
+                                    </div>
+                                    <div className="activity-value" style={{ color: valueColor }}>
+                                        {timeLeftLabel(t.hoursLeft)}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                <div className="activity-section">
+                    <div className="section-header-bar">
+                        <h3 className="section-title">
+                            <Activity size={20} />
+                            Recent Activity
+                        </h3>
+                    </div>
+                    <div className="activity-list">
+                        {stats.recentActivity.length === 0 && (
+                            <p className="dashboard-subtitle" style={{ padding: '12px 0' }}>No recent tender activity.</p>
+                        )}
+                        {stats.recentActivity.map((a) => (
+                            <div
+                                key={a.bid_number + a.processing_date}
+                                className="activity-item"
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => navigate(`/tenders/tenderdetails/${encodeURIComponent(toTenderUrlId(a.bid_number))}`)}
+                            >
+                                <div className="activity-icon bg-blue-100 text-blue-700">
+                                    <FileText size={18} />
                                 </div>
                                 <div className="activity-content">
                                     <div className="activity-main">
-                                        <span className="activity-action">{activity.action}</span>
-                                        <span className="activity-tender">{activity.tender}</span>
+                                        <span className="activity-action">{a.title || a.bid_number}</span>
+                                        <span className="activity-tender">{a.dept}</span>
                                     </div>
-                                    <span className="activity-time">{activity.time}</span>
+                                    <span className="activity-time">
+                                        {a.processing_date ? new Date(a.processing_date).toLocaleString() : ''}
+                                    </span>
                                 </div>
-                                <div className="activity-value">{activity.value}</div>
+                                <div className="activity-value" style={{ fontSize: '13px', textTransform: 'capitalize' }}>
+                                    {a.status || 'processed'}
+                                </div>
                             </div>
-                        );
-                    })}
+                        ))}
+                    </div>
                 </div>
             </div>
+
+            {loading && <p className="dashboard-subtitle" style={{ marginTop: '16px' }}>Refreshing…</p>}
         </div>
     );
 };

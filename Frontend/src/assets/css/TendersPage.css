@@ -329,9 +329,23 @@
 .tender-header-line {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0.5rem 0.85rem;
     flex-wrap: wrap;
     font-size: 0.8125rem;
+    row-gap: 0.35rem;
+}
+
+.tender-header-line > * {
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+/* A single field (e.g. an unusually long Ref No) can still exceed the card's
+   own width even after the row wraps — let that one item break internally
+   instead of overflowing past the card edge. */
+.tender-header-line > span {
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 
 .tender-id-bold {
@@ -447,14 +461,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 10002;
     padding: 1rem;
 }
 
 .modal-content {
     background-color: white;
     border-radius: 0.5rem;
-    max-width: 800px;
+    max-width: 1100px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
@@ -474,6 +488,49 @@
     font-weight: 700;
     color: #111827;
     margin: 0;
+}
+
+.modal-metadata-panel {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 4px 16px;
+    margin-bottom: 18px;
+}
+
+.modal-metadata-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eef1f5;
+}
+
+.modal-metadata-row:last-of-type {
+    border-bottom: none;
+}
+
+.modal-metadata-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.modal-metadata-value {
+    font-size: 14px;
+    color: #111827;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.modal-metadata-note {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.6;
+    padding: 12px 0;
+    border-top: 1px solid #eef1f5;
 }
 
 .modal-close {
@@ -561,6 +618,78 @@
     padding: 1.5rem;
 }
 
+/* Reporting Name / Assigned ZSM strip above the status form */
+.status-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    padding: 1.5rem 1.5rem 0;
+}
+
+.status-meta-field label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 0.4rem;
+}
+
+.status-meta-value {
+    padding: 0.625rem 0.875rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    background: #f8fafc;
+    font-size: 0.875rem;
+    color: #1f2937;
+}
+
+.status-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-meta-row .status-meta-value {
+    flex: 1;
+    min-width: 0;
+}
+
+.status-meta-edit-btn {
+    flex-shrink: 0;
+    padding: 0.625rem 1rem;
+    background: #fff;
+    color: var(--archive-accent);
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.status-meta-edit-btn:hover {
+    background: #f1f5f9;
+    border-color: var(--archive-accent);
+}
+
+.status-meta-edit-btn.primary {
+    background: var(--archive-accent);
+    color: #fff;
+    border-color: var(--archive-accent);
+}
+
+.status-meta-edit-btn.primary:hover {
+    background: #06396e;
+}
+
+.status-meta-select {
+    flex: 1;
+    min-width: 0;
+}
+
 .status-history h3 {
     font-size: 1.125rem;
     font-weight: 600;
@@ -620,9 +749,9 @@
     color: #991b1b;
 }
 
-.status-badge.on-hold {
-    background-color: #fef3c7;
-    color: #92400e;
+.status-badge.close {
+    background-color: #e5e7eb;
+    color: #374151;
 }
 
 /* Pagination */
@@ -810,6 +939,58 @@
     .tender-actions-compact {
         width: 100%;
         justify-content: flex-end;
+    }
+}
+
+/* ========================================
+   MOBILE — Division tabs (Diagno/Endo/360) + search/filter bar.
+   Without this, the fixed 16px/32px tab padding and no-wrap search row
+   overflow past the viewport width on phones, which is what makes this
+   section appear to spill over/hide the navbar above it.
+   ======================================== */
+@media (max-width: 768px) {
+    .archive-page {
+        overflow-x: hidden;
+    }
+
+    .category-tabs-modern {
+        gap: 6px;
+        padding: 6px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tab-modern {
+        flex: 0 0 auto;
+        padding: 10px 14px;
+        font-size: 13px;
+        gap: 6px;
+        white-space: nowrap;
+    }
+
+    .tab-modern span {
+        white-space: nowrap;
+    }
+
+    .archive-search-bar-container {
+        flex-wrap: wrap;
+    }
+
+    .archive-search-input-wrapper {
+        flex: 1 1 100%;
+        order: 1;
+    }
+
+    .tender-type-pills {
+        order: 2;
+    }
+
+    .archive-filter-toggle-btn {
+        order: 3;
+    }
+
+    .archive-filters-grid {
+        grid-template-columns: 1fr;
     }
 }
 

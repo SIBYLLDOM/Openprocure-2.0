@@ -1,0 +1,445 @@
+/* =====================================================
+   NAVBAR THEME COLORS (ENHANCED FOR BLUE BACKGROUND)
+===================================================== */
+:root {
+  --navbar-bg: #05339C;
+  --navbar-accent: #FEC91B;              /* Golden/Yellow accent */
+  --navbar-accent-dark: #e6b517;         /* Darker golden */
+  --navbar-text: #ffffff;                /* White text */
+  --navbar-text-light: #e0e0e0;          /* Light gray text */
+  --navbar-border: #ffffff20;            /* Semi-transparent white border */
+  --navbar-hover-bg: #ffffff15;          /* Light white overlay on hover */
+  --navbar-shadow: rgba(0, 0, 0, 0.15);
+  --navbar-height: 88px;
+  --navbar-transition: 0.25s ease;
+  
+  /* Dropdown colors - Light theme */
+  --dropdown-bg: #ffffff;                /* White background */
+  --dropdown-text: #2c3e50;              /* Dark blue-gray text */
+  --dropdown-hover-bg: #f8f9fa;          /* Very light gray hover */
+  --dropdown-hover-text: #05339C;        /* Blue hover text */
+  --dropdown-border: #e5e7eb;            /* Light gray border */
+  --dropdown-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* =====================================================
+   GLOBAL RESET – REMOVE ALL BULLET POINTS
+===================================================== */
+.navbar-menu,
+.navbar-menu li,
+.navbar-dropdown,
+.navbar-dropdown li,
+.navbar-profile-dropdown,
+.navbar-profile-dropdown li {
+  list-style: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* =====================================================
+   NAVBAR CONTAINER
+===================================================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--navbar-height);
+  padding: 0 1.75rem;
+  border-bottom: 1px solid var(--navbar-border);
+  box-shadow: 0 2px 8px var(--navbar-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  background-image: 
+    linear-gradient(rgba(5, 51, 156, 0.5), rgba(5, 51, 156, 0.5)), /* Color overlay */
+    url('../img/companybg.jpg'); /* Background image */
+  background-size: cover;
+  background-position: center;
+}
+
+/* =====================================================
+   BRAND TITLE
+===================================================== */
+.navbar-brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--navbar-text);
+  cursor: pointer;
+}
+
+.navbar-logo-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--navbar-text);
+  text-decoration: none;
+  transition: opacity var(--navbar-transition);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navbar-logo-text:hover {
+    opacity: 0.9;
+  }
+}
+
+/* =====================================================
+   HAMBURGER (MOBILE)
+===================================================== */
+.navbar-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-hamburger span {
+  width: 24px;
+  height: 3px;
+  background: var(--navbar-text);
+  border-radius: 2px;
+  transition: var(--navbar-transition);
+}
+
+.navbar-hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 6px);
+}
+.navbar-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.navbar-hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -6px);
+}
+
+/* =====================================================
+   NAVIGATION ITEMS
+===================================================== */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.navbar-item {
+  position: relative;
+}
+
+.navbar-link {
+  background: none;
+  border: none;
+  color: var(--navbar-text);
+  padding: 0.75rem 1rem;
+  font-size: 0.90rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  transition: all var(--navbar-transition);
+  border-radius: 6px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.3px;
+}
+
+.dropdown-arrow {
+  font-size: 0.65rem;
+  transition: transform var(--navbar-transition);
+}
+
+/* Hover-only visual states — scoped to real pointer devices so a tap on
+   touch screens doesn't leave the link/arrow stuck in a "hovered" look
+   (touch browsers apply :hover on tap but never send a matching leave). */
+@media (hover: hover) and (pointer: fine) {
+  .navbar-link:hover {
+    background: var(--navbar-hover-bg);
+    color: var(--navbar-accent);
+  }
+
+  .navbar-item:hover .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+}
+
+.navbar-link[aria-expanded="true"] .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* =====================================================
+   DROPDOWN MENU (LIGHT THEME)
+===================================================== */
+.navbar-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--dropdown-bg);
+  border: 1px solid var(--dropdown-border);
+  border-radius: 8px;
+  min-width: 220px;
+  padding: 0.5rem 0;
+  box-shadow: 0 8px 24px var(--dropdown-shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: var(--navbar-transition);
+  z-index: 10001;
+}
+
+.navbar-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.navbar-dropdown-item {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dropdown-text);
+  text-decoration: none;
+  display: block;
+  transition: background-color var(--navbar-transition),
+              color var(--navbar-transition);
+  border-left: 3px solid transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navbar-dropdown-item:hover {
+    background: var(--dropdown-hover-bg);
+    color: var(--dropdown-hover-text);
+    border-left-color: var(--navbar-accent);
+  }
+}
+
+/* Active route indicator in dropdown */
+.navbar-dropdown-item[aria-current="page"] {
+  background: var(--dropdown-hover-bg);
+  color: var(--dropdown-hover-text);
+  border-left-color: var(--navbar-accent);
+  font-weight: 600;
+}
+
+/* =====================================================
+   PROFILE SECTION (LIGHT THEME)
+===================================================== */
+.navbar-profile {
+  position: relative;
+}
+
+.navbar-profile-btn {
+  background: none;
+  border: 2px solid var(--navbar-text);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  transition: all var(--navbar-transition);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navbar-profile-btn:hover {
+    border-color: var(--navbar-accent);
+    transform: scale(1.05);
+  }
+}
+
+.navbar-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--navbar-text);
+  color: var(--navbar-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+.navbar-profile-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--dropdown-bg);
+  border: 1px solid var(--dropdown-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px var(--dropdown-shadow);
+  width: 180px;
+  padding: 0.5rem 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: var(--navbar-transition);
+}
+
+.navbar-profile-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.navbar-profile-item {
+  padding: 0.75rem 1rem;
+  color: var(--dropdown-text);
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+  transition: background var(--navbar-transition), 
+              color var(--navbar-transition);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navbar-profile-item:hover {
+    background: var(--dropdown-hover-bg);
+    color: var(--dropdown-hover-text);
+    border-left-color: var(--navbar-accent);
+  }
+}
+
+/* =====================================================
+   MOBILE RESPONSIVENESS
+===================================================== */
+@media (max-width: 1024px) {
+  .navbar-hamburger {
+    display: flex;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    right: 0;
+    background: var(--navbar-bg);
+    height: calc(100vh - var(--navbar-height));
+    padding: 1rem 0;
+    transform: translateX(-100%);
+    transition: transform var(--navbar-transition);
+    overflow-y: auto;
+  }
+
+  .navbar-menu.mobile-open {
+    transform: translateX(0);
+  }
+
+  .navbar-item {
+    width: 100%;
+    border-bottom: 1px solid var(--navbar-border);
+  }
+
+  .navbar-link {
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+  }
+
+  .navbar-dropdown {
+    position: static;
+    border: none;
+    box-shadow: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--navbar-transition);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0;
+  }
+
+  .navbar-dropdown.active {
+    max-height: 600px;
+  }
+
+  .navbar-dropdown-item {
+    padding: 1rem 2.5rem;
+    color: var(--navbar-text-light);
+    border-left: 3px solid transparent;
+  }
+}
+
+@media (max-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .navbar-dropdown-item:hover {
+    background: var(--navbar-hover-bg);
+    color: var(--navbar-text);
+    border-left-color: var(--navbar-accent);
+  }
+}
+
+/* Phones — shrink the brand area so it never forces the header wider than
+   the viewport (the invisible .gaper spacer especially has no place here). */
+@media (max-width: 480px) {
+  .navbar {
+    height: 56px;
+    padding: 0 0.75rem;
+  }
+
+  .gaper {
+    display: none;
+  }
+
+  .LogoImg {
+    width: 44px;
+    height: 42px;
+    padding: 0;
+  }
+
+  .FlagImg {
+    width: 44px;
+    height: 32px;
+    padding: 0;
+  }
+
+  .navbar-menu {
+    top: 56px;
+    height: calc(100vh - 56px);
+  }
+
+  .navbar-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .UserProfile {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* =====================================================
+   ADDITIONAL STYLES
+===================================================== */
+.FlagImg {
+  width: 85px;
+  height: 63px;
+  padding-bottom: 13.5px;
+}
+
+.LogoImg {
+  width: 85px;
+  height: 83px;
+  padding-bottom: 13.5px;
+  padding-top: 15px;
+}
+
+.GoldenLine {
+  padding-top: 5px;
+  height: 3px;
+  background-color: #FEC91B;
+  margin: 0;
+  border: none;
+}
+
+.gaper {
+  width: 150px;
+  color: #9c050500;
+  opacity: 0;
+}
+
+.UserProfile {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}

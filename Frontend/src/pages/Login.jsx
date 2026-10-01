@@ -52,6 +52,17 @@ const Login = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // After a successful password reset, ResetPassword.jsx redirects here with
+  // ?email=... so the user lands back at login with their email already
+  // filled in — they only have to type the new password they just set.
+  useEffect(() => {
+    const prefillEmail = new URLSearchParams(window.location.search).get('email');
+    if (prefillEmail) {
+      setEmail(prefillEmail);
+      window.history.replaceState({}, '', '/login');
+    }
+  }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -75,13 +86,13 @@ const Login = () => {
         return;
       }
 
-      // Save token
+      // Save token and session
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
+      if (data.sessionId) localStorage.setItem('sessionId', String(data.sessionId));
 
       // Redirect based on role
-      // Pre-tender system roles stay on openprocure.ai
-      const preTenderRoles = ['Admin', 'pre-tender', 'Management', 'Sales', 'Tender'];
+      const preTenderRoles = ['Admin', 'Tender Admin', 'Office Administrator', 'Tender Executive', 'Zonal Head', 'Sales', 'Finance Team', 'Legal', 'Documentation'];
       if (preTenderRoles.includes(data.user.role)) {
         window.location.href = '/Admin/';
       } else {
@@ -217,12 +228,7 @@ const Login = () => {
               Login
             </button>
 
-            <p style={{ textAlign: 'center', marginTop: '16px', fontSize: '14px', color: '#6b7280' }}>
-              Don't have an account?{' '}
-              <Link to="/register" style={{ color: '#2563eb', fontWeight: 600, textDecoration: 'none' }}>
-                Register
-              </Link>
-            </p>
+            {/* Self-registration disabled for now — will be re-enabled later. */}
           </div>
         </div>
       </div>

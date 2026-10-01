@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 
 const PreBidModal = ({ onClose, bidNumber, tenderDetails = {} }) => {
     const [zones, setZones] = useState([]);
@@ -14,6 +14,7 @@ const PreBidModal = ({ onClose, bidNumber, tenderDetails = {} }) => {
     const [loading, setLoading] = useState(false);
     const [sending, setSending] = useState(false);
     const [teamRemarks, setTeamRemarks] = useState('');
+    const [attachment, setAttachment] = useState(null);
 
     const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
@@ -120,6 +121,11 @@ const PreBidModal = ({ onClose, bidNumber, tenderDetails = {} }) => {
             return;
         }
 
+        if (!teamRemarks.trim()) {
+            alert('Team Remarks is required.');
+            return;
+        }
+
         setSending(true);
         try {
             const cleanBid = bidNumber.replace(/_/g, '/');
@@ -131,16 +137,17 @@ const PreBidModal = ({ onClose, bidNumber, tenderDetails = {} }) => {
                 link: 'https://meet.google.com/ndh-eiqc-xjb'
             };
 
+            const formData = new FormData();
+            formData.append('toEmails', JSON.stringify(toEmails));
+            formData.append('ccEmails', JSON.stringify(ccEmails));
+            formData.append('bidNumber', cleanBid);
+            formData.append('meetingDetails', JSON.stringify(meetingDetails));
+            formData.append('teamRemarks', teamRemarks);
+            if (attachment) formData.append('attachment', attachment);
+
             const res = await fetch(`${API_BASE}/prebid/send-invite`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    toEmails,
-                    ccEmails,
-                    bidNumber: cleanBid,
-                    meetingDetails,
-                    teamRemarks
-                })
+                body: formData
             });
 
             const data = await res.json();
@@ -244,14 +251,39 @@ const PreBidModal = ({ onClose, bidNumber, tenderDetails = {} }) => {
 
                     {/* Team Remarks */}
                     <div style={{ marginTop: '16px' }}>
-                        <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Team Remarks (Optional)</label>
+                        <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>
+                            Team Remarks <span style={{ color: '#dc2626' }}>*</span>
+                        </label>
                         <textarea
                             value={teamRemarks}
                             onChange={(e) => setTeamRemarks(e.target.value)}
                             rows="3"
+                            required
                             placeholder="Add any remarks for the pre-bid strategy..."
                             style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #d1d5db', fontSize: '14px', outline: 'none', resize: 'vertical' }}
                         />
+                    </div>
+
+                    {/* Attachment (any file type — PDF, image, doc, etc.) */}
+                    <div>
+                        <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, color: '#374151', marginBottom: '6px' }}>Attach Document (Optional)</label>
+                        <input
+                            type="file"
+                            onChange={(e) => setAttachment(e.target.files?.[0] || null)}
+                            style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #d1d5db', fontSize: '14px', background: '#f9fafb' }}
+                        />
+                        {attachment && (
+                            <div style={{ marginTop: '6px', fontSize: '13px', color: '#374151', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <span>{attachment.name}</span>
+                                <button
+                                    type="button"
+                                    onClick={() => setAttachment(null)}
+                                    style={{ background: 'none', border: 'none', color: '#dc2626', cursor: 'pointer', fontSize: '13px', padding: 0 }}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -266,8 +298,8 @@ const PreBidModal = ({ onClose, bidNumber, tenderDetails = {} }) => {
                     </button>
                     <button
                         onClick={handleSendInvite}
-                        disabled={sending || (!selectedZoneHead && selectedFLSPs.length === 0)}
-                        style={{ padding: '8px 24px', background: '#084f9a', color: 'white', border: 'none', borderRadius: '6px', cursor: (sending || (!selectedZoneHead && selectedFLSPs.length === 0)) ? 'not-allowed' : 'pointer', fontWeight: 500, opacity: (sending || (!selectedZoneHead && selectedFLSPs.length === 0)) ? 0.7 : 1 }}
+                        disabled={sending || (!selectedZoneHead && selectedFLSPs.length === 0) || !teamRemarks.trim()}
+                        style={{ padding: '8px 24px', background: '#084f9a', color: 'white', border: 'none', borderRadius: '6px', cursor: (sending || (!selectedZoneHead && selectedFLSPs.length === 0) || !teamRemarks.trim()) ? 'not-allowed' : 'pointer', fontWeight: 500, opacity: (sending || (!selectedZoneHead && selectedFLSPs.length === 0) || !teamRemarks.trim()) ? 0.7 : 1 }}
                     >
                         {sending ? 'Sending...' : 'Send Invite'}
                     </button>

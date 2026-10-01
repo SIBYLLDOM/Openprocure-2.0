@@ -1,0 +1,250 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Disinfection & Sterilization",
+    "type": "Upcoming Disinfectant Range",
+    "series_name": "360° Disinfection & Sterilization — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Surface and equipment disinfectants",
+        "Surface disinfectant concentrates",
+        "Instrument and scope disinfectants",
+        "Hospital fabric and linen disinfectants"
+      ]
+    },
+    "sr_no": 1,
+    "product_code": "",
+    "instrument_name": "Inviro",
+    "model_description": "Alcohol based Surface and Equipment Disinfectant",
+    "product_category": "Surface and equipment disinfectant",
+    "composition": "Each 100 gms contains Ethanol (Denatured) 10 gms, 2-Propanol - 9 gms, 1-Propanol - 6 gms",
+    "actives": [
+      "Ethanol (Denatured) 10 gms per 100 gms",
+      "2-Propanol 9 gms per 100 gms",
+      "1-Propanol 6 gms per 100 gms"
+    ],
+    "aldehyde_free": null,
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Disinfection & Sterilization",
+    "type": "Upcoming Disinfectant Range",
+    "series_name": "360° Disinfection & Sterilization — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Surface and equipment disinfectants",
+        "Surface disinfectant concentrates",
+        "Instrument and scope disinfectants",
+        "Hospital fabric and linen disinfectants"
+      ]
+    },
+    "sr_no": 2,
+    "product_code": "",
+    "instrument_name": "Inviro Pro",
+    "model_description": "Aldehyde free 4th generation QAC Surface Disinfectant Concentrate",
+    "product_category": "Surface Disinfectant with perfume",
+    "composition": "Each 100 gms contains Didecyldimethyl ammonium chloride 7 gms, Perfume",
+    "actives": [
+      "Didecyldimethyl ammonium chloride 7 gms per 100 gms",
+      "Perfume"
+    ],
+    "aldehyde_free": true,
+    "qac_generation": "4th generation",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Disinfection & Sterilization",
+    "type": "Upcoming Disinfectant Range",
+    "series_name": "360° Disinfection & Sterilization — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Surface and equipment disinfectants",
+        "Surface disinfectant concentrates",
+        "Instrument and scope disinfectants",
+        "Hospital fabric and linen disinfectants"
+      ]
+    },
+    "sr_no": 3,
+    "product_code": "",
+    "instrument_name": "Inviro",
+    "model_description": "Aldehyde free 4th generation QAC Surface Disinfectant Concentrate",
+    "product_category": "Surface cleaner / disinfectant",
+    "composition": "Each 100 gms contains Didecyldimethyl ammonium chloride - 7 gms",
+    "actives": [
+      "Didecyldimethyl ammonium chloride 7 gms per 100 gms"
+    ],
+    "aldehyde_free": true,
+    "qac_generation": "4th generation",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Disinfection & Sterilization",
+    "type": "Upcoming Disinfectant Range",
+    "series_name": "360° Disinfection & Sterilization — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Surface and equipment disinfectants",
+        "Surface disinfectant concentrates",
+        "Instrument and scope disinfectants",
+        "Hospital fabric and linen disinfectants"
+      ]
+    },
+    "sr_no": 4,
+    "product_code": "",
+    "instrument_name": "Myscan 2% Glutaraldehyde",
+    "model_description": "Myscan 2% Glutaraldehyde",
+    "product_category": "Instrument & Scope Disinfectant",
+    "composition": "Glutaraldehyde Solution 2%",
+    "actives": [
+      "Glutaraldehyde 2%"
+    ],
+    "concentration_percent": 2,
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Disinfection & Sterilization",
+    "type": "Upcoming Disinfectant Range",
+    "series_name": "360° Disinfection & Sterilization — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Surface and equipment disinfectants",
+        "Surface disinfectant concentrates",
+        "Instrument and scope disinfectants",
+        "Hospital fabric and linen disinfectants"
+      ]
+    },
+    "sr_no": 5,
+    "product_code": "",
+    "instrument_name": "Myscan 2.45% Glutaraldehyde",
+    "model_description": "Myscan 2.45% Glutaraldehyde",
+    "product_category": "Instrument & Scope Disinfectant",
+    "composition": "Glutaraldehyde Solution 2.45% w/v",
+    "actives": [
+      "Glutaraldehyde 2.45% w/v"
+    ],
+    "concentration_percent": 2.45,
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Disinfection & Sterilization",
+    "type": "Upcoming Disinfectant Range",
+    "series_name": "360° Disinfection & Sterilization — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Surface and equipment disinfectants",
+        "Surface disinfectant concentrates",
+        "Instrument and scope disinfectants",
+        "Hospital fabric and linen disinfectants"
+      ]
+    },
+    "sr_no": 6,
+    "product_code": "",
+    "instrument_name": "Myscan OPA",
+    "model_description": "Myscan OPA",
+    "product_category": "Instrument & Scope Disinfectant",
+    "composition": "Orthophathaldehyde - 0.55%, Colour - Alzarine Cynine Green F",
+    "actives": [
+      "Ortho-phthalaldehyde (OPA) 0.55%",
+      "Colour - Alzarine Cynine Green F"
+    ],
+    "concentration_percent": 0.55,
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  },
+  {
+    "category": "Infection Prevention",
+    "segment": "Disinfection & Sterilization",
+    "type": "Upcoming Disinfectant Range",
+    "series_name": "360° Disinfection & Sterilization — Upcoming Product Range",
+    "brand": "Meril",
+    "solution_family": "360° Infection Prevention Solutions",
+    "availability_status": "Upcoming",
+    "shared_technical_specifications": {
+      "portfolio_scope": [
+        "Surface and equipment disinfectants",
+        "Surface disinfectant concentrates",
+        "Instrument and scope disinfectants",
+        "Hospital fabric and linen disinfectants"
+      ]
+    },
+    "sr_no": 7,
+    "product_code": "",
+    "instrument_name": "Mynox",
+    "model_description": "Mynox Linen Disinfectant",
+    "product_category": "Hospital Fabric & Linen Disinfectant",
+    "composition": "Didecyldimethyl ammonium Chloride, Citric acid, Ortho-Phosphoric acid, Enzyme, Fragrance, Purified water",
+    "actives": [
+      "Didecyldimethyl ammonium Chloride",
+      "Citric acid",
+      "Ortho-Phosphoric acid",
+      "Enzyme",
+      "Fragrance",
+      "Purified water"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

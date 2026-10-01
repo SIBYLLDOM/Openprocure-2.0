@@ -1,0 +1,335 @@
+[
+    {
+        "category": "Analyzer",
+        "segment": "Hematology",
+        "type": "5-Part Hematology Analyzer",
+        "product_code": "HMFCLQ-04",
+        "instrument_name": "CelQuant 5 Plus",
+        "brand": "Meril",
+        "model_name": "CelQuant 5 Plus",
+        "autoloader": "Without Autoloader",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "CBC + DIFF Analyzer",
+        "differential_type": "5 Part",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 375000,
+            "foc_reagents": "2 sets of reagents",
+            "warranty": "2 Years",
+            "payment_terms": "25% Advance & 4 PDCs"
+        },
+        "technical_specifications": {
+            "throughput": "CBC + DIFF : 60 samples per hour",
+            "sample_modes": [
+                "Whole blood mode",
+                "Micro-WBC mode",
+                "Pre-dilute mode"
+            ],
+            "sampling_type": "Manual or automated sampling with continuous loading",
+            "test_principle": [
+                "Semiconductor laser Flow Cytometry with cytochemical staining for WBC differential",
+                "Cyanide-free colorimetry for Hemoglobin measurement",
+                "Impedance method for RBC and PLT counting"
+            ],
+            "reagent_type": [
+                "Diluent",
+                "3 types of lyse",
+                "Detergents"
+            ],
+            "parameters": {
+                "reportable_parameters": 25,
+                "research_parameters": 15,
+                "total_parameters": 40,
+                "reportable_list": [
+                    "WBC",
+                    "NEUT#",
+                    "LYMP#",
+                    "MON#",
+                    "EO#",
+                    "BASO#",
+                    "NEUT%",
+                    "LYMP%",
+                    "MON%",
+                    "EO%",
+                    "BASO%",
+                    "RBC",
+                    "HGB",
+                    "HCT",
+                    "MCV",
+                    "MCH",
+                    "MCHC",
+                    "RDW-CV",
+                    "RDW-SD",
+                    "PLT",
+                    "MPV",
+                    "PDW",
+                    "PCT"
+                ],
+                "research_list": [
+                    "Blast#",
+                    "Blast%",
+                    "ALY#",
+                    "ALY%",
+                    "IMM#",
+                    "IMM%",
+                    "LEFT#",
+                    "LEFT%",
+                    "NRBC#",
+                    "NRBC%"
+                ],
+                "scattergrams": 2,
+                "histograms": 2
+            },
+            "flagging_description": [
+                "Leukocytosis",
+                "Leukopenia",
+                "Neutrophilia",
+                "Neutropenia",
+                "Neutrophil left shift",
+                "Neutrophil toxic change",
+                "Basophilia",
+                "Atypical lymphocyte",
+                "Monocyte increase",
+                "Small cellular RBC",
+                "Large cellular RBC",
+                "Hypochromia",
+                "Anemia",
+                "Polycythemia",
+                "Thrombocytosis",
+                "Thrombocytopenia",
+                "Immature cells (Blast, ALY, IG, NRBC/PLT aggregation)"
+            ],
+            "linearity_range": {
+                "WBC": "0.1 – 400.0 ×10³/µL",
+                "RBC": "0.10 – 8.00 ×10⁶/µL",
+                "HGB": "0.1 – 25.0 g/dL",
+                "PLT": "10 – 1000 ×10³/µL"
+            },
+            "data_storage": {
+                "capacity": "≥ 200,000 results"
+            },
+            "data_system": {
+                "interfaces": [
+                    "RJ45 network",
+                    "USB"
+                ],
+                "lis_support": "Bi-directional LIS (software provided)"
+            },
+            "power_consumption": "250 VA",
+            "dimensions_mm": {
+                "depth": 686,
+                "width": 555,
+                "height": 532
+            },
+            "weight_kg": {
+                "without_autoloader": 48
+            }
+        },
+        "advanced_principle_features": {
+            "technology": [
+                "Tri-angle laser scatter",
+                "Flow cytometry",
+                "Cytochemical staining"
+            ],
+            "benefits": [
+                "Improved 5-part WBC differentiation",
+                "Accurate basophil counting using laser scatter",
+                "Better cellular complexity and granularity detection",
+                "Closed System"
+            ]
+        },
+        "performance_and_usability": {
+            "sample_efficiency": [
+                "Only 25 µL sample volume for CBC + DIFF"
+            ],
+            "user_interface": [
+                "10.4 inch high-resolution touch screen",
+                "Multi-language operating interface"
+            ],
+            "storage_and_handling": [
+                "Closed tube sampling",
+                "Large onboard storage",
+                "Reagents stored inside instrument to save space"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "Mid to high-volume hematology laboratories",
+                "Hospitals requiring 5-part differential",
+                "Diagnostic centers upgrading from 3-part analyzers"
+            ],
+            "key_strengths": [
+                "5-part WBC differential with 40 parameters",
+                "Advanced flow cytometry technology",
+                "High accuracy with low sample volume",
+                "Comprehensive flagging and LIS connectivity",
+                "Closed System"
+            ]
+        }
+    },
+    {
+        "category": "Analyzer",
+        "segment": "Hematology",
+        "type": "5-Part Hematology Analyzer",
+        "product_code": "HMFCLQ-03",
+        "instrument_name": "CelQuant 5 Plus",
+        "brand": "Meril",
+        "model_name": "CelQuant 5 Plus",
+        "autoloader": "With Autoloader",
+        "automation_level": "Semi Automatic",
+        "instrument_type": "CBC + DIFF Analyzer",
+        "differential_type": "5 Part",
+        "commercial_details": {
+            "slab_quantity": 1,
+            "price_per_unit_rs": 550000,
+            "foc_reagents": "3 sets of reagents",
+            "warranty": "2 Years + AMC for remaining 3 years to meet 5-year requirement",
+            "payment_terms": "25% Advance & 5 PDCs"
+        },
+        "technical_specifications": {
+            "throughput": "CBC + DIFF : 60 samples per hour",
+            "sample_modes": [
+                "Whole blood mode",
+                "Micro-WBC mode",
+                "Pre-dilute mode"
+            ],
+            "sampling_type": "Automated sampling with continuous loading (Autoloader)",
+            "test_principle": [
+                "Semiconductor laser Flow Cytometry with cytochemical staining for WBC differential",
+                "Cyanide-free colorimetry for Hemoglobin measurement",
+                "Impedance method for RBC and PLT counting"
+            ],
+            "reagent_type": [
+                "Diluent",
+                "3 types of lyse",
+                "Detergents"
+            ],
+            "parameters": {
+                "reportable_parameters": 25,
+                "research_parameters": 15,
+                "total_parameters": 40,
+                "reportable_list": [
+                    "WBC",
+                    "NEUT#",
+                    "LYMP#",
+                    "MON#",
+                    "EO#",
+                    "BASO#",
+                    "NEUT%",
+                    "LYMP%",
+                    "MON%",
+                    "EO%",
+                    "BASO%",
+                    "RBC",
+                    "HGB",
+                    "HCT",
+                    "MCV",
+                    "MCH",
+                    "MCHC",
+                    "RDW-CV",
+                    "RDW-SD",
+                    "PLT",
+                    "MPV",
+                    "PDW",
+                    "PCT"
+                ],
+                "research_list": [
+                    "Blast#",
+                    "Blast%",
+                    "ALY#",
+                    "ALY%",
+                    "IMM#",
+                    "IMM%",
+                    "LEFT#",
+                    "LEFT%",
+                    "NRBC#",
+                    "NRBC%"
+                ],
+                "scattergrams": 2,
+                "histograms": 2
+            },
+            "flagging_description": [
+                "Leukocytosis",
+                "Leukopenia",
+                "Neutrophilia",
+                "Neutropenia",
+                "Neutrophil left shift",
+                "Neutrophil toxic change",
+                "Basophilia",
+                "Atypical lymphocyte",
+                "Monocyte increase",
+                "Small cellular RBC",
+                "Large cellular RBC",
+                "Hypochromia",
+                "Anemia",
+                "Polycythemia",
+                "Thrombocytosis",
+                "Thrombocytopenia",
+                "Immature cells (Blast, ALY, IG, NRBC/PLT aggregation)"
+            ],
+            "linearity_range": {
+                "WBC": "0.1 – 400.0 ×10³/µL",
+                "RBC": "0.10 – 8.00 ×10⁶/µL",
+                "HGB": "0.1 – 25.0 g/dL",
+                "PLT": "10 – 1000 ×10³/µL"
+            },
+            "data_storage": {
+                "capacity": "≥ 200,000 results"
+            },
+            "data_system": {
+                "interfaces": [
+                    "RJ45 network",
+                    "USB"
+                ],
+                "lis_support": "Bi-directional LIS (software provided)"
+            },
+            "power_consumption": "250 VA",
+            "dimensions_mm": {
+                "depth": 686,
+                "width": 555,
+                "height": 532
+            },
+            "weight_kg": {
+                "with_autoloader": 48
+            }
+        },
+        "advanced_principle_features": {
+            "technology": [
+                "Tri-angle laser scatter",
+                "Flow cytometry",
+                "Cytochemical staining"
+            ],
+            "benefits": [
+                "Improved 5-part WBC differentiation",
+                "Accurate basophil counting",
+                "Enhanced cellular complexity and granularity detection"
+            ]
+        },
+        "performance_and_usability": {
+            "sample_efficiency": [
+                "Only 25 µL sample volume for CBC + DIFF"
+            ],
+            "user_interface": [
+                "10.4 inch high-resolution touch screen",
+                "Multi-language operating interface"
+            ],
+            "automation_advantage": [
+                "Autoloader enables continuous, hands-free sample processing",
+                "Higher operational efficiency in high-volume labs"
+            ]
+        },
+        "positioning_summary": {
+            "ideal_for": [
+                "High-volume hematology laboratories",
+                "Hospitals requiring automated CBC + DIFF",
+                "Reference labs with continuous sample flow"
+            ],
+            "key_strengths": [
+                "5-part WBC differential with 40 parameters",
+                "Autoloader-enabled continuous processing",
+                "Advanced flow cytometry technology",
+                "Comprehensive flagging and LIS connectivity"
+            ]
+        }
+    }
+]

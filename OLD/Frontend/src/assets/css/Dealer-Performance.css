@@ -1,0 +1,581 @@
+/* DealerTracker.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dealer-tracker {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+/* Table Container - Full Width */
+.table-container {
+  background: white;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.table-wrapper {
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
+/* Table Styles - Large Size */
+.dealers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.1rem;
+}
+
+.dealers-table thead {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.dealers-table thead th {
+  padding: 2rem 2.5rem;
+  text-align: left;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 3px solid #1e40af;
+}
+
+.dealers-table tbody tr {
+  border-bottom: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.dealers-table tbody tr:hover {
+  background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%);
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dealers-table tbody td {
+  padding: 2rem 2.5rem;
+  font-size: 1.05rem;
+  color: #64748b;
+  vertical-align: middle;
+}
+
+.dealer-name {
+  font-weight: 700;
+  color: #1e293b !important;
+  font-size: 1.15rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Win Rate Badge - Larger */
+.win-rate-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.win-rate-badge.high {
+  background-color: #d1fae5;
+  color: #065f46;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.win-rate-badge.medium {
+  background-color: #fef3c7;
+  color: #92400e;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.win-rate-badge.low {
+  background-color: #fee2e2;
+  color: #991b1b;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+/* Button Styles - Larger */
+.btn-analytics {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn-analytics:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.5);
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+}
+
+.btn-analytics:active {
+  transform: translateY(-1px);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 1000;
+  overflow-y: auto;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  max-width: 1400px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlideIn 0.4s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Header */
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  padding: 2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modal-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.modal-subtitle {
+  color: #bfdbfe;
+  font-size: 1.05rem;
+}
+
+.btn-close {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 2.5rem;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  padding: 2rem;
+  border-radius: 16px;
+  border: 2px solid;
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.metric-card.blue {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-color: #93c5fd;
+}
+
+.metric-card.green {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border-color: #6ee7b7;
+}
+
+.metric-card.red {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border-color: #fca5a5;
+}
+
+.metric-card.purple {
+  background: linear-gradient(135deg, #e9d5ff 0%, #d8b4fe 100%);
+  border-color: #c084fc;
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.metric-card.blue .metric-header {
+  color: #1e40af;
+}
+
+.metric-card.green .metric-header {
+  color: #065f46;
+}
+
+.metric-card.red .metric-header {
+  color: #991b1b;
+}
+
+.metric-card.purple .metric-header {
+  color: #6b21a8;
+}
+
+.metric-value {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.metric-card.blue .metric-value {
+  color: #1e3a8a;
+}
+
+.metric-card.green .metric-value {
+  color: #064e3b;
+}
+
+.metric-card.red .metric-value {
+  color: #7f1d1d;
+}
+
+.metric-card.purple .metric-value {
+  color: #581c87;
+}
+
+.metric-label {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.metric-card.blue .metric-label {
+  color: #1e40af;
+}
+
+.metric-card.green .metric-label {
+  color: #065f46;
+}
+
+.metric-card.red .metric-label {
+  color: #991b1b;
+}
+
+.metric-card.purple .metric-label {
+  color: #6b21a8;
+}
+
+/* Charts Grid */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chart-card {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+  border-color: #2563eb;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.chart-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+}
+
+/* Recent Tenders */
+.recent-tenders {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tenders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tender-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.tender-item:hover {
+  background: white;
+  border-color: #2563eb;
+  transform: translateX(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.tender-info {
+  flex: 1;
+}
+
+.tender-name {
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.tender-date {
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+.tender-details {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.tender-value {
+  font-weight: 700;
+  color: #475569;
+  font-size: 1.1rem;
+}
+
+.tender-status {
+  padding: 0.625rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.tender-status.won {
+  background-color: #d1fae5;
+  color: #065f46;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.tender-status.lost {
+  background-color: #fee2e2;
+  color: #991b1b;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.tender-status.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .dealers-table thead th,
+  .dealers-table tbody td {
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .dealers-table {
+    font-size: 1rem;
+  }
+  
+  .dealers-table thead th {
+    font-size: 1rem;
+    padding: 1.5rem 1.5rem;
+  }
+  
+  .dealers-table tbody td {
+    padding: 1.5rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .modal-content {
+    max-width: 95%;
+  }
+  
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dealer-tracker {
+    padding: 0;
+  }
+  
+  .dealers-table thead th,
+  .dealers-table tbody td {
+    padding: 1rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .dealer-name {
+    font-size: 1rem;
+  }
+  
+  .btn-analytics {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .metric-value {
+    font-size: 2rem;
+  }
+  
+  .modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .btn-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .modal-title {
+    font-size: 1.75rem;
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .tender-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .tender-details {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .metric-value {
+    font-size: 1.75rem;
+  }
+  
+  .table-wrapper {
+    overflow-x: scroll;
+  }
+  
+  .dealers-table {
+    min-width: 900px;
+  }
+}
+
+/* Scrollbar Styling */
+.modal-content::-webkit-scrollbar,
+.table-wrapper::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.modal-content::-webkit-scrollbar-track,
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb,
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+  border-radius: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover,
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+}

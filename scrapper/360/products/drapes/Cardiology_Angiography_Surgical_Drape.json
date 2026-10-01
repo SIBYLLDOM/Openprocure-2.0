@@ -1,0 +1,45 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Surgical Drapes",
+    "type": "Cardiology / Angiography Surgical Drape",
+    "series_name": "MEVEL™ Cardiology Drapes",
+    "brand": "Meril",
+    "sub_brand": "MEVEL™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "shared_technical_specifications": {
+      "material": "SSMMS non-woven fabric and absorbent non-woven fabric",
+      "reinforcement": "Premium SMPE absorbent fabric",
+      "standard_compliance": "Fabrics meet AAMI PB70 level standards",
+      "barrier_properties": [
+        "Resistant to fluid penetration, fluid concentration and blood strike-through",
+        "Free from skin irritation, skin sensitization and cytotoxicity",
+        "Resistant to microbial penetration",
+        "Virtually lint-free",
+        "Abrasion-resistant"
+      ],
+      "purpose": "Isolates the surgical site from other areas of the patient's body and non-sterile areas of the OR table, contributing to a reduction in the risk of surgical site infection (SSI)"
+    },
+    "product_code": "",
+    "instrument_name": "MEVEL™ Femoral Angiography Drape",
+    "model": "Mevel Femoral Angiography Drape Ultra",
+    "description": "Mevel Femoral Angiography Drape Ultra of size 300 cm × 230 cm.",
+    "size": "300 cm × 230 cm",
+    "dimensions_cm": {
+      "length": 300,
+      "width": 230
+    },
+    "fenestration": "Two femoral fenestrations of 11 cm diameter",
+    "features": [
+      "Two femoral fenestration of 11 cm diameter",
+      "Drape is reinforced with premium SMPE absorbent fabric to ensure high fluid absorbency"
+    ],
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    }
+  }
+]

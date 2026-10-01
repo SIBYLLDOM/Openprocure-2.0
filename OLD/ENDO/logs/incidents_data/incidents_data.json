@@ -1,0 +1,21 @@
+{
+  "All": 40,
+  "Pending": 0,
+  "In-Progress": 0,
+  "Escalated to GeM": 0,
+  "Recommend Action": 0,
+  "Recommended Close": 0,
+  "SCN Sent": 0,
+  "SCN Responded": 0,
+  "SCN Response Awaited": 0,
+  "SCN Not Responded": 0,
+  "Further Clarification Sought": 0,
+  "Pending Clarification Responded": 0,
+  "Pending Clarification Not Responded": 0,
+  "Pending Clarification Response Awaited": 0,
+  "Rectification Consent Pending": 0,
+  "Mutual Resolution Pending Requests": 0,
+  "Took Action": 0,
+  "Closed": 23,
+  "Rejected": 17
+}

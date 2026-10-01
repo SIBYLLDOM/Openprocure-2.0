@@ -72,8 +72,8 @@ relevant_words = [
 UPSERT_SQL = """
 INSERT INTO gem_tenders
 (keyword, page_no, bid_number, detail_url, items, quantity, department,
- start_date, end_date, ra_no, ra_url)
-VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+ start_date, end_date, ra_no, ra_url, dept)
+VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'Endo')
 ON DUPLICATE KEY UPDATE
   keyword = VALUES(keyword),
   page_no = VALUES(page_no),
@@ -84,7 +84,21 @@ ON DUPLICATE KEY UPDATE
   start_date = VALUES(start_date),
   end_date = VALUES(end_date),
   ra_no = VALUES(ra_no),
-  ra_url = VALUES(ra_url);
+  ra_url = VALUES(ra_url),
+  dept = VALUES(dept);
+"""
+
+# The app only lists a tender once it has a matching row here (see
+# gemBids.controller.js getGemBids, which INNER JOINs on tender_processing_results
+# WHERE result = 'yes'). Without this insert, ENDO tenders were scraped into
+# gem_tenders but stayed invisible in the app until someone manually opened them
+# in Workdesk.
+PROCESSING_SQL = """
+INSERT INTO tender_processing_results
+(bid_no, tender_title, result, dept)
+VALUES (%s, %s, "yes", "Endo")
+ON DUPLICATE KEY UPDATE
+  tender_title = VALUES(tender_title);
 """
 
 # ---------------------------
@@ -147,6 +161,11 @@ def db_execute_many(rows):
     cur = conn.cursor()
     try:
         cur.executemany(UPSERT_SQL, rows)
+
+        # rows tuple order: (keyword, page_no, bid_number, detail_url, items, ...)
+        processing_rows = [(r[2], r[4]) for r in rows]
+        cur.executemany(PROCESSING_SQL, processing_rows)
+
         conn.commit()
         return len(rows)
     finally:

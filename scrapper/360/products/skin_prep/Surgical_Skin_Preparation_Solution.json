@@ -1,0 +1,89 @@
+[
+  {
+    "category": "Infection Prevention",
+    "segment": "Skin Preparation",
+    "type": "Surgical Skin Preparation Solution",
+    "product_code": "",
+    "instrument_name": "MIREX™ 2% CHG Skin Prep",
+    "brand": "Meril",
+    "sub_brand": "MIREX™",
+    "solution_family": "360° Infection Prevention Solutions",
+    "description": "MIREX 2% CHG Skin Prep is a comprehensive disinfectant that requires no supplementary products for dressing in minor surgical procedures.",
+    "availability_status": "Available",
+    "commercial_details": {
+      "slab_quantity": 1,
+      "price_per_unit_rs": null,
+      "foc_reagents": null,
+      "warranty": null,
+      "payment_terms": null
+    },
+    "technical_specifications": {
+      "generic_name": "Isopropyl Alcohol & Chlorhexidine Gluconate Solution",
+      "composition": [
+        "Chlorhexidine Gluconate 2.0 % W/V (Equivalent to Chlorhexidine Gluconate Solution IP 10 % V/V)",
+        "Iso Propyl Alcohol IP: 70.0 % V/V"
+      ],
+      "actives": {
+        "chlorhexidine_gluconate_percent_wv": 2.0,
+        "isopropyl_alcohol_percent_vv": 70.0
+      },
+      "formulation": "Ready to use without dilution",
+      "drying_time": "Dries up quickly - within 30 seconds",
+      "exposure_time": "At least 15 seconds",
+      "pack_sizes": [
+        {
+          "pack_size": "500 ml",
+          "carton": "20 Bottles"
+        }
+      ]
+    },
+    "mode_of_use": [
+      "Ready to use without dilution",
+      "Use externally and undiluted only",
+      "Skin disinfection: Wet with a swab of MIREX 2% CHG Skin Prep, in the area to be disinfected and allow to dry",
+      "Dries up quickly - within 30 seconds",
+      "Exposure time at least 15 seconds"
+    ],
+    "range_of_application": [
+      "Pre-surgical skin preparation for patients",
+      "Used before and during catheterization, as well as during dressing changes",
+      "Preparation of intravenous (IV) sites",
+      "Cleaning of surgical sites post-suturing",
+      "Skin treatment before applying casts for fractures"
+    ],
+    "features": {
+      "salient_features": [
+        "MIREX 2% CHG is microbicidal against all bacteria including MRSA, EHEC, fungi and viruses",
+        "It has a residual effect throughout the procedure",
+        "Rapid healing of skin after surgery",
+        "It is highly effective in the prevention of CRBSI and CVC colonization",
+        "It can be used to clean the site prior to CVC insertion and also the maintenance of catheters"
+      ]
+    },
+    "microbiology": {
+      "spectrum": [
+        "Microbicidal against all bacteria including MRSA and EHEC",
+        "Fungi",
+        "Viruses"
+      ],
+      "clinical_claims": [
+        "Prevention of CRBSI (Catheter-Related Bloodstream Infection)",
+        "Prevention of CVC (Central Venous Catheter) colonization"
+      ]
+    },
+    "positioning_summary": {
+      "ideal_for": [
+        "Pre-surgical patient skin preparation",
+        "CVC insertion and catheter maintenance",
+        "IV site preparation",
+        "Dressing changes and post-suturing site cleaning"
+      ],
+      "key_strengths": [
+        "2% CHG with 70% IPA dual-active formulation",
+        "Persistent residual effect throughout the procedure",
+        "CRBSI and CVC colonization prevention",
+        "30 second dry time, 15 second exposure time"
+      ]
+    }
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "anjul-landing",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "npx -y http-server C:\\Users\\sandeep\\Desktop\\ANJULJ~1 -p 8734 -c-1"],
+      "port": 8734
+    }
+  ]
+}
